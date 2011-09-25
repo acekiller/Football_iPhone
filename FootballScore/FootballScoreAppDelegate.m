@@ -11,6 +11,8 @@
 #import "LocaleConstants.h"
 #import "ReviewRequest.h"
 
+#import "FootballNetworkRequest.h"
+
 // optional header files
 #import "PPViewController.h"
 
@@ -146,6 +148,9 @@ enum
     if (![self isPushNotificationEnable]){
         [self bindDevice];
     }
+    
+    [FootballNetworkRequest getRealtimeMatch:1];
+    
     
     return YES;
 }

@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPNetworkRequest.h"
+
+typedef void (^FootballNetworkResponseBlock)(NSString* data, CommonNetworkOutput* output);
 
 
 @interface FootballNetworkRequest : NSObject {
     
 }
+
++ (CommonNetworkOutput*)getRealtimeMatch:(int)lang;
 
 @end
