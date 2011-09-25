@@ -11,6 +11,9 @@
 
 @interface MatchStat : NSObject {
     
+    int         type;
+    NSString    *homeValue;
+    NSString    *awayValue;
 }
 
 @end

@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CommonService.h"
 
-
-@interface MatchService : NSObject {
+@interface MatchService : CommonService {
     
 }
 
 @end
+
+extern MatchService *GlobalGetMatchService();

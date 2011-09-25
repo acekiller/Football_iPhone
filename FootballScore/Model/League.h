@@ -11,6 +11,11 @@
 
 @interface League : NSObject {
     
+    int         sportsType;                 // football, basketball, etc
+
+    NSString    *leagueId;
+    NSString    *name;
+    BOOL        isTop;
 }
 
 @end
