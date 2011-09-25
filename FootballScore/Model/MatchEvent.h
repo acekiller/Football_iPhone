@@ -11,6 +11,10 @@
 
 @interface MatchEvent : NSObject {
     
+    int         homeAwayFlag;
+    int         type;
+    int         minutes;
+    NSString    *player;
 }
 
 @end

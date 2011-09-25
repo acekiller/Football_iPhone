@@ -11,6 +11,9 @@
 
 @interface League : NSObject {
     
+    NSString    *leagueId;
+    NSString    *name;
+    BOOL        isTop;
 }
 
 @end

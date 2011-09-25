@@ -20,7 +20,21 @@
     
     NSString    *homeTeamName;
     NSString    *awayTeamName;
+    
+    NSString    *homeTeamMandarinName;      // from detail interface
+    NSString    *awayTeamMandarinName;      // from detail interface
+    
+    NSString    *homeTeamCantonName;        // from detail interface
+    NSString    *awayTeamCantonName;        // from detail interface
 
+    NSString    *homeTeamImage;             // from detail interface
+    NSString    *awayTeamImage;             // from detail interface
+    
+    NSString    *homeTeamLeaguePos;         // from detail interface
+    NSString    *awayTeamLeaguePos;         // from detail interface
+
+    BOOL        hasLineUp;                  // 是否有阵容
+    
     int         homeTeamScore;
     int         awayTeamScore;
     
