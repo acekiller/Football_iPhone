@@ -13,6 +13,8 @@
 
 #import "FootballNetworkRequest.h"
 
+#import "MatchService.h"
+
 // optional header files
 #import "PPViewController.h"
 
@@ -43,12 +45,19 @@ NSString* GlobalGetPlaceAppId()
     return @"FOOTBALL";
 }
 
+MatchService *GlobalGetMatchService()
+{
+    FootballScoreAppDelegate* delegate = (FootballScoreAppDelegate*)[[UIApplication sharedApplication] delegate];    
+    return [delegate matchService];                
+}
+
 @implementation FootballScoreAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
 @synthesize dataManager;
 @synthesize reviewRequest;
+@synthesize matchService;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -124,6 +133,11 @@ enum
 //    self.appService = [[AppService alloc] init];
 //}
 
+- (void)initMatchService
+{
+    self.matchService = [[MatchService alloc] init];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
@@ -176,7 +190,7 @@ enum
 
 - (void)cleanUpDeleteData
 {
-    int timeStamp = time(0) - 3600; // before 1 hour
+//    int timeStamp = time(0) - 3600; // before 1 hour
 //    [ProductManager cleanData:timeStamp];
 }
 
@@ -293,6 +307,7 @@ enum
 	[dataManager release];
     [dataForRegistration release];
     [reviewRequest release];
+    [matchService release];
 	
     [super dealloc];
 }

@@ -13,14 +13,8 @@
 
 // TODO remove all depedency class header files
 
-@class GroupBuySNSService;
-@class MessageService;
-@class PostService;
-@class AppService;
-@class ProductService;
 @class ReviewRequest;
-@class UserShopItemService;
-@class ShoppingListController;
+@class MatchService;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -36,6 +30,7 @@
         
     ReviewRequest           *reviewRequest;
     NSString                *dataForRegistration;
+    MatchService            *matchService;
     
     UIBackgroundTaskIdentifier backgroundTask;
 }
@@ -44,6 +39,7 @@
 @property (nonatomic, retain) IBOutlet UITabBarController	*tabBarController;
 @property (nonatomic, retain) CoreDataManager				*dataManager;
 @property (nonatomic, retain) ReviewRequest                 *reviewRequest;
+@property (nonatomic, retain) MatchService                  *matchService;
 
 @end
 
