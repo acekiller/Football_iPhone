@@ -11,6 +11,8 @@
 
 @interface Match : NSObject {
     
+    int         sportsType;                 // football, basketball, etc
+    
     NSString    *matchId;
     NSString    *leagueId;
     int         status;
