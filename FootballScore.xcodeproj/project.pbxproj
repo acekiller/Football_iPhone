@@ -28,6 +28,16 @@
 		CA207BE0142EDACE00A4C425 /* MoreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207BDE142EDACE00A4C425 /* MoreController.xib */; };
 		CA207BE8142EDFE600A4C425 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */; };
 		CA207BEB142EE06100A4C425 /* MainModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA207BE9142EE06100A4C425 /* MainModel.xcdatamodeld */; };
+		CA207BF0142EF16600A4C425 /* FootballNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BEF142EF16600A4C425 /* FootballNetworkRequest.m */; };
+		CA207BF3142EF1A100A4C425 /* MatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BF2142EF1A100A4C425 /* MatchManager.m */; };
+		CA207BF6142EF1B400A4C425 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BF5142EF1B400A4C425 /* Match.m */; };
+		CA207BF9142EF1D000A4C425 /* LeagueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BF8142EF1D000A4C425 /* LeagueManager.m */; };
+		CA207BFC142EF1D800A4C425 /* League.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BFB142EF1D800A4C425 /* League.m */; };
+		CA207BFF142EF23300A4C425 /* MatchService.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207BFE142EF23300A4C425 /* MatchService.m */; };
+		CA207C04142EF26A00A4C425 /* SelectLeagueController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C02142EF26900A4C425 /* SelectLeagueController.m */; };
+		CA207C05142EF26A00A4C425 /* SelectLeagueController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207C03142EF26900A4C425 /* SelectLeagueController.xib */; };
+		CA207C08142EF27D00A4C425 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C07142EF27C00A4C425 /* UserManager.m */; };
+		CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -283,6 +293,25 @@
 		CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		CA207BEA142EE06100A4C425 /* MainModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MainModel.xcdatamodel; sourceTree = "<group>"; };
 		CA207BED142EE17100A4C425 /* LocaleConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaleConstants.h; sourceTree = "<group>"; };
+		CA207BEE142EF16600A4C425 /* FootballNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootballNetworkRequest.h; sourceTree = "<group>"; };
+		CA207BEF142EF16600A4C425 /* FootballNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootballNetworkRequest.m; sourceTree = "<group>"; };
+		CA207BF1142EF1A100A4C425 /* MatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchManager.h; sourceTree = "<group>"; };
+		CA207BF2142EF1A100A4C425 /* MatchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchManager.m; sourceTree = "<group>"; };
+		CA207BF4142EF1B400A4C425 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
+		CA207BF5142EF1B400A4C425 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
+		CA207BF7142EF1D000A4C425 /* LeagueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueManager.h; sourceTree = "<group>"; };
+		CA207BF8142EF1D000A4C425 /* LeagueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueManager.m; sourceTree = "<group>"; };
+		CA207BFA142EF1D800A4C425 /* League.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = League.h; sourceTree = "<group>"; };
+		CA207BFB142EF1D800A4C425 /* League.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = League.m; sourceTree = "<group>"; };
+		CA207BFD142EF23300A4C425 /* MatchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchService.h; sourceTree = "<group>"; };
+		CA207BFE142EF23300A4C425 /* MatchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchService.m; sourceTree = "<group>"; };
+		CA207C01142EF26900A4C425 /* SelectLeagueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLeagueController.h; sourceTree = "<group>"; };
+		CA207C02142EF26900A4C425 /* SelectLeagueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLeagueController.m; sourceTree = "<group>"; };
+		CA207C03142EF26900A4C425 /* SelectLeagueController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectLeagueController.xib; sourceTree = "<group>"; };
+		CA207C06142EF27C00A4C425 /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		CA207C07142EF27C00A4C425 /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		CA207C0A142EF2EA00A4C425 /* SelectMatchTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectMatchTypeController.h; sourceTree = "<group>"; };
+		CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMatchTypeController.m; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -717,6 +746,8 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CA207C09142EF2DB00A4C425 /* Match */,
+				CA207C00142EF25600A4C425 /* League */,
 				CA207BEC142EE15200A4C425 /* Utils */,
 				CA207BCC142ED9A700A4C425 /* Entry */,
 			);
@@ -727,6 +758,16 @@
 			isa = PBXGroup;
 			children = (
 				CA207BE9142EE06100A4C425 /* MainModel.xcdatamodeld */,
+				CA207BF1142EF1A100A4C425 /* MatchManager.h */,
+				CA207BF2142EF1A100A4C425 /* MatchManager.m */,
+				CA207BF4142EF1B400A4C425 /* Match.h */,
+				CA207BF5142EF1B400A4C425 /* Match.m */,
+				CA207BF7142EF1D000A4C425 /* LeagueManager.h */,
+				CA207BF8142EF1D000A4C425 /* LeagueManager.m */,
+				CA207BFA142EF1D800A4C425 /* League.h */,
+				CA207BFB142EF1D800A4C425 /* League.m */,
+				CA207C06142EF27C00A4C425 /* UserManager.h */,
+				CA207C07142EF27C00A4C425 /* UserManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -734,6 +775,8 @@
 		CA207BCA142ED98100A4C425 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				CA207BEE142EF16600A4C425 /* FootballNetworkRequest.h */,
+				CA207BEF142EF16600A4C425 /* FootballNetworkRequest.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -741,6 +784,8 @@
 		CA207BCB142ED98100A4C425 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CA207BFD142EF23300A4C425 /* MatchService.h */,
+				CA207BFE142EF23300A4C425 /* MatchService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -772,10 +817,28 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CA207C00142EF25600A4C425 /* League */ = {
+			isa = PBXGroup;
+			children = (
+				CA207C01142EF26900A4C425 /* SelectLeagueController.h */,
+				CA207C02142EF26900A4C425 /* SelectLeagueController.m */,
+				CA207C03142EF26900A4C425 /* SelectLeagueController.xib */,
+			);
+			path = League;
+			sourceTree = "<group>";
+		};
+		CA207C09142EF2DB00A4C425 /* Match */ = {
+			isa = PBXGroup;
+			children = (
+				CA207C0A142EF2EA00A4C425 /* SelectMatchTypeController.h */,
+				CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */,
+			);
+			path = Match;
+			sourceTree = "<group>";
+		};
 		CAF4CC32142ECFCB001D5B4A = {
 			isa = PBXGroup;
 			children = (
-				CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */,
 				CAF4CC47142ECFCC001D5B4A /* FootballScore */,
 				CAF4CC6D142ECFCC001D5B4A /* FootballScoreTests */,
 				CAF4CC40142ECFCC001D5B4A /* Frameworks */,
@@ -795,6 +858,7 @@
 		CAF4CC40142ECFCC001D5B4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */,
 				CA207BC6142ED6F900A4C425 /* SystemConfiguration.framework */,
 				CA207BC4142ED6E900A4C425 /* libsqlite3.0.dylib */,
 				CA207BC2142ED6CF00A4C425 /* CFNetwork.framework */,
@@ -1632,6 +1696,7 @@
 				CA207BD6142EDAA600A4C425 /* ScoreUpdateController.xib in Resources */,
 				CA207BDB142EDAC100A4C425 /* RealtimeIndexController.xib in Resources */,
 				CA207BE0142EDACE00A4C425 /* MoreController.xib in Resources */,
+				CA207C05142EF26A00A4C425 /* SelectLeagueController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1832,6 +1897,15 @@
 				CA207BDA142EDAC100A4C425 /* RealtimeIndexController.m in Sources */,
 				CA207BDF142EDACE00A4C425 /* MoreController.m in Sources */,
 				CA207BEB142EE06100A4C425 /* MainModel.xcdatamodeld in Sources */,
+				CA207BF0142EF16600A4C425 /* FootballNetworkRequest.m in Sources */,
+				CA207BF3142EF1A100A4C425 /* MatchManager.m in Sources */,
+				CA207BF6142EF1B400A4C425 /* Match.m in Sources */,
+				CA207BF9142EF1D000A4C425 /* LeagueManager.m in Sources */,
+				CA207BFC142EF1D800A4C425 /* League.m in Sources */,
+				CA207BFF142EF23300A4C425 /* MatchService.m in Sources */,
+				CA207C04142EF26A00A4C425 /* SelectLeagueController.m in Sources */,
+				CA207C08142EF27D00A4C425 /* UserManager.m in Sources */,
+				CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
