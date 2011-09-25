@@ -38,6 +38,8 @@
 		CA207C05142EF26A00A4C425 /* SelectLeagueController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207C03142EF26900A4C425 /* SelectLeagueController.xib */; };
 		CA207C08142EF27D00A4C425 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C07142EF27C00A4C425 /* UserManager.m */; };
 		CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */; };
+		CA207C10142EFC2100A4C425 /* RealtimeScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C0E142EFC1F00A4C425 /* RealtimeScoreCell.m */; };
+		CA207C11142EFC2100A4C425 /* RealtimeScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207C0F142EFC2000A4C425 /* RealtimeScoreCell.xib */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -312,6 +314,9 @@
 		CA207C07142EF27C00A4C425 /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		CA207C0A142EF2EA00A4C425 /* SelectMatchTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectMatchTypeController.h; sourceTree = "<group>"; };
 		CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMatchTypeController.m; sourceTree = "<group>"; };
+		CA207C0D142EFC1F00A4C425 /* RealtimeScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealtimeScoreCell.h; sourceTree = "<group>"; };
+		CA207C0E142EFC1F00A4C425 /* RealtimeScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealtimeScoreCell.m; sourceTree = "<group>"; };
+		CA207C0F142EFC2000A4C425 /* RealtimeScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RealtimeScoreCell.xib; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -799,6 +804,9 @@
 				CA207BCD142ED9CD00A4C425 /* RealtimeScoreController.h */,
 				CA207BCE142ED9CD00A4C425 /* RealtimeScoreController.m */,
 				CA207BCF142ED9CD00A4C425 /* RealtimeScoreController.xib */,
+				CA207C0D142EFC1F00A4C425 /* RealtimeScoreCell.h */,
+				CA207C0E142EFC1F00A4C425 /* RealtimeScoreCell.m */,
+				CA207C0F142EFC2000A4C425 /* RealtimeScoreCell.xib */,
 				CA207BD7142EDAC100A4C425 /* RealtimeIndexController.h */,
 				CA207BD8142EDAC100A4C425 /* RealtimeIndexController.m */,
 				CA207BD9142EDAC100A4C425 /* RealtimeIndexController.xib */,
@@ -1697,6 +1705,7 @@
 				CA207BDB142EDAC100A4C425 /* RealtimeIndexController.xib in Resources */,
 				CA207BE0142EDACE00A4C425 /* MoreController.xib in Resources */,
 				CA207C05142EF26A00A4C425 /* SelectLeagueController.xib in Resources */,
+				CA207C11142EFC2100A4C425 /* RealtimeScoreCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1906,6 +1915,7 @@
 				CA207C04142EF26A00A4C425 /* SelectLeagueController.m in Sources */,
 				CA207C08142EF27D00A4C425 /* UserManager.m in Sources */,
 				CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */,
+				CA207C10142EFC2100A4C425 /* RealtimeScoreCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
