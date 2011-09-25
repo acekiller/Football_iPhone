@@ -7,7 +7,7 @@
 //
 
 #import "RealtimeScoreController.h"
-
+#import "RealtimeScoreCell.h"
 
 @implementation RealtimeScoreController
 
@@ -53,5 +53,35 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return [RealtimeScoreCell getCellHeight];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+// Customize the number of rows in the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [dataList count];
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *CellIdentifier = [RealtimeScoreCell getCellIdentifier];
+	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [RealtimeScoreCell createCell:self];				
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
+	}		
+	
+	return cell;
+	
+}
+
 
 @end

@@ -10,48 +10,59 @@
 
 
 @implementation RealtimeScoreCell
+@synthesize matchTypeLabel;
+@synthesize startTimeLabel;
+@synthesize matchStatusLabel;
+@synthesize awayTeamLabel;
+@synthesize homeTeamLabel;
+@synthesize peilvLabel;
+@synthesize halfScoreLabel;
+@synthesize scoreLabel;
+@synthesize awayRedCard;
+@synthesize awayYellowCard;
+@synthesize homeRedCard;
+@synthesize homeYellowCard;
+@synthesize followStatus;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+// just replace PPTableViewCell by the new Cell Class Name
++ (RealtimeScoreCell*)createCell:(id)delegate
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"RealtimeScoreCell" owner:self options:nil];
+    // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).  
+    if (topLevelObjects == nil || [topLevelObjects count] <= 0){
+        NSLog(@"create <PPTableViewCell> but cannot find cell object from Nib");
+        return nil;
     }
-    return self;
+    
+    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;
+    
+    return (RealtimeScoreCell*)[topLevelObjects objectAtIndex:0];
 }
 
-- (void)dealloc
++ (NSString*)getCellIdentifier
 {
+    return @"RealtimeScoreCell";
+}
+
++ (CGFloat)getCellHeight
+{
+    return 62.0f;
+}
+
+- (void)dealloc {
+    [matchTypeLabel release];
+    [startTimeLabel release];
+    [matchStatusLabel release];
+    [awayTeamLabel release];
+    [homeTeamLabel release];
+    [peilvLabel release];
+    [halfScoreLabel release];
+    [scoreLabel release];
+    [awayRedCard release];
+    [awayYellowCard release];
+    [homeRedCard release];
+    [homeYellowCard release];
+    [followStatus release];
     [super dealloc];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 @end
