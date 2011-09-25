@@ -40,6 +40,7 @@
 		CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C0B142EF2EA00A4C425 /* SelectMatchTypeController.m */; };
 		CA207C10142EFC2100A4C425 /* RealtimeScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C0E142EFC1F00A4C425 /* RealtimeScoreCell.m */; };
 		CA207C11142EFC2100A4C425 /* RealtimeScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207C0F142EFC2000A4C425 /* RealtimeScoreCell.xib */; };
+		CA207C14142EFCE300A4C425 /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C13142EFCE200A4C425 /* DataUtils.m */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -317,6 +318,8 @@
 		CA207C0D142EFC1F00A4C425 /* RealtimeScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealtimeScoreCell.h; sourceTree = "<group>"; };
 		CA207C0E142EFC1F00A4C425 /* RealtimeScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealtimeScoreCell.m; sourceTree = "<group>"; };
 		CA207C0F142EFC2000A4C425 /* RealtimeScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RealtimeScoreCell.xib; sourceTree = "<group>"; };
+		CA207C12142EFCE200A4C425 /* DataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtils.h; sourceTree = "<group>"; };
+		CA207C13142EFCE200A4C425 /* DataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtils.m; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -773,6 +776,8 @@
 				CA207BFB142EF1D800A4C425 /* League.m */,
 				CA207C06142EF27C00A4C425 /* UserManager.h */,
 				CA207C07142EF27C00A4C425 /* UserManager.m */,
+				CA207C12142EFCE200A4C425 /* DataUtils.h */,
+				CA207C13142EFCE200A4C425 /* DataUtils.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1916,6 +1921,7 @@
 				CA207C08142EF27D00A4C425 /* UserManager.m in Sources */,
 				CA207C0C142EF2EA00A4C425 /* SelectMatchTypeController.m in Sources */,
 				CA207C10142EFC2100A4C425 /* RealtimeScoreCell.m in Sources */,
+				CA207C14142EFCE300A4C425 /* DataUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
