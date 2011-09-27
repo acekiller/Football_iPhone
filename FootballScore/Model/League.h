@@ -18,4 +18,15 @@
     BOOL        isTop;
 }
 
+@property (nonatomic, retain) NSString    *leagueId;
+@property (nonatomic, retain) NSString    *name;
+@property (nonatomic, assign) BOOL        isTop;
+
+
+- (id)initWithName:(NSString*)name
+          leagueId:(NSString*)name
+             isTop:(BOOL)isTop;
+
+
+
 @end

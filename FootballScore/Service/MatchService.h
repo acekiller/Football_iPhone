@@ -9,9 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "CommonService.h"
 
+@protocol MatchServiceDelegate <NSObject>
+
+@optional
+- (void)getRealtimeMatchFinish:(int)result;
+
+@end
+
 @interface MatchService : CommonService {
     
 }
+
+- (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate;
 
 @end
 

@@ -12,9 +12,21 @@
 typedef void (^FootballNetworkResponseBlock)(NSString* data, CommonNetworkOutput* output);
 
 
+enum{
+    REALTIME_MATCH_SERVER_TIMESTAMP = 0,
+    REALTIME_MATCH_LEAGUE,
+    REALTIME_MATCH_DATA,
+    REALTIME_MATCH_SEGMENT
+};
+
+
 @interface FootballNetworkRequest : NSObject {
     
 }
+
++ (NSArray*)parseSegment:(NSString*)data;
++ (NSArray*)parseRecord:(NSString*)data;
++ (NSArray*)parseField:(NSString*)data;
 
 + (CommonNetworkOutput*)getRealtimeMatch:(int)lang;
 

@@ -13,4 +13,6 @@
     
 }
 
++ (NSArray*)fromString:(NSArray*)stringArray;
+
 @end

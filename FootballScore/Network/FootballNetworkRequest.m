@@ -11,6 +11,14 @@
 
 #define URL_GET_REALTIME_MATCH      @"http://bf.bet007.com/phone/schedule.aspx?"
 
+#define SEGMENT_SEP             @"$$"
+#define RECORD_SEP              @"!"
+#define FIELD_SEP               @"^"
+
+enum{
+
+    ERROR_INCORRECT_RESPONSE_DATA   = 60001
+};
 
 @implementation FootballNetworkRequest
 
@@ -59,6 +67,34 @@
         if (data != nil){
             NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             output.textData = text;
+            if ([text length] > 0){
+                
+                NSMutableArray* resultSegArray = [[NSMutableArray alloc] init];
+                
+                NSArray* array = [output.textData componentsSeparatedByString:SEGMENT_SEP];
+                int count = [array count];
+                for (int i=0; i<count; i++){
+
+                    NSMutableArray* resultRecordArray = [[NSMutableArray alloc] init];
+                    
+                    NSString* records = [array objectAtIndex:i];
+                    NSArray*  recordArray = [self parseRecord:records];
+                    int recordCount = [recordArray count];
+                    for (int j=0; j<recordCount; j++){
+                        NSString* fields = [recordArray objectAtIndex:j];
+                        NSArray* fieldArray = [self parseField:fields];
+                        if (fieldArray != nil){
+                            [resultRecordArray addObject:fieldArray];
+                        }
+                    }
+                    
+                    [resultSegArray addObject:resultRecordArray];
+                    [resultRecordArray release];
+                }
+                
+                output.arrayData = resultSegArray;
+                [resultSegArray release];
+            }
             
 #ifdef DEBUG
             NSLog(@"[RECV] data : %@", text);
@@ -74,9 +110,35 @@
     return output;
 }
 
++ (NSArray*)parseSegment:(NSString*)data
+{
+    if ([data length] > 0)
+        return [data componentsSeparatedByString:SEGMENT_SEP];
+    else
+        return nil;
+}
+
++ (NSArray*)parseRecord:(NSString*)data
+{
+    if ([data length] > 0)
+        return [data componentsSeparatedByString:RECORD_SEP];
+    else
+        return nil;
+}
+
++ (NSArray*)parseField:(NSString*)data
+{
+    if ([data length] > 0)
+        return [data componentsSeparatedByString:FIELD_SEP];
+    else
+        return nil;
+}
+
 
 + (CommonNetworkOutput*)getRealtimeMatch:(int)lang
 {
+    
+    
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
     ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
@@ -89,7 +151,10 @@
         return str;
     };
     
-    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {        
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        if ([output.arrayData count] != REALTIME_MATCH_SEGMENT){
+            output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
+        }
         return;
     }; 
     

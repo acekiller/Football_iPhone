@@ -149,6 +149,9 @@ enum
 	[self initMobClick];
     [self initImageCacheManager];    
     [self initTabViewControllers];
+
+    // init all service
+    [self initMatchService];
     
     [window addSubview:tabBarController.view];
     [window makeKeyAndVisible];
@@ -162,9 +165,6 @@ enum
     if (![self isPushNotificationEnable]){
         [self bindDevice];
     }
-    
-    [FootballNetworkRequest getRealtimeMatch:1];
-    
     
     return YES;
 }

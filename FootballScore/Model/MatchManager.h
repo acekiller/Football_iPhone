@@ -13,4 +13,7 @@
     
 }
 
++ (NSArray*)parseMatchData:(NSString*)data;
++ (NSArray*)fromString:(NSArray*)stringArray;
+
 @end

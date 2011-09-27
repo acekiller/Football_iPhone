@@ -8,6 +8,7 @@
 
 #import "RealtimeScoreController.h"
 #import "RealtimeScoreCell.h"
+#import "MatchService.h"
 
 @implementation RealtimeScoreController
 
@@ -37,6 +38,8 @@
 
 - (void)viewDidLoad
 {
+    [GlobalGetMatchService() getRealtimeMatch:self];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

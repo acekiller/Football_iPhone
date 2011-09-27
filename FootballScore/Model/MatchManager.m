@@ -11,4 +11,18 @@
 
 @implementation MatchManager
 
++ (NSArray*)parseMatchData:(NSString*)data
+{
+    NSMutableArray* matchArray = [[[NSMutableArray alloc] init] autorelease];
+    
+    
+    
+    return matchArray;
+}
+
++ (NSArray*)fromString:(NSArray*)stringArray
+{
+    
+}
+
 @end
