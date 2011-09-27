@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
+		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
 		CA207BBA142ED6BC00A4C425 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB2142ED6BC00A4C425 /* AddressBook.framework */; };
 		CA207BBB142ED6BC00A4C425 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */; };
 		CA207BBC142ED6BC00A4C425 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */; };
@@ -273,6 +275,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
+		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
 		CA207BB2142ED6BC00A4C425 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -759,6 +763,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2B41315143199E100084F14 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C2B41316143199E100084F14 /* Icon */,
+				C2B41317143199E100084F14 /* Image */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		C2B41316143199E100084F14 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Icon;
+			sourceTree = "<group>";
+		};
+		C2B41317143199E100084F14 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				C2B4131E14319A6F00084F14 /* selected.png */,
+				C2B4131F14319A6F00084F14 /* unSelected.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +944,7 @@
 				CAF4CC50142ECFCC001D5B4A /* FootballScoreAppDelegate.h */,
 				CAF4CC51142ECFCC001D5B4A /* FootballScoreAppDelegate.m */,
 				CAF4CC53142ECFCC001D5B4A /* MainWindow.xib */,
+				C2B41315143199E100084F14 /* Resource */,
 				CAF4CC48142ECFCC001D5B4A /* Supporting Files */,
 			);
 			path = FootballScore;
@@ -1725,6 +1755,8 @@
 				CA207C05142EF26A00A4C425 /* SelectLeagueController.xib in Resources */,
 				CA207C11142EFC2100A4C425 /* RealtimeScoreCell.xib in Resources */,
 				CA207C1F142F2E9800A4C425 /* SelectMatchTypeController.xib in Resources */,
+				C2B4132014319A6F00084F14 /* selected.png in Resources */,
+				C2B4132114319A6F00084F14 /* unSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
