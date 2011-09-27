@@ -21,8 +21,14 @@ const float buttonSepratorX = 5;
 const float buttonSepratorY = 10;
 const int buttonsPerLine = 4;
 
+NSMutableArray *buttonTagsArray;
+NSArray *buttonNamesArray;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+{    
+    buttonNamesArray = [NSArray arrayWithObjects:@"英超", @"意甲", @"西甲", @"法甲", @"德甲", @"荷甲", @"欧冠", @"国王杯", @"联赛杯", nil];
+    buttonTagsArray = [[NSMutableArray alloc]initWithCapacity:[buttonNamesArray count]];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -35,6 +41,7 @@ const int buttonsPerLine = 4;
     [promptLabel release];
     [scrollView release];
     [topLeagueButton release];
+    [buttonTagsArray release];
     [super dealloc];
 }
 
@@ -50,16 +57,12 @@ const int buttonsPerLine = 4;
 
 - (void)viewDidLoad
 {
-
-    UIColor *noColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
-    NSArray *newArray;
-    newArray = [NSArray arrayWithObjects:@"英超", @"意甲", @"西甲", @"法甲", @"德甲", @"荷甲", @"欧冠", @"国王杯", @"联赛杯", nil];
-    
+  
     int i;
     int rowIndex;
     int rankIndex;
-    for (i=0 ; i<[newArray count]; i++){
-        NSString *title = [newArray objectAtIndex:i];
+    for (i=0 ; i<[buttonNamesArray count]; i++){
+        NSString *title = [buttonNamesArray objectAtIndex:i];
         UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [button setTitle:title forState:UIControlStateNormal];
         
@@ -67,12 +70,12 @@ const int buttonsPerLine = 4;
         rankIndex = i%buttonsPerLine;
         button.frame = CGRectMake(buttonSepratorX+rankIndex*(buttonSepratorX+buttonLen), rowIndex*(buttonHigh+buttonSepratorY), buttonLen, buttonHigh);
         [button setTag:i];
+        [button setBackgroundImage:[UIImage imageNamed:@"unSelected.png"] forState:UIControlStateNormal];
         [button setSelected:NO];
-        [button setTitleColor:noColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:button];
     }
-    scrollView.contentSize = CGSizeMake(320, ([newArray count]/4+1)*(buttonHigh+buttonSepratorY));
+    scrollView.contentSize = CGSizeMake(320, ([buttonNamesArray count]/4+1)*(buttonHigh+buttonSepratorY));
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -106,18 +109,23 @@ const int buttonsPerLine = 4;
     
 }
 
--(id)buttonClicked:(id)sender{
+-(void)buttonClicked:(id)sender{
     BOOL buttonState = [sender isSelected];
     [sender setSelected: !buttonState];
-    UIColor *yesColor = [UIColor colorWithRed:255 green:0 blue:0 alpha:255];
-    UIColor *noColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+    NSNumber *tagNumber;
+    tagNumber = [[NSNumber alloc]initWithInt:[sender tag]];
     
     if([sender isSelected]){
-        [sender setTitleColor:yesColor forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateNormal];
+        if(NSNotFound == [buttonTagsArray indexOfObject:tagNumber])
+        [buttonTagsArray addObject:tagNumber];
     } 
     else{
-        [sender setTitleColor:noColor forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"unSelected.png"] forState:UIControlStateNormal];
+        if(NSNotFound != [buttonTagsArray indexOfObject:tagNumber])
+            [buttonTagsArray removeObject:tagNumber];
     }
+
 }
 
 @end
