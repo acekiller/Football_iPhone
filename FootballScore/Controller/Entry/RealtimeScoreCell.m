@@ -7,7 +7,7 @@
 //
 
 #import "RealtimeScoreCell.h"
-
+#import "Match.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -64,5 +64,21 @@
     [homeYellowCard release];
     [followStatus release];
     [super dealloc];
+}
+
+- (void)setCellInfo:(Match*)match
+{
+    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+
+    homeTeamLabel.text = match.homeTeamName;
+    awayTeamLabel.text = match.awayTeamName;
+    
+        
+    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
+    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
+
+    awayTeamLabel.text = match.awayTeamName;
+    
+    
 }
 @end

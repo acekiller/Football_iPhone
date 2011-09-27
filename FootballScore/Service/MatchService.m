@@ -12,6 +12,7 @@
 #import "LeagueManager.h"
 #import "Match.h"
 #import "MatchManager.h"
+#import "TimeUtils.h"
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
 
@@ -28,21 +29,32 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            NSDate* serverDate = nil;
+            NSArray* leagueArray = nil;
+            NSArray* updateMatchArray = nil;
+            
             if (output.resultCode == ERROR_SUCCESS){
 
                 // parse server timestamp
-//                NSDate* serverDate = 
+                // TODO it's a string in the array!
+//                serverDate = dateFromChineseStringByFormat(
+//                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP],
+//                                                           DEFAULT_DATE_FORMAT);
                 
                 // parse league data                        
-                NSArray* leagueArray = [LeagueManager fromString:[output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                
+                leagueArray = [LeagueManager fromString:
+                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                
             
-                // step 1 : parser result into match array
-//                NSArray* updateMatchArray = [MatchManager fromString:[output.arrayData objectAtIndex:1]];
+                // parser result into match array
+                updateMatchArray = [MatchManager fromString:
+                                    [output.arrayData objectAtIndex:REALTIME_MATCH_DATA]];
             }
             
             // step 2 : update UI
-            if (delegate && [delegate respondsToSelector:@selector(getRealtimeMatchFinish:)]){
-                [delegate getRealtimeMatchFinish:output.resultCode];
+            if (delegate && [delegate respondsToSelector:
+                             @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
+                [delegate getRealtimeMatchFinish:output.resultCode
+                 serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
             }
         });                        
     }];

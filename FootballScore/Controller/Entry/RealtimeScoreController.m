@@ -9,6 +9,7 @@
 #import "RealtimeScoreController.h"
 #import "RealtimeScoreCell.h"
 #import "MatchService.h"
+#import "Match.h"
 
 @implementation RealtimeScoreController
 
@@ -57,6 +58,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma table view delegate
+#pragma -
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return [RealtimeScoreCell getCellHeight];
@@ -76,14 +80,33 @@
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *CellIdentifier = [RealtimeScoreCell getCellIdentifier];
-	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	RealtimeScoreCell *cell = (RealtimeScoreCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
 	}		
+    
+    Match* match = [dataList objectAtIndex:indexPath.row];
+    [cell setCellInfo:match];
 	
-	return cell;
-	
+	return cell;	
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+#pragma remote request delegate
+#pragma -
+
+- (void)getRealtimeMatchFinish:(int)result
+                    serverDate:(NSDate*)serverDate
+                   leagueArray:(NSArray*)leagueArray
+              updateMatchArray:(NSArray*)updateMatchArray
+{
+    self.dataList = updateMatchArray;
+    [[self dataTableView] reloadData];
 }
 
 

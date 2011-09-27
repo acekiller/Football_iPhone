@@ -12,7 +12,10 @@
 @protocol MatchServiceDelegate <NSObject>
 
 @optional
-- (void)getRealtimeMatchFinish:(int)result;
+- (void)getRealtimeMatchFinish:(int)result
+                    serverDate:(NSDate*)serverDate
+                   leagueArray:(NSArray*)leagueArray
+              updateMatchArray:(NSArray*)updateMatchArray;
 
 @end
 

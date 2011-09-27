@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
+#import "MatchService.h"
 
-@interface RealtimeScoreController : PPTableViewController {
+@interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate> {
     
 }
+
+
 
 @end

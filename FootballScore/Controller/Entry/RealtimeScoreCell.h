@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PPTableViewCell.h"
 
+@class Match;
+
 @interface RealtimeScoreCell : PPTableViewCell {
     
     UILabel *matchTypeLabel;
@@ -31,6 +33,7 @@
 + (RealtimeScoreCell*)createCell:(id)delegate;
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
+- (void)setCellInfo:(Match*)match;
 
 @property (nonatomic, retain) IBOutlet UILabel *matchTypeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *startTimeLabel;
