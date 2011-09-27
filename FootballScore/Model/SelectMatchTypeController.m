@@ -10,6 +10,7 @@
 
 
 @implementation SelectMatchTypeController
+@synthesize statusText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,5 +54,47 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+-(IBAction)integrityScore:(id)sender{
+    NSString *title = [sender titleForState:UIControlStateNormal ];
+    NSString *newText = [[NSString alloc] initWithFormat:@"%@",title];
+    statusText.text = title;
+    [newText release];
+    //全部赛事
+}
+
+-(IBAction)singleMatchScore:(id)sender{
+    NSString *title = [sender titleForState:UIControlStateNormal ];
+    NSString *newText = [[NSString alloc] initWithFormat:@"%@",title];
+    statusText.text = title;
+    [newText release];
+    //单场赛事
+}
+
+-(IBAction)lottery:(id)sender{
+    NSString *title = [sender titleForState:UIControlStateNormal ];
+    NSString *newText = [[NSString alloc] initWithFormat:@"%@",title];
+    statusText.text = title;
+    [newText release];
+    //足彩赛事
+}
+
+-(IBAction)smg:(id)sender{
+    NSString *title = [sender titleForState:UIControlStateNormal ];
+    NSString *newText = [[NSString alloc] initWithFormat:@"%@",title];
+    statusText.text = title;
+    [newText release];
+    //竞彩赛事
+}
+
+-(IBAction)topGame:(id)sender{
+    NSString *title = [sender titleForState:UIControlStateNormal ];
+    NSString *newText = [[NSString alloc] initWithFormat:@"%@",title];
+    statusText.text = title;
+    [newText release];
+    //一级赛事
+}
+
+
 
 @end

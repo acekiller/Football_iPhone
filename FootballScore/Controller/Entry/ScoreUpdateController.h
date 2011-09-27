@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ScoreUpdateController : UIViewController {
+@interface ScoreUpdateController : UIViewController <UIActionSheetDelegate>{
+    UILabel *statusText;
+    NSInteger matchScoreType;
     
 }
+@property (nonatomic, retain)IBOutlet UILabel *statusText;
+
+- (IBAction)selectMatchType:(id)sender;
+- (IBAction)selectLeague:(id)sender;
 
 @end

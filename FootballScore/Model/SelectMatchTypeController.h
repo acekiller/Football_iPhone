@@ -11,6 +11,14 @@
 
 @interface SelectMatchTypeController : UIViewController {
     
+    UILabel *statusText;
+    
 }
+@property (nonatomic, retain) IBOutlet UILabel *statusText;
+-(IBAction)integrityScore:(id)sender;
+-(IBAction)singleMatchScore:(id)sender;
+-(IBAction)lottery:(id)sender;
+-(IBAction)smg:(id)sender;
+-(IBAction)topGame:(id)sender;
 
 @end
