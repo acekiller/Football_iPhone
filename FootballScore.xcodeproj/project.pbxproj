@@ -57,6 +57,8 @@
 		CA7F24681433723400CC0F05 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F23B61433723300CC0F05 /* ASIInputStream.m */; };
 		CA7F24691433723400CC0F05 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F23B81433723300CC0F05 /* ASINetworkQueue.m */; };
 		CA7F24BC1433727300CC0F05 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */; };
+		CA7F24C0143374B000CC0F05 /* ScoreUpdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F24BE143374B000CC0F05 /* ScoreUpdateCell.m */; };
+		CA7F24C1143374B000CC0F05 /* ScoreUpdateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA7F24BF143374B000CC0F05 /* ScoreUpdateCell.xib */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -367,6 +369,9 @@
 		CA7F23B81433723300CC0F05 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		CA7F23B91433723300CC0F05 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CA7F24BD143374B000CC0F05 /* ScoreUpdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreUpdateCell.h; sourceTree = "<group>"; };
+		CA7F24BE143374B000CC0F05 /* ScoreUpdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdateCell.m; sourceTree = "<group>"; };
+		CA7F24BF143374B000CC0F05 /* ScoreUpdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreUpdateCell.xib; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -883,6 +888,9 @@
 				CA207BD2142EDAA600A4C425 /* ScoreUpdateController.h */,
 				CA207BD3142EDAA600A4C425 /* ScoreUpdateController.m */,
 				CA207BD4142EDAA600A4C425 /* ScoreUpdateController.xib */,
+				CA7F24BD143374B000CC0F05 /* ScoreUpdateCell.h */,
+				CA7F24BE143374B000CC0F05 /* ScoreUpdateCell.m */,
+				CA7F24BF143374B000CC0F05 /* ScoreUpdateCell.xib */,
 				CA207BCD142ED9CD00A4C425 /* RealtimeScoreController.h */,
 				CA207BCE142ED9CD00A4C425 /* RealtimeScoreController.m */,
 				CA207BCF142ED9CD00A4C425 /* RealtimeScoreController.xib */,
@@ -1835,6 +1843,7 @@
 				C2B4132014319A6F00084F14 /* selected.png in Resources */,
 				C2B4132114319A6F00084F14 /* unSelected.png in Resources */,
 				CA7F23771433722100CC0F05 /* MatchDetailController.xib in Resources */,
+				CA7F24C1143374B000CC0F05 /* ScoreUpdateCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2057,6 +2066,7 @@
 				CA7F24671433723400CC0F05 /* ASIHTTPRequest.m in Sources */,
 				CA7F24681433723400CC0F05 /* ASIInputStream.m in Sources */,
 				CA7F24691433723400CC0F05 /* ASINetworkQueue.m in Sources */,
+				CA7F24C0143374B000CC0F05 /* ScoreUpdateCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
