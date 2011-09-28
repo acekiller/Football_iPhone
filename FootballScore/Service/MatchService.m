@@ -45,7 +45,7 @@
                 leagueArray = [LeagueManager fromString:
                                [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];    
                 
-                [GlobalLeagueManager() updateLeague:leagueArray];
+                [[LeagueManager defaultManager] updateLeague:leagueArray];
             
                 // parser result into match array
                 updateMatchArray = [MatchManager fromString:

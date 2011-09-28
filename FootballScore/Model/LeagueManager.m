@@ -38,6 +38,11 @@ enum{
     [super dealloc];
 }
 
++ (LeagueManager*)defaultManager
+{
+    return GlobalLeagueManager();
+}
+
 + (NSArray*)fromString:(NSArray*)stringArray
 {    
     int count = [stringArray count];

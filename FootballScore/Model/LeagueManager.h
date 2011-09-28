@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSMutableArray* leagueArray;
 @property (nonatomic, retain) NSMutableDictionary* leagueData;
 
++ (LeagueManager*)defaultManager;
+
 // parse league from request string
 + (NSArray*)fromString:(NSArray*)stringArray;
 
