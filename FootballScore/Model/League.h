@@ -14,7 +14,7 @@
     int         sportsType;                 // football, basketball, etc
 
     NSString    *leagueId;
-    NSString    *name;
+    NSString    *name;    
     BOOL        isTop;
 }
 

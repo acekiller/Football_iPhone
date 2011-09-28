@@ -41,9 +41,11 @@
 //                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP],
 //                                                           DEFAULT_DATE_FORMAT);
                 
-                // parse league data                        
+                // parse league data and update                        
                 leagueArray = [LeagueManager fromString:
-                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                
+                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];    
+                
+                [GlobalLeagueManager() updateLeague:leagueArray];
             
                 // parser result into match array
                 updateMatchArray = [MatchManager fromString:

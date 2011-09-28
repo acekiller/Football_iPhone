@@ -9,6 +9,8 @@
 #import "LeagueManager.h"
 #import "League.h"
 
+
+
 enum{    
     LEAGUE_NAME,
     LEAGUE_ID,
@@ -17,6 +19,24 @@ enum{
 };
 
 @implementation LeagueManager
+
+@synthesize leagueArray;
+@synthesize leagueData;
+
+- (id)init
+{
+    self = [super init];
+    leagueArray = [[NSMutableArray alloc] init];
+    leagueData = [[NSMutableDictionary alloc] init];
+    return self;
+}
+
+- (void)dealloc
+{
+    [leagueArray release];
+    [leagueData release];
+    [super dealloc];
+}
 
 + (NSArray*)fromString:(NSArray*)stringArray
 {    
@@ -49,4 +69,42 @@ enum{
     return retArray;
 }
 
+- (void)updateLeague:(NSArray*)updateArray
+{
+    if ([updateArray count] > 0){
+        [self.leagueArray removeAllObjects];
+        [self.leagueArray addObjectsFromArray:updateArray];
+        
+        [self.leagueData removeAllObjects];
+        for (League* league in leagueArray){
+            if (league != nil && league.leagueId != nil){
+                [leagueData setValue:league forKey:league.leagueId];
+            }
+            else{
+                NSLog(@"WARNING <updateLeague> but league has nil league ID");
+            }
+        }
+    }
+}
+
+- (NSString*)getNameById:(NSString*)leagueId
+{
+    if (leagueId == nil)
+        return nil;
+    
+    League* league = [leagueData objectForKey:leagueId];
+    return league.name;
+}
+
 @end
+
+LeagueManager* leagueManager;
+
+LeagueManager* GlobalLeagueManager()
+{
+    if (leagueManager == nil){
+        leagueManager = [[LeagueManager alloc] init];
+    }
+    
+    return leagueManager;
+}
