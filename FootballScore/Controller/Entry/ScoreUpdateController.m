@@ -9,6 +9,7 @@
 #import "ScoreUpdateController.h"
 #import "SelectMatchTypeController.h"
 #import "SelectLeagueController.h"
+#import "LocaleConstants.h"
 
 @implementation ScoreUpdateController
 @synthesize statusText;
@@ -75,11 +76,12 @@
 
 - (IBAction) showActionSheet: (id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
-								  initWithTitle:@"比分类型"
+								  initWithTitle:FNS(@"比分类型")
                                   delegate:self
-								  cancelButtonTitle:@"返回" 
+								  cancelButtonTitle:FNS(@"返回")
 								  destructiveButtonTitle:nil
-								  otherButtonTitles:@"一级赛事", @"全部比分", @"单场比分", @"足彩比分", @"竞彩比分", nil
+								  otherButtonTitles:FNS(@"一级赛事"), FNS(@"全部比分"), 
+                                    FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
                                   ];
 	
 	[actionSheet showInView:self.view];

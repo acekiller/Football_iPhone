@@ -18,7 +18,7 @@
 
 @implementation MatchService
 
-- (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate
+- (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
     int lang = 1; // TODO replace by LanguageManager    
     NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
@@ -43,13 +43,13 @@
                 
                 // parse league data and update                        
                 leagueArray = [LeagueManager fromString:
-                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];    
-                
+                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                    
                 [[LeagueManager defaultManager] updateLeague:leagueArray];
             
-                // parser result into match array
+                // parser result into match array and update
                 updateMatchArray = [MatchManager fromString:
                                     [output.arrayData objectAtIndex:REALTIME_MATCH_DATA]];
+                [[MatchManager defaultManager] updateAllMatchArray:updateMatchArray];
             }
             
             // step 2 : update UI

@@ -23,7 +23,7 @@
     
 }
 
-- (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate;
+- (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
 
 @end
 
