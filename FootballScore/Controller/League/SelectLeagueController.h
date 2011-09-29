@@ -15,6 +15,13 @@
     UILabel *promptLabel;
     UIButton *topLeagueButton;
     UIScrollView *scrollView;
+    UIButton *selectNoneButton;
+    UIButton *selectAllButton;
+    
+    NSMutableArray *buttonTagsArray;
+    NSArray *buttonNamesArray;
+    NSArray *topLeagueArray;
+    int buttonNumbers;
 }
 
 -(IBAction)selectAll:(id)sender;
@@ -24,4 +31,6 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *topLeagueButton;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIButton *selectNoneButton;
+@property (nonatomic, retain) IBOutlet UIButton *selectAllButton;
 @end
