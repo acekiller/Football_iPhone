@@ -86,6 +86,8 @@
         self.secondHalfStartDate = dateFromChineseStringByFormat(dateValue, 
                                                                 DEFAULT_DATE_FORMAT);        
     }
+    self.date = dateFromChineseStringByFormat(dateValue, 
+                                              DEFAULT_DATE_FORMAT); 
     
     self.homeTeamName = homeTeamNameValue;
     self.homeTeamRed = homeTeamRedValue;
@@ -99,7 +101,9 @@
     self.awayTeamScore = awayTeamScoreValue;
     self.awayTeamFirstHalfScore = awayTeamFirstHalfScoreValue;
 
-    self.crownChuPan = [crownChuPanValue doubleValue];    
+    if (crownChuPanValue != nil){
+        self.crownChuPan = [NSNumber numberWithInt:[crownChuPanValue doubleValue]];   
+    }
     return self;
 }
 
@@ -138,6 +142,8 @@
         
     [homeTeamYellow release];
     [awayTeamYellow release];
+    
+    [crownChuPan release];
         
     [events release];
     [stats release];

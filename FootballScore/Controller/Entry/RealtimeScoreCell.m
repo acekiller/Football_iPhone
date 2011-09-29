@@ -9,6 +9,7 @@
 #import "RealtimeScoreCell.h"
 #import "Match.h"
 #import "LeagueManager.h"
+#import "DataUtils.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -69,7 +70,17 @@
 
 - (void)setCellInfo:(Match*)match
 {
+    int localLanguage = LANG_CANTON;
     scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+    halfScoreLabel.text = [NSString stringWithFormat:@"%@: %@",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];
+    
+    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
+    [homeYellowCard setTitle:match.homeTeamYellow forState:UIControlStateNormal];
+    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
+    [awayYellowCard setTitle:match.awayTeamYellow forState:UIControlStateNormal];
+    
+    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
+    //TODO:localLanguage should get from app
 
     homeTeamLabel.text = match.homeTeamName;
     awayTeamLabel.text = match.awayTeamName;
@@ -78,9 +89,11 @@
     matchTypeLabel.text = [league getNameById:match.leagueId];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"HH"];
+    [formatter setDateFormat:@"HH:mm"];
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
-    startTimeLabel.text = [NSString stringWithFormat:@"t%@",[formatter stringFromDate:match.date]];
+    startTimeLabel.text = [formatter stringFromDate:match.date];
+    
+    
         
     [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
     [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
