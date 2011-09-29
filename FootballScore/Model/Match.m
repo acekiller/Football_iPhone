@@ -53,6 +53,7 @@
 
 @synthesize events;
 @synthesize stats;
+@synthesize isFollow;
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
@@ -70,6 +71,7 @@
             homeTeamYellow:(NSString*)homeTeamYellowValue
             awayTeamYellow:(NSString*)awayTeamYellowValue
                crownChuPan:(NSString*)crownChuPanValue
+                  isFollow:(BOOL)isFollowValue
 {
     
     self = [super init];
@@ -100,6 +102,8 @@
     self.awayTeamFirstHalfScore = awayTeamFirstHalfScoreValue;
 
     self.crownChuPan = [crownChuPanValue doubleValue];    
+    
+    self.isFollow = isFollowValue;
     return self;
 }
 

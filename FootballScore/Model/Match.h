@@ -89,6 +89,8 @@ enum{
     
     NSMutableArray  *events;
     NSMutableArray  *stats;
+    
+    BOOL        isFollow;
 }
 
 @property (nonatomic, retain) NSString    *matchId;
@@ -132,6 +134,8 @@ enum{
 @property (nonatomic, retain) NSMutableArray  *events;
 @property (nonatomic, retain) NSMutableArray  *stats;
 
+@property (nonatomic, assign) BOOL        isFollow;
+
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
                     status:(NSString*)statusValue
@@ -147,7 +151,8 @@ enum{
                awayTeamRed:(NSString*)awayTeamRedValue
             homeTeamYellow:(NSString*)homeTeamYellowValue
             awayTeamYellow:(NSString*)awayTeamYellowValue
-               crownChuPan:(NSString*)crownChuPanValue;
+               crownChuPan:(NSString*)crownChuPanValue
+                  isFollow:(BOOL)isFollowValue;
 
 - (int)matchSelectStatus;
 

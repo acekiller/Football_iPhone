@@ -11,6 +11,7 @@
 #import "MatchConstants.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
+#define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
 
 MatchManager* matchManager;
 
@@ -29,11 +30,15 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterLeagueIdList;
 @synthesize filterMatchStatus;
 @synthesize filterMatchScoreType;
+@synthesize followMatchIdList;
 
 + (MatchManager*)defaultManager
 {
     return GlobalGetMatchManager();
 }
+
+#pragma LOAD/SAVE FILTER LEAGUE
+#pragma mark
 
 - (void)saveFilterLeagueIdList
 {
@@ -41,28 +46,89 @@ MatchManager* GlobalGetMatchManager()
         return;
     
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setObject:self.filterLeagueIdList forKey:FILTER_LEAGUE_ID_LIST];
+    [userDefault setObject:[self.filterLeagueIdList allObjects] forKey:FILTER_LEAGUE_ID_LIST];
 }
 
 - (void)loadFilterLeagueIdList
 {
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    NSSet* list = [userDefault objectForKey:FILTER_LEAGUE_ID_LIST];
+    NSArray* list = [userDefault objectForKey:FILTER_LEAGUE_ID_LIST];
     if (list != nil){
-        [self.filterLeagueIdList addObjectsFromArray:[list allObjects]];
+        [self.filterLeagueIdList addObjectsFromArray:list];
     }
 }
+
+#pragma FOLLOW MATCH
+#pragma mark
+
+- (void)loadFollowMatchIdList
+{
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    NSArray* list = [userDefault objectForKey:FOLLOW_MATCH_ID_LIST];
+    if (list != nil){
+        [self.followMatchIdList addObjectsFromArray:list];
+    }    
+}
+
+- (void)saveFollowMatchIdList
+{
+    if (followMatchIdList == nil || [followMatchIdList count] == 0)
+        return;
+    
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:[self.followMatchIdList allObjects] forKey:FOLLOW_MATCH_ID_LIST];
+}
+
+- (void)followMatch:(Match*)match
+{
+    if (match == nil)
+        return;
+    
+    [match setIsFollow:YES];
+    [self.followMatchIdList addObject:match.matchId];
+    [self saveFollowMatchIdList];
+    
+    NSLog(@"follow match (%@)", match.matchId);
+}
+
+- (void)unfollowMatch:(Match*)match
+{
+    if (match == nil)
+        return;
+
+    [match setIsFollow:NO];
+    [self.followMatchIdList removeObject:match.matchId];    
+    [self saveFollowMatchIdList];
+
+    NSLog(@"unfollow match (%@)", match.matchId);
+}
+
+- (BOOL)isMatchFollowed:(NSString*)matchId
+{
+    if (matchId == nil)
+        return NO;
+    
+    return [followMatchIdList containsObject:matchId];
+}
+
+#pragma INIT/DEALLOC
+#pragma mark
 
 - (id)init
 {
     self = [super init];    
     self.filterLeagueIdList = [[NSMutableSet alloc] init];
     [self loadFilterLeagueIdList];
+    
+    self.followMatchIdList = [[NSMutableSet alloc] init];
+    [self loadFollowMatchIdList];
+    
     return self;
 }
 
 - (void)dealloc
 {
+    [followMatchIdList release];
     [matchArray release];
     [filterLeagueIdList release];
     [super dealloc];
@@ -75,9 +141,16 @@ MatchManager* GlobalGetMatchManager()
     for (Match* match in matchArray){
         
         if (filterMatchStatus != MATCH_SELECT_STATUS_ALL && 
+            filterMatchStatus != MATCH_SELECT_STATUS_MYFOLLOW &&
             [match matchSelectStatus] != filterMatchStatus){
             // status not match, skip
 //            NSLog(@"match status = %d, select status = %d", match.status, [match matchSelectStatus]);
+            continue;
+        }
+        
+        if (filterMatchStatus == MATCH_SELECT_STATUS_MYFOLLOW &&
+            [match isFollow] == NO){
+            // follow required by the match is not followed
             continue;
         }
         
@@ -99,25 +172,13 @@ MatchManager* GlobalGetMatchManager()
         [filterLeagueIdList removeAllObjects];
     
     [filterLeagueIdList addObjectsFromArray:[updateLeagueArray allObjects]];
+    [self saveFilterLeagueIdList];
 }
 
 - (void)updateFilterMatchStatus:(int)selectMatchStatus
 {
     self.filterMatchStatus = selectMatchStatus;
 }
-
-//- (NSArray*)filterMatchByLeauge:(NSSet*)leagueIdArray
-//{
-//    self.filterLeagueIdList = leagueIdArray;
-//    
-//    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
-//    for (Match* match in matchArray){
-//        if ([leagueIdArray containsObject:match.leagueId]){
-//            [retArray addObject:match];
-//        }
-//    }
-//    return retArray;
-//}
 
 - (void)updateAllMatchArray:(NSArray*)updateArray
 {
@@ -129,20 +190,13 @@ MatchManager* GlobalGetMatchManager()
     // TODO
 }
 
-+ (NSArray*)parseMatchData:(NSString*)data
-{
-    NSMutableArray* matchArray = [[[NSMutableArray alloc] init] autorelease];
-    
-    
-    
-    return matchArray;
-}
-
 + (NSArray*)fromString:(NSArray*)stringArray
 {
     int count = [stringArray count];
     if (count == 0)
         return nil;
+    
+    MatchManager* manager = [MatchManager defaultManager];
     
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<count; i++){
@@ -153,7 +207,8 @@ MatchManager* GlobalGetMatchManager()
             continue;
         }
         
-        Match* match = [[Match alloc] initWithId:[fields objectAtIndex:INDEX_MATCH_ID]
+        NSString* matchId = [fields objectAtIndex:INDEX_MATCH_ID];
+        Match* match = [[Match alloc] initWithId:matchId
                                         leagueId:[fields objectAtIndex:INDEX_MATCH_LEAGUE_ID]
                                           status:[fields objectAtIndex:INDEX_MATCH_STATUS]
                                             date:[fields objectAtIndex:INDEX_MATCH_DATE]
@@ -168,7 +223,8 @@ MatchManager* GlobalGetMatchManager()
                                      awayTeamRed:[fields objectAtIndex:INDEX_MATCH_AWAY_TEAM_RED]
                                   homeTeamYellow:[fields objectAtIndex:INDEX_MATCH_HOME_TEAM_YELLOW]
                                   awayTeamYellow:[fields objectAtIndex:INDEX_MATCH_AWAY_TEAM_YELLOW]
-                                     crownChuPan:[fields objectAtIndex:INDEX_MATCH_CROWN_CHUPAN]];
+                                     crownChuPan:[fields objectAtIndex:INDEX_MATCH_CROWN_CHUPAN]
+                                        isFollow:[manager isMatchFollowed:matchId]];
                         
                                                 
         
