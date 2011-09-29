@@ -89,16 +89,19 @@
     matchTypeLabel.text = [league getNameById:match.leagueId];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSString *dateString = [NSString stringWithFormat:@""];
     [formatter setDateFormat:@"HH:mm"];
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
-    startTimeLabel.text = [formatter stringFromDate:match.date];
-    
+    if(nil !=[formatter stringFromDate:match.date])
+        dateString = [formatter stringFromDate:match.date];
+    startTimeLabel.text = dateString;
+     [formatter release];
     
         
     [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
     [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
 
-    [formatter release];
+   
     
 }
 
