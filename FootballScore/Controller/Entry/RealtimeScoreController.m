@@ -17,6 +17,8 @@
 
 @implementation RealtimeScoreController
 
+@synthesize matchSecondTimer;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,6 +31,7 @@
 
 - (void)dealloc
 {
+    [matchSecondTimer release];
     [super dealloc];
 }
 
@@ -65,7 +68,8 @@
 
 - (void)viewDidLoad
 {
-
+    self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateMatchTimeDisplay) userInfo:nil repeats:YES];
+    
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     
     [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
@@ -146,6 +150,7 @@
         [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                              withRowAnimation:UITableViewScrollPositionNone];
     }
+    
 }
 
 #pragma remote request delegate
@@ -242,6 +247,14 @@
 - (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath
 {
     // TODO call Match Manager follow/unfollow method
+}
+
+- (void)updateMatchTimeDisplay
+{
+    NSArray* cells = [dataTableView visibleCells];
+    for (RealtimeScoreCell* cell in cells){
+        [cell updateMatchTime];
+    }
 }
 
 @end

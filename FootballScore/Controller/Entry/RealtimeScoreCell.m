@@ -96,4 +96,9 @@
     }
 }
 
+- (void)updateMatchTime
+{    
+//    NSLog(@"update match time");
+}
+
 @end
