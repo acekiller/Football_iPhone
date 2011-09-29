@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
+#import "SelectLeagueController.h"
 #import "MatchService.h"
 
-@interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate> {
+@interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate, 
+    UIActionSheetDelegate, SelectLeagueControllerDelegate> {
     
+    int matchScoreType;
 }
 
 

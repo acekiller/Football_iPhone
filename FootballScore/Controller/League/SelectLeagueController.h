@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPViewController.h"
 
+@protocol SelectLeagueControllerDelegate <NSObject>
 
-@interface SelectLeagueController : UIViewController {
+- (void)didSelectLeague:(NSSet*)selectedLeagueArray;
+
+@end
+
+@interface SelectLeagueController : PPViewController {
 
     
     UILabel *promptLabel;
@@ -18,19 +24,26 @@
     UIButton *selectNoneButton;
     UIButton *selectAllButton;
     
-    NSMutableArray *buttonTagsArray;
-    NSArray *buttonNamesArray;
-    NSArray *topLeagueArray;
-    int buttonNumbers;
+    NSMutableSet *selectLeagueIdArray;
+    
+    id<SelectLeagueControllerDelegate> delegate;
 }
 
 -(IBAction)selectAll:(id)sender;
 -(IBAction)selectNone:(id)sender;
 -(IBAction)selectTopLeague:(id)sender;
-@property (nonatomic, retain) IBOutlet UILabel *promptLabel;
 
+- (BOOL)isLeagueSelected:(NSString*)leagueId;
+
+@property (nonatomic, retain) IBOutlet UILabel *promptLabel;
 @property (nonatomic, retain) IBOutlet UIButton *topLeagueButton;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIButton *selectNoneButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectAllButton;
+
+@property (nonatomic, retain) id<SelectLeagueControllerDelegate> delegate;
+@property (nonatomic, retain) NSMutableSet *selectLeagueIdArray;
+
++ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController;
+
 @end

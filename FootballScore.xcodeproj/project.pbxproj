@@ -372,6 +372,7 @@
 		CA7F24BD143374B000CC0F05 /* ScoreUpdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreUpdateCell.h; sourceTree = "<group>"; };
 		CA7F24BE143374B000CC0F05 /* ScoreUpdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdateCell.m; sourceTree = "<group>"; };
 		CA7F24BF143374B000CC0F05 /* ScoreUpdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreUpdateCell.xib; sourceTree = "<group>"; };
+		CA7F24C21434075900CC0F05 /* MatchConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchConstants.h; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -860,6 +861,7 @@
 				CA207C16142F0C2300A4C425 /* MatchEvent.m */,
 				CA207C18142F0C5000A4C425 /* MatchStat.h */,
 				CA207C19142F0C5000A4C425 /* MatchStat.m */,
+				CA7F24C21434075900CC0F05 /* MatchConstants.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";

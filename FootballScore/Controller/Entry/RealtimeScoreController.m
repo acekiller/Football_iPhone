@@ -9,7 +9,10 @@
 #import "RealtimeScoreController.h"
 #import "RealtimeScoreCell.h"
 #import "MatchService.h"
+#import "MatchManager.h"
 #import "Match.h"
+#import "LocaleConstants.h"
+#import "SelectLeagueController.h"
 
 @implementation RealtimeScoreController
 
@@ -37,11 +40,22 @@
 
 #pragma mark - View lifecycle
 
+- (void)loadMatch:(int)scoreType
+{
+    [self showActivityWithText:FNS(@"加载数据中...")];
+    [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
+}
+
 - (void)viewDidLoad
 {
-    [GlobalGetMatchService() getRealtimeMatch:self];
+
+    
+    [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
+    [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
     
     [super viewDidLoad];
+    
+    [self loadMatch:0];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -105,9 +119,60 @@
                    leagueArray:(NSArray*)leagueArray
               updateMatchArray:(NSArray*)updateMatchArray
 {
-    self.dataList = updateMatchArray;
+    self.dataList = [[MatchManager defaultManager] matchArray];
     [[self dataTableView] reloadData];
+    [self hideActivity];
 }
 
+
+- (IBAction) showActionSheet: (id)sender {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
+								  initWithTitle:FNS(@"请选择赛事比分类型")
+                                  delegate:self
+								  cancelButtonTitle:FNS(@"返回")
+								  destructiveButtonTitle:FNS(@"一级赛事")
+								  otherButtonTitles:FNS(@"全部比分"), 
+                                  FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
+                                  ];
+	
+	[actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+	if (buttonIndex == actionSheet.cancelButtonIndex) {
+		return;
+	}
+    
+    if (buttonIndex == matchScoreType){
+        // same type, no change, return directly
+        return;
+    }
+    
+    matchScoreType = buttonIndex;
+    
+    // reload data
+    [self loadMatch:matchScoreType];
+}
+
+
+- (void)clickFilterLeague:(id)sender
+{
+    [SelectLeagueController show:self]; 
+}
+
+- (void)clickSelectMatchType:(id)sender
+{
+    [self showActionSheet:sender];
+}
+
+- (void)didSelectLeague:(NSSet*)selectedLeagueArray
+{
+    // filter data list by league data
+    MatchManager* manager = [MatchManager defaultManager];
+    self.dataList = [manager filterMatchByLeauge:selectedLeagueArray];
+    [[self dataTableView] reloadData];
+}
 
 @end
