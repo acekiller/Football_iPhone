@@ -117,10 +117,10 @@ MatchManager* GlobalGetMatchManager()
 - (id)init
 {
     self = [super init];    
-    self.filterLeagueIdList = [[NSMutableSet alloc] init];
+    filterLeagueIdList = [[NSMutableSet alloc] init];
     [self loadFilterLeagueIdList];
     
-    self.followMatchIdList = [[NSMutableSet alloc] init];
+    followMatchIdList = [[NSMutableSet alloc] init];
     [self loadFollowMatchIdList];
     
     return self;
@@ -128,8 +128,8 @@ MatchManager* GlobalGetMatchManager()
 
 - (void)dealloc
 {
-    [followMatchIdList release];
     [matchArray release];
+    [followMatchIdList release];
     [filterLeagueIdList release];
     [super dealloc];
 }

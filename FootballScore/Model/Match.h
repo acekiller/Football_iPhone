@@ -129,7 +129,7 @@ enum{
 @property (nonatomic, retain) NSString    *homeTeamYellow;
 @property (nonatomic, retain) NSString    *awayTeamYellow;
 
-@property (nonatomic, assign) NSNumber    *crownChuPan;
+@property (nonatomic, retain) NSNumber    *crownChuPan;
 
 @property (nonatomic, retain) NSMutableArray  *events;
 @property (nonatomic, retain) NSMutableArray  *stats;
