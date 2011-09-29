@@ -135,7 +135,7 @@ enum{
 }
 
 
-+ (CommonNetworkOutput*)getRealtimeMatch:(int)lang
++ (CommonNetworkOutput*)getRealtimeMatch:(int)lang scoreType:(int)scoreType
 {
     
     
@@ -148,6 +148,9 @@ enum{
         str = [str stringByAddQueryParameter:@"lang"
                                        intValue:lang];
         
+        str = [str stringByAddQueryParameter:@"type"
+                                    intValue:scoreType];
+
         return str;
     };
     

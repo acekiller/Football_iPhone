@@ -17,6 +17,6 @@
     int matchScoreType;
 }
 
-
+- (IBAction)clickSelectMatchStatus:(id)sender;
 
 @end

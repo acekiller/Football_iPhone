@@ -13,15 +13,15 @@
     
     NSArray* matchArray;
     
-    NSSet*   filterLeagueIdList;
-    int      filterMatchStatus;
-    int      filterMatchScoreType;
+    NSMutableSet*   filterLeagueIdList;
+    int             filterMatchStatus;
+    int             filterMatchScoreType;
 }
 
-@property (nonatomic, retain) NSArray* matchArray;
-@property (nonatomic, retain) NSSet*   filterLeagueIdList;
-@property (nonatomic, assign) int      filterMatchStatus;
-@property (nonatomic, assign) int      filterMatchScoreType;
+@property (nonatomic, retain) NSArray*          matchArray;
+@property (nonatomic, retain) NSMutableSet*     filterLeagueIdList;
+@property (nonatomic, assign) int               filterMatchStatus;
+@property (nonatomic, assign) int               filterMatchScoreType;
 
 
 + (MatchManager*)defaultManager;
@@ -30,7 +30,9 @@
 
 - (void)updateAllMatchArray:(NSArray*)updateArray;
 - (void)updateRealtimeMatchArray:(NSArray*)realtimeMatchArray;
-- (NSArray*)filterMatchByLeauge:(NSSet*)leagueIdArray;
+- (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
+- (void)updateFilterMatchStatus:(int)selectMatchStatus;
+//- (NSArray*)filterMatchByLeauge:(NSSet*)leagueIdArray;
 
 // filter match by conditions : league, match status, match score type
 - (NSArray*)filterMatch;

@@ -10,6 +10,8 @@
 #import "Match.h"
 #import "MatchConstants.h"
 
+#define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
+
 MatchManager* matchManager;
 
 MatchManager* GlobalGetMatchManager()
@@ -33,10 +35,29 @@ MatchManager* GlobalGetMatchManager()
     return GlobalGetMatchManager();
 }
 
+- (void)saveFilterLeagueIdList
+{
+    if (filterLeagueIdList == nil || [filterLeagueIdList count] == 0)
+        return;
+    
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:self.filterLeagueIdList forKey:FILTER_LEAGUE_ID_LIST];
+}
+
+- (void)loadFilterLeagueIdList
+{
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    NSSet* list = [userDefault objectForKey:FILTER_LEAGUE_ID_LIST];
+    if (list != nil){
+        [self.filterLeagueIdList addObjectsFromArray:[list allObjects]];
+    }
+}
+
 - (id)init
 {
-    self = [super init];
+    self = [super init];    
     self.filterLeagueIdList = [[NSMutableSet alloc] init];
+    [self loadFilterLeagueIdList];
     return self;
 }
 
@@ -50,34 +71,53 @@ MatchManager* GlobalGetMatchManager()
 - (NSArray*)filterMatch
 {
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
+    BOOL isCheckLeague = ([filterLeagueIdList count] > 0);
     for (Match* match in matchArray){
         
         if (filterMatchStatus != MATCH_SELECT_STATUS_ALL && 
             [match matchSelectStatus] != filterMatchStatus){
             // status not match, skip
+//            NSLog(@"match status = %d, select status = %d", match.status, [match matchSelectStatus]);
             continue;
         }
         
-        if ([filterLeagueIdList containsObject:match.leagueId]){
-            [retArray addObject:match];
+        if (isCheckLeague == YES && [filterLeagueIdList containsObject:match.leagueId] == NO){
+            continue;
         }
+
+        [retArray addObject:match];
     }
-    return retArray;
-
-}
-
-- (NSArray*)filterMatchByLeauge:(NSSet*)leagueIdArray
-{
-    self.filterLeagueIdList = leagueIdArray;
     
-    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
-    for (Match* match in matchArray){
-        if ([leagueIdArray containsObject:match.leagueId]){
-            [retArray addObject:match];
-        }
-    }
+    NSLog(@"filter match done, total %d match return", [retArray count]);
     return retArray;
+
 }
+
+- (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist
+{
+    if (removeExist)
+        [filterLeagueIdList removeAllObjects];
+    
+    [filterLeagueIdList addObjectsFromArray:[updateLeagueArray allObjects]];
+}
+
+- (void)updateFilterMatchStatus:(int)selectMatchStatus
+{
+    self.filterMatchStatus = selectMatchStatus;
+}
+
+//- (NSArray*)filterMatchByLeauge:(NSSet*)leagueIdArray
+//{
+//    self.filterLeagueIdList = leagueIdArray;
+//    
+//    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
+//    for (Match* match in matchArray){
+//        if ([leagueIdArray containsObject:match.leagueId]){
+//            [retArray addObject:match];
+//        }
+//    }
+//    return retArray;
+//}
 
 - (void)updateAllMatchArray:(NSArray*)updateArray
 {
@@ -133,12 +173,15 @@ MatchManager* GlobalGetMatchManager()
                                                 
         
 #ifdef DEBUG
-        NSLog(@"add match : %@", [match description]);
+//        NSLog(@"add match : %@", [match description]);
 #endif
         
         [retArray addObject:match];
         [match release];
     }
+    
+    NSLog(@"parse match data, total %d match added", [retArray count]);
+
     
     return retArray;
     

@@ -12,6 +12,7 @@
 #import "MatchManager.h"
 #import "Match.h"
 #import "LocaleConstants.h"
+#import "MatchConstants.h"
 #import "SelectLeagueController.h"
 
 @implementation RealtimeScoreController
@@ -21,6 +22,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        matchScoreType = MATCH_SCORE_TYPE_FIRST;
     }
     return self;
 }
@@ -40,6 +42,21 @@
 
 #pragma mark - View lifecycle
 
+- (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
+{
+    for (int i=MATCH_SELECT_STATUS_ALL; i<=MATCH_SELECT_STATUS_MYFOLLOW; i++){
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        if (i == selectMatchStatus){
+            [button setSelected:YES];  
+            [button setBackgroundColor:[UIColor greenColor]];
+        }
+        else{
+            [button setSelected:NO];
+            [button setBackgroundColor:[UIColor yellowColor]];
+        }
+    }
+}
+
 - (void)loadMatch:(int)scoreType
 {
     [self showActivityWithText:FNS(@"加载数据中...")];
@@ -49,6 +66,7 @@
 - (void)viewDidLoad
 {
 
+    [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     
     [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
     [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
@@ -171,8 +189,22 @@
 {
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
-    self.dataList = [manager filterMatchByLeauge:selectedLeagueArray];
+    [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
+    self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];
+}
+
+- (IBAction)clickSelectMatchStatus:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];
+    
+    // filter data list by league data
+    MatchManager* manager = [MatchManager defaultManager];
+    [manager updateFilterMatchStatus:selectMatchStatus];
+    self.dataList = [manager filterMatch];
+    [[self dataTableView] reloadData];    
 }
 
 @end

@@ -56,6 +56,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="270451622"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUITag">11</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -64,7 +65,6 @@
 									<double key="NSSize">15</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">全部</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="582925604">
 									<int key="NSColorSpace">3</int>
@@ -87,11 +87,11 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="801002880"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUITag">12</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="598449802"/>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">未开赛</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -108,11 +108,11 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="917152029"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUITag">13</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="598449802"/>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">进行中</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -129,11 +129,11 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="623085910"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUITag">14</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="598449802"/>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">已完场</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -153,7 +153,6 @@
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="598449802"/>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">我的关注</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -228,6 +227,42 @@
 						<reference key="destination" ref="880858632"/>
 					</object>
 					<int key="connectionID">12</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">clickSelectMatchStatus:</string>
+						<reference key="source" ref="1067702808"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">13</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">clickSelectMatchStatus:</string>
+						<reference key="source" ref="270451622"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">14</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">clickSelectMatchStatus:</string>
+						<reference key="source" ref="801002880"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">15</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">clickSelectMatchStatus:</string>
+						<reference key="source" ref="917152029"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">16</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -348,7 +383,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">12</int>
+			<int key="maxID">16</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -383,6 +418,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RealtimeScoreController</string>
 					<string key="superclassName">PPTableViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">clickSelectMatchStatus:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">clickSelectMatchStatus:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">clickSelectMatchStatus:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/RealtimeScoreController.h</string>
