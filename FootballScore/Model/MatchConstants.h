@@ -14,10 +14,12 @@ enum{
     MATCH_SCORE_TYPE_JINGCAI    
 };
 
-enum{
-    
-    MATCH_SELECT_STATUS_ALL = 0,
-    MATCH_SELECT_STATUS_NOT_STARTED,
-    MATCH_SELECT_STATUS_ON_GOING,
-    MATCH_SELECT_STATUS_FINISH
+enum{    
+    // match button tag, be careful to change the value together with button tag in UI
+    MATCH_SELECT_STATUS_ALL = 11,              
+    MATCH_SELECT_STATUS_NOT_STARTED = 12,
+    MATCH_SELECT_STATUS_ON_GOING = 13,
+    MATCH_SELECT_STATUS_FINISH = 14,
+    MATCH_SELECT_STATUS_MYFOLLOW = 15
 };
+

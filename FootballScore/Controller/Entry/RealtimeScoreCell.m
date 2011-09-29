@@ -101,4 +101,17 @@
     [formatter release];
     
 }
+
+- (IBAction)clickFollowButton:(id)sender
+{
+    if (delegate && [delegate respondsToSelector:@selector(didClickFollowButton:atIndex:)]){
+        [delegate didClickFollowButton:sender atIndex:indexPath];
+    }
+}
+
+- (void)updateMatchTime
+{    
+//    NSLog(@"update match time");
+}
+
 @end

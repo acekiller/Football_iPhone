@@ -28,6 +28,6 @@ enum{
 + (NSArray*)parseRecord:(NSString*)data;
 + (NSArray*)parseField:(NSString*)data;
 
-+ (CommonNetworkOutput*)getRealtimeMatch:(int)lang;
++ (CommonNetworkOutput*)getRealtimeMatch:(int)lang scoreType:(int)scoreType;
 
 @end

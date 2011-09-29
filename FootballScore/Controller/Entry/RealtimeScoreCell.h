@@ -11,6 +11,12 @@
 
 @class Match;
 
+@protocol RealtimeScoreCell <NSObject>
+
+- (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath;
+
+@end
+
 @interface RealtimeScoreCell : PPTableViewCell {
     
     UILabel *matchTypeLabel;
@@ -50,5 +56,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *homeYellowCard;
 
 @property (nonatomic, retain) IBOutlet UIImageView *followStatus;
+
+- (IBAction)clickFollowButton:(id)sender;
+- (void)updateMatchTime;
 
 @end

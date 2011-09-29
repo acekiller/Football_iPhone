@@ -15,8 +15,13 @@
     UIActionSheetDelegate, SelectLeagueControllerDelegate> {
     
     int matchScoreType;
+        
+    NSTimer *matchSecondTimer;
 }
 
+@property (nonatomic, retain) NSTimer *matchSecondTimer;
+
+- (IBAction)clickSelectMatchStatus:(id)sender;
 
 
 @end

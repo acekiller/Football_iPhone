@@ -25,7 +25,8 @@
     
     [queue addOperationWithBlock:^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeMatch:lang];
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeMatch:lang
+                                                                     scoreType:matchScoreType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

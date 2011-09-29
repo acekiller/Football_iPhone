@@ -12,21 +12,26 @@
 #import "MatchManager.h"
 #import "Match.h"
 #import "LocaleConstants.h"
+#import "MatchConstants.h"
 #import "SelectLeagueController.h"
 
 @implementation RealtimeScoreController
+
+@synthesize matchSecondTimer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        matchScoreType = MATCH_SCORE_TYPE_FIRST;
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [matchSecondTimer release];
     [super dealloc];
 }
 
@@ -40,6 +45,21 @@
 
 #pragma mark - View lifecycle
 
+- (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
+{
+    for (int i=MATCH_SELECT_STATUS_ALL; i<=MATCH_SELECT_STATUS_MYFOLLOW; i++){
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        if (i == selectMatchStatus){
+            [button setSelected:YES];  
+            [button setBackgroundColor:[UIColor greenColor]];
+        }
+        else{
+            [button setSelected:NO];
+            [button setBackgroundColor:[UIColor yellowColor]];
+        }
+    }
+}
+
 - (void)loadMatch:(int)scoreType
 {
     [self showActivityWithText:FNS(@"加载数据中...")];
@@ -48,7 +68,9 @@
 
 - (void)viewDidLoad
 {
-
+    self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateMatchTimeDisplay) userInfo:nil repeats:YES];
+    
+    [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     
     [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
     [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
@@ -100,6 +122,8 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
 	}		
     
+    cell.indexPath = indexPath;
+
     Match* match = [dataList objectAtIndex:indexPath.row];
     [cell setCellInfo:match];
 	
@@ -108,6 +132,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Match* match = [dataList objectAtIndex:indexPath.row];
+    MatchManager* manager = [MatchManager defaultManager];
+    if ([match isFollow]){
+        [manager unfollowMatch:match];    
+    }
+    else{
+        [manager followMatch:match];
+    }
+    
+    if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){
+        // only unfollow is possible here... so just update data list and delete the row
+        self.dataList = [manager filterMatch];
+        [dataTableView reloadData];             // I am lazy today so I just reload the table view
+    }
+    else{
+        [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                             withRowAnimation:UITableViewScrollPositionNone];
+    }
     
 }
 
@@ -171,8 +213,48 @@
 {
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
-    self.dataList = [manager filterMatchByLeauge:selectedLeagueArray];
+    [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
+    self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];
+}
+
+- (IBAction)clickSelectMatchStatus:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];
+    
+    // filter data list by league data
+    MatchManager* manager = [MatchManager defaultManager];
+    [manager updateFilterMatchStatus:selectMatchStatus];
+    self.dataList = [manager filterMatch];
+    [[self dataTableView] reloadData];    
+}
+
+- (IBAction)clickMyFollow:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];
+    
+    // filter data list
+    MatchManager* manager = [MatchManager defaultManager];
+    [manager updateFilterMatchStatus:selectMatchStatus];
+    self.dataList = [manager filterMatch];
+    [[self dataTableView] reloadData];
+}
+
+- (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath
+{
+    // TODO call Match Manager follow/unfollow method
+}
+
+- (void)updateMatchTimeDisplay
+{
+    NSArray* cells = [dataTableView visibleCells];
+    for (RealtimeScoreCell* cell in cells){
+        [cell updateMatchTime];
+    }
 }
 
 @end

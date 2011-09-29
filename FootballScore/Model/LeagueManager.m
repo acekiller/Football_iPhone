@@ -64,12 +64,14 @@ enum{
                                                 isTop:isTop];
         
 #ifdef DEBUG
-        NSLog(@"add league : %@", [league description]);
+//        NSLog(@"add league : %@", [league description]);
 #endif
         
         [retArray addObject:league];
         [league release];
     }
+    
+    NSLog(@"parse league data, total %d league added", [retArray count]);
     
     return retArray;
 }

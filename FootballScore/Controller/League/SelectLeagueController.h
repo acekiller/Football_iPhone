@@ -26,7 +26,7 @@
     
     NSMutableSet *selectLeagueIdArray;
     
-    id<SelectLeagueControllerDelegate> delegate;
+    id<SelectLeagueControllerDelegate> delegate;    
 }
 
 -(IBAction)selectAll:(id)sender;

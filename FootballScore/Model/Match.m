@@ -53,6 +53,7 @@
 
 @synthesize events;
 @synthesize stats;
+@synthesize isFollow;
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
@@ -70,6 +71,7 @@
             homeTeamYellow:(NSString*)homeTeamYellowValue
             awayTeamYellow:(NSString*)awayTeamYellowValue
                crownChuPan:(NSString*)crownChuPanValue
+                  isFollow:(BOOL)isFollowValue
 {
     
     self = [super init];
@@ -104,6 +106,10 @@
     if (crownChuPanValue != nil){
         self.crownChuPan = [NSNumber numberWithInt:[crownChuPanValue doubleValue]];   
     }
+
+    
+    self.isFollow = isFollowValue;
+
     return self;
 }
 
