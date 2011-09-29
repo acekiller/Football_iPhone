@@ -28,7 +28,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "89"
          endingLineNumber = "89"
-         landmarkName = "-viewDidLoad"
+         landmarkName = "-viewDidUnload"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -42,8 +42,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "143"
          endingLineNumber = "143"
-         landmarkName = "@implementation SelectLeagueController"
-         landmarkType = "3">
+         landmarkName = "-selectTopLeague:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -55,9 +55,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "182"
-         endingLineNumber = "182"
-         landmarkName = "-buttonClicked:"
-         landmarkType = "5">
+         endingLineNumber = "182">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -69,9 +67,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "189"
-         endingLineNumber = "189"
-         landmarkName = "-buttonClicked:"
-         landmarkType = "5">
+         endingLineNumber = "189">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -97,9 +93,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "181"
-         endingLineNumber = "181"
-         landmarkName = "-buttonClicked:"
-         landmarkType = "5">
+         endingLineNumber = "181">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -111,9 +105,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "195"
-         endingLineNumber = "195"
-         landmarkName = "-buttonClicked:"
-         landmarkType = "5">
+         endingLineNumber = "195">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -125,9 +117,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "183"
-         endingLineNumber = "183"
-         landmarkName = "-buttonClicked:"
-         landmarkType = "5">
+         endingLineNumber = "183">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -140,7 +130,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "132"
          endingLineNumber = "132"
-         landmarkName = "-selectAll:"
+         landmarkName = "-selectNone:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -154,7 +144,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "131"
          endingLineNumber = "131"
-         landmarkName = "-selectAll:"
+         landmarkName = "-selectNone:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

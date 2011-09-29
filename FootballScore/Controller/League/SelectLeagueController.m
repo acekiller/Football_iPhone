@@ -61,28 +61,7 @@ const int buttonsPerLine = 4;
 
 - (void)viewDidLoad
 {
-    
 
-    
-    UIView * rightButtonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    rightButtonParentView.backgroundColor = [UIColor clearColor];
-     
-    
-    int buttonSize = 32;
-    int rightOffset = 20;
-    UIButton * setButton = [[UIButton alloc] initWithFrame:CGRectMake(rightButtonParentView.frame.size.width - buttonSize - rightOffset, 6, buttonSize, buttonSize)];
-    [rightButtonParentView addSubview:setButton];
-    [setButton release];
-    
-    UIButton * searchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 6, buttonSize, buttonSize)];
-    [rightButtonParentView addSubview:searchButton];
-    [searchButton release];
-    
-    
-    UIBarButtonItem * rightButtonItem2 = [[UIBarButtonItem alloc] initWithCustomView:rightButtonParentView];
-    [rightButtonParentView release];                            
-    self.navigationItem.rightBarButtonItem = rightButtonItem2;
-    [rightButtonItem2 release];
   
     int i;
     int rowIndex;

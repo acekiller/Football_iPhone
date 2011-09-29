@@ -8,6 +8,7 @@
 
 #import "RealtimeScoreCell.h"
 #import "Match.h"
+#import "LeagueManager.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -73,12 +74,18 @@
     homeTeamLabel.text = match.homeTeamName;
     awayTeamLabel.text = match.awayTeamName;
     
+    LeagueManager *league = [LeagueManager defaultManager];
+    matchTypeLabel.text = [league getNameById:match.leagueId];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"HH"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
+    startTimeLabel.text = [NSString stringWithFormat:@"t%@",[formatter stringFromDate:match.date]];
         
     [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
     [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
 
-    awayTeamLabel.text = match.awayTeamName;
-    
+    [formatter release];
     
 }
 @end
