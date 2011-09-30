@@ -68,6 +68,6 @@
 - (void)updatePeiLv:(Match*)match;
 - (void)setCards:(UIButton*)card setTitle:(NSString*)title;
 - (void)updateMatchTime:(Match*)match;
-- (void)setMatchStatus:(Match*)match;
+- (void)updateMatchStatus:(Match*)match;
 
 @end

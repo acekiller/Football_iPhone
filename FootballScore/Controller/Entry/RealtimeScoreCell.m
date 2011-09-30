@@ -79,7 +79,8 @@
 {
 
     [self updatePeiLv:match];
-    [self updateScores:match];
+ //   [self updateScores:match];
+    [self updateMatchStatus:match];
     [self updateStartTime:match];
     [self updateCards:match];
     [self updateMatchInfo:match];
@@ -115,16 +116,14 @@
 - (void)updateMatchInfo:(Match*)match{
     LeagueManager *league = [LeagueManager defaultManager];
     matchTypeLabel.text = [league getNameById:match.leagueId];
-   
-    [self setMatchStatus:match];
-    
+
     homeTeamLabel.text = match.homeTeamName;
     awayTeamLabel.text = match.awayTeamName;
 }
 
 - (void)updateScores:(Match*)match{
     scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
-    halfScoreLabel.text = [NSString stringWithFormat:@"%@: %@",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
+    halfScoreLabel.text = [NSString stringWithFormat:@"(%@:%@)",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
 }
 
 - (void)updateCards:(Match*)match{
@@ -141,7 +140,7 @@
 
 - (void)updateMatchTime:(Match*)match
 {    
-    [self setMatchStatus:match];
+    [self updateMatchStatus:match];
 }
 
 - (void)setCards:(UIButton*)card setTitle:(NSString*)title{
@@ -154,34 +153,54 @@
     }
 }
 
-- (void)setMatchStatus:(Match*)match
+- (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
     
     switch (match.status) {
         case MATCH_STATUS_FIRST_HALF:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:YES];
+            NSString* value = [manager matchSecondsString:match];
+            matchStatusLabel.text = value; 
+            [self updateScores:match];
+        }
+            break;
         case MATCH_STATUS_SECOND_HALF:
         {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
             NSString* value = [manager matchSecondsString:match];
-            matchStatusLabel.text = value;            
+            matchStatusLabel.text = value; 
+            [self updateScores:match];
         }
             break;
             
         case MATCH_STATUS_MIDDLE:
         {
-            matchStatusLabel.text = FNS(@"中场");            
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            matchStatusLabel.text = FNS(@"中场");  
+            [self updateScores:match];
         }
             break;
             
         case MATCH_STATUS_PAUSE:
         {
-            matchStatusLabel.text = FNS(@"中断");                        
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:YES];
+            matchStatusLabel.text = FNS(@"中断");   
+            [self updateScores:match];
         }
             break;
             
         case MATCH_STATUS_FINISH:
         {
-            matchStatusLabel.text = FNS(@"已完场");                        
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            matchStatusLabel.text = FNS(@"已完场"); 
+            [self updateScores:match];
         }
             break;
             
@@ -192,7 +211,9 @@
         case MATCH_STATUS_CANCEL:
         default:
         {
-            matchStatusLabel.text = FNS(@"未开赛");           
+            matchStatusLabel.text = FNS(@"未开赛");
+            [scoreLabel setHidden:YES];
+            [halfScoreLabel setHidden:YES];
         }
             break;
             
