@@ -19,13 +19,8 @@
     NSArray *GoalCnConton = [NSArray arrayWithObjects:@"平手",@"平手/半球",@"半球",@"半球/一球",@"一球",@"一球/球半",@"球半",@"球半/兩球",@"兩球",@"兩球/兩球半",@"兩球半",@"兩球半/三球",@"三球",@"三球/三球半",@"三球半",@"三球半/四球",@"四球",@"四球/四球半",@"四球半",@"四球半/五球",@"五球",@"五球/五球半",@"五球半",@"五球半/六球",@"六球",@"六球/六球半",@"六球半",@"六球半/七球",@"七球",@"七球/七球半",@"七球半",@"七球半/八球",@"八球",@"八球/八球半",@"八球半",@"八球半/九球",@"九球",@"九球/九球半",@"九球半",@"九球半/十球",@"十球",nil];
     
     NSString *Goal2Cn = [NSString stringWithFormat:@""];
-    
     double chupanDoubleValue = [chupanNSValue doubleValue];
-    NSLog(@"Chu Pan = %@", [chupanNSValue description]);
-    return @"";
-    
-    
-    int Goal2CnIndex = 1;//(int)(abs(chupanDoubleValue*4));
+    int Goal2CnIndex = (int)(abs(chupanDoubleValue*4));
     
     if(chupanNSValue == nil || Goal2CnIndex >= [GoalCnConton count]){
         return Goal2Cn;
@@ -37,6 +32,7 @@
     else{
         Goal2Cn =  [GoalCnMandarin objectAtIndex:Goal2CnIndex];
     }
+    
     if(chupanDoubleValue >= 0){
         return Goal2Cn;
     }

@@ -234,11 +234,9 @@
     MatchManager* manager = [MatchManager defaultManager];
     if ([match isFollow]){
         [manager unfollowMatch:match];  
-        [sender setBackgroundImage:[UIImage imageNamed:@"unSelected"] forState:UIControlStateNormal];
     }
     else{
         [manager followMatch:match];
-        [sender setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
     }
     
     if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){

@@ -10,6 +10,7 @@
 #import "Match.h"
 #import "LeagueManager.h"
 #import "DataUtils.h"
+#define TIME_ZONE_GMT @"Asia/Shanghai"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -72,38 +73,13 @@
 
 - (void)setCellInfo:(Match*)match
 {
-    int localLanguage = LANG_CANTON;
-    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
-    halfScoreLabel.text = [NSString stringWithFormat:@"%@: %@",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];
-    
-    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
-    [homeYellowCard setTitle:match.homeTeamYellow forState:UIControlStateNormal];
-    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
-    [awayYellowCard setTitle:match.awayTeamYellow forState:UIControlStateNormal];
-    
-    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
-    //TODO:localLanguage should get from app
 
-    homeTeamLabel.text = match.homeTeamName;
-    awayTeamLabel.text = match.awayTeamName;
-    
-    LeagueManager *league = [LeagueManager defaultManager];
-    matchTypeLabel.text = [league getNameById:match.leagueId];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSString *dateString = [NSString stringWithFormat:@""];
-    [formatter setDateFormat:@"HH:mm"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
-    if(nil !=[formatter stringFromDate:match.date])
-        dateString = [formatter stringFromDate:match.date];
-    startTimeLabel.text = dateString;
-     [formatter release];
-    
-        
-    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
-    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
-
-   
+    [self updatePeiLv:match];
+    [self updateScores:match];
+    [self updateStartTime:match];
+    [self updateCards:match];
+    [self updateMatchInfo:match];
+    [self updateFollow:match];
     
 }
 
@@ -114,9 +90,62 @@
     }
 }
 
-- (void)updateMatchTime
-{    
-//    NSLog(@"update match time");
+- (void)updateStartTime:(Match*)match{   
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSString *dateString = [NSString stringWithFormat:@""];
+    [formatter setDateFormat:@"HH:mm"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
+    if(nil !=[formatter stringFromDate:match.date])
+        dateString = [formatter stringFromDate:match.date];
+    startTimeLabel.text = dateString;
+    [formatter release];
+    }
+
+-(void)updateFollow:(Match*)match{
+    if([match isFollow])
+        [followButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    else
+        [followButton setBackgroundImage:[UIImage imageNamed:@"unSelected"] forState:UIControlStateNormal];
 }
 
+- (void)updateMatchInfo:(Match*)match{
+    LeagueManager *league = [LeagueManager defaultManager];
+    matchTypeLabel.text = [league getNameById:match.leagueId];
+    
+    homeTeamLabel.text = match.homeTeamName;
+    awayTeamLabel.text = match.awayTeamName;
+}
+
+- (void)updateScores:(Match*)match{
+    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+    halfScoreLabel.text = [NSString stringWithFormat:@"%@: %@",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
+}
+
+- (void)updateCards:(Match*)match{
+    [self setCards:homeRedCard setTitle:match.homeTeamRed];
+    [self setCards:homeYellowCard setTitle:match.homeTeamYellow];
+    [self setCards:awayRedCard setTitle:match.awayTeamRed];
+    [self setCards:awayYellowCard setTitle:match.awayTeamYellow];
+}
+
+- (void)updatePeiLv:(Match*)match{
+    int localLanguage = LANG_CANTON; 
+    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
+}
+
+- (void)updateMatchTime
+{
+    //NSLog(@"update match time");
+
+}
+
+- (void)setCards:(UIButton*)card setTitle:(NSString*)title{
+    if(title == nil || [title intValue] <= 0){
+        [card setHidden:YES];
+    }
+    else{
+        [card setTitle:title forState:UIControlStateNormal];
+        [card setHidden:NO];
+    }
+}
 @end
