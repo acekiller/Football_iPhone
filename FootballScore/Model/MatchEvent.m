@@ -28,4 +28,8 @@
     [super dealloc];
 }
 
+- (NSString *)toString
+{
+    return [NSString stringWithFormat:@"homeAwayFlag=%d, type=%d, minutes=%d, player=%@",homeAwayFlag,type,minutes,player];
+}
 @end

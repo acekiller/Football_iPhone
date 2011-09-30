@@ -31,4 +31,10 @@
     [super dealloc];
 }
 
+
+- (NSString *)toString
+{
+    return [NSString stringWithFormat:@"type=%d, homeValue=%@, awayValue=%@",type,homeValue,awayValue];
+}
+
 @end

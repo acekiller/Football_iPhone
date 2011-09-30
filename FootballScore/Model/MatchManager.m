@@ -369,6 +369,11 @@ MatchManager* GlobalGetMatchManager()
     if (eventArray == nil || [eventArray count] == 0) {
         return;
     }
+    if (match.events) {
+        [match.events removeAllObjects];
+    }else{
+        match.events = [[NSMutableArray alloc] init];
+    }
     [match.events removeAllObjects];
     for (NSArray *event in eventArray) {
         if ([event count] < 3) {
@@ -394,7 +399,11 @@ MatchManager* GlobalGetMatchManager()
     if (statArray == nil || [statArray count] == 0) {
         return;
     }
-    [match.stats removeAllObjects];
+    if (match.stats) {
+        [match.stats removeAllObjects];
+    }else{
+        match.stats = [[NSMutableArray alloc] init];
+    }
     for (NSArray *stat in statArray) {
         if ([stat count] != 3) {
             break;

@@ -33,6 +33,7 @@
     UIButton *homeYellowCard;
     UIButton *followButton;
     UIImageView *followStatus;
+    
 }
 
 // copy and override three methods below
@@ -66,7 +67,7 @@
 - (void)updateScores:(Match*)match;
 - (void)updateCards:(Match*)match;
 - (void)updatePeiLv:(Match*)match;
-- (void)setCards:(UIButton*)card setTitle:(NSString*)title;
+- (void)setCards:(UIButton*)card setMatch:(Match*)Match withcardType:(int)type;
 - (void)updateMatchTime:(Match*)match;
 - (void)updateMatchStatus:(Match*)match;
 

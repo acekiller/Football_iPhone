@@ -22,4 +22,7 @@
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, retain) NSString *player;
 
+
+- (NSString *)toString;
+
 @end
