@@ -80,7 +80,7 @@
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
         {
-            NSString* value = [manager matchSecondsString:match];
+            NSString* value = [manager matchMinutesString:match];
             matchStatusLabel.text = value;            
         }
             break;

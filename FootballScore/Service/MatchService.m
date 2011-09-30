@@ -15,6 +15,7 @@
 #import "TimeUtils.h"
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
+#define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
 
 @implementation MatchService
 
@@ -76,6 +77,43 @@
             }
         });                        
     }];
+}
+
+- (void)getRealtimeScore
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_SCORE];
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeScore];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSDate* serverDate = nil;
+            NSArray* leagueArray = nil;
+            NSArray* updateMatchArray = nil;
+            
+            if (output.resultCode == ERROR_SUCCESS){
+                
+                // parse score records and update match
+                if ([output.arrayData count] > 0){
+                    NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];
+                    [[MatchManager defaultManager] updateMatchRealtimeScore:realtimeScoreArray];
+                }
+                else{
+                    NSLog(@"no realtime score updated");
+                }                
+            }
+            
+            // step 2 : update UI
+//            if (delegate && [delegate respondsToSelector:
+//                             @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
+//                [delegate getRealtimeMatchFinish:output.resultCode
+//                                      serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
+//            }
+        });                        
+    }];
+    
 }
 
 @end

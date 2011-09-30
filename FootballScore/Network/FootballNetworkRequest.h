@@ -19,7 +19,6 @@ enum{
     REALTIME_MATCH_SEGMENT
 };
 
-
 @interface FootballNetworkRequest : NSObject {
     
 }
@@ -29,5 +28,6 @@ enum{
 + (NSArray*)parseField:(NSString*)data;
 
 + (CommonNetworkOutput*)getRealtimeMatch:(int)lang scoreType:(int)scoreType;
++ (CommonNetworkOutput*)getRealtimeScore;
 
 @end

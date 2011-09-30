@@ -24,6 +24,7 @@
 }
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
+- (void)getRealtimeScore;
 
 @end
 
