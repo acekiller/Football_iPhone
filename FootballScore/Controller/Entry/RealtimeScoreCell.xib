@@ -51,7 +51,7 @@
 							<object class="IBUILabel" id="597713256">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{39, 9}, {56, 23}}</string>
+								<string key="NSFrame">{{40, 10}, {75, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="657063914"/>
@@ -78,7 +78,7 @@
 							<object class="IBUILabel" id="182731137">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{162, 8}, {33, 21}}</string>
+								<string key="NSFrame">{{160, 10}, {40, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1037420634"/>
@@ -101,7 +101,7 @@
 							<object class="IBUILabel" id="1037420634">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{193, 8}, {63, 24}}</string>
+								<string key="NSFrame">{{205, 10}, {70, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="126070177"/>
@@ -123,7 +123,7 @@
 							<object class="IBUILabel" id="126070177">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{257, 6}, {58, 25}}</string>
+								<string key="NSFrame">{{275, 10}, {45, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="517409920"/>
@@ -142,7 +142,7 @@
 							<object class="IBUILabel" id="657063914">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{91, 7}, {63, 23}}</string>
+								<string key="NSFrame">{{115, 10}, {40, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="182731137"/>
@@ -162,7 +162,7 @@
 							<object class="IBUILabel" id="170029649">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{73, 31}, {81, 21}}</string>
+								<string key="NSFrame">{{70, 30}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="944718203"/>
@@ -186,7 +186,7 @@
 							<object class="IBUILabel" id="944718203">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{162, 31}, {33, 21}}</string>
+								<string key="NSFrame">{{160, 30}, {40, 20}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="366049164"/>
@@ -209,7 +209,7 @@
 							<object class="IBUILabel" id="366049164">
 								<reference key="NSNextResponder" ref="933750038"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{202, 31}, {81, 21}}</string>
+								<string key="NSFrame">{{205, 30}, {76, 21}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="375490531"/>
@@ -272,7 +272,6 @@
 								<string key="NSFrame">{{300, 33}, {15, 19}}</string>
 								<reference key="NSSuperview" ref="933750038"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<reference key="IBUIBackgroundColor" ref="915461287"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -537,7 +536,6 @@
 						<reference key="object" ref="1031841618"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="182731137"/>
 							<reference ref="126070177"/>
 							<reference ref="657063914"/>
 							<reference ref="170029649"/>
@@ -547,9 +545,10 @@
 							<reference ref="996005295"/>
 							<reference ref="375490531"/>
 							<reference ref="366049164"/>
-							<reference ref="597713256"/>
 							<reference ref="1037420634"/>
 							<reference ref="199657214"/>
+							<reference ref="182731137"/>
+							<reference ref="597713256"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>

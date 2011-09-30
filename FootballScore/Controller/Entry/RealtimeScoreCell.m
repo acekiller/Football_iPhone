@@ -156,7 +156,7 @@
 {
     MatchManager* manager = [MatchManager defaultManager];
     CGRect middlePosition = CGRectMake(160, 30, 40, 20);
-    CGRect originalPosition = CGRectMake(155, 10, 40, 15);
+    CGRect originalPosition = CGRectMake(160, 10, 40, 20);
     
     
     switch (match.status) {
