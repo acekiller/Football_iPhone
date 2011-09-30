@@ -31,6 +31,7 @@
     UIButton *awayYellowCard;
     UIButton *homeRedCard;
     UIButton *homeYellowCard;
+    UIButton *followButton;
     UIImageView *followStatus;
 }
 
@@ -55,6 +56,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *homeRedCard;
 @property (nonatomic, retain) IBOutlet UIButton *homeYellowCard;
 
+@property (nonatomic, retain) IBOutlet UIButton *followButton;
 @property (nonatomic, retain) IBOutlet UIImageView *followStatus;
 
 - (IBAction)clickFollowButton:(id)sender;

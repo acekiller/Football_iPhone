@@ -137,24 +137,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Match* match = [dataList objectAtIndex:indexPath.row];
-    MatchManager* manager = [MatchManager defaultManager];
-    if ([match isFollow]){
-        [manager unfollowMatch:match];    
-    }
-    else{
-        [manager followMatch:match];
-    }
     
-    if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){
-        // only unfollow is possible here... so just update data list and delete the row
-        self.dataList = [manager filterMatch];
-        [dataTableView reloadData];             // I am lazy today so I just reload the table view
-    }
-    else{
-        [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                             withRowAnimation:UITableViewScrollPositionNone];
-    }
     
 }
 
@@ -252,6 +235,26 @@
 - (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath
 {
     // TODO call Match Manager follow/unfollow method
+    Match* match = [dataList objectAtIndex:indexPath.row];
+    MatchManager* manager = [MatchManager defaultManager];
+    if ([match isFollow]){
+        [manager unfollowMatch:match];  
+        [sender setBackgroundImage:[UIImage imageNamed:@"unSelected"] forState:UIControlStateNormal];
+    }
+    else{
+        [manager followMatch:match];
+        [sender setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    }
+    
+    if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){
+        // only unfollow is possible here... so just update data list and delete the row
+        self.dataList = [manager filterMatch];
+        [dataTableView reloadData];             // I am lazy today so I just reload the table view
+    }
+    else{
+        [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                             withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 - (void)updateMatchTimeDisplay
