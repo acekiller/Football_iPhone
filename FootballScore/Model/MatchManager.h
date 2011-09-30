@@ -43,7 +43,7 @@
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
 
-- (void)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray;
+- (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray;
 - (Match *)getMathById:(NSString *)matchId;
 
 // follow match methods

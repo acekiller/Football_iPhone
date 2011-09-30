@@ -79,7 +79,6 @@
     self.leagueId = leagueIdValue;
     self.status = [statusValue intValue];
     
-    //  TODO set date by status
     if (status == MATCH_STATUS_FIRST_HALF){
         self.firstHalfStartDate = dateFromChineseStringByFormat(dateValue, 
                                                             DEFAULT_DATE_FORMAT);
@@ -190,6 +189,16 @@
         default:
             return MATCH_SELECT_STATUS_NOT_STARTED;
     }
+}
+
+- (void)updateStartDate:(NSDate*)newStartDate
+{
+    if (status == MATCH_STATUS_FIRST_HALF){
+        self.firstHalfStartDate = newStartDate;
+    }
+    else if (status == MATCH_STATUS_SECOND_HALF){
+        self.secondHalfStartDate = newStartDate;        
+    }    
 }
 
 @end

@@ -20,6 +20,9 @@
 
 @implementation MatchService
 
+@synthesize realtimeScoreTimer;
+@synthesize matchControllerDelegate;
+
 - (NSDate*)parseSeverDate:(NSArray*)dataArray
 {
     if ([dataArray count] == 0)
@@ -36,10 +39,38 @@
     return dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT);
 }
 
+- (void)stopRealtimeScoreUpdate
+{
+    NSLog(@"<stopRealtimeScoreUpdate>");
+    [realtimeScoreTimer invalidate];
+    self.realtimeScoreTimer = nil;
+    
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_SCORE];
+    if ([queue operationCount] > 0){
+        [queue cancelAllOperations];        
+    }
+}
+
+#define REALTIME_SCORE_TIMER_INTERVAL   5       // 5 seconds
+
+- (void)startRealtimeScoreUpdate
+{
+    NSLog(@"<startRealtimeScoreUpdate>");
+
+    // stop timer firstly
+    [self stopRealtimeScoreUpdate];
+    
+    // create new timer
+    self.realtimeScoreTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_SCORE_TIMER_INTERVAL target:self selector:@selector(getRealtimeScore) userInfo:nil repeats:NO];
+}
+
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
     int lang = 1; // TODO replace by LanguageManager    
     NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
+
+    // stop timer to avoid incorrect update
+    [self stopRealtimeScoreUpdate];
     
     [queue addOperationWithBlock:^{
         
@@ -76,6 +107,9 @@
                 [delegate getRealtimeMatchFinish:output.resultCode
                  serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
             }
+            
+            // no matter what result it is, start the score update timer again
+            [self startRealtimeScoreUpdate];
         });                        
     }];
 }
@@ -90,12 +124,14 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
 
+            NSSet* updateMatchSet = nil;
             if (output.resultCode == ERROR_SUCCESS){
                 
                 // parse score records and update match
                 if ([output.arrayData count] > 0){
                     NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];
-                    [[MatchManager defaultManager] updateMatchRealtimeScore:realtimeScoreArray];
+                    updateMatchSet = [[MatchManager defaultManager] 
+                                      updateMatchRealtimeScore:realtimeScoreArray];
                 }
                 else{
                     NSLog(@"no realtime score updated");
@@ -103,11 +139,19 @@
             }
             
             // step 2 : update UI
+            if (matchControllerDelegate && [matchControllerDelegate 
+                                            respondsToSelector:@selector(getRealtimeScoreFinish:)]){
+                [matchControllerDelegate getRealtimeScoreFinish:updateMatchSet];
+            }
+            
 //            if (delegate && [delegate respondsToSelector:
 //                             @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
 //                [delegate getRealtimeMatchFinish:output.resultCode
 //                                      serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
 //            }
+            
+            // schedule next timer
+            [self startRealtimeScoreUpdate];
         });                        
     }];
 }    
