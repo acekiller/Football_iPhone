@@ -156,19 +156,34 @@
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
 {
+    
     NSMutableArray* indexPathes = [[NSMutableArray alloc] init];    
     int row = 0;
+    int matchCount = 0;
     for (Match* match in dataList){
         if ([updateMatchSet containsObject:match.matchId]){
             [indexPathes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+            matchCount ++;
         }
         row ++;
     }
+
+    MatchManager* manager = [MatchManager defaultManager];
+    BOOL allMatchUpdateFound = (matchCount == [updateMatchSet count]);
+    BOOL viewOngoingMatch = (manager.filterMatchStatus == MATCH_SELECT_STATUS_ON_GOING);
     
-    if ([indexPathes count] > 0){
-        [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
-    }    
-    [indexPathes release];
+    if (allMatchUpdateFound || !viewOngoingMatch){
+        // update rows only for better performance
+        if ([indexPathes count] > 0){
+            [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+        }    
+        [indexPathes release];
+    }
+    else{
+        // reload all data
+        self.dataList = [manager filterMatch];
+        [self.dataTableView reloadData];
+    }
 }
 
 - (IBAction) showActionSheet: (id)sender {
