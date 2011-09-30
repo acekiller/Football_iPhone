@@ -19,5 +19,5 @@
 @property (nonatomic, retain)NSString *homeValue;
 @property (nonatomic, retain)NSString *awayValue;
 
-
+- (NSString *)toString;
 @end

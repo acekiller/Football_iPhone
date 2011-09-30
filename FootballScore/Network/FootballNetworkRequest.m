@@ -11,7 +11,7 @@
 #import "StringUtil.h"
 
 #define URL_GET_REALTIME_MATCH      @"http://bf.bet007.com/phone/schedule.aspx?"
-
+#define URL_GET_MATCH_DETAIL        @"http://bf.bet007.com/phone/ResultDetail.aspx?"
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
 #define FIELD_SEP               @"^"
@@ -198,12 +198,13 @@ enum{
     
     FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
         if ([output.arrayData count] != MATCH_EVENT_SEGMENT){
+            NSLog(@"<getMatchDetail> but segment not enough");
             output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
         }
         return;
     }; 
     
-    return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_MATCH
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DETAIL
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];

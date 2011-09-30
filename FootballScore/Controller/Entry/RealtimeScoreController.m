@@ -137,8 +137,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
+    Match* match = [dataList objectAtIndex:indexPath.row];
+    MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
+    [self.navigationController pushViewController:matchDetail animated:YES];
+    [matchDetail release];
 }
 
 #pragma remote request delegate

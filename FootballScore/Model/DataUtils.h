@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Match.h"
 
 #define LANG_MANDARIN   0
 #define LANG_CANTON     1
@@ -17,7 +18,7 @@
 
 + (NSString*)toChuPanString:(NSNumber*)chupanNSValue language:(int)language;
 
-
++ (NSString*)toMatchStatusString:(NSInteger)intValue language:(int)language;
 
 /*
  类型序号对应依次为

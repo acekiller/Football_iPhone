@@ -60,4 +60,38 @@
 
 }
 
++ (NSString*)toMatchStatusString:(NSInteger)intValue language:(int)language
+{
+    switch (intValue) {
+        case MATCH_STATUS_NOT_STARTED:
+            return @"未开";
+            break;
+        case MATCH_STATUS_FIRST_HALF:
+            return @"上半场";
+        case MATCH_STATUS_MIDDLE:
+            return @"中场";
+            break;
+        case MATCH_STATUS_SECOND_HALF:
+            return @"下半场";
+        case MATCH_STATUS_TBD:
+            return @"待定";
+            break;
+        case MATCH_STATUS_KILL:
+            return @"腰斩";
+        case MATCH_STATUS_PAUSE:
+            return @"中断";
+            break;
+        case MATCH_STATUS_POSTPONE:
+            return @"推迟";
+        case MATCH_STATUS_FINISH:
+            return @"完场";
+            break;
+        case MATCH_STATUS_CANCEL:
+            return @"取消";
+        default:
+            return nil;
+            break;
+    }
+}
+
 @end
