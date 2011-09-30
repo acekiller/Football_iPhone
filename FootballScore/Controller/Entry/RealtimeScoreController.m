@@ -68,7 +68,12 @@
 
 - (void)viewDidLoad
 {
-    self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateMatchTimeDisplay) userInfo:nil repeats:YES];
+    int UPDATE_TIME_INTERVAL = 60;
+    self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
+                                                             target:self 
+                                                           selector:@selector(updateMatchTimeDisplay) 
+                                                           userInfo:nil 
+                                                            repeats:YES];
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     
@@ -144,7 +149,7 @@
                    leagueArray:(NSArray*)leagueArray
               updateMatchArray:(NSArray*)updateMatchArray
 {
-    self.dataList = [[MatchManager defaultManager] matchArray];
+    self.dataList = [[MatchManager defaultManager] filterMatch];
     [[self dataTableView] reloadData];
     [self hideActivity];
 }
@@ -252,10 +257,9 @@
 
 - (void)updateMatchTimeDisplay
 {
-    NSArray* cells = [dataTableView visibleCells];
-    for (RealtimeScoreCell* cell in cells){
-        [cell updateMatchTime];
-    }
+    NSLog(@"updateMatchTimeDisplay");
+    NSArray* indexPathes = [dataTableView indexPathsForVisibleRows];
+    [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

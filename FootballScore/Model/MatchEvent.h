@@ -17,4 +17,9 @@
     NSString    *player;
 }
 
+@property (nonatomic, assign) int homeAwayFlag;
+@property (nonatomic, assign) int type;
+@property (nonatomic, assign) int minutes;
+@property (nonatomic, retain) NSString *player;
+
 @end

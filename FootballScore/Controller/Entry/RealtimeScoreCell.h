@@ -60,7 +60,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *followStatus;
 
 - (IBAction)clickFollowButton:(id)sender;
-- (void)updateMatchTime;
 - (void)updateStartTime:(Match*)match;
 - (void)updateFollow:(Match*)match;
 - (void)updateMatchInfo:(Match*)match;
@@ -68,4 +67,7 @@
 - (void)updateCards:(Match*)match;
 - (void)updatePeiLv:(Match*)match;
 - (void)setCards:(UIButton*)card setTitle:(NSString*)title;
+- (void)updateMatchTime:(Match*)match;
+- (void)setMatchStatus:(Match*)match;
+
 @end

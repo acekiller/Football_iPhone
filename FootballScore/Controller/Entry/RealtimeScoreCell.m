@@ -9,8 +9,10 @@
 #import "RealtimeScoreCell.h"
 #import "Match.h"
 #import "LeagueManager.h"
+#import "MatchManager.h"
 #import "DataUtils.h"
 #define TIME_ZONE_GMT @"Asia/Shanghai"
+#import "LocaleConstants.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -71,6 +73,8 @@
     [super dealloc];
 }
 
+
+
 - (void)setCellInfo:(Match*)match
 {
 
@@ -111,6 +115,8 @@
 - (void)updateMatchInfo:(Match*)match{
     LeagueManager *league = [LeagueManager defaultManager];
     matchTypeLabel.text = [league getNameById:match.leagueId];
+   
+    [self setMatchStatus:match];
     
     homeTeamLabel.text = match.homeTeamName;
     awayTeamLabel.text = match.awayTeamName;
@@ -133,10 +139,9 @@
     peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
 }
 
-- (void)updateMatchTime
-{
-    //NSLog(@"update match time");
-
+- (void)updateMatchTime:(Match*)match
+{    
+    [self setMatchStatus:match];
 }
 
 - (void)setCards:(UIButton*)card setTitle:(NSString*)title{
@@ -146,6 +151,51 @@
     else{
         [card setTitle:title forState:UIControlStateNormal];
         [card setHidden:NO];
+    }
+}
+
+- (void)setMatchStatus:(Match*)match
+{
+    MatchManager* manager = [MatchManager defaultManager];
+    
+    switch (match.status) {
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+        {
+            NSString* value = [manager matchSecondsString:match];
+            matchStatusLabel.text = value;            
+        }
+            break;
+            
+        case MATCH_STATUS_MIDDLE:
+        {
+            matchStatusLabel.text = FNS(@"中场");            
+        }
+            break;
+            
+        case MATCH_STATUS_PAUSE:
+        {
+            matchStatusLabel.text = FNS(@"中断");                        
+        }
+            break;
+            
+        case MATCH_STATUS_FINISH:
+        {
+            matchStatusLabel.text = FNS(@"已完场");                        
+        }
+            break;
+            
+        case MATCH_STATUS_NOT_STARTED:
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        default:
+        {
+            matchStatusLabel.text = FNS(@"未开赛");           
+        }
+            break;
+            
     }
 }
 @end

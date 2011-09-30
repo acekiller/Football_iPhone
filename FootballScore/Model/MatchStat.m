@@ -11,4 +11,24 @@
 
 @implementation MatchStat
 
+@synthesize type;
+@synthesize homeValue;
+@synthesize awayValue;
+
+-(id)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return  self;
+}
+
+- (void)dealloc
+{
+    [homeValue release];
+    [awayValue release];
+    [super dealloc];
+}
+
 @end

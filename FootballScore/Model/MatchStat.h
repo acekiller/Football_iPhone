@@ -15,5 +15,9 @@
     NSString    *homeValue;
     NSString    *awayValue;
 }
+@property (nonatomic, assign)int type;
+@property (nonatomic, retain)NSString *homeValue;
+@property (nonatomic, retain)NSString *awayValue;
+
 
 @end
