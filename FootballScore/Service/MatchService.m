@@ -16,6 +16,7 @@
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
 #define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
+#define GET_MATCH_EVENT  @"GET_MATCH_EVENT"
 
 @implementation MatchService
 
@@ -88,11 +89,7 @@
         CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeScore];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NSDate* serverDate = nil;
-            NSArray* leagueArray = nil;
-            NSArray* updateMatchArray = nil;
-            
+
             if (output.resultCode == ERROR_SUCCESS){
                 
                 // parse score records and update match
@@ -113,7 +110,38 @@
 //            }
         });                        
     }];
+}    
+
+- (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId
+{
+    int lang = 1; // TODO replace by LanguageManager    
+    NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_EVENT];
     
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getMatchDetail:lang matchId:matchId];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSArray *eventArray = nil;
+            NSArray *statArray = nil;
+            Match *match = nil;
+            if (output.resultCode == ERROR_SUCCESS){
+                eventArray = [output.arrayData objectAtIndex:MATCH_EVENT];
+                statArray = [output.arrayData objectAtIndex:MATCH_TECHNICAL_STATISTICS];
+                MatchManager *defaultManager = [MatchManager defaultManager];
+                match = [defaultManager getMathById:matchId];
+                [defaultManager updateMatch:match WithEventArray:eventArray];
+                [defaultManager updateMatch:match WithStatArray:statArray];
+            }
+            
+            // step 2 : update UI
+            if (delegate && [delegate respondsToSelector:@selector(getMatchEventFinish:match:)])
+            {
+                [delegate getMatchEventFinish:output.resultCode match:match];
+            }
+        });                        
+    }];
 }
 
 @end

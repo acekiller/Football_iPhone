@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "CommonService.h"
+#import "MatchEvent.h"
+#import "MatchStat.h"
+
+@class Match;
 
 @protocol MatchServiceDelegate <NSObject>
 
@@ -17,6 +21,7 @@
                    leagueArray:(NSArray*)leagueArray
               updateMatchArray:(NSArray*)updateMatchArray;
 
+- (void)getMatchEventFinish:(int)result match:(Match *)match;
 @end
 
 @interface MatchService : CommonService {
@@ -25,6 +30,8 @@
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
 - (void)getRealtimeScore;
+
+- (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 
 @end
 

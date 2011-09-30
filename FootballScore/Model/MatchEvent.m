@@ -11,4 +11,21 @@
 
 @implementation MatchEvent
 
+@synthesize homeAwayFlag;
+@synthesize type;
+@synthesize minutes;
+@synthesize player;
+
+-(id)init
+{
+    self = [super init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [player release];
+    [super dealloc];
+}
+
 @end

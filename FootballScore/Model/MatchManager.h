@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class Match;
+@class MatchEvent;
+@class MatchStat;
 
 @interface MatchManager : NSObject {
     
@@ -42,6 +44,7 @@
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
 
 - (void)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray;
+- (Match *)getMathById:(NSString *)matchId;
 
 // follow match methods
 - (void)followMatch:(Match*)match;
@@ -51,6 +54,11 @@
 
 // filter match by conditions : league, match status, match score type
 - (NSArray*)filterMatch;
+
+
+// match event && static method
+- (void)updateMatch:(Match*)match WithEventArray:(NSArray *)eventArray;
+- (void)updateMatch:(Match*)match WithStatArray:(NSArray *)statArray;
 
 // 返回开赛从上半场／下半场开始动态时间（秒）
 - (NSNumber*)matchSeconds:(Match*)match;

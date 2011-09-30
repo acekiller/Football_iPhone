@@ -8,6 +8,8 @@
 
 #import "MatchManager.h"
 #import "Match.h"
+#import "MatchEvent.h"
+#import "MatchStat.h"
 #import "MatchConstants.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
@@ -290,6 +292,65 @@ MatchManager* GlobalGetMatchManager()
 }
 
 
+- (Match *)getMathById:(NSString *)matchId
+{
+    if (matchId == nil) {
+        return nil;
+    }
+    for (int i = 0; i < [self.matchArray count]; ++i) {
+        Match *match = [self.matchArray objectAtIndex:i];
+        if ([match.matchId isEqualToString:matchId]) {
+            return match;
+        }
+    }
+    return nil;
+}
+
+- (void)updateMatch:(Match*)match WithEventArray:(NSArray *)eventArray
+{
+    if (eventArray == nil || [eventArray count] == 0) {
+        return;
+    }
+    [match.events removeAllObjects];
+    for (NSArray *event in eventArray) {
+        if ([event count] < 3) {
+            break;
+        }
+        MatchEvent *matchEvent = [[MatchEvent alloc] init];
+        matchEvent.homeAwayFlag = [[event objectAtIndex:0] intValue];
+        matchEvent.type = [[event objectAtIndex:1] intValue];
+        matchEvent.minutes = [[event objectAtIndex:2] intValue];
+        if ([event count] > 3) {
+            NSString *playerName = (NSString *)[event objectAtIndex:3] ;
+            matchEvent.player = playerName;
+        }else{
+            matchEvent.player = nil;
+        }
+        [match.events addObject:matchEvent];
+        [matchEvent release];
+    }
+}
+
+- (void)updateMatch:(Match*)match WithStatArray:(NSArray *)statArray
+{
+    if (statArray == nil || [statArray count] == 0) {
+        return;
+    }
+    [match.stats removeAllObjects];
+    for (NSArray *stat in statArray) {
+        if ([stat count] != 3) {
+            break;
+        }
+        MatchStat *matchStat = [[MatchStat alloc] init];
+        
+        matchStat.type = [[stat objectAtIndex:0] intValue];
+        matchStat.homeValue = [stat objectAtIndex:1];
+        matchStat.awayValue = [stat objectAtIndex:2];
+        [match.stats addObject:matchStat];
+        
+        [matchStat release];
+    }
+}
 // 返回开赛动态时间秒数
 - (NSNumber*)matchSeconds:(Match*)match
 {

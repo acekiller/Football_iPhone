@@ -183,8 +183,6 @@ enum{
 
 + (CommonNetworkOutput*)getRealtimeScore
 {
-    
-    
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
     ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
@@ -197,12 +195,39 @@ enum{
     FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
         return;
     }; 
-    
+        
     return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_SCORE
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}    
+
++ (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"lang"
+                                    intValue:lang];
+        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        if ([output.arrayData count] != MATCH_EVENT_SEGMENT){
+            output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
+        }
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_MATCH
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];
 }
-
 
 @end
