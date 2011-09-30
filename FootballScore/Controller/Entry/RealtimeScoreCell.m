@@ -11,6 +11,7 @@
 #import "LeagueManager.h"
 #import "MatchManager.h"
 #import "DataUtils.h"
+#define TIME_ZONE_GMT @"Asia/Shanghai"
 #import "LocaleConstants.h"
 
 @implementation RealtimeScoreCell
@@ -72,86 +73,17 @@
     [super dealloc];
 }
 
-- (void)setMatchStatus:(Match*)match
-{
-    MatchManager* manager = [MatchManager defaultManager];
-        
-    switch (match.status) {
-        case MATCH_STATUS_FIRST_HALF:
-        case MATCH_STATUS_SECOND_HALF:
-        {
-            NSString* value = [manager matchMinutesString:match];
-            matchStatusLabel.text = value;            
-        }
-            break;
 
-        case MATCH_STATUS_MIDDLE:
-        {
-            matchStatusLabel.text = FNS(@"中场");            
-        }
-            break;
-            
-        case MATCH_STATUS_PAUSE:
-        {
-            matchStatusLabel.text = FNS(@"中断");                        
-        }
-            break;
-            
-        case MATCH_STATUS_FINISH:
-        {
-            matchStatusLabel.text = FNS(@"已完场");                        
-        }
-            break;
-            
-        case MATCH_STATUS_NOT_STARTED:
-        case MATCH_STATUS_TBD:
-        case MATCH_STATUS_KILL:
-        case MATCH_STATUS_POSTPONE:
-        case MATCH_STATUS_CANCEL:
-        default:
-        {
-            matchStatusLabel.text = FNS(@"未开赛");           
-        }
-            break;
-
-    }
-}
 
 - (void)setCellInfo:(Match*)match
 {
-    int localLanguage = LANG_CANTON;
-    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
-    halfScoreLabel.text = [NSString stringWithFormat:@"%@: %@",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];
-    
-    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
-    [homeYellowCard setTitle:match.homeTeamYellow forState:UIControlStateNormal];
-    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
-    [awayYellowCard setTitle:match.awayTeamYellow forState:UIControlStateNormal];
-    
-    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
-    //TODO:localLanguage should get from app
 
-    homeTeamLabel.text = match.homeTeamName;
-    awayTeamLabel.text = match.awayTeamName;
-    
-    LeagueManager *league = [LeagueManager defaultManager];
-    matchTypeLabel.text = [league getNameById:match.leagueId];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSString *dateString = [NSString stringWithFormat:@""];
-    [formatter setDateFormat:@"HH:mm"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
-    if(nil !=[formatter stringFromDate:match.date])
-        dateString = [formatter stringFromDate:match.date];
-    startTimeLabel.text = dateString;
-     [formatter release];
-    
-        
-    [awayRedCard setTitle:match.awayTeamRed forState:UIControlStateNormal];
-    [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
-
-   
-    [self setMatchStatus:match];
+    [self updatePeiLv:match];
+    [self updateMatchStatus:match];
+    [self updateStartTime:match];
+    [self updateCards:match];
+    [self updateMatchInfo:match];
+    [self updateFollow:match];
     
 }
 
@@ -162,9 +94,137 @@
     }
 }
 
-- (void)updateMatchTime:(Match*)match
-{    
-    [self setMatchStatus:match];
+- (void)updateStartTime:(Match*)match{   
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSString *dateString = [NSString stringWithFormat:@""];
+    [formatter setDateFormat:@"HH:mm"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
+    if(nil !=[formatter stringFromDate:match.date])
+        dateString = [formatter stringFromDate:match.date];
+    startTimeLabel.text = dateString;
+    [formatter release];
+    }
+
+-(void)updateFollow:(Match*)match{
+    if([match isFollow])
+        [followButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    else
+        [followButton setBackgroundImage:[UIImage imageNamed:@"unSelected"] forState:UIControlStateNormal];
 }
 
+- (void)updateMatchInfo:(Match*)match{
+    LeagueManager *league = [LeagueManager defaultManager];
+    matchTypeLabel.text = [league getNameById:match.leagueId];
+
+    homeTeamLabel.text = match.homeTeamName;
+    awayTeamLabel.text = match.awayTeamName;
+}
+
+- (void)updateScores:(Match*)match{
+    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+    halfScoreLabel.text = [NSString stringWithFormat:@"(%@:%@)",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
+}
+
+- (void)updateCards:(Match*)match{
+    [self setCards:homeRedCard setTitle:match.homeTeamRed];
+    [self setCards:homeYellowCard setTitle:match.homeTeamYellow];
+    [self setCards:awayRedCard setTitle:match.awayTeamRed];
+    [self setCards:awayYellowCard setTitle:match.awayTeamYellow];
+}
+
+- (void)updatePeiLv:(Match*)match{
+    int localLanguage = LANG_CANTON; 
+    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
+}
+
+- (void)updateMatchTime:(Match*)match
+{    
+    [self updateMatchStatus:match];
+}
+
+- (void)setCards:(UIButton*)card setTitle:(NSString*)title{
+    if(title == nil || [title intValue] <= 0){
+        [card setHidden:YES];
+    }
+    else{
+        [card setTitle:title forState:UIControlStateNormal];
+        [card setHidden:NO];
+    }
+}
+
+- (void)updateMatchStatus:(Match*)match
+{
+    MatchManager* manager = [MatchManager defaultManager];
+    CGRect middlePosition = CGRectMake(160, 30, 40, 20);
+    CGRect originalPosition = CGRectMake(155, 10, 40, 15);
+    
+    
+    switch (match.status) {
+        case MATCH_STATUS_FIRST_HALF:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:YES];
+            NSString* value = [manager matchMinutesString:match];
+            matchStatusLabel.text = value; 
+            [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
+        }
+            break;
+        case MATCH_STATUS_SECOND_HALF:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            NSString* value = [manager matchMinutesString:match];
+            matchStatusLabel.text = value;    
+            [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
+        }
+            break;
+            
+        case MATCH_STATUS_MIDDLE:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            matchStatusLabel.text = FNS(@"中场");  
+            [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
+        }
+            break;
+            
+        case MATCH_STATUS_PAUSE:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:YES];
+            matchStatusLabel.text = FNS(@"中断");   
+            [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
+        }
+            break;
+            
+        case MATCH_STATUS_FINISH:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            matchStatusLabel.text = FNS(@"已完场"); 
+            [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
+        }
+            break;
+            
+        case MATCH_STATUS_NOT_STARTED:
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        default:
+        {
+            matchStatusLabel.text = FNS(@"未开赛");
+            [scoreLabel setHidden:YES];
+            [halfScoreLabel setHidden:YES];
+            matchStatusLabel.frame = middlePosition;
+        }
+            break;
+            
+    }
+}
 @end
