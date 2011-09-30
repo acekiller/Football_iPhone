@@ -11,6 +11,7 @@
 #import "MatchEvent.h"
 #import "MatchStat.h"
 #import "MatchConstants.h"
+#import "TimeUtils.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
@@ -208,6 +209,93 @@ MatchManager* GlobalGetMatchManager()
     // TODO
 }
 
+- (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray
+{
+    if ([realtimScoreStringArray count] == 0)
+        return nil;
+        
+    NSMutableSet* retSet = [[[NSMutableSet alloc] init] autorelease];
+    
+    for (NSArray* fields in realtimScoreStringArray){
+        int fieldCount = [fields count];
+        if (fieldCount < REALTIME_SCORE_FILED_COUNT){
+            NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
+            continue;
+        }
+        else{
+                        
+            NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
+            Match* match = [self getMathById:matchId];
+            if (match == nil){
+                NSLog(@"<warning> cannot find match by match ID (%@)", matchId);
+                continue;
+            }
+            
+            [retSet addObject:matchId];
+            
+            NSString* status = [fields objectAtIndex:INDEX_REALTIME_SCORE_STATUS];
+            NSString* dateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_DATE];
+            NSString* startDateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_START_DATE];
+            NSString* homeTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_SCORE];
+            NSString* awayTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_SCORE];
+            NSString* homeTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_FIRST_HALF_SCORE];
+            NSString* awayTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_FIRST_HALF_SCORE];
+            NSString* homeTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_RED];
+            NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
+            NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
+            NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
+            
+            if ([status length]){
+                [match setStatus:[status intValue]];
+            }
+            
+            if ([dateString length]){
+                [match setDate:dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT)];
+            }
+                 
+            if ([startDateString length]){
+                [match updateStartDate:dateFromChineseStringByFormat(startDateString, DEFAULT_DATE_FORMAT)];
+            }
+
+            if ([homeTeamScore length]){
+                [match setHomeTeamScore:homeTeamScore];
+            }
+
+            if ([awayTeamScore length]){
+                [match setAwayTeamScore:awayTeamScore];
+            }
+
+            if ([homeTeamFirstHalfScore length]){
+                [match setHomeTeamFirstHalfScore:homeTeamFirstHalfScore];
+            }
+
+            if ([awayTeamFirstHalfScore length]){
+                [match setAwayTeamFirstHalfScore:awayTeamFirstHalfScore];
+            }
+
+            if ([homeTeamRed length]){
+                [match setHomeTeamRed:homeTeamRed];
+            }
+
+            if ([awayTeamRed length]){
+                [match setAwayTeamRed:awayTeamRed];
+            }
+
+            if ([homeTeamYellow length]){
+                [match setHomeTeamYellow:homeTeamYellow];
+            }
+
+            if ([awayTeamYellow length]){
+                [match setAwayTeamYellow:awayTeamYellow];
+            }
+
+            NSLog(@"match %@ updated, data=%@", matchId, [fields componentsJoinedByString:@" "]);
+        }
+    }
+    
+    return retSet;
+}
+
 + (NSArray*)fromString:(NSArray*)stringArray
 {
     int count = [stringArray count];
@@ -346,18 +434,21 @@ MatchManager* GlobalGetMatchManager()
         else
             return nil;
         
-        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        NSDate* now = [NSDate date];
+        int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds; // add server difference
         return [NSNumber numberWithInt:seconds];
     }
     else if (match.status == MATCH_STATUS_SECOND_HALF){
         if (match.secondHalfStartDate != nil)
             startDate = match.secondHalfStartDate;
         else if (match.date != nil)
-            startDate = [match.date dateByAddingTimeInterval:45+15];    // 半场45分钟，中场休息15分钟
+            startDate = [match.date dateByAddingTimeInterval:(45+15)*60];    // 半场45分钟，中场休息15分钟
         else
             return nil;
 
-        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        NSDate* now = [NSDate date];
+        int HALF_MATCH_TIME = 45 * 60;       // 半场要加45分钟
+        int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds + HALF_MATCH_TIME; // add server difference
         return [NSNumber numberWithInt:seconds];
     }
     else{
@@ -373,5 +464,37 @@ MatchManager* GlobalGetMatchManager()
     else
         return [NSString stringWithFormat:@"%d'", [seconds intValue]];
 }
+
+- (NSString*)matchMinutesString:(Match*)match
+{
+    int MATCH_MAX_FIRST_HALF_TIME = 45*60;
+    int MATCH_MAX_TIME = 90*60;    
+    
+    NSNumber* seconds = [self matchSeconds:match];
+    if (seconds == nil){
+        return @"";
+    }
+    else if (match.status == MATCH_STATUS_FIRST_HALF){
+        if ([seconds intValue] <= MATCH_MAX_FIRST_HALF_TIME){
+            return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
+        }
+        else{
+            return @"45+";
+        }
+    }
+    else if (match.status == MATCH_STATUS_SECOND_HALF){
+        if ([seconds intValue] <= MATCH_MAX_TIME){
+            return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
+        }
+        else{
+            return @"90+";
+        }
+    }
+    else{
+        return @"";
+    }
+        
+}
+
 
 @end

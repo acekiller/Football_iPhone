@@ -79,11 +79,13 @@ enum
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
-	[UIUtils addViewController:[RealtimeScoreController alloc]
-					 viewTitle:FNS(@"即时比分")
-					 viewImage:@"app_globe_24.png"
-			  hasNavController:YES			
-			   viewControllers:controllers];	
+	RealtimeScoreController* matchController = (RealtimeScoreController*)
+            [UIUtils addViewController:[RealtimeScoreController alloc]
+                             viewTitle:FNS(@"即时比分")
+                             viewImage:@"app_globe_24.png"
+                      hasNavController:YES			
+                       viewControllers:controllers];	
+    [matchService setMatchControllerDelegate:matchController];    
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -146,12 +148,12 @@ enum
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
     
+    // init all service
+    [self initMatchService];
+
 	[self initMobClick];
     [self initImageCacheManager];    
     [self initTabViewControllers];
-
-    // init all service
-    [self initMatchService];
     
     [window addSubview:tabBarController.view];
     [window makeKeyAndVisible];

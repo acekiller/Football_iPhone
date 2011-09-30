@@ -35,5 +35,6 @@ enum{
 + (NSArray*)parseField:(NSString*)data;
 
 + (CommonNetworkOutput*)getRealtimeMatch:(int)lang scoreType:(int)scoreType;
++ (CommonNetworkOutput*)getRealtimeScore;
 + (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId;
 @end
