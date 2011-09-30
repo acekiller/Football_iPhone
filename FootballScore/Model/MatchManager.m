@@ -320,6 +320,7 @@ MatchManager* GlobalGetMatchManager()
         
         [matchStat release];
     }
+}
 // 返回开赛动态时间秒数
 - (NSNumber*)matchSeconds:(Match*)match
 {
@@ -362,7 +363,6 @@ MatchManager* GlobalGetMatchManager()
         return @"";
     else
         return [NSString stringWithFormat:@"%d'", [seconds intValue]];
->>>>>>> origin/master
 }
 
 @end
