@@ -18,9 +18,12 @@
     int             filterMatchStatus;
     int             filterMatchScoreType;
     
+    NSDate*         serverDate;
+    
     NSMutableSet*   followMatchIdList;
 }
 
+@property (nonatomic, retain) NSDate*           serverDate;
 @property (nonatomic, retain) NSArray*          matchArray;
 @property (nonatomic, retain) NSMutableSet*     filterLeagueIdList;
 @property (nonatomic, retain) NSMutableSet*     followMatchIdList;
@@ -31,10 +34,13 @@
 + (MatchManager*)defaultManager;
 + (NSArray*)fromString:(NSArray*)stringArray;
 
+- (void)updateServerDate:(NSDate*)newServerDate;
 - (void)updateAllMatchArray:(NSArray*)updateArray;
 - (void)updateRealtimeMatchArray:(NSArray*)realtimeMatchArray;
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
+
+
 
 // follow match methods
 - (void)followMatch:(Match*)match;
