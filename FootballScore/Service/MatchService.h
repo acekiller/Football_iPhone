@@ -22,11 +22,20 @@
               updateMatchArray:(NSArray*)updateMatchArray;
 
 - (void)getMatchEventFinish:(int)result match:(Match *)match;
+
+- (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
+
 @end
 
 @interface MatchService : CommonService {
     
+    NSTimer *realtimeScoreTimer;
+
+    id<MatchServiceDelegate> matchControllerDelegate;
 }
+
+@property (nonatomic, retain) NSTimer *realtimeScoreTimer;
+@property (nonatomic, assign) id<MatchServiceDelegate> matchControllerDelegate;
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
 - (void)getRealtimeScore;

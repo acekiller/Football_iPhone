@@ -171,5 +171,6 @@ enum{
                   isFollow:(BOOL)isFollowValue;
 
 - (int)matchSelectStatus;
+- (void)updateStartDate:(NSDate*)newStartDate;
 
 @end

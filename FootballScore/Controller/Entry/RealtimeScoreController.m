@@ -154,6 +154,22 @@
     [self hideActivity];
 }
 
+- (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
+{
+    NSMutableArray* indexPathes = [[NSMutableArray alloc] init];    
+    int row = 0;
+    for (Match* match in dataList){
+        if ([updateMatchSet containsObject:match.matchId]){
+            [indexPathes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        }
+        row ++;
+    }
+    
+    if ([indexPathes count] > 0){
+        [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+    }    
+    [indexPathes release];
+}
 
 - (IBAction) showActionSheet: (id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
