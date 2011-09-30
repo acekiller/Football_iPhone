@@ -8400,9 +8400,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339061887.50826001</real>
-		<string>{4137, 1440}</string>
-		<string>{5150, 22}</string>
+		<real>339066767.467601</real>
+		<string>{764, 648}</string>
+		<string>{771, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9116,9 +9116,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339065601.26361603</real>
-		<string>{4082, 1279}</string>
-		<string>{5397, 0}</string>
+		<real>339066804.454503</real>
+		<string>{7109, 933}</string>
+		<string>{7768, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -10530,8 +10530,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339060979.81870002</real>
-		<string>{5995, 1517}</string>
+		<real>339066772.13808697</real>
+		<string>{5995, 981}</string>
 		<string>{6970, 0}</string>
 		<dict>
 			<key>$class</key>
@@ -11576,9 +11576,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339063783.29996902</real>
-		<string>{3729, 1378}</string>
-		<string>{4880, 0}</string>
+		<real>339066773.71736997</real>
+		<string>{6328, 708}</string>
+		<string>{6874, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11909,8 +11909,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339061574.584683</real>
-		<string>{0, 1049}</string>
+		<real>339066766.87320203</real>
+		<string>{40, 609}</string>
 		<string>{587, 54}</string>
 		<dict>
 			<key>$class</key>
@@ -13318,7 +13318,7 @@
 				<integer>995</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>339065538.00369197</real>
+			<real>339066799.454211</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -13329,7 +13329,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 下午4:52</string>
+		<string>Today at 下午5:13</string>
 		<integer>106</integer>
 		<string>FootballScore</string>
 		<dict>
@@ -13431,7 +13431,7 @@
 				<integer>1004</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/RealtimeScoreController.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/RealtimeScoreCell.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13449,7 +13449,7 @@
 				<integer>1006</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/MoreController.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Service/MatchService.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13467,7 +13467,7 @@
 				<integer>1008</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/MoreController.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Service/MatchService.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13485,7 +13485,7 @@
 				<integer>1010</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/RealtimeScoreCell.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Network/FootballNetworkRequest.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13503,7 +13503,7 @@
 				<integer>1012</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/ScoreUpdateCell.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/RealtimeScoreController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13521,7 +13521,7 @@
 				<integer>1014</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/MoreController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13539,7 +13539,7 @@
 				<integer>1016</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/MoreController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13557,7 +13557,7 @@
 				<integer>1018</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/Match.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Controller/Entry/ScoreUpdateCell.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13575,7 +13575,7 @@
 				<integer>1020</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchEvent.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14747,10 +14747,10 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339065601.26982301</real>
-		<string>{4082, 1279}</string>
-		<string>{5397, 0}</string>
-		<string>-getRealtimeScoreFinish:</string>
+		<real>339066804.45715302</real>
+		<string>{7109, 933}</string>
+		<string>{7768, 0}</string>
+		<string>@implementation RealtimeScoreController</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -14784,7 +14784,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {834, 484}}</string>
+		<string>{{0, 0}, {834, 348}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14854,7 +14854,7 @@
 			</array>
 		</dict>
 		<string>IDEEditor</string>
-		<real>506</real>
+		<real>370</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14885,7 +14885,7 @@
 			</array>
 		</dict>
 		<string>IDEDebuggerArea</string>
-		<real>238</real>
+		<real>374</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15140,7 +15140,7 @@
 		<string>IDESCMStatusFilteringEnabled</string>
 		<string>IDESelectedObjects</string>
 		<string>IDEExpandedItemsSet</string>
-		<string>{{0, 121}, {290, 700}}</string>
+		<string>{{0, 0}, {290, 700}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>

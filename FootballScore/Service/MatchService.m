@@ -51,7 +51,7 @@
     }
 }
 
-#define REALTIME_SCORE_TIMER_INTERVAL   5       // 5 seconds
+#define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
 
 - (void)startRealtimeScoreUpdate
 {

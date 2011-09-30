@@ -288,9 +288,13 @@
 
 - (void)updateMatchTimeDisplay
 {
-    NSLog(@"updateMatchTimeDisplay");
     NSArray* indexPathes = [dataTableView indexPathsForVisibleRows];
     [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+
+#ifdef DEBUG    
+    NSLog(@"updateMatchTimeDisplay, update %@", [indexPathes description]);
+#endif    
+    
 }
 
 @end
