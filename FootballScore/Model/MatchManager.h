@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class Match;
+@class MatchEvent;
+@class MatchStat;
 
 @interface MatchManager : NSObject {
     
@@ -36,6 +38,8 @@
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
 
+- (Match *)getMathById:(NSString *)matchId;
+
 // follow match methods
 - (void)followMatch:(Match*)match;
 - (void)unfollowMatch:(Match*)match;
@@ -44,5 +48,9 @@
 
 // filter match by conditions : league, match status, match score type
 - (NSArray*)filterMatch;
+
+// match event && static method
+- (void)updateMatch:(Match*)match WithEventArray:(NSArray *)eventArray;
+- (void)updateMatch:(Match*)match WithStatArray:(NSArray *)statArray;
 
 @end
