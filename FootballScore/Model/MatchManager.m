@@ -31,6 +31,7 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterMatchStatus;
 @synthesize filterMatchScoreType;
 @synthesize followMatchIdList;
+@synthesize serverDate;
 
 + (MatchManager*)defaultManager
 {
@@ -123,11 +124,14 @@ MatchManager* GlobalGetMatchManager()
     followMatchIdList = [[NSMutableSet alloc] init];
     [self loadFollowMatchIdList];
     
+    serverDate = [[NSDate date] retain];
+    
     return self;
 }
 
 - (void)dealloc
 {
+    [serverDate release];
     [matchArray release];
     [followMatchIdList release];
     [filterLeagueIdList release];
@@ -164,6 +168,14 @@ MatchManager* GlobalGetMatchManager()
     NSLog(@"filter match done, total %d match return", [retArray count]);
     return retArray;
 
+}
+
+- (void)updateServerDate:(NSDate*)newServerDate
+{
+    if (newServerDate){
+        self.serverDate = newServerDate;
+        NSLog(@"<updateServerDate> new date : %@", [serverDate description]);
+    }
 }
 
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist
