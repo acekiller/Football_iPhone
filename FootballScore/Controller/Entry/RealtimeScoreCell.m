@@ -24,6 +24,7 @@
 @synthesize awayYellowCard;
 @synthesize homeRedCard;
 @synthesize homeYellowCard;
+@synthesize followButton;
 @synthesize followStatus;
 
 // just replace PPTableViewCell by the new Cell Class Name
@@ -65,6 +66,7 @@
     [homeRedCard release];
     [homeYellowCard release];
     [followStatus release];
+    [followButton release];
     [super dealloc];
 }
 
