@@ -19,6 +19,7 @@
     int             filterMatchScoreType;
     
     NSDate*         serverDate;
+    int             serverDiffSeconds;
     
     NSMutableSet*   followMatchIdList;
 }
@@ -50,5 +51,10 @@
 
 // filter match by conditions : league, match status, match score type
 - (NSArray*)filterMatch;
+
+// 返回开赛从上半场／下半场开始动态时间（秒）
+- (NSNumber*)matchSeconds:(Match*)match;
+- (NSString*)matchSecondsString:(Match*)match;
+
 
 @end

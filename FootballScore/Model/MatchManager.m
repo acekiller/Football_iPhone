@@ -126,6 +126,9 @@ MatchManager* GlobalGetMatchManager()
     
     serverDate = [[NSDate date] retain];
     
+    filterMatchStatus = MATCH_SELECT_STATUS_ALL;
+    filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
+    
     return self;
 }
 
@@ -172,9 +175,10 @@ MatchManager* GlobalGetMatchManager()
 
 - (void)updateServerDate:(NSDate*)newServerDate
 {
-    if (newServerDate){
+    if (newServerDate){        
         self.serverDate = newServerDate;
-        NSLog(@"<updateServerDate> new date : %@", [serverDate description]);
+        serverDiffSeconds = [newServerDate timeIntervalSinceNow];
+        NSLog(@"<updateServerDate> new date : %@, diff = %d", [serverDate description], serverDiffSeconds);
     }
 }
 
@@ -253,6 +257,51 @@ MatchManager* GlobalGetMatchManager()
     
     return retArray;
     
+}
+
+
+// 返回开赛动态时间秒数
+- (NSNumber*)matchSeconds:(Match*)match
+{
+    if (match == nil)
+        return nil;
+    
+    NSDate* startDate = nil;
+    if (match.status == MATCH_STATUS_FIRST_HALF){
+
+        if (match.firstHalfStartDate != nil)
+            startDate = match.firstHalfStartDate;
+        else if (match.date != nil)
+            startDate = match.date;
+        else
+            return nil;
+        
+        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        return [NSNumber numberWithInt:seconds];
+    }
+    else if (match.status == MATCH_STATUS_SECOND_HALF){
+        if (match.secondHalfStartDate != nil)
+            startDate = match.secondHalfStartDate;
+        else if (match.date != nil)
+            startDate = [match.date dateByAddingTimeInterval:45+15];    // 半场45分钟，中场休息15分钟
+        else
+            return nil;
+
+        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        return [NSNumber numberWithInt:seconds];
+    }
+    else{
+        return nil;
+    }
+}
+
+- (NSString*)matchSecondsString:(Match*)match
+{
+    NSNumber* seconds = [self matchSeconds:match];
+    if (seconds == nil)
+        return @"";
+    else
+        return [NSString stringWithFormat:@"%d'", [seconds intValue]];
 }
 
 @end

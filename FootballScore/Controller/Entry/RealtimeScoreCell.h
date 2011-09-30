@@ -58,6 +58,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *followStatus;
 
 - (IBAction)clickFollowButton:(id)sender;
-- (void)updateMatchTime;
+- (void)updateMatchTime:(Match*)match;
 
 @end

@@ -156,8 +156,4 @@ enum{
 
 - (int)matchSelectStatus;
 
-- (NSString*)matchStringDate;
-
-- (NSDate*)matchDate;
-
 @end
