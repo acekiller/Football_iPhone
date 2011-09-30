@@ -79,7 +79,6 @@
 {
 
     [self updatePeiLv:match];
- //   [self updateScores:match];
     [self updateMatchStatus:match];
     [self updateStartTime:match];
     [self updateCards:match];
@@ -156,6 +155,9 @@
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
+    CGRect middlePosition = CGRectMake(160, 30, 40, 20);
+    CGRect originalPosition = CGRectMake(155, 10, 40, 15);
+    
     
     switch (match.status) {
         case MATCH_STATUS_FIRST_HALF:
@@ -165,6 +167,7 @@
             NSString* value = [manager matchMinutesString:match];
             matchStatusLabel.text = value; 
             [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
         }
             break;
         case MATCH_STATUS_SECOND_HALF:
@@ -174,6 +177,7 @@
             NSString* value = [manager matchMinutesString:match];
             matchStatusLabel.text = value;    
             [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
         }
             break;
             
@@ -183,6 +187,7 @@
             [halfScoreLabel setHidden:NO];
             matchStatusLabel.text = FNS(@"中场");  
             [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
         }
             break;
             
@@ -192,6 +197,7 @@
             [halfScoreLabel setHidden:YES];
             matchStatusLabel.text = FNS(@"中断");   
             [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
         }
             break;
             
@@ -201,6 +207,7 @@
             [halfScoreLabel setHidden:NO];
             matchStatusLabel.text = FNS(@"已完场"); 
             [self updateScores:match];
+            matchStatusLabel.frame = originalPosition;
         }
             break;
             
@@ -214,6 +221,7 @@
             matchStatusLabel.text = FNS(@"未开赛");
             [scoreLabel setHidden:YES];
             [halfScoreLabel setHidden:YES];
+            matchStatusLabel.frame = middlePosition;
         }
             break;
             
