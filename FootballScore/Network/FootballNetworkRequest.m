@@ -11,6 +11,7 @@
 #import "StringUtil.h"
 
 #define URL_GET_REALTIME_MATCH      @"http://bf.bet007.com/phone/schedule.aspx?"
+#define URL_GET_REALTIME_SCORE      @"http://bf.bet007.com/phone/LiveChange.aspx"
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -180,6 +181,26 @@ enum{
                                   output:output];
 }
 
++ (CommonNetworkOutput*)getRealtimeScore
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];                
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+        
+    return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_SCORE
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}    
 
 + (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId
 {

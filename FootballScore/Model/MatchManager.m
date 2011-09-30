@@ -208,6 +208,36 @@ MatchManager* GlobalGetMatchManager()
     // TODO
 }
 
+- (void)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray
+{
+    if ([realtimScoreStringArray count] == 0)
+        return;
+    
+    for (NSArray* fields in realtimScoreStringArray){
+        int fieldCount = [fields count];
+        if (fieldCount < REALTIME_SCORE_FILED_COUNT){
+            NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
+            continue;
+        }
+        else{
+//            INDEX_REALTIME_SCORE_MATCHID,
+//            INDEX_REALTIME_SCORE_STATUS,
+//            INDEX_REALTIME_SCORE_DATE,
+//            INDEX_REALTIME_SCORE_START_DATE,
+//            INDEX_REALTIME_SCORE_HOME_TEAM_SCORE,
+//            INDEX_REALTIME_SCORE_AWAY_TEAM_SCORE,
+//            INDEX_REALTIME_SCORE_HOME_TEAM_FIRST_HALF_SCORE,
+//            INDEX_REALTIME_SCORE_AWAY_TEAM_FIRST_HALF_SCORE,
+//            INDEX_REALTIME_SCORE_HOME_TEAM_RED,
+//            INDEX_REALTIME_SCORE_AWAY_TEAM_RED,
+//            INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW,
+//            INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW,
+                        
+            NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
+        }
+    }
+}
+
 + (NSArray*)fromString:(NSArray*)stringArray
 {
     int count = [stringArray count];
@@ -337,7 +367,8 @@ MatchManager* GlobalGetMatchManager()
         else
             return nil;
         
-        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        NSDate* now = [NSDate date];
+        int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds; // add server difference
         return [NSNumber numberWithInt:seconds];
     }
     else if (match.status == MATCH_STATUS_SECOND_HALF){
@@ -348,7 +379,8 @@ MatchManager* GlobalGetMatchManager()
         else
             return nil;
 
-        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        NSDate* now = [NSDate date];
+        int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds; // add server difference
         return [NSNumber numberWithInt:seconds];
     }
     else{
@@ -364,5 +396,15 @@ MatchManager* GlobalGetMatchManager()
     else
         return [NSString stringWithFormat:@"%d'", [seconds intValue]];
 }
+
+- (NSString*)matchMinutesString:(Match*)match
+{
+    NSNumber* seconds = [self matchSeconds:match];
+    if (seconds == nil)
+        return @"";
+    else
+        return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
+}
+
 
 @end

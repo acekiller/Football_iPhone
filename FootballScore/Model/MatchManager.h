@@ -43,8 +43,8 @@
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
 
+- (void)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray;
 - (Match *)getMathById:(NSString *)matchId;
-
 
 // follow match methods
 - (void)followMatch:(Match*)match;
@@ -63,5 +63,6 @@
 // 返回开赛从上半场／下半场开始动态时间（秒）
 - (NSNumber*)matchSeconds:(Match*)match;
 - (NSString*)matchSecondsString:(Match*)match;
+- (NSString*)matchMinutesString:(Match*)match;
 
 @end

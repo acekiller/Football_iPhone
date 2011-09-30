@@ -162,7 +162,7 @@
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:YES];
-            NSString* value = [manager matchSecondsString:match];
+            NSString* value = [manager matchMinutesString:match];
             matchStatusLabel.text = value; 
             [self updateScores:match];
         }
@@ -171,8 +171,8 @@
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            NSString* value = [manager matchSecondsString:match];
-            matchStatusLabel.text = value; 
+            NSString* value = [manager matchMinutesString:match];
+            matchStatusLabel.text = value;    
             [self updateScores:match];
         }
             break;
