@@ -33,6 +33,7 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterMatchStatus;
 @synthesize filterMatchScoreType;
 @synthesize followMatchIdList;
+@synthesize serverDate;
 
 + (MatchManager*)defaultManager
 {
@@ -119,19 +120,25 @@ MatchManager* GlobalGetMatchManager()
 - (id)init
 {
     self = [super init];    
-    self.filterLeagueIdList = [[NSMutableSet alloc] init];
+    filterLeagueIdList = [[NSMutableSet alloc] init];
     [self loadFilterLeagueIdList];
     
-    self.followMatchIdList = [[NSMutableSet alloc] init];
+    followMatchIdList = [[NSMutableSet alloc] init];
     [self loadFollowMatchIdList];
+    
+    serverDate = [[NSDate date] retain];
+    
+    filterMatchStatus = MATCH_SELECT_STATUS_ALL;
+    filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
     
     return self;
 }
 
 - (void)dealloc
 {
-    [followMatchIdList release];
+    [serverDate release];
     [matchArray release];
+    [followMatchIdList release];
     [filterLeagueIdList release];
     [super dealloc];
 }
@@ -166,6 +173,15 @@ MatchManager* GlobalGetMatchManager()
     NSLog(@"filter match done, total %d match return", [retArray count]);
     return retArray;
 
+}
+
+- (void)updateServerDate:(NSDate*)newServerDate
+{
+    if (newServerDate){        
+        self.serverDate = newServerDate;
+        serverDiffSeconds = [newServerDate timeIntervalSinceNow];
+        NSLog(@"<updateServerDate> new date : %@, diff = %d", [serverDate description], serverDiffSeconds);
+    }
 }
 
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist
@@ -245,6 +261,7 @@ MatchManager* GlobalGetMatchManager()
     
 }
 
+
 - (Match *)getMathById:(NSString *)matchId
 {
     if (matchId == nil) {
@@ -303,6 +320,49 @@ MatchManager* GlobalGetMatchManager()
         
         [matchStat release];
     }
+// 返回开赛动态时间秒数
+- (NSNumber*)matchSeconds:(Match*)match
+{
+    if (match == nil)
+        return nil;
+    
+    NSDate* startDate = nil;
+    if (match.status == MATCH_STATUS_FIRST_HALF){
+
+        if (match.firstHalfStartDate != nil)
+            startDate = match.firstHalfStartDate;
+        else if (match.date != nil)
+            startDate = match.date;
+        else
+            return nil;
+        
+        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        return [NSNumber numberWithInt:seconds];
+    }
+    else if (match.status == MATCH_STATUS_SECOND_HALF){
+        if (match.secondHalfStartDate != nil)
+            startDate = match.secondHalfStartDate;
+        else if (match.date != nil)
+            startDate = [match.date dateByAddingTimeInterval:45+15];    // 半场45分钟，中场休息15分钟
+        else
+            return nil;
+
+        int seconds = [startDate timeIntervalSinceNow] + serverDiffSeconds; // add server difference
+        return [NSNumber numberWithInt:seconds];
+    }
+    else{
+        return nil;
+    }
+}
+
+- (NSString*)matchSecondsString:(Match*)match
+{
+    NSNumber* seconds = [self matchSeconds:match];
+    if (seconds == nil)
+        return @"";
+    else
+        return [NSString stringWithFormat:@"%d'", [seconds intValue]];
+>>>>>>> origin/master
 }
 
 @end

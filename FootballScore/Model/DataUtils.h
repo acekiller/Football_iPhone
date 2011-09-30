@@ -15,7 +15,7 @@
     
 }
 
-+ (NSString*)toChuPanString:(id)chupanNSValue language:(int)language;
++ (NSString*)toChuPanString:(NSNumber*)chupanNSValue language:(int)language;
 
 
 

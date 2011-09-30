@@ -19,6 +19,22 @@
 
 @implementation MatchService
 
+- (NSDate*)parseSeverDate:(NSArray*)dataArray
+{
+    if ([dataArray count] == 0)
+        return nil;
+    
+    NSArray* fields = [dataArray objectAtIndex:0];
+    if ([fields count] == 0)
+        return nil;
+    
+    NSString* dateString = [fields objectAtIndex:0];
+    if (dateString == nil)
+        return nil;
+    
+    return dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT);
+}
+
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
     int lang = 1; // TODO replace by LanguageManager    
@@ -37,11 +53,10 @@
             
             if (output.resultCode == ERROR_SUCCESS){
 
-                // parse server timestamp
-                // TODO it's a string in the array!
-//                serverDate = dateFromChineseStringByFormat(
-//                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP],
-//                                                           DEFAULT_DATE_FORMAT);
+                // parse server timestamp and update 
+                serverDate = [self parseSeverDate:
+                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP]];
+                [[MatchManager defaultManager] updateServerDate:serverDate];
                 
                 // parse league data and update                        
                 leagueArray = [LeagueManager fromString:

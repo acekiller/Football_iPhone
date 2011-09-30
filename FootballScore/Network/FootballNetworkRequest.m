@@ -6,6 +6,7 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+#import "ASIHTTPRequest.h"
 #import "FootballNetworkRequest.h"
 #import "StringUtil.h"
 
@@ -20,6 +21,8 @@ enum{
     ERROR_INCORRECT_RESPONSE_DATA   = 60001
 };
 
+#define NETWORK_TIMEOUT 30
+
 @implementation FootballNetworkRequest
 
 + (CommonNetworkOutput*)sendRequest:(NSString*)baseURL
@@ -27,6 +30,9 @@ enum{
                     responseHandler:(FootballNetworkResponseBlock)responseHandler
                              output:(CommonNetworkOutput*)output
 {    
+    
+    
+    
     NSURL* url = nil;    
     if (constructURLHandler != NULL)
         url = [NSURL URLWithString:[constructURLHandler(baseURL) stringByURLEncode]];
@@ -38,72 +44,79 @@ enum{
         return output;
     }
     
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    if (request == nil){
-        output.resultCode = ERROR_CLIENT_REQUEST_NULL;
-        return output;
-    }
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setAllowCompressedResponse:YES];
+    [request setTimeOutSeconds:NETWORK_TIMEOUT];
     
 #ifdef DEBUG    
-    NSLog(@"[SEND] URL=%@", [request description]);    
+    int startTime = time(0);
+    NSLog(@"[SEND] URL=%@", [url description]);    
 #endif
     
-    NSHTTPURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [request startSynchronous];
+    //    BOOL *dataWasCompressed = [request isResponseCompressed]; // Was the response gzip compressed?
+    //    NSData *compressedResponse = [request rawResponseData]; // Compressed data    
+    //    NSData *uncompressedData = [request responseData]; // Uncompressed data
+    
+    NSError *error = [request error];
+    int statusCode = [request responseStatusCode];
     
 #ifdef DEBUG    
-    NSLog(@"[RECV] : status=%d, error=%@", [response statusCode], [error description]);
+    NSLog(@"[RECV] : status=%d, error=%@", [request responseStatusCode], [error description]);
 #endif    
     
-    if (response == nil){
+    if (error != nil){
         output.resultCode = ERROR_NETWORK;
     }
-    else if (response.statusCode != 200){
-        output.resultCode = response.statusCode;
+    else if (statusCode != 200){
+        output.resultCode = statusCode;
     }
     else{
-        output.resultCode = 0;  // success
-        if (data != nil){
-            NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            output.textData = text;
-            if ([text length] > 0){
-                
-                NSMutableArray* resultSegArray = [[NSMutableArray alloc] init];
-                
-                NSArray* array = [output.textData componentsSeparatedByString:SEGMENT_SEP];
-                int count = [array count];
-                for (int i=0; i<count; i++){
+        NSString *text = [request responseString];
+        
+#ifdef DEBUG
+        int endTime = time(0);
+        NSLog(@"[RECV] data (len=%d bytes, latency=%d seconds, raw=%d bytes, real=%d bytes)", 
+              [text length], (endTime - startTime),
+              [[request rawResponseData] length], [[request responseData] length]);
+#endif         
+        
+        output.textData = text;
+        if ([text length] > 0){
+            
+            NSMutableArray* resultSegArray = [[NSMutableArray alloc] init];
+            
+            NSArray* array = [output.textData componentsSeparatedByString:SEGMENT_SEP];
+            int count = [array count];
+            for (int i=0; i<count; i++){
 
-                    NSMutableArray* resultRecordArray = [[NSMutableArray alloc] init];
-                    
-                    NSString* records = [array objectAtIndex:i];
-                    NSArray*  recordArray = [self parseRecord:records];
-                    int recordCount = [recordArray count];
-                    for (int j=0; j<recordCount; j++){
-                        NSString* fields = [recordArray objectAtIndex:j];
-                        NSArray* fieldArray = [self parseField:fields];
-                        if (fieldArray != nil){
-                            [resultRecordArray addObject:fieldArray];
-                        }
+                NSMutableArray* resultRecordArray = [[NSMutableArray alloc] init];
+                
+                NSString* records = [array objectAtIndex:i];
+                NSArray*  recordArray = [self parseRecord:records];
+                int recordCount = [recordArray count];
+                for (int j=0; j<recordCount; j++){
+                    NSString* fields = [recordArray objectAtIndex:j];
+                    NSArray* fieldArray = [self parseField:fields];
+                    if (fieldArray != nil){
+                        [resultRecordArray addObject:fieldArray];
                     }
-                    
-                    [resultSegArray addObject:resultRecordArray];
-                    [resultRecordArray release];
                 }
                 
-                output.arrayData = resultSegArray;
-                [resultSegArray release];
+                [resultSegArray addObject:resultRecordArray];
+                [resultRecordArray release];
             }
             
+            output.arrayData = resultSegArray;
+            [resultSegArray release];
+        }
+        
 #ifdef DEBUG
-            NSLog(@"[RECV] data : %@", text);
+        NSLog(@"[RECV] data : %@", text);
 #endif            
-                        
-            responseHandler(text, output);       
-            [text release];
-            return output;
-        }         
+                    
+        responseHandler(text, output);       
+        return output;
         
     }
     

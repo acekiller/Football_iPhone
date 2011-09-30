@@ -9,7 +9,9 @@
 #import "RealtimeScoreCell.h"
 #import "Match.h"
 #import "LeagueManager.h"
+#import "MatchManager.h"
 #import "DataUtils.h"
+#import "LocaleConstants.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -24,6 +26,7 @@
 @synthesize awayYellowCard;
 @synthesize homeRedCard;
 @synthesize homeYellowCard;
+@synthesize followButton;
 @synthesize followStatus;
 
 // just replace PPTableViewCell by the new Cell Class Name
@@ -65,7 +68,53 @@
     [homeRedCard release];
     [homeYellowCard release];
     [followStatus release];
+    [followButton release];
     [super dealloc];
+}
+
+- (void)setMatchStatus:(Match*)match
+{
+    MatchManager* manager = [MatchManager defaultManager];
+        
+    switch (match.status) {
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+        {
+            NSString* value = [manager matchSecondsString:match];
+            matchStatusLabel.text = value;            
+        }
+            break;
+
+        case MATCH_STATUS_MIDDLE:
+        {
+            matchStatusLabel.text = FNS(@"中场");            
+        }
+            break;
+            
+        case MATCH_STATUS_PAUSE:
+        {
+            matchStatusLabel.text = FNS(@"中断");                        
+        }
+            break;
+            
+        case MATCH_STATUS_FINISH:
+        {
+            matchStatusLabel.text = FNS(@"已完场");                        
+        }
+            break;
+            
+        case MATCH_STATUS_NOT_STARTED:
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        default:
+        {
+            matchStatusLabel.text = FNS(@"未开赛");           
+        }
+            break;
+
+    }
 }
 
 - (void)setCellInfo:(Match*)match
@@ -102,6 +151,7 @@
     [homeRedCard setTitle:match.homeTeamRed forState:UIControlStateNormal];
 
    
+    [self setMatchStatus:match];
     
 }
 
@@ -112,9 +162,9 @@
     }
 }
 
-- (void)updateMatchTime
+- (void)updateMatchTime:(Match*)match
 {    
-//    NSLog(@"update match time");
+    [self setMatchStatus:match];
 }
 
 @end
