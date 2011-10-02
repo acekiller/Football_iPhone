@@ -32,6 +32,8 @@
     NSString *eventJsonArray;
     NSString *statJsonArray;
     
+    int      loadCounter;
+    BOOL     showDataFinish;
 }
 
 @property(nonatomic,retain) Match* match;

@@ -17,7 +17,7 @@ function getEventString(type){
 	}
 }
 
-MatchDetailApp = new Ext.Application({
+MatchDetailApp = Ext.regApplication({
 
 //Ext.regApplication({
     
@@ -101,7 +101,7 @@ MatchDetailApp = new Ext.Application({
 
 //        alert(eventString(1));
         
-        MatchDetailApp.eventPanel.update(event);
+//        MatchDetailApp.eventPanel.update(event);
 //        statPanel.update(stat);
         
 //        updateMatchDetail();
@@ -112,13 +112,12 @@ MatchDetailApp = new Ext.Application({
 
 });
 
-var info = "hello info";
-
 function updateMatchDetail(event, stat){
+
+//	alert("New Update Match Detail Done");
 
 	MatchDetailApp.eventPanel.update(eval(event));
 	MatchDetailApp.statPanel.update(eval(stat));
-	info = stat;
-//	alert("New Update Match Detail");
+	
 //	MatchDetailApp.statPanel.update(eval("[{type:3, homeValue:'8', awayValue:'3'}, {type:4, homeValue:'1', awayValue:'2'}, {type:5, homeValue:'5', awayValue:'11'}, {type:6, homeValue:'10', awayValue:'3'}, {type:9, homeValue:'1', awayValue:'3'}, {type:11, homeValue:'3', awayValue:'3'}, {type:16, homeValue:'1', awayValue:'1'}]"));
 }
