@@ -9,6 +9,7 @@
 #import "MatchDetailController.h"
 #import "DataUtils.h"
 #import "TimeUtils.h"
+#import "FileUtil.h"
 
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
@@ -87,12 +88,12 @@
     self.matchStarttimeLabel.text = dateToChineseStringByFormat(self.match.date, @"MM/dd hh:mm");
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"file:///Place/match.html"]];
+    NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
+    NSLog(@"load url = %@", [url description]);
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if (request) {
         [self.dataWebView loadRequest:request];
-    }
-    
-    
+    }    
 }
 
 - (void)viewDidUnload

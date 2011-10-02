@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
 		CA207BBA142ED6BC00A4C425 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB2142ED6BC00A4C425 /* AddressBook.framework */; };
 		CA207BBB142ED6BC00A4C425 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */; };
 		CA207BBC142ED6BC00A4C425 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */; };
@@ -290,6 +291,7 @@
 /* Begin PBXFileReference section */
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		CA207BB2142ED6BC00A4C425 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -979,6 +981,7 @@
 		CAF4CC32142ECFCB001D5B4A = {
 			isa = PBXGroup;
 			children = (
+				CA0D57061438197D00EFE8F2 /* www */,
 				CAF4CC47142ECFCC001D5B4A /* FootballScore */,
 				CAF4CC6D142ECFCC001D5B4A /* FootballScoreTests */,
 				CAF4CC40142ECFCC001D5B4A /* Frameworks */,
@@ -1846,6 +1849,7 @@
 				C2B4132114319A6F00084F14 /* unSelected.png in Resources */,
 				CA7F23771433722100CC0F05 /* MatchDetailController.xib in Resources */,
 				CA7F24C1143374B000CC0F05 /* ScoreUpdateCell.xib in Resources */,
+				CA0D57071438197D00EFE8F2 /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
