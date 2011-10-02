@@ -28,9 +28,17 @@
     UIButton *auropeanOdds;
     UIButton *sizeButton;
     UIWebView *dataWebView;
+    
+    NSString *eventJsonArray;
+    NSString *statJsonArray;
+    
 }
 
 @property(nonatomic,retain) Match* match;
+
+@property(nonatomic,retain) NSString *eventJsonArray;
+@property(nonatomic,retain) NSString *statJsonArray;
+
 -(id)initWithMatch:(Match *)aMatch;
 @property (nonatomic, retain) IBOutlet UIImageView *homeTeamIcon;
 @property (nonatomic, retain) IBOutlet UIImageView *awayTeamIcon;

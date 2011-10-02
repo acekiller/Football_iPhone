@@ -10,6 +10,7 @@
 #import "DataUtils.h"
 #import "TimeUtils.h"
 #import "FileUtil.h"
+#import "LocaleConstants.h"
 
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
@@ -27,6 +28,9 @@
 @synthesize auropeanOdds;
 @synthesize sizeButton;
 @synthesize dataWebView;
+@synthesize eventJsonArray;
+@synthesize statJsonArray;
+
 @synthesize match;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,6 +54,9 @@
 - (void)dealloc
 {
     [match release];
+    [eventJsonArray release];
+    [statJsonArray release];
+    
     [homeTeamIcon release];
     [awayTeamIcon release];
     [matchStateLabel release];
@@ -81,11 +88,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavigationLeftButton:@"返回" action:@selector(clickBack:)];
+    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickBack:)];
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:self.match.status language:1];
     self.matchStarttimeLabel.text = dateToChineseStringByFormat(self.match.date, @"MM/dd hh:mm");
+    
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
     
     NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
@@ -126,27 +135,62 @@
 }
 
 
-- (void)getMatchEventFinish:(int)result match:(Match *)match
-{
+- (void)getMatchEventFinish:(int)result match:(Match *)matchValue
+{    
+    [self hideActivity];
+    
     if (result == 0) {
-        NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[match.events count]];
-        NSMutableArray *statArray = [NSMutableArray arrayWithCapacity:[match.stats count]];
+        NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[matchValue.events count]];
+        NSMutableArray *statArray = [NSMutableArray arrayWithCapacity:[matchValue.stats count]];
         
-        for (MatchEvent *event in match.events) {
+        for (MatchEvent *event in matchValue.events) {
             [eventArray addObject:[event toJsonString]];
         }
-        for (MatchStat *stat in match.stats) {
+        for (MatchStat *stat in matchValue.stats) {
             [statArray addObject:[stat toJsonString]];
         }
         
-        NSString *eventJsonArray = [eventArray componentsJoinedByString:@", "];
-        NSString *statJsonArray = [statArray componentsJoinedByString:@", "];
-        eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
-        statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
-        NSString *jsCode = [NSString stringWithFormat:@"updateDetail(\"%@\",\"%@\")",eventJsonArray,statJsonArray];
-        NSLog(@"jsCode = %@",jsCode);
-        [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
+        self.eventJsonArray = [eventArray componentsJoinedByString:@", "];
+        self.statJsonArray = [statArray componentsJoinedByString:@", "];
+
+        self.eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
+        self.statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
+        
+
+        
+        //        [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
+            
+        
     }
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidStartLoad, isLoading=%d", webView.loading);    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
+    if (webView.loading == NO){
+//        [self loadResult];
+    }
+    
+    if (timer == nil){
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(loadResult) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
+}
+
+- (void)loadResult
+{
+    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
+    NSLog(@"jsCode = %@",jsCode);
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
 }
 
 @end
