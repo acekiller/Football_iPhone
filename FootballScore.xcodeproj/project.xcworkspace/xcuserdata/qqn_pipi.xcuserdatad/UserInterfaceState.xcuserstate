@@ -9999,7 +9999,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339241291.81213701</real>
+		<real>339242274.042009</real>
 		<string>{0, 510}</string>
 		<dict>
 			<key>$class</key>
@@ -11604,9 +11604,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339241289.37430799</real>
-		<string>{1836, 1044}</string>
-		<string>{2820, 0}</string>
+		<real>339242687.87941301</real>
+		<string>{4039, 1305}</string>
+		<string>{5158, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11985,9 +11985,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339241330.05608499</real>
-		<string>{0, 667}</string>
-		<string>{507, 0}</string>
+		<real>339242274.930767</real>
+		<string>{1413, 1022}</string>
+		<string>{565, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -12460,8 +12460,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339241287.58685201</real>
-		<string>{52, 843}</string>
+		<real>339242294.47215098</real>
+		<string>{0, 939}</string>
 		<string>{892, 0}</string>
 		<dict>
 			<key>$class</key>
@@ -14316,7 +14316,7 @@
 				<integer>1083</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>339241325.33139497</real>
+			<real>339242683.23557299</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -14327,7 +14327,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 下午5:42</string>
+		<string>Today at 下午6:04</string>
 		<integer>106</integer>
 		<dict>
 			<key>$class</key>
@@ -14410,7 +14410,7 @@
 				<integer>1089</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/SelectMatchTypeController.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14428,7 +14428,7 @@
 				<integer>1091</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/SelectMatchTypeController.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14446,7 +14446,7 @@
 				<integer>1093</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/SelectMatchTypeController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14464,7 +14464,7 @@
 				<integer>1095</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/SelectMatchTypeController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -14725,7 +14725,7 @@
 		<string>IDEWorkspaceTabControllerDesignAreaSplitView</string>
 		<string>IDEShowUtilities</string>
 		<string>AssistantEditorsLayout</string>
-		<string>SelectMatchTypeController.m</string>
+		<string>MatchDetailController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15368,7 +15368,7 @@
 				<integer>1182</integer>
 			</dict>
 		</dict>
-		<string>SelectMatchTypeController.m</string>
+		<string>MatchDetailController.m</string>
 		<dict>
 			<key>$classes</key>
 			<array>
@@ -15438,7 +15438,7 @@
 			<key>documentURL</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>619</integer>
+				<integer>603</integer>
 			</dict>
 			<key>timestamp</key>
 			<dict>
@@ -15509,10 +15509,10 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339241330.05954403</real>
-		<string>{0, 667}</string>
-		<string>{507, 0}</string>
-		<string>-dealloc</string>
+		<real>339242687.88336998</real>
+		<string>{4039, 1305}</string>
+		<string>{5158, 0}</string>
+		<string>-getMatchEventFinish:match:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -15531,7 +15531,7 @@
 				<integer>1201</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/SelectMatchTypeController.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15546,7 +15546,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {834, 449}}</string>
+		<string>{{0, 0}, {834, 537}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15616,7 +15616,7 @@
 			</array>
 		</dict>
 		<string>IDEEditor</string>
-		<real>471</real>
+		<real>559</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15647,7 +15647,7 @@
 			</array>
 		</dict>
 		<string>IDEDebuggerArea</string>
-		<real>272</real>
+		<real>184</real>
 		<dict>
 			<key>$class</key>
 			<dict>
