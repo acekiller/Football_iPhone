@@ -92,7 +92,6 @@
         [self.dataWebView loadRequest:request];
     }
     
-    
 }
 
 - (void)viewDidUnload
@@ -123,20 +122,27 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)getMatchEventFinish:(int)result match:(Match *)match
 {
     if (result == 0) {
+        NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[match.events count]];
+        NSMutableArray *statArray = [NSMutableArray arrayWithCapacity:[match.stats count]];
+        
         for (MatchEvent *event in match.events) {
-            NSLog(@"event:%@",[event toString]);
+            [eventArray addObject:[event toJsonString]];
         }
         for (MatchStat *stat in match.stats) {
-            NSLog(@"Stat:%@",[stat toString]);
+            [statArray addObject:[stat toJsonString]];
         }
-      //  [self.dataWebView stringByEvaluatingJavaScriptFromString:@"document.write('testtest')"];
-         //[self.dataWebView stringByEvaluatingJavaScriptFromString:@"alert(\"document.getElementById('event')\""];
-       // [self.dataWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('ddd').value='test'"];
         
-      //  [self.dataWebView stringByEvaluatingJavaScriptFromString:@"document.write('ddasdfadfsdf')"];
+        NSString *eventJsonArray = [eventArray componentsJoinedByString:@", "];
+        NSString *statJsonArray = [statArray componentsJoinedByString:@", "];
+        eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
+        statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
+        NSString *jsCode = [NSString stringWithFormat:@"updateDetail(\"%@\",\"%@\")",eventJsonArray,statJsonArray];
+        NSLog(@"jsCode = %@",jsCode);
+        [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
     }
 }
 
