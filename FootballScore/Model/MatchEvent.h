@@ -24,5 +24,5 @@
 
 
 - (NSString *)toString;
-
+- (NSString *)toJsonString;
 @end

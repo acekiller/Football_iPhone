@@ -20,4 +20,5 @@
 @property (nonatomic, retain)NSString *awayValue;
 
 - (NSString *)toString;
+- (NSString *)toJsonString;
 @end

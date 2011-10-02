@@ -300,3 +300,5 @@
 }
 
 @end
+
+//http://bf.bet007.com/phone/ResultDetail.aspx?&lang=1&ID=615479
