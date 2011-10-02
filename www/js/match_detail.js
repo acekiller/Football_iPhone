@@ -28,12 +28,19 @@ MatchDetailApp = new Ext.Application({
 		// 主客队标志，1：主队事件，0：客队事件
 		// 事件类型1、入球 2、红牌  3、黄牌   7、点球  8、乌龙  9、两黄变红
 
-        var event = [{ minutes:15, player:'进球', type:1 }, { minutes:20, player:'黄牌', type:2 }];
+        var event = [];
 
-        var stat = [{ type:0, awayValue:0, homeValue:0},
-                    { type:0, awayValue:'0', homeValue:0}];        
+        var stat = [];        
         
+        var statArray = [
+            "先开球", "第一个角球", "第一张黄牌", "射门次数", "射正次数", "犯规次数", "角球次数", "角球次数(加时)", 
+            "任意球次数", "越位次数", "乌龙球数", "黄牌数", "黄牌数(加时)", "红牌数", "控球时间", "头球", "救球", 
+            "守门员出击", "丟球", "成功抢断", "阻截", "长传", "短传", "助攻", "成功传中", "第一个换人", "最后换人", 
+            "第一个越位", "最后越位", "换人数", "最后角球", "最后黄牌", "换人数(加时)", "越位次数(加时)", "红牌数(加时)"
+            ];
+
         var helperFunctions = {
+        
             isScoreEvent : function(type){
                 return (type == 1); // 是否是进球
             },
@@ -41,7 +48,7 @@ MatchDetailApp = new Ext.Application({
             isCardEvent : function(type){
                 return (type == 2); // 是否是红黄牌
             },
-            
+
             eventString : function(type){
             	switch (type){
             	case 1:
@@ -57,19 +64,21 @@ MatchDetailApp = new Ext.Application({
             	case 9:
             		return "两黄变红";
             	}
-            	
             	return "";
+            },
+
+            statString : function(type)
+            {
+                return ""+statArray[type];
+            
             }
+
         };
+
 
         var eventInfo = Ext.XTemplate.from("event-template", helperFunctions);
 
-        var statInfo = new Ext.XTemplate(
-            '<h2>统计数据</h2>',
-            '<tpl for=".">',
-                '<div>{type} {homeValue} {awayValue}</div>',
-            '</tpl>'
-        );
+        var statInfo = Ext.XTemplate.from("stat-template", helperFunctions);
 
         MatchDetailApp.eventPanel = new Ext.Panel({
             
@@ -99,26 +108,16 @@ MatchDetailApp = new Ext.Application({
 
         });
 
-//        alert(eventString(1));
-        
         MatchDetailApp.eventPanel.update(event);
-//        statPanel.update(stat);
-        
-//        updateMatchDetail();
-        
-//        console.log('launch');
-//        alert("launch finish");
+
     }
 
 });
 
-var info = "hello info";
 
 function updateMatchDetail(event, stat){
 
 	MatchDetailApp.eventPanel.update(eval(event));
 	MatchDetailApp.statPanel.update(eval(stat));
-	info = stat;
-//	alert("New Update Match Detail");
-//	MatchDetailApp.statPanel.update(eval("[{type:3, homeValue:'8', awayValue:'3'}, {type:4, homeValue:'1', awayValue:'2'}, {type:5, homeValue:'5', awayValue:'11'}, {type:6, homeValue:'10', awayValue:'3'}, {type:9, homeValue:'1', awayValue:'3'}, {type:11, homeValue:'3', awayValue:'3'}, {type:16, homeValue:'1', awayValue:'1'}]"));
+
 }

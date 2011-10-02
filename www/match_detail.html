@@ -16,14 +16,20 @@
         <div id="event-template" class="x-hidden-display">
         <h2>比赛事件</h2>
             <ul id="eventList">
-            <tpl for=".">
-                <li>
-                    <tpl if="this.isScoreEvent(type)">
-                        <h2>{minutes}' <img src="image/ball.png"></img> {player} {type:this.eventString()} </h2>
-                    </tpl>                
-                    <tpl if="this.isCardEvent(type)">
-                        <h2>{minutes} {player} 吃牌了！</h2>
-                    </tpl>                
+                <tpl for=".">
+                    <li>
+                    <h2>{minutes}' <img src="image/ball.png"></img> {player} {type:this.eventString()} </h2>
+                    </li>
+                </tpl>
+            </ul>
+        </div>
+        
+        <div id="stat-template" class="x-hidden-display">
+            <h2>数据统计</h2>
+            <ul id="statList">
+                <tpl for=".">
+                    <li>
+                        <h2>{homeValue} {type:this.statString()} {awayValue} </h2>
                     </li>
                 </tpl>
             </ul>
