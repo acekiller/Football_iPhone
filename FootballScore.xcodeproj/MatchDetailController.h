@@ -10,11 +10,14 @@
 #import "PPViewController.h"
 #import "MatchService.h"
 #import "Match.h"
+#import "HJManagedImageV.h"
+@class DetailHeader;
 
 @interface MatchDetailController : PPViewController<MatchServiceDelegate> {
     Match *match;
-    UIImageView *homeTeamIcon;
-    UIImageView *awayTeamIcon;
+    
+    HJManagedImageV *homeTeamIcon;
+    HJManagedImageV *awayTeamIcon;
     UILabel *matchStateLabel;
     UILabel *matchStarttimeLabel;
     UILabel *homeTeamName;
@@ -32,6 +35,8 @@
     NSString *eventJsonArray;
     NSString *statJsonArray;
     
+    DetailHeader *detailHeader;
+    
     int      loadCounter;
     BOOL     showDataFinish;
 }
@@ -43,8 +48,8 @@
 
 - (id)initWithMatch:(Match *)aMatch;
 
-@property (nonatomic, retain) IBOutlet UIImageView *homeTeamIcon;
-@property (nonatomic, retain) IBOutlet UIImageView *awayTeamIcon;
+@property (nonatomic, retain) IBOutlet HJManagedImageV *homeTeamIcon;
+@property (nonatomic, retain) IBOutlet HJManagedImageV *awayTeamIcon;
 @property (nonatomic, retain) IBOutlet UILabel *matchStateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *matchStarttimeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *homeTeamName;
@@ -60,6 +65,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *sizeButton;
 @property (nonatomic, retain) IBOutlet UIWebView *dataWebView;
 
-
+@property (nonatomic, retain) DetailHeader *detailHeader;
 
 @end

@@ -11,6 +11,8 @@
 #import "TimeUtils.h"
 #import "FileUtil.h"
 #import "LocaleConstants.h"
+#import "DetailHeader.h"
+#import "PPApplication.h"
 
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
@@ -32,6 +34,7 @@
 @synthesize statJsonArray;
 
 @synthesize match;
+@synthesize detailHeader;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,6 +75,8 @@
     [auropeanOdds release];
     [sizeButton release];
     [dataWebView release];
+    
+    [detailHeader release];
     [super dealloc];
 }
 
@@ -91,14 +96,19 @@
     
     [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickBack:)];
+    [self.navigationItem setTitle:FNS(@"赛事数据")];
     
-    self.matchStateLabel.text = [DataUtils toMatchStatusString:self.match.status language:1];
-    self.matchStarttimeLabel.text = dateToChineseStringByFormat(self.match.date, @"MM/dd hh:mm");
+ //   self.matchStateLabel.text = [DataUtils toMatchStatusString:self.match.status language:1];
+ //   self.matchStarttimeLabel.text = dateToChineseStringByFormat(self.match.date, @"MM/dd hh:mm");
+    
+    
     
     [self showActivityWithText:FNS(@"加载数据中...")];
+    
+    [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];
+    
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
 
-    NSURL* url1 = [NSURL URLWithString:@"http://www.baidu.com"];
     NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"load url = %@", [request description]);
@@ -106,7 +116,7 @@
         [self.dataWebView loadRequest:request];
 
     }    
-
+    
 
 }
 
@@ -127,6 +137,8 @@
     [self setAuropeanOdds:nil];
     [self setSizeButton:nil];
     [self setDataWebView:nil];
+    
+    [self setDetailHeader:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -189,6 +201,34 @@
     }
 }
 
+
+- (void) setHeaderInfo:(DetailHeader *)header
+{
+    
+    self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus language:1];
+    self.matchStarttimeLabel.text = header.matchDateString;
+    self.homeTeamName.text = header.homeTeamSCName;
+    self.awayTeamName.text = header.awayTeamSCName;
+    self.homeTeamRank.text = header.homeTeamRank;
+    self.awayTeamRank.text = header.awayTeamRank;
+    
+    [self.homeTeamIcon clear];
+    self.homeTeamIcon.url = [NSURL URLWithString:header.homeTeamImage];
+    [GlobalGetImageCache() manage:self.homeTeamIcon];
+    
+    [self.awayTeamIcon clear];
+    self.homeTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
+    [GlobalGetImageCache() manage:self.awayTeamIcon];    
+    
+}
+
+- (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo
+{
+    self.detailHeader = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
+    [self setHeaderInfo:self.detailHeader];
+}
+
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
    
@@ -210,7 +250,6 @@
 {
     
 }
-
 
 
 @end
