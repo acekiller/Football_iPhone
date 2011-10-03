@@ -75,9 +75,7 @@ MatchDetailApp = new Ext.Application({
 
         };
 
-
         var eventInfo = Ext.XTemplate.from("event-template", helperFunctions);
-
         var statInfo = Ext.XTemplate.from("stat-template", helperFunctions);
 
         MatchDetailApp.eventPanel = new Ext.Panel({
@@ -88,7 +86,7 @@ MatchDetailApp = new Ext.Application({
             margin: '20 10 20 0',
             align: 'left'
         });
-
+        
         MatchDetailApp.statPanel = new Ext.Panel({
             id : 'statPanel',
             tpl : statInfo
@@ -103,12 +101,8 @@ MatchDetailApp = new Ext.Application({
                 align: 'stretch'
             },
             scroll : 'vertical',
-            items: [MatchDetailApp.eventPanel, MatchDetailApp.statPanel]
-            
-
+            items: [MatchDetailApp.eventPanel, MatchDetailApp.statPanel]            
         });
-
-        MatchDetailApp.eventPanel.update(event);
 
     }
 

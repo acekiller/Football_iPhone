@@ -88,6 +88,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickBack:)];
     
@@ -96,14 +97,17 @@
     
     [self showActivityWithText:FNS(@"加载数据中...")];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
-    
+
+    NSURL* url1 = [NSURL URLWithString:@"http://www.baidu.com"];
     NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
-    NSLog(@"load url = %@", [url description]);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"load url = %@", [request description]);
     if (request) {
         [self.dataWebView loadRequest:request];
 
     }    
+
+
 }
 
 - (void)viewDidUnload
@@ -134,6 +138,28 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)displayTimer
+{
+    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
+    NSLog(@"jsCode = %@",jsCode);
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    
+    [self hideActivity];
+}
+
+- (void)showResult
+{
+    [self showActivityWithText:@"加载数据中..."];
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(displayTimer) userInfo:nil repeats:NO];
+    
+    showDataFinish = YES;
+}
+
+- (BOOL)isLoadFinish
+{
+    return (loadCounter >= 2);
+}
 
 - (void)getMatchEventFinish:(int)result match:(Match *)matchValue
 {    
@@ -155,24 +181,29 @@
 
         self.eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
         self.statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
+        
+        if ([self isLoadFinish]){
+            [self showResult];
+        }
+        
     }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"webViewDidStartLoad, isLoading=%d", webView.loading);    
+   
+    NSLog(@"webViewDidStartLoad, isLoading=%d", webView.loading);  
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
-    if (webView.loading == NO){
-//        [self loadResult];
-    }
-    
-    if (timer == nil){
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(loadResult) userInfo:nil repeats:NO];
-    }
+    loadCounter ++;
+
+    if ([self isLoadFinish] && showDataFinish == NO && (eventJsonArray || statJsonArray)){
+        [self showResult];
+    }        
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -180,11 +211,6 @@
     
 }
 
-- (void)loadResult
-{
-    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
-    NSLog(@"jsCode = %@",jsCode);
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
-}
+
 
 @end
