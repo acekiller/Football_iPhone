@@ -12,6 +12,7 @@
 #import "MatchStat.h"
 #import "MatchConstants.h"
 #import "TimeUtils.h"
+#import "LeagueManager.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
@@ -209,14 +210,14 @@ MatchManager* GlobalGetMatchManager()
     // TODO
 }
 
-- (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimScoreStringArray
+- (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimeScoreStringArray
 {
-    if ([realtimScoreStringArray count] == 0)
+    if ([realtimeScoreStringArray count] == 0)
         return nil;
         
     NSMutableSet* retSet = [[[NSMutableSet alloc] init] autorelease];
     
-    for (NSArray* fields in realtimScoreStringArray){
+    for (NSArray* fields in realtimeScoreStringArray){
         int fieldCount = [fields count];
         if (fieldCount < REALTIME_SCORE_FILED_COUNT){
             NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
@@ -495,6 +496,19 @@ MatchManager* GlobalGetMatchManager()
     }
         
 }
+- (NSString *)getLeagueNameByMatch:(Match *)match
+{
+    if (match == nil) {
+        return nil;
+    }
+    LeagueManager *leagueManager = [LeagueManager defaultManager];
+    return [leagueManager getNameById:match.leagueId];
+}
 
+- (NSString *)getLeagueNameByMatchId:(NSString *)matchId
+{
+    Match *match = [self getMathById:matchId];
+    return [self getLeagueNameByMatch:match];
+}
 
 @end

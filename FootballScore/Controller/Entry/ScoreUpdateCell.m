@@ -7,51 +7,66 @@
 //
 
 #import "ScoreUpdateCell.h"
-
-
+#import "ScoreUpdate.h"
+#import "DataUtils.h"
+#import "TimeUtils.h"
 @implementation ScoreUpdateCell
+@synthesize leagueName;
+@synthesize startTime;
+@synthesize matchState;
+@synthesize homeTeam;
+@synthesize awayTeam;
+@synthesize homeTeamEvent;
+@synthesize awayTeamEvent;
+@synthesize matchScore;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (ScoreUpdateCell*)createCell:(id)delegate
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ScoreUpdateCell" owner:self options:nil];
+    // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).  
+    if (topLevelObjects == nil || [topLevelObjects count] <= 0){
+        NSLog(@"create <ScoreUpdateCell> but cannot find cell object from Nib");
+        return nil;
     }
-    return self;
+    
+    ((ScoreUpdateCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;
+    
+    return (ScoreUpdateCell*)[topLevelObjects objectAtIndex:0];
 }
 
-- (void)dealloc
++ (NSString*)getCellIdentifier
 {
+    return @"ScoreUpdateCell";
+}
+
++ (CGFloat)getCellHeight
+{
+    return 48.0f;
+}
+
+
+- (void)setCellInfo:(ScoreUpdate *)scoreUpdate
+{
+    self.matchState.text =  [DataUtils toMatchStatusString:[scoreUpdate state] language:1];
+    self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"hh:mm");
+    self.leagueName.text = [scoreUpdate leagueName];
+    self.homeTeam.text = [scoreUpdate homeTeamName];
+    self.awayTeam.text = [scoreUpdate awayTeamName];
+    self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
+                            [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
+    
+    //TO DO set red and yellow card, to show ball.
+}
+
+- (void)dealloc {
+    [leagueName release];
+    [startTime release];
+    [matchState release];
+    [homeTeam release];
+    [awayTeam release];
+    [homeTeamEvent release];
+    [awayTeamEvent release];
+    [matchScore release];
     [super dealloc];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 @end

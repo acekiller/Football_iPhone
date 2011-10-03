@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPTableViewController.h"
+#import "MatchService.h"
 
+@interface ScoreUpdateController : PPTableViewController <UIActionSheetDelegate>{
 
-@interface ScoreUpdateController : UIViewController <UIActionSheetDelegate>{
-    UILabel *statusText;
-    NSInteger matchScoreType;
     
 }
-@property (nonatomic, retain)IBOutlet UILabel *statusText;
 
-- (IBAction)selectMatchType:(id)sender;
-- (IBAction)selectLeague:(id)sender;
-
+- (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 @end

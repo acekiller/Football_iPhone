@@ -179,13 +179,14 @@
         if ([indexPathes count] > 0){
             [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
         }    
-        [indexPathes release];
     }
     else{
         // reload all data
         self.dataList = [manager filterMatch];
         [self.dataTableView reloadData];
     }
+
+    [indexPathes release];
 }
 
 - (IBAction) showActionSheet: (id)sender {
@@ -300,5 +301,3 @@
 }
 
 @end
-
-//http://bf.bet007.com/phone/ResultDetail.aspx?&lang=1&ID=615479
