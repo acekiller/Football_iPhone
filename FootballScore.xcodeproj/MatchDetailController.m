@@ -155,12 +155,6 @@
 
         self.eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
         self.statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
-        
-
-        
-        //        [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
-            
-        
     }
 }
 

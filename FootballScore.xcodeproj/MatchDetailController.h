@@ -39,7 +39,8 @@
 @property(nonatomic,retain) NSString *eventJsonArray;
 @property(nonatomic,retain) NSString *statJsonArray;
 
--(id)initWithMatch:(Match *)aMatch;
+- (id)initWithMatch:(Match *)aMatch;
+
 @property (nonatomic, retain) IBOutlet UIImageView *homeTeamIcon;
 @property (nonatomic, retain) IBOutlet UIImageView *awayTeamIcon;
 @property (nonatomic, retain) IBOutlet UILabel *matchStateLabel;

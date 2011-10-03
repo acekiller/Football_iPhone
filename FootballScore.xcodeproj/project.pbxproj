@@ -276,6 +276,8 @@
 		CAF4D67F142ED087001D5B4A /* UIToolbar+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D5CC142ED086001D5B4A /* UIToolbar+TKCategory.m */; };
 		CAF4D680142ED087001D5B4A /* UIView+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D5CE142ED086001D5B4A /* UIView+TKCategory.m */; };
 		CAF4D681142ED087001D5B4A /* TapkuLibrary.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CAF4D5CF142ED086001D5B4A /* TapkuLibrary.bundle */; };
+		CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFE744E14395A8300301193 /* ScoreUpdate.m */; };
+		CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFE7451143963FB00301193 /* ScoreUpdateManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -767,6 +769,10 @@
 		CAF4D5CD142ED086001D5B4A /* UIView+TKCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TKCategory.h"; sourceTree = "<group>"; };
 		CAF4D5CE142ED086001D5B4A /* UIView+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TKCategory.m"; sourceTree = "<group>"; };
 		CAF4D5CF142ED086001D5B4A /* TapkuLibrary.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TapkuLibrary.bundle; sourceTree = "<group>"; };
+		CAFE744D14395A8300301193 /* ScoreUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ScoreUpdate.h; sourceTree = "<group>"; };
+		CAFE744E14395A8300301193 /* ScoreUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdate.m; sourceTree = "<group>"; };
+		CAFE7450143963FB00301193 /* ScoreUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ScoreUpdateManager.h; sourceTree = "<group>"; };
+		CAFE7451143963FB00301193 /* ScoreUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdateManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -864,6 +870,10 @@
 				CA207C18142F0C5000A4C425 /* MatchStat.h */,
 				CA207C19142F0C5000A4C425 /* MatchStat.m */,
 				CA7F24C21434075900CC0F05 /* MatchConstants.h */,
+				CAFE744D14395A8300301193 /* ScoreUpdate.h */,
+				CAFE744E14395A8300301193 /* ScoreUpdate.m */,
+				CAFE7450143963FB00301193 /* ScoreUpdateManager.h */,
+				CAFE7451143963FB00301193 /* ScoreUpdateManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2073,6 +2083,8 @@
 				CA81D39E1435605100C4B378 /* ASIHTTPRequest.m in Sources */,
 				CA81D39F1435605100C4B378 /* ASIInputStream.m in Sources */,
 				CA81D3A01435605100C4B378 /* ASINetworkQueue.m in Sources */,
+				CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */,
+				CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
