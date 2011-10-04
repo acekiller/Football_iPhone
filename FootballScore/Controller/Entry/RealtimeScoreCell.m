@@ -172,6 +172,7 @@ enum cardType{
     
     switch (type) {
         case HOME_RED:
+        {
             if(match.homeTeamRed != nil && [match.homeTeamRed intValue] > 0){
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
@@ -179,13 +180,14 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.homeTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
-                NSLog(@"team name is %@, lenght is %D",match.homeTeamName,titleSize.width);
             }
             else{
                 [card setHidden:YES];
             }
+        }
             break;
         case HOME_YELLOW:
+        {
             if(match.homeTeamYellow != nil&& [match.homeTeamYellow intValue] > 0){
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
@@ -202,8 +204,10 @@ enum cardType{
             else{
                 [card setHidden:YES];
             }
+        }
             break;
         case AWAY_RED:
+        {
             if(match.awayTeamRed != nil&& [match.awayTeamRed intValue] > 0){
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
@@ -211,13 +215,15 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
-               // NSLog(@"team name is %@, lenght is %D",awayTeamLabel.text,titleSize.width);
+
             }
             else{
                 [card setHidden:YES];
             }
+        }
             break;
         case AWAY_YELLOW:
+        {
             if(match.awayTeamYellow != nil && [match.awayTeamYellow intValue] > 0){
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
@@ -230,11 +236,12 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamYellow forState:UIControlStateNormal];
                 [card setHidden:NO];
-               // NSLog(@"team name is %@, lenght is %D",awayTeamLabel.text,titleSize.width);
+
             }
             else{
                 [card setHidden:YES];
-            }            
+            }  
+        }
             break;
         default:
             break;

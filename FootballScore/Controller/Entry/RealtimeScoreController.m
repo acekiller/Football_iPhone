@@ -76,9 +76,9 @@
                                                             repeats:YES];
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
-    
-    [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
-    [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
+    [self showRightButtons];    
+   // [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
+   // [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
     
     [super viewDidLoad];
     
@@ -300,4 +300,41 @@
     
 }
 
+- (void)showRightButtons
+{
+    
+    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 135, 40)];
+    
+    UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 5, 40, 30)];
+    [refleshButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    [refleshButton setTitle:FNS(@"刷新") forState:UIControlStateNormal];
+    [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [refleshButton addTarget:self action:@selector(refleshData) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:refleshButton];
+    
+    UIButton *scoreTypeButton = [[UIButton alloc]initWithFrame:CGRectMake(45, 5, 40, 30)];
+    [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:FNS(@"类型") forState:UIControlStateNormal];
+    [scoreTypeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:scoreTypeButton];
+    
+    UIButton *filterButton = [[UIButton alloc]initWithFrame:CGRectMake(90, 5, 40, 30)];
+    [filterButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
+    [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
+    [filterButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    [rightButtonView addSubview:filterButton];
+    
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithCustomView:rightButtonView];
+    [rightButtonView release];
+    
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    [rightBarButton release];
+}
+
+- (void)refleshData
+{
+    [self loadMatch:matchScoreType];
+}
 @end
