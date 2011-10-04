@@ -5391,9 +5391,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>339070609.91825801</real>
-		<string>{5569, 2598}</string>
-		<string>{5867, 0}</string>
+		<real>339070790.881347</real>
+		<string>{4115, 2449}</string>
+		<string>{4729, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9562,7 +9562,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339070609.91903698</real>
+		<real>339070790.88204598</real>
 		<string>{335, 1795}</string>
 		<string>{1000, 0}</string>
 		<string>matchTypeLabel</string>
@@ -9910,9 +9910,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>339070609.91891301</real>
-		<string>{5569, 2598}</string>
-		<string>{5867, 0}</string>
+		<real>339070790.88192701</real>
+		<string>{4115, 2449}</string>
+		<string>{4729, 0}</string>
 		<string>-setCards:setMatch:withcardType:</string>
 		<dict>
 			<key>$class</key>

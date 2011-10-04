@@ -170,7 +170,6 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.homeTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
-                NSLog(@"team name is %@, lenght is %D",match.homeTeamName,titleSize.width);
             }
             else{
                 [card setHidden:YES];
@@ -202,7 +201,7 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
-               // NSLog(@"team name is %@, lenght is %D",awayTeamLabel.text,titleSize.width);
+
             }
             else{
                 [card setHidden:YES];
@@ -221,7 +220,7 @@ enum cardType{
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamYellow forState:UIControlStateNormal];
                 [card setHidden:NO];
-               // NSLog(@"team name is %@, lenght is %D",awayTeamLabel.text,titleSize.width);
+
             }
             else{
                 [card setHidden:YES];
