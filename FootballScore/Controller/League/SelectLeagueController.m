@@ -102,13 +102,13 @@ const int buttonsPerLine = 4;
 }
 
 - (void)viewDidLoad
-{      
+{  
+
     [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
     [self setNavigationRightButton:FNS(@"完成") action:@selector(clickDone:)];
     
     [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
     [self createLeagueButtons];
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

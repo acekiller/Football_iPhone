@@ -23,6 +23,8 @@
 @property (nonatomic, retain) NSTimer *matchSecondTimer;
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
+- (void)showRightButtons;
+- (void)refleshData;
 
 
 @end
