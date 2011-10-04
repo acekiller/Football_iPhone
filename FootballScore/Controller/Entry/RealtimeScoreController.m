@@ -137,8 +137,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
+    Match* match = [dataList objectAtIndex:indexPath.row];
+    MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
+    [self.navigationController pushViewController:matchDetail animated:YES];
+    [matchDetail release];
 }
 
 #pragma remote request delegate
@@ -177,13 +179,14 @@
         if ([indexPathes count] > 0){
             [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
         }    
-        [indexPathes release];
     }
     else{
         // reload all data
         self.dataList = [manager filterMatch];
         [self.dataTableView reloadData];
     }
+
+    [indexPathes release];
 }
 
 - (IBAction) showActionSheet: (id)sender {
@@ -288,9 +291,13 @@
 
 - (void)updateMatchTimeDisplay
 {
-    NSLog(@"updateMatchTimeDisplay");
     NSArray* indexPathes = [dataTableView indexPathsForVisibleRows];
     [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+
+#ifdef DEBUG    
+    NSLog(@"updateMatchTimeDisplay, update %@", [indexPathes description]);
+#endif    
+    
 }
 
 @end

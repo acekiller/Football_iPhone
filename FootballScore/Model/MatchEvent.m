@@ -28,4 +28,19 @@
     [super dealloc];
 }
 
+- (NSString *)toString
+{
+    return [NSString stringWithFormat:@"homeAwayFlag=%d, type=%d, minutes=%d, player=%@",homeAwayFlag,type,minutes,player];
+}
+
+- (NSString *)toJsonString;
+{
+    if (self.player) {
+        return [NSString stringWithFormat:@"{homeAwayFlag:%d, type:%d, minutes:%d, player:'%@'}",self.homeAwayFlag,self.type,self.minutes,self.player];
+    }else{
+        return [NSString stringWithFormat:@"{homeAwayFlag:%d, type:%d, minutes:%d}",self.homeAwayFlag,self.type,self.minutes];        
+    }
+
+}
+
 @end

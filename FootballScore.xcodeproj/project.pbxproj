@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
 		CA207BBA142ED6BC00A4C425 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB2142ED6BC00A4C425 /* AddressBook.framework */; };
 		CA207BBB142ED6BC00A4C425 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */; };
 		CA207BBC142ED6BC00A4C425 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */; };
@@ -275,6 +276,9 @@
 		CAF4D67F142ED087001D5B4A /* UIToolbar+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D5CC142ED086001D5B4A /* UIToolbar+TKCategory.m */; };
 		CAF4D680142ED087001D5B4A /* UIView+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D5CE142ED086001D5B4A /* UIView+TKCategory.m */; };
 		CAF4D681142ED087001D5B4A /* TapkuLibrary.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CAF4D5CF142ED086001D5B4A /* TapkuLibrary.bundle */; };
+		CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFE744E14395A8300301193 /* ScoreUpdate.m */; };
+		CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFE7451143963FB00301193 /* ScoreUpdateManager.m */; };
+		CAFE74551439AABE00301193 /* DetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFE74541439AAB300301193 /* DetailHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -290,6 +294,7 @@
 /* Begin PBXFileReference section */
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		CA207BB2142ED6BC00A4C425 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		CA207BB3142ED6BC00A4C425 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		CA207BB4142ED6BC00A4C425 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -765,6 +770,12 @@
 		CAF4D5CD142ED086001D5B4A /* UIView+TKCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TKCategory.h"; sourceTree = "<group>"; };
 		CAF4D5CE142ED086001D5B4A /* UIView+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TKCategory.m"; sourceTree = "<group>"; };
 		CAF4D5CF142ED086001D5B4A /* TapkuLibrary.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TapkuLibrary.bundle; sourceTree = "<group>"; };
+		CAFE744D14395A8300301193 /* ScoreUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreUpdate.h; sourceTree = "<group>"; };
+		CAFE744E14395A8300301193 /* ScoreUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdate.m; sourceTree = "<group>"; };
+		CAFE7450143963FB00301193 /* ScoreUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreUpdateManager.h; sourceTree = "<group>"; };
+		CAFE7451143963FB00301193 /* ScoreUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreUpdateManager.m; sourceTree = "<group>"; };
+		CAFE74531439AAB000301193 /* DetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailHeader.h; sourceTree = "<group>"; };
+		CAFE74541439AAB300301193 /* DetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -862,6 +873,12 @@
 				CA207C18142F0C5000A4C425 /* MatchStat.h */,
 				CA207C19142F0C5000A4C425 /* MatchStat.m */,
 				CA7F24C21434075900CC0F05 /* MatchConstants.h */,
+				CAFE744D14395A8300301193 /* ScoreUpdate.h */,
+				CAFE744E14395A8300301193 /* ScoreUpdate.m */,
+				CAFE7450143963FB00301193 /* ScoreUpdateManager.h */,
+				CAFE7451143963FB00301193 /* ScoreUpdateManager.m */,
+				CAFE74531439AAB000301193 /* DetailHeader.h */,
+				CAFE74541439AAB300301193 /* DetailHeader.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -979,6 +996,7 @@
 		CAF4CC32142ECFCB001D5B4A = {
 			isa = PBXGroup;
 			children = (
+				CA0D57061438197D00EFE8F2 /* www */,
 				CAF4CC47142ECFCC001D5B4A /* FootballScore */,
 				CAF4CC6D142ECFCC001D5B4A /* FootballScoreTests */,
 				CAF4CC40142ECFCC001D5B4A /* Frameworks */,
@@ -1846,6 +1864,7 @@
 				C2B4132114319A6F00084F14 /* unSelected.png in Resources */,
 				CA7F23771433722100CC0F05 /* MatchDetailController.xib in Resources */,
 				CA7F24C1143374B000CC0F05 /* ScoreUpdateCell.xib in Resources */,
+				CA0D57071438197D00EFE8F2 /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2069,6 +2088,9 @@
 				CA81D39E1435605100C4B378 /* ASIHTTPRequest.m in Sources */,
 				CA81D39F1435605100C4B378 /* ASIInputStream.m in Sources */,
 				CA81D3A01435605100C4B378 /* ASINetworkQueue.m in Sources */,
+				CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */,
+				CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */,
+				CAFE74551439AABE00301193 /* DetailHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
 #define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
 #define GET_MATCH_EVENT  @"GET_MATCH_EVENT"
+#define GET_MATCH_DETAIL_HEADER @"GET_MATCH_DETAIL_HEADER"
 
 @implementation MatchService
 
@@ -51,7 +52,7 @@
     }
 }
 
-#define REALTIME_SCORE_TIMER_INTERVAL   5       // 5 seconds
+#define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
 
 - (void)startRealtimeScoreUpdate
 {
@@ -183,6 +184,34 @@
             if (delegate && [delegate respondsToSelector:@selector(getMatchEventFinish:match:)])
             {
                 [delegate getMatchEventFinish:output.resultCode match:match];
+            }
+        });                        
+    }];
+}
+
+- (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_DETAIL_HEADER];
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getMatchDetailHeader:matchId];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSArray *headerInfo = nil;
+            
+            if (output.resultCode == ERROR_SUCCESS){                
+                if ([output.arrayData count] > 0) {
+                    NSArray *headerArray = [output.arrayData objectAtIndex:0];
+                    if ([headerArray count] > 0) {
+                        headerInfo = [headerArray objectAtIndex:0];
+                    }
+                }
+            }            
+            // step 2 : update UI
+            if (delegate && [delegate respondsToSelector:@selector(getMatchDetailHeaderFinish:)]) {
+                [delegate getMatchDetailHeaderFinish:headerInfo];
             }
         });                        
     }];

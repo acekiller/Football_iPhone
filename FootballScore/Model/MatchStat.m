@@ -31,4 +31,15 @@
     [super dealloc];
 }
 
+
+- (NSString *)toString
+{
+    return [NSString stringWithFormat:@"type=%d, homeValue=%@, awayValue=%@",type,homeValue,awayValue];
+}
+
+- (NSString *)toJsonString
+{
+    return [NSString stringWithFormat:@"{type:%d, homeValue:'%@', awayValue:'%@'}",self.type, self.homeValue, self.awayValue];
+}
+
 @end

@@ -7,12 +7,13 @@
 //
 
 #import "ScoreUpdateController.h"
-#import "SelectMatchTypeController.h"
-#import "SelectLeagueController.h"
 #import "LocaleConstants.h"
+#import "ScoreUpdateCell.h"
+#import "ScoreUpdate.h"
+#import "ScoreUpdateManager.h"
+
 
 @implementation ScoreUpdateController
-@synthesize statusText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,43 +58,55 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)selectMatchType:(id)sender
+
+#pragma matchServiece delegate
+#pragma -
+- (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
 {
-    SelectMatchTypeController* vc = [[SelectMatchTypeController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    
 }
 
--(IBAction)selectLeague:(id)sender{
-//    SelectLeagueController *leagueController = [[SelectLeagueController alloc] init];
-//    [self.navigationController pushViewController:leagueController animated:YES];
-//    [leagueController release];
+#pragma table view delegate
+#pragma -
 
-    SelectLeagueController* vc = [[SelectLeagueController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return [ScoreUpdateCell getCellHeight];
 }
 
-- (IBAction) showActionSheet: (id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
-								  initWithTitle:FNS(@"比分类型")
-                                  delegate:self
-								  cancelButtonTitle:FNS(@"返回")
-								  destructiveButtonTitle:nil
-								  otherButtonTitles:FNS(@"一级赛事"), FNS(@"全部比分"), 
-                                    FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
-                                  ];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+// Customize the number of rows in the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [dataList count];
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *CellIdentifier = [ScoreUpdateCell getCellIdentifier];
+	ScoreUpdateCell *cell = (ScoreUpdateCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [ScoreUpdateCell createCell:self];		
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
+	}		
+    
+    cell.indexPath = indexPath;
+    
+    ScoreUpdate* scoreUpdate = [dataList objectAtIndex:indexPath.row];
+    
+    [cell setCellInfo:scoreUpdate];
 	
-	[actionSheet showInView:self.view];
-	[actionSheet release];
+	return cell;	
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 
-	if (buttonIndex == actionSheet.cancelButtonIndex) {
-		return;
-	}
-    matchScoreType = buttonIndex;
 }
+
 
 @end

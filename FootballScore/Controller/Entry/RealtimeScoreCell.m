@@ -106,11 +106,20 @@ enum cardType{
     NSString *dateString = [NSString stringWithFormat:@""];
     [formatter setDateFormat:@"HH:mm"];
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
-    if(nil !=[formatter stringFromDate:match.date])
-        dateString = [formatter stringFromDate:match.date];
+    
+    NSDate* startDate;    
+    if (match.firstHalfStartDate != nil)
+        startDate = match.firstHalfStartDate;
+    else
+        startDate = match.date;
+    
+    if (nil !=[formatter stringFromDate:startDate]){
+        dateString = [formatter stringFromDate:startDate];
+    }
+    
     startTimeLabel.text = dateString;
     [formatter release];
-    }
+}
 
 -(void)updateFollow:(Match*)match{
     if([match isFollow])

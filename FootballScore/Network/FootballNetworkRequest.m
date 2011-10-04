@@ -11,7 +11,9 @@
 #import "StringUtil.h"
 
 #define URL_GET_REALTIME_MATCH      @"http://bf.bet007.com/phone/schedule.aspx?"
+#define URL_GET_MATCH_DETAIL        @"http://bf.bet007.com/phone/ResultDetail.aspx?"
 #define URL_GET_REALTIME_SCORE      @"http://bf.bet007.com/phone/LiveChange.aspx"
+#define URL_GET_MATCH_DETAIL_HEADER @"http://bf.bet007.com/phone/ScheduleDetail.aspx?"
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -219,12 +221,42 @@ enum{
     
     FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
         if ([output.arrayData count] != MATCH_EVENT_SEGMENT){
+            NSLog(@"<getMatchDetail> but segment not enough");
             output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
         }
         return;
     }; 
     
-    return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_MATCH
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DETAIL
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
+}
+
+
++ (CommonNetworkOutput*)getMatchDetailHeader:(NSString *)matchId;
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+
+        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        if ([output.arrayData count] != MATCH_DETAIIL_HEADER_SEGMENT){
+            NSLog(@"<getMatchDetail> but segment not enough");
+            output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
+        }
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DETAIL_HEADER
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];

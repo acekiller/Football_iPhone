@@ -25,6 +25,9 @@
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 
+- (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo;
+
+
 @end
 
 @interface MatchService : CommonService {
@@ -41,7 +44,7 @@
 - (void)getRealtimeScore;
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
-
+- (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId;
 @end
 
 extern MatchService *GlobalGetMatchService();
