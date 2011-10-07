@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MoreController : UIViewController {
+@interface MoreController : UIViewController <UIActionSheetDelegate>{
     
+    UIButton *selectLanguage;
+    int language;
 }
+@property (nonatomic, retain) IBOutlet UIButton *selectLanguage;
+
+- (IBAction)clickOnSelectLanguage:(id)sender;
 
 @end
