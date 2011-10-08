@@ -511,4 +511,16 @@ MatchManager* GlobalGetMatchManager()
     return [self getLeagueNameByMatch:match];
 }
 
+- (int)getCurrentFollowMatchCount
+{
+    int count = 0;
+    for (Match* match in matchArray){                
+        if ([match isFollow]){
+            count ++;
+        }    
+    }
+    
+    return count;
+}
+
 @end

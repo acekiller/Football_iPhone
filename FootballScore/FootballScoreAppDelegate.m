@@ -74,33 +74,33 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	[UIUtils addViewController:[ScoreUpdateController alloc]
-					 viewTitle:FNS(@"ÊØîÂàÜÂä®ÊÄÅ")
+					 viewTitle:FNS(@"ÊØ???®Ê?")
 					 viewImage:@"chart_bar_down.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
 	RealtimeScoreController* matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
-                             viewTitle:FNS(@"Âç≥Êó∂ÊØîÂàÜ")
+                             viewTitle:FNS(@"?≥Ê?ÊØ??")
                              viewImage:@"app_globe_24.png"
                       hasNavController:YES			
                        viewControllers:controllers];	
     [matchService setMatchControllerDelegate:matchController];    
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
-					 viewTitle:FNS(@"Âç≥Êó∂ÊåáÊï∞")				 
+					 viewTitle:FNS(@"?≥Ê????")				 
 					 viewImage:@"brightness.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
 	[UIUtils addViewController:[MoreController alloc]
-					 viewTitle:FNS(@"Êõ¥Â§ö")
+					 viewTitle:FNS(@"?¥Â?")
 					 viewImage:@"man_24.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
     //	CommonProductListController* historyController = (CommonProductListController*)[UIUtils addViewController:[CommonProductListController alloc]
-    //					 viewTitle:@"Êî∂Ëóè"				 
+    //					 viewTitle:@"?∂Ë?"				 
     //					 viewImage:@"folder_bookmark_24.png"
     //			  hasNavController:YES			
     //			   viewControllers:controllers];	
@@ -114,7 +114,7 @@ enum
     //			   viewControllers:controllers];	
     //        
     //	[UIUtils addViewController:[FeedbackController alloc]
-    //					 viewTitle:@"ÂèçÈ¶à"
+    //					 viewTitle:@"???"
     //					 viewImage:@"help_24.png"
     //			  hasNavController:YES			
     //			   viewControllers:controllers];	
@@ -340,10 +340,10 @@ enum
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
 	NSString *message = [error localizedDescription];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"ÈîôËØØ"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"???"
 													message: message
                                                    delegate: nil
-                                          cancelButtonTitle: @"Á°ÆËÆ§"
+                                          cancelButtonTitle: @"Á°??"
                                           otherButtonTitles: nil];
     [alert show];
     [alert release];

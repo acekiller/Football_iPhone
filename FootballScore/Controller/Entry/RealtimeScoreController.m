@@ -15,7 +15,10 @@
 #import "MatchConstants.h"
 #import "SelectLeagueController.h"
 
+
 @implementation RealtimeScoreController
+@synthesize myFollowButton;
+@synthesize myFollowCountView;
 
 @synthesize matchSecondTimer;
 
@@ -32,6 +35,8 @@
 - (void)dealloc
 {
     [matchSecondTimer release];
+    [myFollowButton release];
+    [myFollowCountView release];
     [super dealloc];
 }
 
@@ -76,9 +81,8 @@
                                                             repeats:YES];
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
-    [self showRightButtons];    
-   // [self setNavigationLeftButton:FNS(@"赛事筛选") action:@selector(clickFilterLeague:)];
-   // [self setNavigationRightButton:FNS(@"比分类型") action:@selector(clickSelectMatchType:)];
+    [self showRightButtons];
+
     
     [super viewDidLoad];
     
@@ -88,6 +92,7 @@
 
 - (void)viewDidUnload
 {
+    [self setMyFollowButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -154,6 +159,8 @@
     self.dataList = [[MatchManager defaultManager] filterMatch];
     [[self dataTableView] reloadData];
     [self hideActivity];
+    
+    [self showMyFollowCount];
 }
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
@@ -287,6 +294,7 @@
         [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                              withRowAnimation:UITableViewRowAnimationNone];
     }
+    [self reloadMyFollowCount];
 }
 
 - (void)updateMatchTimeDisplay
@@ -336,5 +344,31 @@
 - (void)refleshData
 {
     [self loadMatch:matchScoreType];
+}
+
+- (void)showMyFollowCount
+{
+    int tagLen = 25;
+    CGRect rect = [myFollowButton bounds];
+    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -4, tagLen, tagLen)];
+    [self.myFollowCountView setShadowEnabled:NO];
+    [self.myFollowButton addSubview:self.myFollowCountView];
+    [self reloadMyFollowCount];
+}
+
+- (void)reloadMyFollowCount
+{
+    MatchManager *manager = [MatchManager defaultManager];
+    int followMatchCount = [manager getCurrentFollowMatchCount];
+    self.myFollowCountView.badgeString = [NSString stringWithFormat:@"%d", followMatchCount];
+    [self.myFollowCountView setBadgeColor:[UIColor redColor]];
+    
+    if (followMatchCount == 0){
+        [myFollowCountView setHidden:YES];
+    }
+    else{
+        [myFollowCountView setHidden:NO];
+    }
+
 }
 @end

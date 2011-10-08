@@ -60,7 +60,11 @@
 
 - (IBAction)clickOnSelectLanguage:(id)sender
 {
-    UIActionSheet *languageTable = [[UIActionSheet alloc]initWithTitle:FNS(@"请选择语言习惯") delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"中国大陆" otherButtonTitles:@"廣東/香港", nil];
+    UIActionSheet *languageTable = [[UIActionSheet alloc]initWithTitle:FNS(@"请选择语言习惯") 
+                                                              delegate:self 
+                                                     cancelButtonTitle:@"取消" 
+                                                destructiveButtonTitle:@"中国大陆" 
+                                                     otherButtonTitles:@"廣東/香港", nil];
     
     [languageTable showFromTabBar:self.tabBarController.tabBar];
     [languageTable release];
@@ -68,7 +72,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
+    if (buttonIndex == actionSheet.cancelButtonIndex){
 		return;
 	}
     

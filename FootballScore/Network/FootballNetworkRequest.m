@@ -273,7 +273,7 @@ enum{
         //set input parameters
         NSString* str = [NSString stringWithString:baseURL];
         
-        str = [str stringByAddQueryParameter:@"kind=" intValue:registerType];
+        str = [str stringByAddQueryParameter:@"kind" intValue:registerType];
         
         return str;
     };
@@ -298,7 +298,7 @@ enum{
         //set input parameters
         NSString* str = [NSString stringWithString:baseURL];
         
-        str = [str stringByAddQueryParameter:@"UserID=" intValue:userId];
+        str = [str stringByAddQueryParameter:@"UserID" intValue:userId];
         
         str = [str stringByAddQueryParameter:@"Type" intValue:pushType];
         
