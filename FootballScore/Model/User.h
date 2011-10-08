@@ -13,4 +13,7 @@
     
 }
 
+@property (nonatomic, retain) NSString *userId;
+@property (nonatomic, retain) NSString *deviceToken;
+
 @end

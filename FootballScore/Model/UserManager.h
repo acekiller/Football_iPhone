@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class User;
 
 @interface UserManager : NSObject {
     
 }
+
++ (User*)getUser;
+
++ (void)createUser:(NSString*)userId deviceToken:(NSString*)deviceToken;
+
++ (void)saveUser:(User*)user;
 
 @end

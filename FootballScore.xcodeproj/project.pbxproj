@@ -60,6 +60,8 @@
 		CA81D39E1435605100C4B378 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA81D3911435605100C4B378 /* ASIHTTPRequest.m */; };
 		CA81D39F1435605100C4B378 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CA81D3951435605100C4B378 /* ASIInputStream.m */; };
 		CA81D3A01435605100C4B378 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CA81D3971435605100C4B378 /* ASINetworkQueue.m */; };
+		CAA8C28D14404C3C0019FC7B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA8C28C14404C3B0019FC7B /* User.m */; };
+		CAA8C29114404D990019FC7B /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA8C29014404D990019FC7B /* ConfigManager.m */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -378,6 +380,10 @@
 		CA81D3961435605100C4B378 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		CA81D3971435605100C4B378 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		CA81D3981435605100C4B378 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		CAA8C28B14404C3B0019FC7B /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		CAA8C28C14404C3B0019FC7B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		CAA8C28F14404D990019FC7B /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
+		CAA8C29014404D990019FC7B /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -864,6 +870,8 @@
 				CA207BF8142EF1D000A4C425 /* LeagueManager.m */,
 				CA207BFA142EF1D800A4C425 /* League.h */,
 				CA207BFB142EF1D800A4C425 /* League.m */,
+				CAA8C28B14404C3B0019FC7B /* User.h */,
+				CAA8C28C14404C3B0019FC7B /* User.m */,
 				CA207C06142EF27C00A4C425 /* UserManager.h */,
 				CA207C07142EF27C00A4C425 /* UserManager.m */,
 				CA207C12142EFCE200A4C425 /* DataUtils.h */,
@@ -879,6 +887,8 @@
 				CAFE7451143963FB00301193 /* ScoreUpdateManager.m */,
 				CAFE74531439AAB000301193 /* DetailHeader.h */,
 				CAFE74541439AAB300301193 /* DetailHeader.m */,
+				CAA8C28F14404D990019FC7B /* ConfigManager.h */,
+				CAA8C29014404D990019FC7B /* ConfigManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2092,6 +2102,8 @@
 				CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */,
 				CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */,
 				CAFE74551439AABE00301193 /* DetailHeader.m in Sources */,
+				CAA8C28D14404C3C0019FC7B /* User.m in Sources */,
+				CAA8C29114404D990019FC7B /* ConfigManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

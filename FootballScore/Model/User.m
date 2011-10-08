@@ -11,4 +11,14 @@
 
 @implementation User
 
+@synthesize userId;
+@synthesize deviceToken;
+
+- (void)dealloc
+{
+    [userId release];
+    [deviceToken release];
+    [super dealloc];
+}
+
 @end

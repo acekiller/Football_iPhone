@@ -11,4 +11,14 @@
 
 @implementation ConfigManager
 
++ (NSString*)getValue:(NSString*)configKey
+{
+    return nil;
+}
+
++ (void)setValue:(NSString*)configKey value:(NSString*)value
+{
+    
+}
+
 @end

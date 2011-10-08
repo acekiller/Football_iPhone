@@ -13,4 +13,7 @@
     
 }
 
++ (NSString*)getValue:(NSString*)configKey;
++ (void)setValue:(NSString*)configKey value:(NSString*)value;
+
 @end
