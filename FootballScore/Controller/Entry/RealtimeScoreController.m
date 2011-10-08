@@ -363,10 +363,10 @@
     self.myFollowCountView.badgeString = [NSString stringWithFormat:@"%d", followMatchCount];
     [self.myFollowCountView setBadgeColor:[UIColor redColor]];
     
-    if (followMatchCount == 0){
+    if (followMatchCount == 0) {
         [myFollowCountView setHidden:YES];
     }
-    else{
+    else {
         [myFollowCountView setHidden:NO];
     }
 

@@ -1790,6 +1790,7 @@
 				zh_Hant,
 				"zh-Hans",
 				"zh-Hant",
+				ja,
 			);
 			mainGroup = CAF4CC32142ECFCB001D5B4A;
 			productRefGroup = CAF4CC3E142ECFCC001D5B4A /* Products */;

@@ -74,33 +74,33 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	[UIUtils addViewController:[ScoreUpdateController alloc]
-					 viewTitle:FNS(@"ÊØ???®Ê?")
+					 viewTitle:FNS(@"ÊØîÂàÜÂä®ÊÄÅ")
 					 viewImage:@"chart_bar_down.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
 	RealtimeScoreController* matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
-                             viewTitle:FNS(@"?≥Ê?ÊØ??")
+                             viewTitle:FNS(@"Âç≥Êó∂ÊØîÂàÜ")
                              viewImage:@"app_globe_24.png"
                       hasNavController:YES			
                        viewControllers:controllers];	
     [matchService setMatchControllerDelegate:matchController];    
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
-					 viewTitle:FNS(@"?≥Ê????")				 
+					 viewTitle:FNS(@"Âç≥Êó∂ÊåáÊï∞")				 
 					 viewImage:@"brightness.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
 	[UIUtils addViewController:[MoreController alloc]
-					 viewTitle:FNS(@"?¥Â?")
+					 viewTitle:FNS(@"Êõ¥Â§ö")
 					 viewImage:@"man_24.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
     //	CommonProductListController* historyController = (CommonProductListController*)[UIUtils addViewController:[CommonProductListController alloc]
-    //					 viewTitle:@"?∂Ë?"				 
+    //					 viewTitle:@"Êî∂Ëóè"				 
     //					 viewImage:@"folder_bookmark_24.png"
     //			  hasNavController:YES			
     //			   viewControllers:controllers];	
@@ -114,7 +114,7 @@ enum
     //			   viewControllers:controllers];	
     //        
     //	[UIUtils addViewController:[FeedbackController alloc]
-    //					 viewTitle:@"???"
+    //					 viewTitle:@"ÂèçÈ¶à"
     //					 viewImage:@"help_24.png"
     //			  hasNavController:YES			
     //			   viewControllers:controllers];	
@@ -143,12 +143,12 @@ enum
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	
+	 
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
     
-    // init all service
+    // init all service 
     [self initMatchService];
 
 	[self initMobClick];
@@ -340,10 +340,10 @@ enum
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
 	NSString *message = [error localizedDescription];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"???"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"ÈîôËØØ"
 													message: message
                                                    delegate: nil
-                                          cancelButtonTitle: @"Á°??"
+                                          cancelButtonTitle: @"Á°ÆËÆ§"
                                           otherButtonTitles: nil];
     [alert show];
     [alert release];
