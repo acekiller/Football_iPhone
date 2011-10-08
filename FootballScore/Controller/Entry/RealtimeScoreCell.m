@@ -165,7 +165,7 @@ enum cardType{
     float titlewidth;
     float leftSide = 155;
     float rightSide = 205;
-    float maxTitleLen = 85;
+    float maxTitleLen = 80;
     CGSize titleSize;
     CGRect cardPos = CGRectMake(0, 30, 15, 20);
     UIFont *titleFont = [UIFont systemFontOfSize:16];
@@ -173,7 +173,7 @@ enum cardType{
     switch (type) {
         case HOME_RED:
         {
-            if(match.homeTeamRed != nil && [match.homeTeamRed intValue] > 0){
+            if (match.homeTeamRed != nil && [match.homeTeamRed intValue] > 0) {
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
                 cardPos.origin.x = leftSide-titlewidth-cardWidth;
@@ -181,34 +181,34 @@ enum cardType{
                 [card setTitle:match.homeTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
             }
-            else{
+            else {
                 [card setHidden:YES];
             }
         }
             break;
         case HOME_YELLOW:
-        {
-            if(match.homeTeamYellow != nil&& [match.homeTeamYellow intValue] > 0){
+        { 
+            if (match.homeTeamYellow != nil && [match.homeTeamYellow intValue] > 0) {
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
-                if([[self homeRedCard]isHidden]){
-                cardPos.origin.x = leftSide-titlewidth;
+                if (match.homeTeamRed == nil || [match.homeTeamRed intValue] <= 0) {
+                cardPos.origin.x = leftSide-titlewidth-cardWidth;
                 }
-                else{
+                else {
                     cardPos.origin.x = leftSide-titlewidth-cardWidth*2;
                 }
                 [card setFrame:cardPos];
                 [card setTitle:match.homeTeamYellow forState:UIControlStateNormal];
                 [card setHidden:NO];
             }
-            else{
+            else {
                 [card setHidden:YES];
             }
         }
             break;
         case AWAY_RED:
         {
-            if(match.awayTeamRed != nil&& [match.awayTeamRed intValue] > 0){
+            if (match.awayTeamRed != nil&& [match.awayTeamRed intValue] > 0) {
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
                 cardPos.origin.x = rightSide+titlewidth;
@@ -217,20 +217,20 @@ enum cardType{
                 [card setHidden:NO];
 
             }
-            else{
+            else {
                 [card setHidden:YES];
             }
         }
             break;
         case AWAY_YELLOW:
         {
-            if(match.awayTeamYellow != nil && [match.awayTeamYellow intValue] > 0){
+            if (match.awayTeamYellow != nil && [match.awayTeamYellow intValue] > 0) {
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
-                if([[self homeRedCard]isHidden]){
+                if (match.awayTeamRed == nil || [match.awayTeamRed intValue] <= 0) {
                     cardPos.origin.x = rightSide+titlewidth;
                 }
-                else{
+                else {
                     cardPos.origin.x = rightSide+titlewidth+cardWidth;
                 }
                 [card setFrame:cardPos];
@@ -238,7 +238,7 @@ enum cardType{
                 [card setHidden:NO];
 
             }
-            else{
+            else {
                 [card setHidden:YES];
             }  
         }
