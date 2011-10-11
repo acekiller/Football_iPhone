@@ -13,4 +13,7 @@
     
 }
 
++(NSInteger)getLanguage;
++(void) setLanguage:(NSInteger)lang;
+
 @end
