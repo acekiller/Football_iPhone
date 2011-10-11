@@ -7,8 +7,23 @@
 //
 
 #import "UserManager.h"
-
+#import "User.h"
 
 @implementation UserManager
+
++ (User*)getUser
+{
+    return nil;
+}
+
++ (void)createUser:(NSString*)userId deviceToken:(NSString*)deviceToken
+{
+    // save to NSUserDefaults
+}
+
++ (void)saveUser:(User*)user
+{
+    // save updated user data into NSUserDefaults    
+}
 
 @end

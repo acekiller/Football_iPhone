@@ -67,4 +67,6 @@
 - (NSString*)matchSecondsString:(Match*)match;
 - (NSString*)matchMinutesString:(Match*)match;
 
+- (int)getCurrentFollowMatchCount;
+
 @end

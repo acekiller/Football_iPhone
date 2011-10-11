@@ -14,7 +14,9 @@
 #define URL_GET_MATCH_DETAIL        @"http://bf.bet007.com/phone/ResultDetail.aspx?"
 #define URL_GET_REALTIME_SCORE      @"http://bf.bet007.com/phone/LiveChange.aspx"
 #define URL_GET_MATCH_DETAIL_HEADER @"http://bf.bet007.com/phone/ScheduleDetail.aspx?"
-
+#define URL_GET_REGISTER_USER_ID    @"http://bf.bet007.com/phone/Register.aspx?"
+#define URL_UPDATE_USER_PUSH_INFO   @"http://bf.bet007.com/phone/PushSet.aspx?"
+  
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
 #define FIELD_SEP               @"^"
@@ -257,6 +259,60 @@ enum{
     }; 
     
     return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DETAIL_HEADER
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
+}
+
++ (CommonNetworkOutput*)getRegisterUserId:(int)registerType
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL)  {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        
+        str = [str stringByAddQueryParameter:@"kind" intValue:registerType];
+        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {
+        
+        return;
+    };
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_REGISTER_USER_ID
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
+}
+
++ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL)  {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        
+        str = [str stringByAddQueryParameter:@"UserID" intValue:userId];
+        
+        str = [str stringByAddQueryParameter:@"Type" intValue:pushType];
+        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {
+        if (textData != nil && textData.length > 0){
+            output.resultCode = [textData intValue];
+        }
+        return;
+    };
+    
+    return [FootballNetworkRequest sendRequest:URL_UPDATE_USER_PUSH_INFO
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];
