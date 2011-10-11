@@ -13,6 +13,7 @@
 #import "LocaleConstants.h"
 #import "DetailHeader.h"
 #import "PPApplication.h"
+#import "MatchManager.h"
 
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
@@ -206,18 +207,39 @@
 {
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus language:1];
-    self.matchStarttimeLabel.text = header.matchDateString;
+
+    NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
+    
+    
+    NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
+    
+    if (date && dateString) {
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"[%@]",dateString];
+    }else{
+        self.matchStarttimeLabel.text = nil;
+    }
+    
     self.homeTeamName.text = header.homeTeamSCName;
     self.awayTeamName.text = header.awayTeamSCName;
-    self.homeTeamRank.text = header.homeTeamRank;
-    self.awayTeamRank.text = header.awayTeamRank;
+    
+    if ([header.homeTeamRank length] > 0) {
+        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
+    }else{
+        self.homeTeamRank.text = nil;
+    }
+    if ([header.awayTeamRank length] > 0) {
+        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
+    }else{
+        self.awayTeamRank.text = nil;
+    }
     
     [self.homeTeamIcon clear];
     self.homeTeamIcon.url = [NSURL URLWithString:header.homeTeamImage];
     [GlobalGetImageCache() manage:self.homeTeamIcon];
     
     [self.awayTeamIcon clear];
-    self.homeTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
+    
+    self.awayTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
     [GlobalGetImageCache() manage:self.awayTeamIcon];    
     
 }

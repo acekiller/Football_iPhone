@@ -47,6 +47,7 @@
 		CA207C1A142F0C5000A4C425 /* MatchStat.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C19142F0C5000A4C425 /* MatchStat.m */; };
 		CA207C1E142F2E9800A4C425 /* SelectMatchTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA207C1C142F2E9800A4C425 /* SelectMatchTypeController.m */; };
 		CA207C1F142F2E9800A4C425 /* SelectMatchTypeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA207C1D142F2E9800A4C425 /* SelectMatchTypeController.xib */; };
+		CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3FD46E143ABAC600119BD4 /* LanguageManager.m */; };
 		CA7F23761433722100CC0F05 /* MatchDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F23741433722100CC0F05 /* MatchDetailController.m */; };
 		CA7F23771433722100CC0F05 /* MatchDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA7F23751433722100CC0F05 /* MatchDetailController.xib */; };
 		CA7F24BC1433727300CC0F05 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */; };
@@ -350,6 +351,8 @@
 		CA207C1B142F2E9800A4C425 /* SelectMatchTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectMatchTypeController.h; path = FootballScore/Model/SelectMatchTypeController.h; sourceTree = SOURCE_ROOT; };
 		CA207C1C142F2E9800A4C425 /* SelectMatchTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectMatchTypeController.m; path = FootballScore/Model/SelectMatchTypeController.m; sourceTree = SOURCE_ROOT; };
 		CA207C1D142F2E9800A4C425 /* SelectMatchTypeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectMatchTypeController.xib; path = FootballScore/Model/SelectMatchTypeController.xib; sourceTree = SOURCE_ROOT; };
+		CA3FD46D143ABAC500119BD4 /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
+		CA3FD46E143ABAC600119BD4 /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
 		CA7F23731433722100CC0F05 /* MatchDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchDetailController.h; path = FootballScore.xcodeproj/MatchDetailController.h; sourceTree = SOURCE_ROOT; };
 		CA7F23741433722100CC0F05 /* MatchDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchDetailController.m; path = FootballScore.xcodeproj/MatchDetailController.m; sourceTree = SOURCE_ROOT; };
 		CA7F23751433722100CC0F05 /* MatchDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchDetailController.xib; path = FootballScore.xcodeproj/MatchDetailController.xib; sourceTree = SOURCE_ROOT; };
@@ -897,6 +900,8 @@
 			children = (
 				CA207BFD142EF23300A4C425 /* MatchService.h */,
 				CA207BFE142EF23300A4C425 /* MatchService.m */,
+				CA3FD46D143ABAC500119BD4 /* LanguageManager.h */,
+				CA3FD46E143ABAC600119BD4 /* LanguageManager.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2091,6 +2096,7 @@
 				CAFE744F14395A8300301193 /* ScoreUpdate.m in Sources */,
 				CAFE7452143963FC00301193 /* ScoreUpdateManager.m in Sources */,
 				CAFE74551439AABE00301193 /* DetailHeader.m in Sources */,
+				CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
