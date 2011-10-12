@@ -19,7 +19,7 @@
     int matchScoreType;
         
     NSTimer *matchSecondTimer;
-        UIButton *myFollowButton;
+    UIButton *myFollowButton;
 }
 
 @property (nonatomic, retain) NSTimer *matchSecondTimer;
