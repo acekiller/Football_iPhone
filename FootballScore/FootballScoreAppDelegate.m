@@ -76,33 +76,33 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	[UIUtils addViewController:[ScoreUpdateController alloc]
-					 viewTitle:@"" //FNS(@"比分动态")
+					 viewTitle:FNS(@"比分动态")
 					 viewImage:@"b_menu_1.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
 	RealtimeScoreController* matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
-                             viewTitle:@"" //FNS(@"即时比分")
+                             viewTitle:FNS(@"即时比分")
                              viewImage:@"b_menu_2.png"
                       hasNavController:YES			
                        viewControllers:controllers];	
     [matchService setMatchControllerDelegate:matchController];    
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
-					 viewTitle:@"" //FNS(@"即时指数")				 
+					 viewTitle:FNS(@"即时指数")				 
 					 viewImage:@"b_menu_3.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
 	[UIUtils addViewController:[MoreController alloc]
-					 viewTitle:@"" //FNS(@"更多")
+					 viewTitle:FNS(@"资料库")
 					 viewImage:@"b_menu_4.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 
 	[UIUtils addViewController:[MoreController alloc]
-					 viewTitle:@"" //FNS(@"更多")
+					 viewTitle:FNS(@"更多")
 					 viewImage:@"b_menu_5.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
