@@ -151,10 +151,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)displayTimer
+- (void)displayDetail
 {
     NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
+    
+#ifdef DEBUG    
     NSLog(@"jsCode = %@",jsCode);
+#endif
+    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
     [self hideActivity];
@@ -164,7 +168,7 @@
 {
     [self showActivityWithText:@"加载数据中..."];
     [self.timer invalidate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(displayTimer) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(displayDetail) userInfo:nil repeats:NO];
     
     showDataFinish = YES;
 }
@@ -176,7 +180,7 @@
 
 - (void)getMatchEventFinish:(int)result match:(Match *)matchValue
 {    
-    [self hideActivity];
+//    [self hideActivity];
     
     if (result == 0) {
         NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[matchValue.events count]];

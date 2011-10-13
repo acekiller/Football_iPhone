@@ -118,7 +118,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [dataList count];
+	return [self.dataList count];
 }
 
 
@@ -134,7 +134,7 @@
     
     cell.indexPath = indexPath;
 
-    Match* match = [dataList objectAtIndex:indexPath.row];
+    Match* match = [self.dataList objectAtIndex:indexPath.row];
     [cell setCellInfo:match];
 	
 	return cell;	
@@ -142,7 +142,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Match* match = [dataList objectAtIndex:indexPath.row];
+    Match* match = [self.dataList objectAtIndex:indexPath.row];
     MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
     [self.navigationController pushViewController:matchDetail animated:YES];
     [matchDetail release];
@@ -169,7 +169,7 @@
     NSMutableArray* indexPathes = [[NSMutableArray alloc] init];    
     int row = 0;
     int matchCount = 0;
-    for (Match* match in dataList){
+    for (Match* match in self.dataList){
         if ([updateMatchSet containsObject:match.matchId]){
             [indexPathes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
             matchCount ++;
@@ -184,7 +184,7 @@
     if (allMatchUpdateFound || !viewOngoingMatch){
         // update rows only for better performance
         if ([indexPathes count] > 0){
-            [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+            [self.dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
         }    
     }
     else{
@@ -276,7 +276,7 @@
 - (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath
 {
     // TODO call Match Manager follow/unfollow method
-    Match* match = [dataList objectAtIndex:indexPath.row];
+    Match* match = [self.dataList objectAtIndex:indexPath.row];
     MatchManager* manager = [MatchManager defaultManager];
     if ([match isFollow]){
         [manager unfollowMatch:match];  
@@ -288,10 +288,10 @@
     if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){
         // only unfollow is possible here... so just update data list and delete the row
         self.dataList = [manager filterMatch];
-        [dataTableView reloadData];             // I am lazy today so I just reload the table view
+        [self.dataTableView reloadData];             // I am lazy today so I just reload the table view
     }
     else{
-        [dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+        [self.dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                              withRowAnimation:UITableViewRowAnimationNone];
     }
     [self reloadMyFollowCount];
@@ -299,8 +299,8 @@
 
 - (void)updateMatchTimeDisplay
 {
-    NSArray* indexPathes = [dataTableView indexPathsForVisibleRows];
-    [dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
+    NSArray* indexPathes = [self.dataTableView indexPathsForVisibleRows];
+    [self.dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
 
 #ifdef DEBUG    
     NSLog(@"updateMatchTimeDisplay, update %@", [indexPathes description]);
