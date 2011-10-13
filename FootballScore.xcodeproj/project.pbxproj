@@ -95,6 +95,8 @@
 		CAC0DC71144677170024DEB3 /* yellowcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC51144677170024DEB3 /* yellowcard@2x.png */; };
 		CAC0DC77144677310024DEB3 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC74144677310024DEB3 /* ConfigManager.m */; };
 		CAC0DC78144677310024DEB3 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC76144677310024DEB3 /* User.m */; };
+		CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */; };
+		CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -451,6 +453,9 @@
 		CAC0DC74144677310024DEB3 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		CAC0DC75144677310024DEB3 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		CAC0DC76144677310024DEB3 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		CAC0DC7A144679D30024DEB3 /* SelectIndexController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectIndexController.h; sourceTree = "<group>"; };
+		CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectIndexController.m; sourceTree = "<group>"; };
+		CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectIndexController.xib; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -949,6 +954,7 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CAC0DC79144679BC0024DEB3 /* Index */,
 				CA207C09142EF2DB00A4C425 /* Match */,
 				CA207C00142EF25600A4C425 /* League */,
 				CA207BEC142EE15200A4C425 /* Utils */,
@@ -1102,6 +1108,16 @@
 				CA81D3981435605100C4B378 /* ASIProgressDelegate.h */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		CAC0DC79144679BC0024DEB3 /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				CAC0DC7A144679D30024DEB3 /* SelectIndexController.h */,
+				CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */,
+				CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */,
+			);
+			path = Index;
 			sourceTree = "<group>";
 		};
 		CAF4CC32142ECFCB001D5B4A = {
@@ -2008,6 +2024,7 @@
 				CAC0DC6F144677170024DEB3 /* top_live@2x.png in Resources */,
 				CAC0DC70144677170024DEB3 /* wz@2x.png in Resources */,
 				CAC0DC71144677170024DEB3 /* yellowcard@2x.png in Resources */,
+				CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2237,6 +2254,7 @@
 				CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */,
 				CAC0DC77144677310024DEB3 /* ConfigManager.m in Sources */,
 				CAC0DC78144677310024DEB3 /* User.m in Sources */,
+				CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
