@@ -97,6 +97,7 @@
 		CAC0DC78144677310024DEB3 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC76144677310024DEB3 /* User.m */; };
 		CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */; };
 		CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */; };
+		CAC0DC821446E1710024DEB3 /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC811446E1710024DEB3 /* StatusView.m */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -457,6 +458,8 @@
 		CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectIndexController.m; sourceTree = "<group>"; };
 		CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectIndexController.xib; sourceTree = "<group>"; };
 		CAC0DC7F1446B28C0024DEB3 /* PPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDebug.h; sourceTree = "<group>"; };
+		CAC0DC801446E1710024DEB3 /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
+		CAC0DC811446E1710024DEB3 /* StatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusView.m; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1635,6 +1638,8 @@
 				CAF4D1EE142ED014001D5B4A /* UIWebViewUtil.h */,
 				CAF4D1EF142ED014001D5B4A /* UIWebViewUtil.m */,
 				CAF4D1F0142ED014001D5B4A /* ViewConstants.h */,
+				CAC0DC801446E1710024DEB3 /* StatusView.h */,
+				CAC0DC811446E1710024DEB3 /* StatusView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2257,6 +2262,7 @@
 				CAC0DC77144677310024DEB3 /* ConfigManager.m in Sources */,
 				CAC0DC78144677310024DEB3 /* User.m in Sources */,
 				CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */,
+				CAC0DC821446E1710024DEB3 /* StatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
