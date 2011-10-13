@@ -110,6 +110,9 @@
     
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
 
+    self.dataWebView.hidden = YES;
+    [self.dataWebView removeFromSuperview];
+    
     NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"load url = %@", [request description]);
@@ -151,7 +154,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)displayDetail
+- (void)displayEvent
 {
     NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
     
@@ -160,6 +163,13 @@
 #endif
     
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+ 
+    [UIView beginAnimations:nil context:nil];    
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];    
+    self.dataWebView.hidden = NO;
+    [self.view addSubview:dataWebView];
+    [UIView commitAnimations];
     
     [self hideActivity];
 }
@@ -168,7 +178,7 @@
 {
     [self showActivityWithText:@"加载数据中..."];
     [self.timer invalidate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(displayDetail) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(displayEvent) userInfo:nil repeats:NO];
     
     showDataFinish = YES;
 }
