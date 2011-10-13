@@ -11,6 +11,8 @@
 #import "PPApplication.h"
 #import "MobClick.h"
 
+@class PPTabBarController;
+
 // TODO remove all depedency class header files
 
 @class ReviewRequest;
@@ -25,7 +27,7 @@
 @interface FootballScoreAppDelegate : PPApplication <UIApplicationDelegate, UITabBarControllerDelegate, MobClickDelegate> {
     
     UIWindow			*window;
-    UITabBarController	*tabBarController;
+    PPTabBarController	*tabBarController;
 	CoreDataManager		*dataManager;	
         
     ReviewRequest           *reviewRequest;
@@ -36,7 +38,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow				*window;
-@property (nonatomic, retain) IBOutlet UITabBarController	*tabBarController;
+@property (nonatomic, retain) IBOutlet PPTabBarController	*tabBarController;
 @property (nonatomic, retain) CoreDataManager				*dataManager;
 @property (nonatomic, retain) ReviewRequest                 *reviewRequest;
 @property (nonatomic, retain) MatchService                  *matchService;

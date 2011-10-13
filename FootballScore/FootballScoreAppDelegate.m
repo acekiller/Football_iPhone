@@ -10,6 +10,8 @@
 #import "UIUtils.h"
 #import "LocaleConstants.h"
 #import "ReviewRequest.h"
+#import "PPTabBarController.h"
+#import "UINavigationBarExt.h"
 
 #import "FootballNetworkRequest.h"
 
@@ -74,30 +76,43 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	[UIUtils addViewController:[ScoreUpdateController alloc]
-					 viewTitle:FNS(@"比分动态")
-					 viewImage:@"chart_bar_down.png"
+					 viewTitle:@"" //FNS(@"比分动态")
+					 viewImage:@"b_menu_1.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
 	RealtimeScoreController* matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
-                             viewTitle:FNS(@"即时比分")
-                             viewImage:@"app_globe_24.png"
+                             viewTitle:@"" //FNS(@"即时比分")
+                             viewImage:@"b_menu_2.png"
                       hasNavController:YES			
                        viewControllers:controllers];	
     [matchService setMatchControllerDelegate:matchController];    
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
-					 viewTitle:FNS(@"即时指数")				 
-					 viewImage:@"brightness.png"
+					 viewTitle:@"" //FNS(@"即时指数")				 
+					 viewImage:@"b_menu_3.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
 	[UIUtils addViewController:[MoreController alloc]
-					 viewTitle:FNS(@"更多")
-					 viewImage:@"man_24.png"
+					 viewTitle:@"" //FNS(@"更多")
+					 viewImage:@"b_menu_4.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
+
+	[UIUtils addViewController:[MoreController alloc]
+					 viewTitle:@"" //FNS(@"更多")
+					 viewImage:@"b_menu_5.png"
+			  hasNavController:YES			
+			   viewControllers:controllers];	
+    
+    [self.tabBarController setSelectedImageArray:[NSArray arrayWithObjects:
+                                                  @"b_menu_1s.png", 
+                                                  @"b_menu_2s.png", 
+                                                  @"b_menu_3s.png", 
+                                                  @"b_menu_4s.png", 
+                                                  @"b_menu_5s.png", nil]];
     
     //	CommonProductListController* historyController = (CommonProductListController*)[UIUtils addViewController:[CommonProductListController alloc]
     //					 viewTitle:@"收藏"				 
@@ -147,6 +162,9 @@ enum
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
+    
+    GlobalSetNavBarBackground(@"top_live.png");
+    [tabBarController setBarBackground:@"bottom_bg.png"];
     
     // init all service 
     [self initMatchService];
