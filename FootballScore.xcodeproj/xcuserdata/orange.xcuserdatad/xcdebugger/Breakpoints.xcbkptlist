@@ -107,11 +107,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "340263391.257448"
+         timestampString = "340278371.456717"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "447"
-         endingLineNumber = "447"
+         startingLineNumber = "464"
+         endingLineNumber = "464"
          landmarkName = "-reloadMyFollowCount"
          landmarkType = "5">
       </FileBreakpoint>
@@ -163,11 +163,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/MoreController.m"
-         timestampString = "340108626.707336"
+         timestampString = "340276030.236476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "144"
+         endingLineNumber = "144"
          landmarkName = "-showFeedback"
          landmarkType = "5">
       </FileBreakpoint>

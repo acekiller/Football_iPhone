@@ -141,11 +141,6 @@
 
 - (void)showFeedback
 {
-//    FeedbackController *feedback = [[FeedbackController alloc] init];
-//    [self.navigationController pushViewController:feedback animated:YES];
-//    [feedback release];
-//    FeedbackController *fb = [[FeedbackController alloc]initWithNibName:@"FeedbackController" bundle:nil];
-//    UIViewController *fb = [[UIViewController alloc] initWithNibName:@"FeedbackController" bundle:nil];
      UserFeedbackController *fb = [[UserFeedbackController alloc] init];
     [self.navigationController pushViewController:fb animated:YES];
     [fb release];

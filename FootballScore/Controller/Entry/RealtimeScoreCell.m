@@ -146,7 +146,7 @@ enum cardType{
     [homeRedCard setBackgroundImage:[UIImage imageNamed:@"redcard"] forState:UIControlStateNormal];
     [awayRedCard setBackgroundImage:[UIImage imageNamed:@"redcard"] forState:UIControlStateNormal];
     [homeYellowCard setBackgroundImage:[UIImage imageNamed:@"yellowcard"] forState:UIControlStateNormal];
-    [homeRedCard setBackgroundImage:[UIImage imageNamed:@"yellowcard"] forState:UIControlStateNormal];
+    [awayYellowCard setBackgroundImage:[UIImage imageNamed:@"yellowcard"] forState:UIControlStateNormal];
          
     [self setCards:homeRedCard setMatch:match withcardType:HOME_RED];
     [self setCards:homeYellowCard setMatch:match withcardType:HOME_YELLOW];

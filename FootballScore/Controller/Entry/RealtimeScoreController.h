@@ -25,7 +25,8 @@
 @property (nonatomic, retain) NSTimer *matchSecondTimer;
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
-- (void)showRightButtons;
+- (void)setRightBarButtons;
+- (void)setLeftBarButtons;
 - (void)clickRefleshButton;
 - (void)showMyFollowCount;
 - (void)reloadMyFollowCount;

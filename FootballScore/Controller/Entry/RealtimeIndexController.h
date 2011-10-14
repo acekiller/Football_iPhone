@@ -11,6 +11,9 @@
 
 @interface RealtimeIndexController : UIViewController {
     
+    
 }
+
+- (IBAction)clickContentFilterButton:(id)sender;
 
 @end
