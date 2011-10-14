@@ -148,7 +148,8 @@
                                                             repeats:YES];
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
-    [self showRightButtons];
+    [self setRightBarButtons];
+    [self setLeftBarButtons];
 
     
     [super viewDidLoad];
@@ -375,7 +376,7 @@
     
 }
 
-- (void)showRightButtons
+- (void)setRightBarButtons
 {
     float buttonHigh = 27.5;
     float buttonLen = 47.5;
@@ -393,7 +394,7 @@
     [rightButtonView addSubview:refleshButton];
     [refleshButton release];
     
-    UIButton *scoreTypeButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
+    UIButton *scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"wz"] forState:UIControlStateNormal];
     [scoreTypeButton setTitle:@"" forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -401,7 +402,7 @@
     [rightButtonView addSubview:scoreTypeButton];
     [scoreTypeButton release];
     
-    UIButton *filterButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
+    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
@@ -409,11 +410,27 @@
     [rightButtonView addSubview:filterButton];
     [filterButton release];
     
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithCustomView:rightButtonView];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
     [rightButtonView release];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;
     [rightBarButton release];
+}
+
+- (void)setLeftBarButtons
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_logo"]];
+    [leftTopBarView addSubview:liveLogo];
+    [liveLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    [leftBarButton release];
+    
 }
 
 
@@ -447,4 +464,5 @@
     }
 
 }
+
 @end

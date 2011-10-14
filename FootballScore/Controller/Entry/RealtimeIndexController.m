@@ -7,6 +7,7 @@
 //
 
 #import "RealtimeIndexController.h"
+#import "SelectIndexController.h"
 
 
 @implementation RealtimeIndexController
@@ -52,6 +53,13 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)clickContentFilterButton:(id)sender
+{
+    SelectIndexController *vc = [[SelectIndexController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 @end
