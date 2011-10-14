@@ -26,7 +26,7 @@
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
 - (void)showRightButtons;
-- (void)refleshData;
+- (void)clickRefleshButton;
 - (void)showMyFollowCount;
 - (void)reloadMyFollowCount;
 

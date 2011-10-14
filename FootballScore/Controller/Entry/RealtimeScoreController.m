@@ -389,8 +389,9 @@
     [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [refleshButton setTitle:@"" forState:UIControlStateNormal];
     [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [refleshButton addTarget:self action:@selector(refleshData) forControlEvents:UIControlEventTouchUpInside];
+    [refleshButton addTarget:self action:@selector(clickRefleshButton) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:refleshButton];
+    [refleshButton release];
     
     UIButton *scoreTypeButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"wz"] forState:UIControlStateNormal];
@@ -398,6 +399,7 @@
     [scoreTypeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:scoreTypeButton];
+    [scoreTypeButton release];
     
     UIButton *filterButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -405,6 +407,7 @@
     [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [filterButton setTitle:@"" forState:UIControlStateNormal];
     [rightButtonView addSubview:filterButton];
+    [filterButton release];
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithCustomView:rightButtonView];
     [rightButtonView release];
@@ -414,7 +417,7 @@
 }
 
 
-- (void)refleshData
+- (void)clickRefleshButton
 {
     [self loadMatch:matchScoreType];
 }

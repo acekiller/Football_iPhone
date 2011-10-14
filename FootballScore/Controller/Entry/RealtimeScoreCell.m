@@ -59,7 +59,7 @@ enum cardType{
 
 + (CGFloat)getCellHeight
 {
-    return 62.0f;
+    return 46;
 }
 
 - (void)dealloc {
@@ -123,9 +123,9 @@ enum cardType{
 
 -(void)updateFollow:(Match*)match{
     if([match isFollow])
-        [followButton setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+        [followButton setBackgroundImage:[UIImage imageNamed:@"star2"] forState:UIControlStateNormal];
     else
-        [followButton setBackgroundImage:[UIImage imageNamed:@"unSelected"] forState:UIControlStateNormal];
+        [followButton setBackgroundImage:[UIImage imageNamed:@"star1"] forState:UIControlStateNormal];
 }
 
 - (void)updateMatchInfo:(Match*)match{
@@ -142,7 +142,12 @@ enum cardType{
 }
 
 - (void)updateCards:(Match*)match{
-     
+    
+    [homeRedCard setBackgroundImage:[UIImage imageNamed:@"redcard"] forState:UIControlStateNormal];
+    [awayRedCard setBackgroundImage:[UIImage imageNamed:@"redcard"] forState:UIControlStateNormal];
+    [homeYellowCard setBackgroundImage:[UIImage imageNamed:@"yellowcard"] forState:UIControlStateNormal];
+    [homeRedCard setBackgroundImage:[UIImage imageNamed:@"yellowcard"] forState:UIControlStateNormal];
+         
     [self setCards:homeRedCard setMatch:match withcardType:HOME_RED];
     [self setCards:homeYellowCard setMatch:match withcardType:HOME_YELLOW];
     [self setCards:awayRedCard setMatch:match withcardType:AWAY_RED];
@@ -161,14 +166,14 @@ enum cardType{
 
 - (void)setCards:(UIButton*)card setMatch:(Match*)match withcardType:(int)type{
     
-    float cardWidth = 15;
+    float cardWidth = 13;
     float titlewidth;
-    float leftSide = 155;
-    float rightSide = 205;
+    float leftSide = 146;
+    float rightSide = 192;
     float maxTitleLen = 80;
     CGSize titleSize;
-    CGRect cardPos = CGRectMake(0, 30, 15, 20);
-    UIFont *titleFont = [UIFont systemFontOfSize:16];
+    CGRect cardPos = CGRectMake(0, 23, 13, 15);
+    UIFont *titleFont = [UIFont systemFontOfSize:14];
     
     switch (type) {
         case HOME_RED:
@@ -251,8 +256,8 @@ enum cardType{
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
-    CGRect middlePosition = CGRectMake(160, 30, 40, 20);
-    CGRect originalPosition = CGRectMake(160, 10, 40, 20);
+    CGRect middlePosition = CGRectMake(151, 11, 36, 20);
+    CGRect originalPosition = CGRectMake(151, 6, 36, 14);
     UIColor *green = [UIColor colorWithRed:0 green:255 blue:0 alpha:255];
     UIColor *blue = [UIColor colorWithRed:0 green:0 blue:255 alpha:255];
     UIColor *red = [UIColor colorWithRed:255 green:0 blue:0 alpha:255];
