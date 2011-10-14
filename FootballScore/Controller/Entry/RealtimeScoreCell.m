@@ -47,7 +47,7 @@ enum cardType{
         return nil;
     }
     
-    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;
+    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;        
     
     return (RealtimeScoreCell*)[topLevelObjects objectAtIndex:0];
 }

@@ -14,6 +14,7 @@
 #import "LocaleConstants.h"
 #import "MatchConstants.h"
 #import "SelectLeagueController.h"
+#import "UITableViewCellUtil.h"
 
 
 @implementation RealtimeScoreController
@@ -150,6 +151,7 @@
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     [self showRightButtons];
 
+    self.view.backgroundColor = [UIColor clearColor];
     
     [super viewDidLoad];
     
@@ -196,7 +198,8 @@
 	RealtimeScoreCell *cell = (RealtimeScoreCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
+        [cell setBackgroundImageByName:@"klive_li.png"];
 	}		
     
     cell.indexPath = indexPath;
