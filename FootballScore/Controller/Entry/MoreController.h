@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MoreController : UIViewController <UIActionSheetDelegate>{
-    
-    UIButton *selectLanguage;
-    int language;
-}
-@property (nonatomic, retain) IBOutlet UIButton *selectLanguage;
+@interface MoreController : UIViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>{
 
-- (IBAction)clickOnSelectLanguage:(id)sender;
+    int language;
+    NSArray *listData;
+    UITableView *moreOptionList;
+}
+
+@property (nonatomic, retain) NSArray *listData;
+@property (nonatomic, retain) IBOutlet UITableView *moreOptionList;
+
+- (void)optionListInit;
+
+- (void)showScoreAlert;
+- (void)showFeedback;
+- (void)showLanguageSelection;
 
 @end

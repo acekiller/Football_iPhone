@@ -1,15 +1,17 @@
 //
-//  FeedbackController.m
+//  AlertController.m
 //  FootballScore
 //
-//  Created by Orange on 11-10-11.
+//  Created by Orange on 11-10-10.
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "FeedbackController.h"
+#import "AlertController.h"
 
-@implementation FeedbackController
-@synthesize versionInfo;
+@implementation AlertController
+@synthesize soundSwitch;
+@synthesize shakingSwitch;
+@synthesize pushType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,14 +34,14 @@
 
 - (void)viewDidLoad
 {
-    [self versionInfoInit];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
-    [self setVersionInfo:nil];
+    [self setSoundSwitch:nil];
+    [self setShakingSwitch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -52,18 +54,8 @@
 }
 
 - (void)dealloc {
-    [versionInfo release];
+    [soundSwitch release];
+    [shakingSwitch release];
     [super dealloc];
 }
-
-- (void)versionInfoInit
-{
-    versionInfo.text = [NSString stringWithFormat:@"比分客户端\n版本号\n"];
-}
-
-- (IBAction)clickOnSendButton:(id)sender
-{
-
-}
-
 @end

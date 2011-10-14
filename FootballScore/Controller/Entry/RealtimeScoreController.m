@@ -341,6 +341,7 @@
     [rightBarButton release];
 }
 
+
 - (void)refleshData
 {
     [self loadMatch:matchScoreType];
