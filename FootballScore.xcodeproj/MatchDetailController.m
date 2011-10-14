@@ -13,6 +13,7 @@
 #import "LocaleConstants.h"
 #import "DetailHeader.h"
 #import "PPApplication.h"
+#import "MatchManager.h"
 
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
@@ -109,6 +110,9 @@
     
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
 
+    self.dataWebView.hidden = YES;
+    [self.dataWebView removeFromSuperview];
+    
     NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"load url = %@", [request description]);
@@ -150,11 +154,22 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)displayTimer
+- (void)displayEvent
 {
     NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
+    
+#ifdef DEBUG    
     NSLog(@"jsCode = %@",jsCode);
+#endif
+    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+ 
+    [UIView beginAnimations:nil context:nil];    
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];    
+    self.dataWebView.hidden = NO;
+    [self.view addSubview:dataWebView];
+    [UIView commitAnimations];
     
     [self hideActivity];
 }
@@ -163,7 +178,7 @@
 {
     [self showActivityWithText:@"加载数据中..."];
     [self.timer invalidate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(displayTimer) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(displayEvent) userInfo:nil repeats:NO];
     
     showDataFinish = YES;
 }
@@ -175,7 +190,7 @@
 
 - (void)getMatchEventFinish:(int)result match:(Match *)matchValue
 {    
-    [self hideActivity];
+//    [self hideActivity];
     
     if (result == 0) {
         NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[matchValue.events count]];
@@ -206,18 +221,39 @@
 {
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus language:1];
-    self.matchStarttimeLabel.text = header.matchDateString;
+
+    NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
+    
+    
+    NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
+    
+    if (date && dateString) {
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"[%@]",dateString];
+    }else{
+        self.matchStarttimeLabel.text = nil;
+    }
+    
     self.homeTeamName.text = header.homeTeamSCName;
     self.awayTeamName.text = header.awayTeamSCName;
-    self.homeTeamRank.text = header.homeTeamRank;
-    self.awayTeamRank.text = header.awayTeamRank;
+    
+    if ([header.homeTeamRank length] > 0) {
+        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
+    }else{
+        self.homeTeamRank.text = nil;
+    }
+    if ([header.awayTeamRank length] > 0) {
+        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
+    }else{
+        self.awayTeamRank.text = nil;
+    }
     
     [self.homeTeamIcon clear];
     self.homeTeamIcon.url = [NSURL URLWithString:header.homeTeamImage];
     [GlobalGetImageCache() manage:self.homeTeamIcon];
     
     [self.awayTeamIcon clear];
-    self.homeTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
+    
+    self.awayTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
     [GlobalGetImageCache() manage:self.awayTeamIcon];    
     
 }
