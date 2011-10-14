@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C280CAAA1447D6F000EBCD9A /* AlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA51447D6F000EBCD9A /* AlertController.m */; };
+		C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA61447D6F000EBCD9A /* AlertController.xib */; };
+		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
+		C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
@@ -330,6 +334,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C280CAA41447D6F000EBCD9A /* AlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertController.h; sourceTree = "<group>"; };
+		C280CAA51447D6F000EBCD9A /* AlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertController.m; sourceTree = "<group>"; };
+		C280CAA61447D6F000EBCD9A /* AlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertController.xib; sourceTree = "<group>"; };
+		C280CAA71447D6F000EBCD9A /* UserFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedbackController.h; sourceTree = "<group>"; };
+		C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedbackController.m; sourceTree = "<group>"; };
+		C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFeedbackController.xib; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
 		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
@@ -898,6 +908,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C280CAA31447D6F000EBCD9A /* More */ = {
+			isa = PBXGroup;
+			children = (
+				C280CAA41447D6F000EBCD9A /* AlertController.h */,
+				C280CAA51447D6F000EBCD9A /* AlertController.m */,
+				C280CAA61447D6F000EBCD9A /* AlertController.xib */,
+				C280CAA71447D6F000EBCD9A /* UserFeedbackController.h */,
+				C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */,
+				C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
 		C2B41315143199E100084F14 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,6 +981,7 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C280CAA31447D6F000EBCD9A /* More */,
 				CAC0DC79144679BC0024DEB3 /* Index */,
 				CA207C09142EF2DB00A4C425 /* Match */,
 				CA207C00142EF25600A4C425 /* League */,
@@ -2032,6 +2056,8 @@
 				CAC0DC70144677170024DEB3 /* wz@2x.png in Resources */,
 				CAC0DC71144677170024DEB3 /* yellowcard@2x.png in Resources */,
 				CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */,
+				C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */,
+				C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2263,6 +2289,8 @@
 				CAC0DC78144677310024DEB3 /* User.m in Sources */,
 				CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */,
 				CAC0DC821446E1710024DEB3 /* StatusView.m in Sources */,
+				C280CAAA1447D6F000EBCD9A /* AlertController.m in Sources */,
+				C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
