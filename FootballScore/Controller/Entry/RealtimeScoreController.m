@@ -54,13 +54,80 @@
 {
     for (int i=MATCH_SELECT_STATUS_ALL; i<=MATCH_SELECT_STATUS_MYFOLLOW; i++){
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        if (i == selectMatchStatus){
-            [button setSelected:YES];  
-            [button setBackgroundColor:[UIColor greenColor]];
-        }
-        else{
-            [button setSelected:NO];
-            [button setBackgroundColor:[UIColor yellowColor]];
+        switch (i) {
+            case MATCH_SELECT_STATUS_ALL:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_1_on"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_1"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break;
+            case MATCH_SELECT_STATUS_NOT_STARTED:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_SELECT_STATUS_ON_GOING:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_SELECT_STATUS_FINISH:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_SELECT_STATUS_MYFOLLOW:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_5_on"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_5"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            default:
+                break;
         }
     }
 }
@@ -320,12 +387,14 @@
     
     UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refeshButtonLen, buttonHigh)];
     [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    [refleshButton setTitle:@"" forState:UIControlStateNormal];
     [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [refleshButton addTarget:self action:@selector(refleshData) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:refleshButton];
     
     UIButton *scoreTypeButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"wz"] forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:@"" forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:scoreTypeButton];
@@ -334,6 +403,7 @@
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [filterButton setTitle:@"" forState:UIControlStateNormal];
     [rightButtonView addSubview:filterButton];
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithCustomView:rightButtonView];

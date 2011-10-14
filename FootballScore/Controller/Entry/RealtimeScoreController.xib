@@ -51,7 +51,7 @@
 							<object class="IBUIButton" id="1067702808">
 								<reference key="NSNextResponder" ref="279246246"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{2, 3}, {44, 37}}</string>
+								<string key="NSFrameSize">{60, 38}</string>
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSNextKeyView" ref="270451622"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -69,9 +69,9 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
+								<object class="NSColor" key="IBUINormalTitleColor" id="921418319">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="912997394">
 									<int key="NSColorSpace">3</int>
@@ -81,7 +81,7 @@
 							<object class="IBUIButton" id="270451622">
 								<reference key="NSNextResponder" ref="279246246"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{50, 2}, {61, 37}}</string>
+								<string key="NSFrame">{{60, 0}, {64, 38}}</string>
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSNextKeyView" ref="801002880"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -92,16 +92,13 @@
 								<reference key="IBUIFont" ref="598449802"/>
 								<string key="IBUINormalTitle">未开赛</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="921418319"/>
 								<reference key="IBUINormalTitleShadowColor" ref="912997394"/>
 							</object>
 							<object class="IBUIButton" id="801002880">
 								<reference key="NSNextResponder" ref="279246246"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{114, 2}, {60, 37}}</string>
+								<string key="NSFrame">{{124, 0}, {64, 38}}</string>
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSNextKeyView" ref="917152029"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -112,16 +109,13 @@
 								<reference key="IBUIFont" ref="598449802"/>
 								<string key="IBUINormalTitle">进行中</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="921418319"/>
 								<reference key="IBUINormalTitleShadowColor" ref="912997394"/>
 							</object>
 							<object class="IBUIButton" id="917152029">
 								<reference key="NSNextResponder" ref="279246246"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{177, 2}, {60, 37}}</string>
+								<string key="NSFrame">{{188, 0}, {64, 38}}</string>
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSNextKeyView" ref="623085910"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -132,16 +126,13 @@
 								<reference key="IBUIFont" ref="598449802"/>
 								<string key="IBUINormalTitle">已完场</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="921418319"/>
 								<reference key="IBUINormalTitleShadowColor" ref="912997394"/>
 							</object>
 							<object class="IBUIButton" id="623085910">
 								<reference key="NSNextResponder" ref="279246246"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{240, 2}, {77, 37}}</string>
+								<string key="NSFrame">{{252, 0}, {68, 38}}</string>
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSNextKeyView" ref="880858632"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -152,10 +143,7 @@
 								<reference key="IBUIFont" ref="598449802"/>
 								<string key="IBUINormalTitle">我的关注</string>
 								<reference key="IBUIHighlightedTitleColor" ref="582925604"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="921418319"/>
 								<reference key="IBUINormalTitleShadowColor" ref="912997394"/>
 							</object>
 						</object>
@@ -313,9 +301,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1067702808"/>
 							<reference ref="270451622"/>
-							<reference ref="801002880"/>
 							<reference ref="917152029"/>
 							<reference ref="623085910"/>
+							<reference ref="801002880"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -328,6 +316,7 @@
 						<int key="objectID">7</int>
 						<reference key="object" ref="270451622"/>
 						<reference key="parent" ref="279246246"/>
+						<string key="objectName">Button - 未开赛</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
@@ -343,6 +332,7 @@
 						<int key="objectID">10</int>
 						<reference key="object" ref="623085910"/>
 						<reference key="parent" ref="279246246"/>
+						<string key="objectName">Button - 我的关注</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
