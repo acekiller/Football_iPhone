@@ -47,7 +47,7 @@ enum cardType{
         return nil;
     }
     
-    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;
+    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;        
     
     return (RealtimeScoreCell*)[topLevelObjects objectAtIndex:0];
 }
@@ -59,7 +59,7 @@ enum cardType{
 
 + (CGFloat)getCellHeight
 {
-    return 46;
+    return 47;
 }
 
 - (void)dealloc {
