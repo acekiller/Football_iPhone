@@ -7,7 +7,7 @@
 //
 
 #import "SelectIndexController.h"
-
+#import "LocaleConstants.h"
 
 @implementation SelectIndexController
 @synthesize buttonScrollView;
@@ -137,6 +137,7 @@
     UIImage *selectedImage = [UIImage imageNamed:@"selected"];
     UIImage *unSelectedImage = [UIImage imageNamed:@"unselected"];
     [buttonsArray removeAllObjects];
+    [selectedBwin removeAllObjects];
 
     
     for (i = 0; i < [array count]; i++) {
@@ -192,6 +193,11 @@
     UIButton *button = (UIButton*)sender;
     UILabel *label = [button titleLabel];
     NSString *title = label.text;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FNS(@"最多只能选四个") 
+                                                    message:FNS(@"") 
+                                                   delegate:nil 
+                                          cancelButtonTitle:FNS(@"好了，我知道了") 
+                                          otherButtonTitles: nil];
     
     if ([selectedBwin containsObject:title]) {
         [selectedBwin removeObject:title];
@@ -199,6 +205,11 @@
         [button setSelected:NO];
     }
     else {
+        if ([selectedBwin count] >= 4) {
+            [alert show];
+            [alert release];
+            return;
+        }
         [selectedBwin addObject:title];
         [button setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
         [button setSelected:YES];

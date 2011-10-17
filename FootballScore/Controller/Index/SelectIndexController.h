@@ -14,9 +14,6 @@ enum {
     BIGANDSMALL    
 };
 
-#define ASIANBUTTON 10
-#define EUROPEBUTTON 30
-#define BIGANDSMALL 50
 
 
 @interface SelectIndexController : UIViewController {

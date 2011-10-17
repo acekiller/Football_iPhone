@@ -58,9 +58,10 @@
         switch (i) {
             case MATCH_SELECT_STATUS_ALL:
             {
+                [button setTitle:FNS(@"完整") forState:UIControlStateNormal];
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 }
                 else{
@@ -72,6 +73,7 @@
                 break;
             case MATCH_SELECT_STATUS_NOT_STARTED:
             {
+                [button setTitle:FNS(@"未开赛") forState:UIControlStateNormal];
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
                     [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
@@ -87,6 +89,7 @@
                 break; 
             case MATCH_SELECT_STATUS_ON_GOING:
             {
+                [button setTitle:FNS(@"进行中") forState:UIControlStateNormal];
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
                     [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
@@ -101,6 +104,7 @@
                 break; 
             case MATCH_SELECT_STATUS_FINISH:
             {
+                [button setTitle:FNS(@"已完场") forState:UIControlStateNormal];
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
                     [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
@@ -115,6 +119,7 @@
                 break; 
             case MATCH_SELECT_STATUS_MYFOLLOW:
             {
+                [button setTitle:FNS(@"我的关注") forState:UIControlStateNormal];
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
                     [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
@@ -389,6 +394,7 @@
     float refeshButtonLen = 32.5;
     float seporator = 5;
     float leftOffest = 20;
+    UIFont *font = [UIFont systemFontOfSize:14];
     
     UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
     
@@ -401,9 +407,10 @@
     [refleshButton release];
     
     UIButton *scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
-    [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"wz"] forState:UIControlStateNormal];
-    [scoreTypeButton setTitle:@"" forState:UIControlStateNormal];
-    [scoreTypeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:FNS(@"完整") forState:UIControlStateNormal];
+    [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:scoreTypeButton];
     [scoreTypeButton release];
@@ -412,7 +419,9 @@
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [filterButton setTitle:@"" forState:UIControlStateNormal];
+    [filterButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
+    [filterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [filterButton.titleLabel setFont:font];
     [rightButtonView addSubview:filterButton];
     [filterButton release];
     
