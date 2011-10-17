@@ -59,7 +59,7 @@ enum cardType{
 
 + (CGFloat)getCellHeight
 {
-    return 46;
+    return 47;
 }
 
 - (void)dealloc {

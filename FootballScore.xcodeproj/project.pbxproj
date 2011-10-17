@@ -102,6 +102,14 @@
 		CAC0DC7D144679D30024DEB3 /* SelectIndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC7B144679D30024DEB3 /* SelectIndexController.m */; };
 		CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC7C144679D30024DEB3 /* SelectIndexController.xib */; };
 		CAC0DC821446E1710024DEB3 /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC0DC811446E1710024DEB3 /* StatusView.m */; };
+		CAC38A61144BC64900FB66B7 /* data_m_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A59144BC64900FB66B7 /* data_m_1@2x.png */; };
+		CAC38A62144BC64900FB66B7 /* data_m_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5A144BC64900FB66B7 /* data_m_2@2x.png */; };
+		CAC38A63144BC64900FB66B7 /* data_title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5B144BC64900FB66B7 /* data_title@2x.png */; };
+		CAC38A64144BC64900FB66B7 /* data_top_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5C144BC64900FB66B7 /* data_top_bg@2x.png */; };
+		CAC38A65144BC64900FB66B7 /* kive_li2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5D144BC64900FB66B7 /* kive_li2@2x.png */; };
+		CAC38A66144BC64900FB66B7 /* odds_btn1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5E144BC64900FB66B7 /* odds_btn1@2x.png */; };
+		CAC38A67144BC64900FB66B7 /* odds_se_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5F144BC64900FB66B7 /* odds_se_bg@2x.png */; };
+		CAC38A68144BC64900FB66B7 /* odds_title_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A60144BC64900FB66B7 /* odds_title_bg@2x.jpg */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -470,6 +478,14 @@
 		CAC0DC7F1446B28C0024DEB3 /* PPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDebug.h; sourceTree = "<group>"; };
 		CAC0DC801446E1710024DEB3 /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
 		CAC0DC811446E1710024DEB3 /* StatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusView.m; sourceTree = "<group>"; };
+		CAC38A59144BC64900FB66B7 /* data_m_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "data_m_1@2x.png"; sourceTree = "<group>"; };
+		CAC38A5A144BC64900FB66B7 /* data_m_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "data_m_2@2x.png"; sourceTree = "<group>"; };
+		CAC38A5B144BC64900FB66B7 /* data_title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "data_title@2x.png"; sourceTree = "<group>"; };
+		CAC38A5C144BC64900FB66B7 /* data_top_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "data_top_bg@2x.png"; sourceTree = "<group>"; };
+		CAC38A5D144BC64900FB66B7 /* kive_li2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kive_li2@2x.png"; sourceTree = "<group>"; };
+		CAC38A5E144BC64900FB66B7 /* odds_btn1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_btn1@2x.png"; sourceTree = "<group>"; };
+		CAC38A5F144BC64900FB66B7 /* odds_se_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_se_bg@2x.png"; sourceTree = "<group>"; };
+		CAC38A60144BC64900FB66B7 /* odds_title_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "odds_title_bg@2x.jpg"; sourceTree = "<group>"; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -940,6 +956,14 @@
 		C2B41317143199E100084F14 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CAC38A59144BC64900FB66B7 /* data_m_1@2x.png */,
+				CAC38A5A144BC64900FB66B7 /* data_m_2@2x.png */,
+				CAC38A5B144BC64900FB66B7 /* data_title@2x.png */,
+				CAC38A5C144BC64900FB66B7 /* data_top_bg@2x.png */,
+				CAC38A5D144BC64900FB66B7 /* kive_li2@2x.png */,
+				CAC38A5E144BC64900FB66B7 /* odds_btn1@2x.png */,
+				CAC38A5F144BC64900FB66B7 /* odds_se_bg@2x.png */,
+				CAC38A60144BC64900FB66B7 /* odds_title_bg@2x.jpg */,
 				CAC0DC32144677170024DEB3 /* b_menu_1@2x.png */,
 				CAC0DC33144677170024DEB3 /* b_menu_1s@2x.png */,
 				CAC0DC34144677170024DEB3 /* b_menu_2@2x.png */,
@@ -2058,6 +2082,14 @@
 				CAC0DC7E144679D30024DEB3 /* SelectIndexController.xib in Resources */,
 				C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */,
 				C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */,
+				CAC38A61144BC64900FB66B7 /* data_m_1@2x.png in Resources */,
+				CAC38A62144BC64900FB66B7 /* data_m_2@2x.png in Resources */,
+				CAC38A63144BC64900FB66B7 /* data_title@2x.png in Resources */,
+				CAC38A64144BC64900FB66B7 /* data_top_bg@2x.png in Resources */,
+				CAC38A65144BC64900FB66B7 /* kive_li2@2x.png in Resources */,
+				CAC38A66144BC64900FB66B7 /* odds_btn1@2x.png in Resources */,
+				CAC38A67144BC64900FB66B7 /* odds_se_bg@2x.png in Resources */,
+				CAC38A68144BC64900FB66B7 /* odds_title_bg@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

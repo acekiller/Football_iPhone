@@ -60,12 +60,12 @@
             {
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_1_on"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 }
                 else{
                     [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_1"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 }   
             }
@@ -74,13 +74,13 @@
             {
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     
                 }
                 else{
                     [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 }   
             }
@@ -103,12 +103,12 @@
             {
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 }
                 else{
                     [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 }   
             }
@@ -117,12 +117,12 @@
             {
                 if (i == selectMatchStatus) {
                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_5_on"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 }
                 else{
                     [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_5"] forState:UIControlStateNormal];
+                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4"] forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 }   
             }
@@ -152,7 +152,10 @@
     [self setRightBarButtons];
     [self setLeftBarButtons];
 
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
+                                                green:(0xf7)/255.0 
+                                                 blue:(0xf8)/255.0 
+                                                alpha:1.0];
     
     [super viewDidLoad];
     
@@ -200,7 +203,7 @@
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
-        [cell setBackgroundImageByName:@"klive_li.png"];
+        [cell setBackgroundImageByName:@"kive_li.png"];
 	}		
     
     cell.indexPath = indexPath;
