@@ -13,6 +13,8 @@
 #import "MatchConstants.h"
 #import "TimeUtils.h"
 #import "LeagueManager.h"
+#import "ScoreUpdateManager.h"
+#import "ScoreUpdate.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
@@ -212,7 +214,92 @@ MatchManager* GlobalGetMatchManager()
     // TODO
 }
 
-- (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimeScoreStringArray
+- (NSSet *)getScoreUpdateSet:(NSArray *)realtimeScoreStringArray
+{
+    if ([realtimeScoreStringArray count] == 0)
+        return nil;
+    
+    NSMutableSet* retSet = [[[NSMutableSet alloc] init] autorelease];
+    MatchManager *matchManager = [MatchManager defaultManager];
+    for (NSArray* fields in realtimeScoreStringArray){
+        int fieldCount = [fields count];
+        if (fieldCount < REALTIME_SCORE_FILED_COUNT){
+            NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
+            continue;
+        }
+        else{
+            
+            NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
+            Match* match = [self getMathById:matchId];
+            if (match == nil){
+                NSLog(@"<warning> cannot find match by match ID (%@)", matchId);
+                continue;
+            }
+            NSString* homeTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_SCORE];
+            NSString* awayTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_SCORE];
+            NSString* homeTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_RED];
+            NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
+            NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
+            NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
+            
+            
+            NSMutableSet *retSet = [[[NSMutableSet alloc] init]autorelease];
+            //home team score update
+            int increase = [homeTeamScore intValue] - [matchManager getHomeTeamScore:match];
+            if (increase > 0) {
+                ScoreUpdate *homeScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
+                [retSet addObject:homeScoreUpdate];
+                [homeScoreUpdate release];
+            }
+            
+            //away team score update
+            increase = [awayTeamScore intValue] - [matchManager getAwayTeamScore:match];
+            if (increase > 0) {
+                ScoreUpdate *awayScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMSCORE];
+                [retSet addObject:awayScoreUpdate];
+                [awayScoreUpdate release];
+            }
+            
+            //home team red card update
+            increase = [homeTeamRed intValue] - [matchManager getHomeTeamRedCount:match];
+            if (increase > 0) {
+                ScoreUpdate *homeRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
+                [retSet addObject:homeRedUpdate];
+                [homeRedUpdate release];
+            }
+            
+            //away team red card update
+            increase = [awayTeamRed intValue] - [matchManager getAwayTeamRedCount:match];
+            if (increase > 0) {
+                ScoreUpdate *awayRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMRED];
+                [retSet addObject:awayRedUpdate];
+                [awayRedUpdate release];
+                
+            }
+            
+            //home team yellow card update
+            increase = [homeTeamYellow intValue] - [matchManager getHomeTeamYellowCount:match];
+            if (increase > 0) {
+                ScoreUpdate *homeYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
+                [retSet addObject:homeYellowUpdate];
+                [homeYellowUpdate release];
+            }
+            
+            //away team yellow card update
+            increase = [awayTeamYellow intValue] - [matchManager getAwayTeamYellowCount:match];
+            if (increase > 0) {
+                ScoreUpdate *awayYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMYELLOW];
+                [retSet addObject:awayYellowUpdate];
+                [awayYellowUpdate release];
+            }
+
+        }
+    } 
+    return retSet;
+
+}
+
+- (NSSet *)updateMatchRealtimeScore:(NSArray*)realtimeScoreStringArray
 {
     if ([realtimeScoreStringArray count] == 0)
         return nil;
@@ -578,5 +665,67 @@ MatchManager* GlobalGetMatchManager()
     
     return count;
 }
+
+
+- (int)getHomeTeamRedCount:(Match *)match
+{
+    if (match) {
+        if (match.homeTeamRed) {
+            return [match.homeTeamRed intValue];
+        }
+    }
+    return 0;
+}
+- (int)getAwayTeamRedCount:(Match *)match
+{
+    if (match) {
+        if (match.awayTeamRed) {
+            return [match.awayTeamRed intValue];
+        }
+    }
+    return 0;
+}
+- (int)getHomeTeamYellowCount:(Match *)match
+{
+    {
+        if (match) {
+            if (match.homeTeamYellow) {
+                return [match.homeTeamYellow intValue];
+            }
+        }
+        return 0;
+    }
+}
+- (int)getAwayTeamYellowCount:(Match *)match
+{
+    {
+        if (match) {
+            if (match.awayTeamYellow) {
+                return [match.awayTeamYellow intValue];
+            }
+        }
+        return 0;
+    }
+}
+
+- (int)getHomeTeamScore:(Match *)match
+{
+    if (match) {
+        if (match.homeTeamScore) {
+            return [match.homeTeamScore intValue];
+        }
+    }
+    return 0;
+}
+- (int)getAwayTeamScore:(Match *)match
+{
+    if (match) {
+        if (match.awayTeamScore) {
+            return [match.awayTeamScore intValue];
+        }
+    }
+    return 0;
+}
+
 
 @end

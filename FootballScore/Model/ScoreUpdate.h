@@ -8,22 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
+enum ScoreUpdateType{
+    HOMETEAMSCORE = 0,
+    AWAYTEAMSCORE = 1,
+    HOMETEAMRED = 2,
+    AWAYTEAMRED = 3,
+    HOMETEAMYELLOW = 4,
+    AWAYTEAMYELLOW = 5,
+    TYPECOUNT = 6
+};
+
 @class Match;
 
 @interface ScoreUpdate : NSObject {
+    
     Match *match;
-    NSInteger homeRedFlag;
-    NSInteger awayRedFlag;
-    NSInteger homeYellowFlag;
-    NSInteger awayYelloFlag;
+    NSInteger scoreUpdateType;
+//    NSInteger homeRedFlag;
+//    NSInteger awayRedFlag;
+//    NSInteger homeYellowFlag;
+//    NSInteger awayYelloFlag;
+    
 }
 
-@property (nonatomic, retain)Match *match;
-@property (nonatomic, assign) NSInteger homeRedFlag;
-@property (nonatomic, assign) NSInteger awayRedFlag;
-@property (nonatomic, assign) NSInteger homeYellowFlag;
-@property (nonatomic, assign) NSInteger awayYelloFlag;
+@property (nonatomic, retain) Match *match;
+@property (nonatomic, assign) NSInteger scoreUpdateType;
+//@property (nonatomic, assign) NSInteger homeRedFlag;
+//@property (nonatomic, assign) NSInteger awayRedFlag;
+//@property (nonatomic, assign) NSInteger homeYellowFlag;
+//@property (nonatomic, assign) NSInteger awayYelloFlag;
 
+-(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type;
 - (NSInteger)state;
 - (NSString *)homeTeamName;
 - (NSString *)awayTeamName;
