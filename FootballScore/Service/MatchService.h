@@ -27,6 +27,8 @@
 
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo;
 
+- (void)getMatchOupeiFinish:(int)result data:(NSString*)data;
+
 
 @end
 
@@ -45,6 +47,9 @@
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 - (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId;
+
+- (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
+
 @end
 
 extern MatchService *GlobalGetMatchService();

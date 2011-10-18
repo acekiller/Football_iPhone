@@ -13,7 +13,15 @@
 #import "HJManagedImageV.h"
 @class DetailHeader;
 
+enum{
+    
+    SELECT_EVENT,
+    SELECT_OUPEI
+    
+};
+
 @interface MatchDetailController : PPViewController<MatchServiceDelegate> {
+    
     Match *match;
     
     HJManagedImageV *homeTeamIcon;
@@ -41,6 +49,7 @@
     BOOL     showDataFinish;
     
    
+    int     currentSelection;
     
 }
 
@@ -48,10 +57,15 @@
 
 @property(nonatomic,retain) NSString *eventJsonArray;
 @property(nonatomic,retain) NSString *statJsonArray;
+@property(nonatomic,retain) NSString *dataString;
 
 - (id)initWithMatch:(Match *)aMatch;
+
 - (IBAction)clickMatchesDatasButton:(id)sender;
+- (IBAction)clickMatchesOupeiButton:(id)sender;
+
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus;
+
 @property (nonatomic, retain) IBOutlet HJManagedImageV *homeTeamIcon;
 @property (nonatomic, retain) IBOutlet HJManagedImageV *awayTeamIcon;
 @property (nonatomic, retain) IBOutlet UILabel *matchStateLabel;
@@ -70,5 +84,9 @@
 @property (nonatomic, retain) IBOutlet UIWebView *dataWebView;
 
 @property (nonatomic, retain) DetailHeader *detailHeader;
+
+// internal call
+- (void)displayWebView;
+- (void)loadWebView;
 
 @end

@@ -42,6 +42,10 @@ enum{
 + (CommonNetworkOutput*)getRealtimeScore;
 + (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId;
 + (CommonNetworkOutput*)getMatchDetailHeader:(NSString *)matchId;
++ (CommonNetworkOutput*)getMatchOupei:(NSString*)matchId;
+
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType;
+
+
 @end
