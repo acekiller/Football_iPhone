@@ -14,7 +14,7 @@
 #import "DetailHeader.h"
 #import "PPApplication.h"
 #import "MatchManager.h"
-
+#import "MatchConstants.h"
 @implementation MatchDetailController
 @synthesize homeTeamIcon;
 @synthesize awayTeamIcon;
@@ -93,10 +93,20 @@
 
 - (void)viewDidLoad
 {
+    
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];
+
     [super viewDidLoad];
     
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
-    [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickBack:)];
+    //left  button 
+    NSString * leftButtonName = @"ss.png";    
+    [self setNavigationLeftButton:FNS(@"返回") imageName:leftButtonName action:@selector(clickBack:)];
+    
+    // right button
+    NSString * rightButtonName = @"refresh.png";    
+    [self setNavigationRightButton:nil imageName:rightButtonName action:@selector(clickBack:)];    
+    
+    
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
  //   self.matchStateLabel.text = [DataUtils toMatchStatusString:self.match.status language:1];
@@ -153,6 +163,129 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
+{
+    
+    for (int i=MATCH_DATA_STATUS_EVENT; i<=MATCH_DATA_STATUS_SIZE; i++){
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        switch (i) {
+            case MATCH_DATA_STATUS_EVENT:
+            {
+                if (i == selectMatchStatus) {
+                     [button setSelected:YES];  
+                     [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break;
+            case MATCH_DATA_STATUS_LINEUP:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_DATA_STATUS_ANALYSIS:
+            {
+                if (i == selectMatchStatus) {
+                     [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_DATA_STATUS_ASIANODDS:
+            {
+                if (i == selectMatchStatus) {
+                     [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_DATA_STATUS_AUROPEANODDS:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+            case MATCH_DATA_STATUS_SIZE:
+            {
+                if (i == selectMatchStatus) {
+                    [button setSelected:YES];  
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                }
+                else{
+                    [button setSelected:NO];
+                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }   
+            }
+                break; 
+
+                
+                
+            default:
+                break;
+        }
+    }
+}
+
+
+- (IBAction)clickMatchesDatasButton:(id)sender;
+{
+    
+    
+    UIButton* button = (UIButton*)sender;
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];
+    
+       
+}
+
+
+-(void)clickReflashLeftButton{
+    
+    
+    
+    
+
+}
+
+
 
 - (void)displayEvent
 {

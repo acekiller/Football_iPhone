@@ -39,6 +39,9 @@
     
     int      loadCounter;
     BOOL     showDataFinish;
+    
+   
+    
 }
 
 @property(nonatomic,retain) Match* match;
@@ -47,7 +50,8 @@
 @property(nonatomic,retain) NSString *statJsonArray;
 
 - (id)initWithMatch:(Match *)aMatch;
-
+- (IBAction)clickMatchesDatasButton:(id)sender;
+- (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus;
 @property (nonatomic, retain) IBOutlet HJManagedImageV *homeTeamIcon;
 @property (nonatomic, retain) IBOutlet HJManagedImageV *awayTeamIcon;
 @property (nonatomic, retain) IBOutlet UILabel *matchStateLabel;

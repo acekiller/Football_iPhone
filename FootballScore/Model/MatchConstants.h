@@ -23,3 +23,21 @@ enum{
     MATCH_SELECT_STATUS_MYFOLLOW = 15
 };
 
+
+
+enum{
+    
+    // match button tag, be careful to change the value together with button tag in UI
+   
+ 
+    MATCH_DATA_STATUS_EVENT = 1,   
+    MATCH_DATA_STATUS_LINEUP =2,
+    MATCH_DATA_STATUS_ANALYSIS =3,
+    MATCH_DATA_STATUS_ASIANODDS =4,
+    MATCH_DATA_STATUS_AUROPEANODDS =5,
+    MATCH_DATA_STATUS_SIZE =6
+
+
+
+
+};
