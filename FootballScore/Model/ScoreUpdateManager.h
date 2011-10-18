@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class ScoreUpdate;
+@class Match;
 
 @interface ScoreUpdateManager : NSObject {
     NSMutableArray *scoreUpdateList;
@@ -18,7 +20,19 @@
 @property (nonatomic, retain) NSMutableArray *scoreUpdateList;
 
 - (void)insertScoreUpdate:(ScoreUpdate *)scoreUpdate;
+
 //- (void)filter
+
+//- (NSSet *)getScoreUpdateSetWithMatch:(Match *)match homeScore:(NSString *)homeScore 
+//              awayScore:(NSString *)awayScore homeRed:(NSString *)homeRed 
+//            awayRed:(NSString *)awayRed homeYellow:(NSString *)homeYellow 
+//              awayYellow:(NSString *)awayYellow;
+
+- (NSInteger)insertScoreUpdateSet:(NSSet *)scoreUpdateSet;
+
+- (void)removeScoreUpdateAtIndex:(NSUInteger)index;
+
+- (void)removeAllScoreUpdates;
 
 - (id)init;
 @end

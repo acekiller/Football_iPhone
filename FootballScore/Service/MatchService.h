@@ -25,6 +25,8 @@
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 
+- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet;
+
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo;
 
 
@@ -35,16 +37,19 @@
     NSTimer *realtimeScoreTimer;
 
     id<MatchServiceDelegate> matchControllerDelegate;
+    id<MatchServiceDelegate> scoreUpdateControllerDelegate;
 }
 
 @property (nonatomic, retain) NSTimer *realtimeScoreTimer;
 @property (nonatomic, assign) id<MatchServiceDelegate> matchControllerDelegate;
+@property (nonatomic, assign) id<MatchServiceDelegate> scoreUpdateControllerDelegate;
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
 - (void)getRealtimeScore;
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 - (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId;
+
 @end
 
 extern MatchService *GlobalGetMatchService();
