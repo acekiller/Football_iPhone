@@ -95,6 +95,9 @@
 {
     
     [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];
+    
+    
+     
 
     [super viewDidLoad];
     
@@ -105,7 +108,6 @@
     // right button
     NSString * rightButtonName = @"refresh.png";    
     [self setNavigationRightButton:nil imageName:rightButtonName action:@selector(clickBack:)];    
-    
     
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
