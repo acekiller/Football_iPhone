@@ -155,7 +155,12 @@
         [buttonsArray addObject:button];        
     }
 
-    [SelectIndexController showButtonsAtScrollView:buttonScrollView withButtonArray:buttonsArray selectedImage:selectedImage unSelectedImage:unSelectedImage buttonsPerLine:4 buttonSize:buttonSize];
+    [SelectIndexController showButtonsAtScrollView:buttonScrollView 
+                                   withButtonArray:buttonsArray 
+                                     selectedImage:selectedImage 
+                                   unSelectedImage:unSelectedImage 
+                                    buttonsPerLine:4 
+                                        buttonSize:buttonSize];
 }
 
 + (void)showButtonsAtScrollView:(UIScrollView*)scrollView 
@@ -217,5 +222,6 @@
 
     
 }
+
 
 @end

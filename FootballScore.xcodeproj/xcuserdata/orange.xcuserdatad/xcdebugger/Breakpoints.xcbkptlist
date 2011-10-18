@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
-         timestampString = "340264103.144812"
+         timestampString = "340521998.224662"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "178"
-         endingLineNumber = "178"
+         startingLineNumber = "179"
+         endingLineNumber = "179"
          landmarkName = "-setCards:setMatch:withcardType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,7 +177,7 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Index/SelectIndexController.m"
-         timestampString = "340513915.070341"
+         timestampString = "340612604.638562"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "154"
@@ -191,11 +191,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Index/SelectIndexController.m"
-         timestampString = "340513915.070341"
+         timestampString = "340612604.638562"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "197"
-         endingLineNumber = "197"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
          landmarkName = "-buttonClicked:"
          landmarkType = "5">
       </FileBreakpoint>
