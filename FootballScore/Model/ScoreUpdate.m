@@ -12,16 +12,26 @@
 @implementation ScoreUpdate
 
 @synthesize match;
-@synthesize homeRedFlag;
-@synthesize awayRedFlag;
-@synthesize homeYellowFlag;
-@synthesize awayYelloFlag;
-
+//@synthesize homeRedFlag;
+//@synthesize awayRedFlag;
+//@synthesize homeYellowFlag;
+//@synthesize awayYelloFlag;
+@synthesize scoreUpdateType;
 
 -(void)dealloc
 {
     [match release];
     [super dealloc];
+}
+
+-(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type
+{
+    self = [super init];
+    if (self) {
+        self.match = aMatch;
+        self.scoreUpdateType = type;
+    }
+    return self;
 }
 
 - (NSInteger)state

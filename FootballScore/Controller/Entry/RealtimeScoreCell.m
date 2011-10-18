@@ -13,6 +13,7 @@
 #import "DataUtils.h"
 #define TIME_ZONE_GMT @"Asia/Shanghai"
 #import "LocaleConstants.h"
+#import "ColorManager.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -258,11 +259,6 @@ enum cardType{
     MatchManager* manager = [MatchManager defaultManager];
     CGRect middlePosition = CGRectMake(151, 11, 36, 20);
     CGRect originalPosition = CGRectMake(151, 6, 36, 14);
-    UIColor *green = [UIColor colorWithRed:0 green:255 blue:0 alpha:255];
-    UIColor *blue = [UIColor colorWithRed:0 green:0 blue:255 alpha:255];
-    UIColor *red = [UIColor colorWithRed:255 green:0 blue:0 alpha:255];
-    UIColor *gray = [UIColor grayColor]; 
-    
     
     switch (match.status) {
         case MATCH_STATUS_FIRST_HALF:
@@ -273,8 +269,8 @@ enum cardType{
             matchStatusLabel.text = value; 
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:red];
-            [scoreLabel setTextColor:green];
+            [matchStatusLabel setTextColor:[ColorManager onGoTimeColor]];
+            [scoreLabel setTextColor:[ColorManager onGoScore]];
         }
             break;
         case MATCH_STATUS_SECOND_HALF:
@@ -285,8 +281,8 @@ enum cardType{
             matchStatusLabel.text = value;    
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:red];
-            [scoreLabel setTextColor:green];
+            [matchStatusLabel setTextColor:[ColorManager onGoTimeColor]];
+            [scoreLabel setTextColor:[ColorManager onGoScore]];
         }
             break;
             
@@ -297,8 +293,8 @@ enum cardType{
             matchStatusLabel.text = FNS(@"中场");  
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:blue];
-            [scoreLabel setTextColor:blue];
+            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
+            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
         }
             break;
             
@@ -309,8 +305,8 @@ enum cardType{
             matchStatusLabel.text = FNS(@"中断");   
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:blue];
-            [scoreLabel setTextColor:blue];
+            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
+            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
         }
             break;
             
@@ -321,8 +317,8 @@ enum cardType{
             matchStatusLabel.text = FNS(@"已完场"); 
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:red];
-            [scoreLabel setTextColor:red];
+            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
+            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
         }
             break;
             
@@ -337,8 +333,8 @@ enum cardType{
             [scoreLabel setHidden:YES];
             [halfScoreLabel setHidden:YES];
             matchStatusLabel.frame = middlePosition;
-            [matchStatusLabel setTextColor:gray];
-            [scoreLabel setTextColor:gray];
+            [matchStatusLabel setTextColor:[UIColor grayColor]];
+            [scoreLabel setTextColor:[UIColor grayColor]];
         }
             break;
             

@@ -8,6 +8,7 @@
 
 #import "RealtimeIndexController.h"
 #import "SelectIndexController.h"
+#import "StatusView.h"
 
 
 @implementation RealtimeIndexController
@@ -60,6 +61,16 @@
     SelectIndexController *vc = [[SelectIndexController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+}
+
+- (IBAction)showStatus:(id)sender
+{
+    [StatusView showtStatusText:@"test" vibrate:NO duration:5];
+}
+
+- (IBAction)hideStatus:(id)sender
+{
+    [StatusView hideStatusText];
 }
 
 @end

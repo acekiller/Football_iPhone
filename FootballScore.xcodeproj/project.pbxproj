@@ -11,6 +11,7 @@
 		C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA61447D6F000EBCD9A /* AlertController.xib */; };
 		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
 		C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */; };
+		C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C28529B1144BE49400CA3CE9 /* ColorManager.m */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
@@ -348,6 +349,8 @@
 		C280CAA71447D6F000EBCD9A /* UserFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedbackController.h; sourceTree = "<group>"; };
 		C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedbackController.m; sourceTree = "<group>"; };
 		C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFeedbackController.xib; sourceTree = "<group>"; };
+		C28529B0144BE49400CA3CE9 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
+		C28529B1144BE49400CA3CE9 /* ColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManager.m; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
 		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
@@ -1046,6 +1049,8 @@
 				CAFE7451143963FB00301193 /* ScoreUpdateManager.m */,
 				CAFE74531439AAB000301193 /* DetailHeader.h */,
 				CAFE74541439AAB300301193 /* DetailHeader.m */,
+				C28529B0144BE49400CA3CE9 /* ColorManager.h */,
+				C28529B1144BE49400CA3CE9 /* ColorManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2323,6 +2328,7 @@
 				CAC0DC821446E1710024DEB3 /* StatusView.m in Sources */,
 				C280CAAA1447D6F000EBCD9A /* AlertController.m in Sources */,
 				C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */,
+				C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

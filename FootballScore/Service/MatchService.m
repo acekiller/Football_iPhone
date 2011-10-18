@@ -24,6 +24,7 @@
 
 @synthesize realtimeScoreTimer;
 @synthesize matchControllerDelegate;
+@synthesize scoreUpdateControllerDelegate;
 
 - (NSDate*)parseSeverDate:(NSArray*)dataArray
 {
@@ -127,11 +128,14 @@
         dispatch_async(dispatch_get_main_queue(), ^{
 
             NSSet* updateMatchSet = nil;
+            NSSet* scoreUpdateSet = nil;
+            
             if (output.resultCode == ERROR_SUCCESS){
                 
                 // parse score records and update match
                 if ([output.arrayData count] > 0){
-                    NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];
+                    NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];                    
+                    scoreUpdateSet = [[MatchManager defaultManager] getScoreUpdateSet:realtimeScoreArray];
                     updateMatchSet = [[MatchManager defaultManager] 
                                       updateMatchRealtimeScore:realtimeScoreArray];
                 }
@@ -144,6 +148,11 @@
             if (matchControllerDelegate && [matchControllerDelegate 
                                             respondsToSelector:@selector(getRealtimeScoreFinish:)]){
                 [matchControllerDelegate getRealtimeScoreFinish:updateMatchSet];
+            }
+            
+            if (scoreUpdateControllerDelegate && [scoreUpdateControllerDelegate 
+                                                  respondsToSelector:@selector(getScoreUpdateFinish:)]){
+                [scoreUpdateControllerDelegate getScoreUpdateFinish:scoreUpdateSet];
             }
             
 //            if (delegate && [delegate respondsToSelector:

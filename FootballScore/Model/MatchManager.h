@@ -44,6 +44,7 @@
 - (void)updateFilterMatchStatus:(int)selectMatchStatus;
 
 - (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimeScoreStringArray;
+- (NSSet *)getScoreUpdateSet:(NSArray *)realtimeScoreStringArray;
 - (Match *)getMathById:(NSString *)matchId;
 
 // follow match methods
@@ -68,5 +69,13 @@
 - (NSString*)matchMinutesString:(Match*)match;
 
 - (int)getCurrentFollowMatchCount;
+
+- (int)getHomeTeamRedCount:(Match *)match;
+- (int)getAwayTeamRedCount:(Match *)match;
+- (int)getHomeTeamYellowCount:(Match *)match;
+- (int)getAwayTeamYellowCount:(Match *)match;
+
+- (int)getHomeTeamScore:(Match *)match;
+- (int)getAwayTeamScore:(Match *)match;
 
 @end
