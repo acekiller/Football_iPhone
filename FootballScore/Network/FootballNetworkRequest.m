@@ -16,7 +16,16 @@
 #define URL_GET_MATCH_DETAIL_HEADER @"http://bf.bet007.com/phone/ScheduleDetail.aspx?"
 #define URL_GET_REGISTER_USER_ID    @"http://bf.bet007.com/phone/Register.aspx?"
 #define URL_UPDATE_USER_PUSH_INFO   @"http://bf.bet007.com/phone/PushSet.aspx?"
+#define URL_GET_PLAYER_LIST         @"http://bf.bet007.com/phone/ScheduleDetail.aspx?"
 #define URL_GET_MATCH_OUPEI         @"http://bf.bet007.com/phone/1x2.aspx?"
+#define URL_GET_MATCH_OUPEI_DETAIL  @"http://bf.bet007.com/phone/1x2Detail.aspx?"
+#define URL_GET_MATCH_YAPEI         @"http://bf.bet007.com/phone/Handicap.aspx?"
+#define URL_GET_MATCH_YAPEI_DETAIL  @"http://bf.bet007.com/phone/HandicapDetail.aspx?"
+#define URL_GET_MATCH_DAXIAO        @"http://bf.bet007.com/phone/OverUnder.aspx?"
+#define URL_GET_MATCH_DAXIAO_DETAIL @"http://bf.bet007.com/phone/OverUnderDetail.aspx?"
+
+
+
   
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -265,7 +274,7 @@ enum{
                                         output:output];
 }
 
-+ (CommonNetworkOutput*)getRegisterUserId:(int)registerType
++ (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString *)token
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
@@ -275,6 +284,7 @@ enum{
         NSString* str = [NSString stringWithString:baseURL];
         
         str = [str stringByAddQueryParameter:@"kind" intValue:registerType];
+        str = [str stringByAddQueryParameter:@"token" value:token];
         
         return str;
     };
@@ -290,7 +300,7 @@ enum{
                                         output:output];
 }
 
-+ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType
++ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
@@ -302,6 +312,8 @@ enum{
         str = [str stringByAddQueryParameter:@"UserID" intValue:userId];
         
         str = [str stringByAddQueryParameter:@"Type" intValue:pushType];
+        
+        str = [str stringByAddQueryParameter:@"token" value:token];
         
         return str;
     };
@@ -318,6 +330,33 @@ enum{
                                responseHandler:responseHandler
                                         output:output];
 }
+
++ (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL)  {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        
+        str = [str stringByAddQueryParameter:@"lang" intValue:language];
+        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {
+        
+        return;
+    };
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_PLAYER_LIST
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
+}
+
 
 + (CommonNetworkOutput*)getMatchOupei:(NSString*)matchId
 {
@@ -336,6 +375,116 @@ enum{
     }; 
     
     return [FootballNetworkRequest sendRequest:URL_GET_MATCH_OUPEI
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
+
++ (CommonNetworkOutput*)getMatchOupeiDetail:(NSString *)OddsId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:OddsId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_OUPEI_DETAIL
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
+
++ (CommonNetworkOutput*)getMatchYapei:(NSString*)matchId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_YAPEI
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
+
++ (CommonNetworkOutput*)getMatchYapeiDetail:(NSString *)OddsId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:OddsId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_YAPEI_DETAIL
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
+
++ (CommonNetworkOutput*)getMatchDaxiao:(NSString*)matchId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DAXIAO
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
+
++ (CommonNetworkOutput*)getMatchDaxiaoDetail:(NSString *)OddsId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:OddsId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_DAXIAO_DETAIL
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];    

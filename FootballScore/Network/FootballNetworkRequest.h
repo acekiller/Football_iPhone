@@ -42,10 +42,16 @@ enum{
 + (CommonNetworkOutput*)getRealtimeScore;
 + (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId;
 + (CommonNetworkOutput*)getMatchDetailHeader:(NSString *)matchId;
+
 + (CommonNetworkOutput*)getMatchOupei:(NSString*)matchId;
++ (CommonNetworkOutput*)getMatchOupeiDetail:(NSString*)OddsId;
++ (CommonNetworkOutput*)getMatchYapei:(NSString*)matchId;
++ (CommonNetworkOutput*)getMatchYapeiDetail:(NSString*)OddsId;
++ (CommonNetworkOutput*)getMatchDaxiao:(NSString*)matchId;
++ (CommonNetworkOutput*)getMatchDaxiaoDetail:(NSString *)OddsId;
 
-+ (CommonNetworkOutput*)getRegisterUserId:(int)registerType;
-+ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType;
-
++ (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
++ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
++ (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
 
 @end
