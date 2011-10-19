@@ -204,4 +204,10 @@
     }    
 }
 
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"[id=%@, home=%@, away=%@]",
+            matchId, homeTeamName, awayTeamName];
+}
+
 @end
