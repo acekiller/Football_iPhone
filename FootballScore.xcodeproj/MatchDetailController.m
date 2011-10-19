@@ -15,7 +15,10 @@
 #import "PPApplication.h"
 #import "MatchManager.h"
 #import "MatchConstants.h"
+#import "LogUtil.h"
+
 @implementation MatchDetailController
+
 @synthesize homeTeamIcon;
 @synthesize awayTeamIcon;
 @synthesize matchStateLabel;
@@ -33,6 +36,7 @@
 @synthesize dataWebView;
 @synthesize eventJsonArray;
 @synthesize statJsonArray;
+@synthesize dataString;
 
 @synthesize match;
 @synthesize detailHeader;
@@ -57,6 +61,7 @@
 
 - (void)dealloc
 {
+    [dataString release];
     [match release];
     [eventJsonArray release];
     [statJsonArray release];
@@ -118,22 +123,13 @@
     
     [self showActivityWithText:FNS(@"加载数据中...")];
     
-    [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];
-    
+    [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];    
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
 
     self.dataWebView.hidden = YES;
-    [self.dataWebView removeFromSuperview];
     
-    NSURL* url = [FileUtil bundleURL:@"www/match_detail.html"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"load url = %@", [request description]);
-    if (request) {
-        [self.dataWebView loadRequest:request];
-
-    }    
-    
-
+    currentSelection = SELECT_EVENT;
+    [self loadWebView];    
 }
 
 - (void)viewDidUnload
@@ -266,22 +262,40 @@
     }
 }
 
+- (void)loadOupeiData
+{
+    [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
+}
+
+- (void)getMatchOupeiFinish:(int)result data:(NSString*)data
+{
+    [self hideActivity];
+    showDataFinish = YES;
+    
+    if (result == 0){
+        self.dataString = data;
+        [self loadWebView];
+    }
+}
 
 - (IBAction)clickMatchesDatasButton:(id)sender;
-{
-    
-    
+{        
     UIButton* button = (UIButton*)sender;
     int selectMatchStatus = button.tag;
     [self updateSelectMatchStatusButtonState:selectMatchStatus];
-    
-       
 }
 
+- (IBAction)clickMatchesOupeiButton:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];    
+    
+    currentSelection = SELECT_OUPEI;
+    [self loadOupeiData];
+}
 
--(void)clickReflashLeftButton{
-    
-    
+-(void)clickReflashLeftButton{            
     
     
     
@@ -291,33 +305,79 @@
     
 }
 
+- (void)displayOupei:(NSString*)oupeiDataString
+{
+    
+    NSString *jsCode = [NSString stringWithFormat:@"updateOupeiDetail(\"%@\");", oupeiDataString];      
+    PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
 
+}
 
 - (void)displayEvent
 {
     NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
     
-#ifdef DEBUG    
-    NSLog(@"jsCode = %@",jsCode);
-#endif
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);
     
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
- 
-    [UIView beginAnimations:nil context:nil];    
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];    
-    self.dataWebView.hidden = NO;
-    [self.view addSubview:dataWebView];
-    [UIView commitAnimations];
-    
+    self.dataWebView.hidden = NO;    
     [self hideActivity];
+}
+
+- (void)loadWebViewByHtml:(NSString*)html
+{
+    self.dataWebView.hidden = YES;
+    loadCounter = 0;
+    showDataFinish = NO;
+    
+    NSURL* url = [FileUtil bundleURL:html];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"load url = %@", [request description]);
+    if (request) {
+        [self.dataWebView loadRequest:request];        
+    }        
+}
+
+- (void)loadWebView
+{
+    switch (currentSelection) {
+        case SELECT_EVENT:
+            [self loadWebViewByHtml:@"www/match_detail.html"];
+            break;
+            
+        case SELECT_OUPEI:
+            [self loadWebViewByHtml:@"www/oupei.html"];
+            break;
+            
+        default:
+            break;
+    }    
+}
+
+- (void)displayWebView
+{
+    switch (currentSelection) {
+        case SELECT_EVENT:
+            [self displayEvent];
+            break;
+            
+        case SELECT_OUPEI:
+            [self displayOupei:dataString];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)showResult
 {
     [self showActivityWithText:@"加载数据中..."];
     [self.timer invalidate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(displayEvent) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
     
     showDataFinish = YES;
 }
@@ -329,8 +389,6 @@
 
 - (void)getMatchEventFinish:(int)result match:(Match *)matchValue
 {    
-//    [self hideActivity];
-    
     if (result == 0) {
         NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[matchValue.events count]];
         NSMutableArray *statArray = [NSMutableArray arrayWithCapacity:[matchValue.stats count]];
@@ -405,8 +463,7 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
-{
-   
+{   
     NSLog(@"webViewDidStartLoad, isLoading=%d", webView.loading);  
     
 }
@@ -416,7 +473,7 @@
     NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
     loadCounter ++;
 
-    if ([self isLoadFinish] && showDataFinish == NO && (eventJsonArray || statJsonArray)){
+    if ([self isLoadFinish] && showDataFinish == NO){
         [self showResult];
     }        
 }

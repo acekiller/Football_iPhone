@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+            <title>Match Detail</title> 
+
+           	<script src="lib/touch/sencha-touch.js" type="text/javascript"></script> 
+            <link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" /> 
+            
+            
+            
+            </head> 
+    <body>  
+    	
+        <script type="text/javascript" src="js/util/parserUtil.js"></script>            
+        <script type="text/javascript" src="js/model/OupeiObject.js"></script>     
+        <script type="text/javascript" src="js/model/OupeiManager.js"></script>                                   
+        <script type="text/javascript" src="js/oupei.js"></script>            
+    	
+        
+        <div id="oupei-stat-template" class="x-hidden-display">
+			<ul>
+        		<li>         主胜 平 客胜</li>
+        		<li>初盘最高值 {chupanWinMax} {chupanDrawMax} {chupanLostMax}</li>
+        		<li>即时最高值 {jishiWinMax} {jishiDrawMax} {jishiLostMax}</li>
+        		<li>初盘最低值 {chupanWinMin} {chupanDrawMin} {chupanLostMin}</li>
+        		<li>即时最低值 {jishiWinMin} {jishiDrawMin} {jishiLostMin}</li>
+        		<li>初盘平均值 {chupanWinAvg} {chupanDrawAvg} {chupanLostAvg}</li>
+        		<li>即时平局值 {jishiWinAvg} {jishiDrawAvg} {jishiLostAvg}</li>
+        	</ul>
+        </div>
+
+        <div id="oupei-company-template" class="x-hidden-display">
+            <ul id="oupeiList">            	
+                <tpl for=".">
+                	<li><h1>{name} 主胜 平 客胜</h1></li>
+                    <li>
+                        <h2>初盘 {chupanWin} {chupanDraw} {chupanLost}</h2>
+                    </li>
+                    <li>
+                        <h2>即时 {jishiWin} {jishiDraw} {jishiLost}</h2>
+                    </li>
+                </tpl>
+            </ul>
+        </div>
+        
+    </body> 
+</html>
