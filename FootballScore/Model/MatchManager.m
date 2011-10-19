@@ -241,9 +241,7 @@ MatchManager* GlobalGetMatchManager()
             NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
             NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
             NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
-            
-            
-            NSMutableSet *retSet = [[[NSMutableSet alloc] init]autorelease];
+        
             //home team score update
             int increase = [homeTeamScore intValue] - [matchManager getHomeTeamScore:match];
             if (increase > 0) {

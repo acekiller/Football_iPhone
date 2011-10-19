@@ -11,6 +11,8 @@
 
 #define LANGUAGE_KEY @"language"
 
+static NSNumber *langId = nil;
+
 @implementation LanguageManager
 
 +(NSInteger)getLanguage

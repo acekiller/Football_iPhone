@@ -137,6 +137,7 @@
                 if ([output.arrayData count] > 0){
                     NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];                    
                     scoreUpdateSet = [[MatchManager defaultManager] getScoreUpdateSet:realtimeScoreArray];
+                    
                     updateMatchSet = [[MatchManager defaultManager] 
                                       updateMatchRealtimeScore:realtimeScoreArray];
                 }
