@@ -18,6 +18,7 @@
 #define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
 #define GET_MATCH_EVENT  @"GET_MATCH_EVENT"
 #define GET_MATCH_DETAIL_HEADER @"GET_MATCH_DETAIL_HEADER"
+#define GET_MATCH_OUPEI @"GET_MATCH_OUPEI"
 
 @implementation MatchService
 
@@ -224,6 +225,24 @@
             }
         });                        
     }];
+}
+
+- (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_OUPEI];
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getMatchOupei:matchId];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (delegate && [delegate respondsToSelector:@selector(getMatchOupeiFinish:data:)]) {
+                [delegate getMatchOupeiFinish:output.resultCode data:output.textData];
+            }
+        });                        
+    }];
+
 }
 
 @end
