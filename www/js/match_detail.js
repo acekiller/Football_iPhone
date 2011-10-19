@@ -1,21 +1,6 @@
 
 
-function getEventString(type){
-	switch (type){
-	case 1:
-		return "入球";
-	case 2:
-		return "红牌";
-	case 3:
-		return "黄牌";
-	case 7:
-		return "点球";
-	case 8:
-		return "乌龙";
-	case 9:
-		return "两黄变红";
-	}
-}
+
 
 MatchDetailApp = new Ext.Application({
 
@@ -23,97 +8,50 @@ MatchDetailApp = new Ext.Application({
     
     name: 'MatchDetailApp',
     
+    isLaunched: 0,
+    
     launch: function() {
-	
-		// 主客队标志，1：主队事件，0：客队事件
-		// 事件类型1、入球 2、红牌  3、黄牌   7、点球  8、乌龙  9、两黄变红
-
-        var event = [];
-
-        var stat = [];        
+        		
+        console.log("match javascript launched");
+//      testReadData();
+//      testUpdateMatchDetail();
+//      testUpdateOupeiDetail();
         
-        var statArray = [
-            "先开球", "第一个角球", "第一张黄牌", "射门次数", "射正次数", "犯规次数", "角球次数", "角球次数(加时)", 
-            "任意球次数", "越位次数", "乌龙球数", "黄牌数", "黄牌数(加时)", "红牌数", "控球时间", "头球", "救球", 
-            "守门员出击", "丟球", "成功抢断", "阻截", "长传", "短传", "助攻", "成功传中", "第一个换人", "最后换人", 
-            "第一个越位", "最后越位", "换人数", "最后角球", "最后黄牌", "换人数(加时)", "越位次数(加时)", "红牌数(加时)"
-            ];
-
-        var helperFunctions = {
-        
-            isScoreEvent : function(type){
-                return (type == 1); // 是否是进球
-            },
-
-            isCardEvent : function(type){
-                return (type == 2); // 是否是红黄牌
-            },
-
-            eventString : function(type){
-            	switch (type){
-            	case 1:
-            		return "入球";
-            	case 2:
-            		return "红牌";
-            	case 3:
-            		return "黄牌";
-            	case 7:
-            		return "点球";
-            	case 8:
-            		return "乌龙";
-            	case 9:
-            		return "两黄变红";
-            	}
-            	return "";
-            },
-
-            statString : function(type)
-            {
-                return ""+statArray[type];
-            
-            }
-
-        };
-
-        var eventInfo = Ext.XTemplate.from("event-template", helperFunctions);
-        var statInfo = Ext.XTemplate.from("stat-template", helperFunctions);
-
-        MatchDetailApp.eventPanel = new Ext.Panel({
-            
-            id : 'eventPanel',
-            tpl : eventInfo,
-
-            margin: '20 10 20 0',
-            align: 'left'
-        });
-        
-        MatchDetailApp.statPanel = new Ext.Panel({
-            id : 'statPanel',
-            tpl : statInfo
-        });
-
-
-        MatchDetailApp.viewport = new Ext.Panel({
-
-            fullscreen: true,
-            layout: {
-                type: 'vbox',
-                align: 'stretch'
-            },
-            scroll : 'vertical',
-            items: [MatchDetailApp.eventPanel, MatchDetailApp.statPanel]            
-        });
-        
-        console.log("match detail JS starting");
-//        updateMatchDetail("[]","[]");
+        MatchDetailApp.isLaunched = 1;
     }
 
 });
 
+function isAppLaunched(){
+	return MatchDetailApp.isLaunched;
+}
 
-function updateMatchDetail(event, stat){
+function testUpdateMatchDetail(){
+	var data = "0^1^3^D.卡里奴!1^1^42^F.蒙迪路!0^1^60^施薩 迪加度$$3^8^6!4^5^4!5^5^3!6^3^3!9^0^3!11^1^2!16^2^4";
+	updateMatchDetail(data);
+}
 
-	MatchDetailApp.eventPanel.update(eval(event));
-	MatchDetailApp.statPanel.update(eval(stat));
+function updateMatchDetail(inputString){
 
+	MatchDetailApp.matchDetailView = new MatchDetailView();	
+	MatchDetailApp.viewport = MatchDetailApp.matchDetailView.mainPanel;		
+	
+	matchDetailManager.readData(inputString);	
+	MatchDetailApp.matchDetailView.eventPanel.update(matchDetailManager.eventArray);
+	MatchDetailApp.matchDetailView.statPanel.update(matchDetailManager.statArray);
+}
+
+function testUpdateOupeiDetail(){
+	var data = "盈禾^2580078^1.70^3.30^4.35^1.65^3.45^4.50!韦德^2574267^1.615^3.50^4.75^1.667^3.60^5.50!Bet365^2573522^1.61^3.40^5.00^1.65^4.20^4.60!易胜^2579536^1.65^3.40^4.75^1.62^3.40^5.00!ＳＢ^2580075^1.70^3.30^4.35^1.65^3.30^4.50!利记^2579424^1.70^3.40^4.20^1.64^3.35^4.80!永利高^2580277^1.70^3.30^4.35^1.46^3.30^4.35!10BET^2579343^1.61^3.47^4.92^1.54^3.58^5.26!金宝博^2580170^1.70^3.30^4.35^1.61^3.55^4.65!12bet/大发^2579540^1.67^3.45^4.32^1.64^3.37^4.68!明陞^2579541^1.67^3.45^4.32^1.64^3.37^4.68";
+	updateOupeiDetail(data);
+}
+
+function updateOupeiDetail(oupeiData){
+	
+	MatchDetailApp.oupeiView = new OupeiView();	
+	MatchDetailApp.viewport = MatchDetailApp.oupeiView.mainPanel;		
+
+	oupeiManager.readData(oupeiData);
+	MatchDetailApp.oupeiView.statPanel.update(oupeiManager.stat);
+	MatchDetailApp.oupeiView.companyPanel.update(oupeiManager.dataArray);
 }

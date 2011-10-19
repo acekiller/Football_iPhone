@@ -178,23 +178,26 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSArray *eventArray = nil;
-            NSArray *statArray = nil;
-            Match *match = nil;
+//            NSArray *eventArray = nil;
+//            NSArray *statArray = nil;
+//            Match *match = nil;
             if (output.resultCode == ERROR_SUCCESS){
+                /* rem by Benson because the data processing is moved to Java Script
                 eventArray = [output.arrayData objectAtIndex:MATCH_EVENT];
                 statArray = [output.arrayData objectAtIndex:MATCH_TECHNICAL_STATISTICS];
                 MatchManager *defaultManager = [MatchManager defaultManager];
                 match = [defaultManager getMathById:matchId];
                 [defaultManager updateMatch:match WithEventArray:eventArray];
                 [defaultManager updateMatch:match WithStatArray:statArray];
+                 */
             }
             
-            // step 2 : update UI
-            if (delegate && [delegate respondsToSelector:@selector(getMatchEventFinish:match:)])
+            // step 2 : update UI            
+            if (delegate && [delegate respondsToSelector:@selector(getMatchEventFinish:data:)])
             {
-                [delegate getMatchEventFinish:output.resultCode match:match];
+                [delegate getMatchEventFinish:output.resultCode data:output.textData];
             }
+
         });                        
     }];
 }

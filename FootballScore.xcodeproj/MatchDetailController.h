@@ -47,7 +47,8 @@ enum{
     
     int      loadCounter;
     BOOL     showDataFinish;
-    
+    BOOL    firstLoadWebView;
+    BOOL    isWebViewReady;
    
     int     currentSelection;
     
@@ -57,7 +58,8 @@ enum{
 
 @property(nonatomic,retain) NSString *eventJsonArray;
 @property(nonatomic,retain) NSString *statJsonArray;
-@property(nonatomic,retain) NSString *dataString;
+@property(nonatomic,retain) NSString *oupeiString;
+@property(nonatomic,retain) NSString *eventString;
 
 - (id)initWithMatch:(Match *)aMatch;
 
@@ -86,7 +88,8 @@ enum{
 @property (nonatomic, retain) DetailHeader *detailHeader;
 
 // internal call
-- (void)displayWebView;
-- (void)loadWebView;
+- (void)initWebView;
+- (void)updateOupeiView:(NSString*)oupeiDataString;
+- (void)updateEventView:(NSString*)eventDataString;
 
 @end
