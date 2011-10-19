@@ -14,6 +14,15 @@
 @synthesize userId;
 @synthesize deviceToken;
 
+- (id)initWithUserId:(NSString *)aUserId deviceToken:(NSString *)aDeviceToken
+{
+    self = [super init];
+    if (self) {
+        self.userId = aUserId;
+        self.deviceToken = aDeviceToken;
+    }
+    return self;
+}
 - (void)dealloc
 {
     [userId release];
