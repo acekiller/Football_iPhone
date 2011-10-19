@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-
+static NSNumber *langId = nil;
 @interface LanguageManager : NSObject {
-    
+
 }
 
 +(NSInteger)getLanguage;
 +(void) setLanguage:(NSInteger)lang;
 
 @end
+
+NSString *fns(NSString *msg);
+NSString *fnsWithLang(NSString *msg, NSInteger lang);

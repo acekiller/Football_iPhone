@@ -156,7 +156,7 @@ enum
     self.matchService = [[MatchService alloc] init];
 }
 
-- (void)initUserService
+- (void)userRegister
 {
     if (![UserManager isUserExisted]) {
         [FootballNetworkRequest getRegisterUserId:1 token:[self getDeviceToken]];
@@ -176,7 +176,7 @@ enum
     
     // init all service 
     [self initMatchService];
-    [self initUserService];
+    [self userRegister];
 
 	[self initMobClick];
     [self initImageCacheManager];    
@@ -258,6 +258,7 @@ enum
 	
 	NSLog(@"applicationWillEnterForeground");	
 	[MobClick appLaunched];
+    [self userRegister];
 //    [appService startAppUpdate];
     
 }

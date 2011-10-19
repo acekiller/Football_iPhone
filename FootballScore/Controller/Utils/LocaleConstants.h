@@ -7,5 +7,7 @@
 //
 
 #import "LocaleUtils.h"
+#import "LanguageManager.h"
 
-#define FNS(x)  NSLS(x)
+#define FNS(x)  fns(x)
+#define FNSWithLang(x,lang) fnsWithLang(x,lang)

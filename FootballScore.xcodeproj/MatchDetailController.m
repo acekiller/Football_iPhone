@@ -359,8 +359,16 @@
         self.matchStarttimeLabel.text = nil;
     }
     
-    self.homeTeamName.text = header.homeTeamSCName;
-    self.awayTeamName.text = header.awayTeamSCName;
+    NSInteger lang = [LanguageManager getLanguage];
+    
+    //acoording to the language setting, show the team names.
+    if (lang == LANG_CANTON) {
+        self.homeTeamName.text = header.homeTeamYYName;
+        self.awayTeamName.text = header.awayTeamYYName;
+    }else{
+        self.homeTeamName.text = header.homeTeamSCName;
+        self.awayTeamName.text = header.awayTeamSCName;
+    }
     
     if ([header.homeTeamRank length] > 0) {
         self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
