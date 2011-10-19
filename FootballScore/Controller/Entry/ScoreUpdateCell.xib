@@ -280,7 +280,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ball.png</string>
+									<string key="NSResourceName">yellowcard@2x.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="475001699">
@@ -731,8 +731,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">ball.png</string>
-			<string key="NS.object.0">{15, 15}</string>
+			<string key="NS.key.0">yellowcard@2x.png</string>
+			<string key="NS.object.0">{26, 30}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">300</string>
 	</data>

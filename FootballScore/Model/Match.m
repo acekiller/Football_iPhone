@@ -54,6 +54,8 @@
 @synthesize events;
 @synthesize stats;
 @synthesize isFollow;
+@synthesize lastModifyTime;
+
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
@@ -108,6 +110,8 @@
 
     
     self.isFollow = isFollowValue;
+   
+    self.lastModifyTime = [[NSDate date] timestamp];
 
     return self;
 }
