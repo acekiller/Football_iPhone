@@ -99,5 +99,29 @@
                            alpha:1.0];
 }
 
++ (UIColor*)MatchesNameButtonNotChosenColor{
+    
+    
+    return [UIColor colorWithRed:66/255.0 
+                           green:66/255.0
+                            blue:66/255.0
+                           alpha:1.0];
+
+    
+
+}
++ (UIColor*)ToChooseTheMatchesButtonColor{
+    
+    return [UIColor colorWithRed:(24)/255.0 
+                           green:(53)/255.0
+                            blue:(93)/255.0
+                           alpha:1.0];
+
+    
+}
+
+
+
+
 
 @end

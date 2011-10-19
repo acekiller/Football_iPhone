@@ -17,7 +17,7 @@
     
 }
 
-+ (void)createUser:(NSString*)userId deviceToken:(NSString*)deviceToken;
++ (void)createUser:(NSString*)userId;
 
 + (void)saveUser:(User*)user;
 
@@ -25,7 +25,6 @@
 
 + (NSString *)getUserId;
 
-+ (NSString *)getDeviceToken;
-
 + (User *) getUser;
+
 @end
