@@ -44,4 +44,5 @@ enum{
 + (CommonNetworkOutput*)getMatchDetailHeader:(NSString *)matchId;
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType;
++ (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
 @end
