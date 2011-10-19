@@ -58,6 +58,9 @@
 		CA3C9FBF144E694E00D6692B /* set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3C9FBA144E694E00D6692B /* set@2x.png */; };
 		CA3C9FC0144E694E00D6692B /* set2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3C9FBB144E694E00D6692B /* set2@2x.png */; };
 		CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3FD46E143ABAC600119BD4 /* LanguageManager.m */; };
+		CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */; };
+		CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA7144E82E1009B2318 /* Mandarin.strings */; };
+		CA6C9DAA144E8322009B2318 /* Cantonese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA9144E8322009B2318 /* Cantonese.strings */; };
 		CA7F23761433722100CC0F05 /* MatchDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F23741433722100CC0F05 /* MatchDetailController.m */; };
 		CA7F23771433722100CC0F05 /* MatchDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA7F23751433722100CC0F05 /* MatchDetailController.xib */; };
 		CA7F24BC1433727300CC0F05 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */; };
@@ -421,6 +424,9 @@
 		CA3C9FBB144E694E00D6692B /* set2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "set2@2x.png"; sourceTree = "<group>"; };
 		CA3FD46D143ABAC500119BD4 /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
 		CA3FD46E143ABAC600119BD4 /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
+		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
+		CA6C9DA7144E82E1009B2318 /* Mandarin.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Mandarin.strings; sourceTree = "<group>"; };
+		CA6C9DA9144E8322009B2318 /* Cantonese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Cantonese.strings; sourceTree = "<group>"; };
 		CA7F23731433722100CC0F05 /* MatchDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchDetailController.h; path = FootballScore.xcodeproj/MatchDetailController.h; sourceTree = SOURCE_ROOT; };
 		CA7F23741433722100CC0F05 /* MatchDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchDetailController.m; path = FootballScore.xcodeproj/MatchDetailController.m; sourceTree = SOURCE_ROOT; };
 		CA7F23751433722100CC0F05 /* MatchDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchDetailController.xib; path = FootballScore.xcodeproj/MatchDetailController.xib; sourceTree = SOURCE_ROOT; };
@@ -1146,6 +1152,16 @@
 			path = Match;
 			sourceTree = "<group>";
 		};
+		CA6C9DA4144E8219009B2318 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */,
+				CA6C9DA7144E82E1009B2318 /* Mandarin.strings */,
+				CA6C9DA9144E8322009B2318 /* Cantonese.strings */,
+			);
+			name = Language;
+			sourceTree = "<group>";
+		};
 		CA7F23791433723300CC0F05 /* asi-http-request */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,6 +1273,7 @@
 		CAF4CC48142ECFCC001D5B4A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CA6C9DA4144E8219009B2318 /* Language */,
 				CAF4CC49142ECFCC001D5B4A /* FootballScore-Info.plist */,
 				CAF4CC4A142ECFCC001D5B4A /* InfoPlist.strings */,
 				CAF4CC4D142ECFCC001D5B4A /* FootballScore-Prefix.pch */,
@@ -2115,6 +2132,9 @@
 				CA3C9FBE144E694E00D6692B /* se_btn2_3@2x.png in Resources */,
 				CA3C9FBF144E694E00D6692B /* set@2x.png in Resources */,
 				CA3C9FC0144E694E00D6692B /* set2@2x.png in Resources */,
+				CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */,
+				CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */,
+				CA6C9DAA144E8322009B2318 /* Cantonese.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
