@@ -22,4 +22,9 @@
 + (UIColor*)matchName4;
 + (UIColor*)matchName5;
 
+
++ (UIColor*)MatchesNameButtonNotChosenColor;
++ (UIColor*)ToChooseTheMatchesButtonColor;
+
+
 @end
