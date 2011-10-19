@@ -107,7 +107,7 @@ enum{
     NSMutableArray  *stats;
     
     BOOL        isFollow;
-    NSTimeInterval  lastModifyTime;
+    time_t  lastModifyTime;
 }
 
 @property (nonatomic, retain) NSString    *matchId;
@@ -153,7 +153,7 @@ enum{
 
 @property (nonatomic, assign) BOOL        isFollow;
 
-@property (nonatomic, assign)  NSTimeInterval  lastModifyTime;
+@property (nonatomic, assign)  time_t  lastModifyTime;
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue

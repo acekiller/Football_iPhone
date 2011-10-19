@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-static NSNumber *langId = nil;
 @interface LanguageManager : NSObject {
 
 }

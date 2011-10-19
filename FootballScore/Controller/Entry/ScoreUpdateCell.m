@@ -87,7 +87,7 @@
         //TO DO set score event image 
         eventImage = [UIImage imageNamed:@"ball.png"];
         self.scoreTypeName.text = FNS(@"比分");
-        [self setTeamEventButton:type message:@"进球" color:[UIColor greenColor]];
+        [self setTeamEventButton:type message:FNS(@"进球") color:[UIColor greenColor]];
         
     }else if(type < HOMETEAMYELLOW)
     {
