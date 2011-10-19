@@ -24,6 +24,7 @@
     int             serverDiffSeconds;
     
     NSMutableSet*   followMatchIdList;
+    NSMutableArray* followMatchArray;
 }
 
 @property (nonatomic, retain) NSDate*           serverDate;
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) NSMutableSet*     followMatchIdList;
 @property (nonatomic, assign) int               filterMatchStatus;
 @property (nonatomic, assign) int               filterMatchScoreType;
+@property (nonatomic, retain) NSMutableArray*   followMatchArray;
 
 
 + (MatchManager*)defaultManager;

@@ -289,8 +289,8 @@
 								  initWithTitle:FNS(@"请选择赛事比分类型")
                                   delegate:self
 								  cancelButtonTitle:FNS(@"返回")
-								  destructiveButtonTitle:FNS(@"一级赛事")
-								  otherButtonTitles:FNS(@"全部比分"), 
+								  destructiveButtonTitle:FNS(@"全部比分")
+								  otherButtonTitles:FNS(@"一级赛事"), 
                                   FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
                                   ];
 	
@@ -304,10 +304,10 @@
 		return;
 	}
     
-    if (buttonIndex == matchScoreType){
-        // same type, no change, return directly
-        return;
-    }
+//    if (buttonIndex == matchScoreType){
+//        // same type, no change, return directly
+//        return;
+//    }
     
     matchScoreType = buttonIndex;
     

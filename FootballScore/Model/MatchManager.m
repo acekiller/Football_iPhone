@@ -39,6 +39,7 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterMatchScoreType;
 @synthesize followMatchIdList;
 @synthesize serverDate;
+@synthesize followMatchArray;
 
 + (MatchManager*)defaultManager
 {
@@ -93,10 +94,15 @@ MatchManager* GlobalGetMatchManager()
         return;
     
     [match setIsFollow:YES];
-    [self.followMatchIdList addObject:match.matchId];
-    [self saveFollowMatchIdList];
     
-    PPDebug(@"follow match (%@)", [match description]);
+    if ([followMatchIdList containsObject:match.matchId] == NO){
+        
+        [self.followMatchIdList addObject:match.matchId];
+        [self saveFollowMatchIdList];
+        
+        PPDebug(@"follow match (%@)", [match description]);
+    }
+    
 }
 
 - (void)unfollowMatch:(Match*)match
@@ -141,6 +147,7 @@ MatchManager* GlobalGetMatchManager()
 
 - (void)dealloc
 {
+    [followMatchArray release];
     [serverDate release];
     [matchArray release];
     [followMatchIdList release];
@@ -174,7 +181,7 @@ MatchManager* GlobalGetMatchManager()
 
         [retArray addObject:match];
     }
-    
+        
     PPDebug(@"filter match done, total %d match return", [retArray count]);
     return retArray;
 
@@ -207,12 +214,12 @@ MatchManager* GlobalGetMatchManager()
 {
     self.matchArray = updateArray;
     
-    
+    // TODO save match if match is followed
 }
 
 - (void)updateRealtimeMatchArray:(NSArray*)realtimeMatchArray
 {
-    // TODO
+    // TODO do what??? 
 }
 
 - (NSSet *)getScoreUpdateSet:(NSArray *)realtimeScoreStringArray
