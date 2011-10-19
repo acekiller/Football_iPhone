@@ -111,7 +111,7 @@
     
     self.isFollow = isFollowValue;
    
-    self.lastModifyTime = [[NSDate date] timestamp];
+//    self.lastModifyTime = [[NSDate date] timestamp];
 
     return self;
 }

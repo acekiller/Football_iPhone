@@ -22,6 +22,7 @@
 @synthesize myFollowCountView;
 
 @synthesize matchSecondTimer;
+@synthesize matchDetailController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+    [matchDetailController release];
     [matchSecondTimer release];
     [myFollowButton release];
     [myFollowCountView release];
@@ -47,6 +49,7 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+    self.matchDetailController = nil;
 }
 
 #pragma mark - View lifecycle
@@ -222,9 +225,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Match* match = [self.dataList objectAtIndex:indexPath.row];
-    MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
-    [self.navigationController pushViewController:matchDetail animated:YES];
-    [matchDetail release];
+    
+    if (self.matchDetailController == nil){    
+        MatchDetailController *controller = [[MatchDetailController alloc] initWithMatch:match];    
+        self.matchDetailController = controller;
+        [controller release];
+    }
+    
+    [self.matchDetailController resetWithMatch:match];
+    [self.navigationController pushViewController:self.matchDetailController animated:YES];
 }
 
 #pragma remote request delegate
