@@ -12,6 +12,8 @@
 #import "MatchManager.h"
 #import "StringUtil.h"
 #import "LocaleConstants.h"
+#import "ColorManager.h"
+
 
 @implementation SelectLeagueController
 @synthesize promptLabel;
@@ -23,9 +25,9 @@
 @synthesize selectLeagueIdArray;
 
 
-const float buttonLen = 70;
-const float buttonHigh = 50;
-const float buttonSepratorX = 8;
+const float buttonLen = 72;
+const float buttonHigh = 32;
+const float buttonSepratorX = 6;
 const float buttonSepratorY = 10;
 const int buttonsPerLine = 4;
 
@@ -86,10 +88,20 @@ const int buttonsPerLine = 4;
         [button setTag:[league.leagueId intValue]];
         
         if ([self isLeagueSelected:league.leagueId]){
-            [button setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateNormal];            
+            [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];  
+            
+            // change color to White  , when the Button is  pressed .
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];  
+            
+
         }
         else{
-            [button setBackgroundImage:[UIImage imageNamed:@"unSelected.png"] forState:UIControlStateNormal];            
+            [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
+            
+            
+            // change color to  #666666 , when the Button is  pressed .
+            [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor ] forState:UIControlStateNormal];
+
         }
         
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -103,9 +115,20 @@ const int buttonsPerLine = 4;
 
 - (void)viewDidLoad
 {  
+    //Set the matches chosen buttons title color to #245393
+    [topLeagueButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
+    [selectAllButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
+    [ selectNoneButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
 
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
-    [self setNavigationRightButton:FNS(@"完成") action:@selector(clickDone:)];
+    
+    
+    
+    [self.navigationItem setTitle:@"赛事筛选"];
+    
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
+    
+    [self setNavigationRightButton:FNS(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
+    
     
     [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
     [self createLeagueButtons];
@@ -139,7 +162,11 @@ const int buttonsPerLine = 4;
     [selectLeagueIdArray addObject:leagueId];
 
     UIButton* button = (UIButton*)[scrollView viewWithTag:[leagueId intValue]];
-    [button setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
+    
+    // change color to White  , when the Button is  pressed .
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];  
+    
 }
 
 - (void)deselectLeague:(NSString*)leagueId
@@ -147,7 +174,16 @@ const int buttonsPerLine = 4;
     [selectLeagueIdArray removeObject:leagueId];
 
     UIButton* button = (UIButton*)[scrollView viewWithTag:[leagueId intValue]];
-    [button setBackgroundImage:[UIImage imageNamed:@"unSelected.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
+    
+    
+    // change color to  #666666 , when the Button is  pressed .
+     [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor ] forState:UIControlStateNormal];
+    
+    
+          
+    
+    
 }
 
 - (BOOL)isLeagueSelected:(NSString*)leagueId
