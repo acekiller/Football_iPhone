@@ -17,6 +17,8 @@
 #define URL_GET_REGISTER_USER_ID    @"http://bf.bet007.com/phone/Register.aspx?"
 #define URL_UPDATE_USER_PUSH_INFO   @"http://bf.bet007.com/phone/PushSet.aspx?"
 #define URL_GET_PLAYER_LIST         @"http://bf.bet007.com/phone/ScheduleDetail.aspx?"
+#define URL_GET_MATCH_OUPEI         @"http://bf.bet007.com/phone/1x2.aspx?"
+
   
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -319,7 +321,7 @@ enum{
                                         output:output];
 }
 
-+ (CommonNetworkOutput*)getPlayerList:(NSString *)matchId lanaguage:(int)language
++ (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL)  {
@@ -345,5 +347,27 @@ enum{
                                         output:output];
 }
 
+
++ (CommonNetworkOutput*)getMatchOupei:(NSString*)matchId
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        str = [str stringByAddQueryParameter:@"ID" value:matchId];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_MATCH_OUPEI
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}
 
 @end

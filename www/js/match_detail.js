@@ -103,7 +103,9 @@ MatchDetailApp = new Ext.Application({
             scroll : 'vertical',
             items: [MatchDetailApp.eventPanel, MatchDetailApp.statPanel]            
         });
-
+        
+        console.log("match detail JS starting");
+//        updateMatchDetail("[]","[]");
     }
 
 });
