@@ -36,7 +36,8 @@
 @synthesize dataWebView;
 @synthesize eventJsonArray;
 @synthesize statJsonArray;
-@synthesize dataString;
+@synthesize oupeiString;
+@synthesize eventString;
 
 @synthesize match;
 @synthesize detailHeader;
@@ -46,6 +47,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        firstLoadWebView = YES;
     }
     return self;
 }
@@ -61,7 +63,8 @@
 
 - (void)dealloc
 {
-    [dataString release];
+    [eventString release];
+    [oupeiString release];
     [match release];
     [eventJsonArray release];
     [statJsonArray release];
@@ -99,14 +102,11 @@
 - (void)viewDidLoad
 {
     
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];
-    
-    
-     
+    currentSelection = SELECT_EVENT;
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
 
-    [super viewDidLoad];
     
-    //left  button 
+    // left button 
     NSString * leftButtonName = @"ss.png";    
     [self setNavigationLeftButton:FNS(@"返回") imageName:leftButtonName action:@selector(clickBack:)];
     
@@ -114,22 +114,13 @@
     NSString * rightButtonName = @"refresh.png";    
     [self setNavigationRightButton:nil imageName:rightButtonName action:@selector(clickReflashLeftButton)];    
     
+    // set title
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
- //   self.matchStateLabel.text = [DataUtils toMatchStatusString:self.match.status language:1];
- //   self.matchStarttimeLabel.text = dateToChineseStringByFormat(self.match.date, @"MM/dd hh:mm");
-    
-    
-    
-    [self showActivityWithText:FNS(@"加载数据中...")];
-    
-    [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];    
-    [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];
-
     self.dataWebView.hidden = YES;
-    
-    currentSelection = SELECT_EVENT;
-    [self loadWebView];    
+
+    [super viewDidLoad];
+    [self initWebView];    
 }
 
 - (void)viewDidUnload
@@ -262,8 +253,12 @@
     }
 }
 
-- (void)loadOupeiData
+#pragma Ou Pei
+#pragma mark - 
+
+- (void)loadOupeiDataFromServer
 {
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
 }
 
@@ -273,146 +268,80 @@
     showDataFinish = YES;
     
     if (result == 0){
-        self.dataString = data;
-        [self loadWebView];
+        self.oupeiString = data;
+        if (currentSelection == SELECT_OUPEI){
+            [self updateOupeiView:self.oupeiString];
+        }
     }
 }
 
-- (IBAction)clickMatchesDatasButton:(id)sender;
-{        
-    UIButton* button = (UIButton*)sender;
-    int selectMatchStatus = button.tag;
-    [self updateSelectMatchStatusButtonState:selectMatchStatus];
-}
-
-- (IBAction)clickMatchesOupeiButton:(id)sender
-{
-    UIButton* button = (UIButton*)sender;
-    int selectMatchStatus = button.tag;
-    [self updateSelectMatchStatusButtonState:selectMatchStatus];    
-    
-    currentSelection = SELECT_OUPEI;
-    [self loadOupeiData];
-}
-
--(void)clickReflashLeftButton{            
-    
-    
-    
-     NSLog(@"reflashing now ");
-    
-    
-    
-}
-
-- (void)displayOupei:(NSString*)oupeiDataString
-{
-    
+- (void)updateOupeiView:(NSString*)oupeiDataString
+{           
     NSString *jsCode = [NSString stringWithFormat:@"updateOupeiDetail(\"%@\");", oupeiDataString];      
     PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+
     [self hideActivity];
     self.dataWebView.hidden = NO;    
-
 }
 
-- (void)displayEvent
+// return the view is shown directly or not
+- (BOOL)showOupeiView:(BOOL)needReload
 {
-    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\",\"%@\");",eventJsonArray,statJsonArray];
-    
-    PPDebug(@"<displayEvent> execute JS = %@",jsCode);
-    
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
-    self.dataWebView.hidden = NO;    
-    [self hideActivity];
-}
-
-- (void)loadWebViewByHtml:(NSString*)html
-{
-    self.dataWebView.hidden = YES;
-    loadCounter = 0;
-    showDataFinish = NO;
-    
-    NSURL* url = [FileUtil bundleURL:html];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"load url = %@", [request description]);
-    if (request) {
-        [self.dataWebView loadRequest:request];        
-    }        
-}
-
-- (void)loadWebView
-{
-    switch (currentSelection) {
-        case SELECT_EVENT:
-            [self loadWebViewByHtml:@"www/match_detail.html"];
-            break;
-            
-        case SELECT_OUPEI:
-            [self loadWebViewByHtml:@"www/oupei.html"];
-            break;
-            
-        default:
-            break;
-    }    
-}
-
-- (void)displayWebView
-{
-    switch (currentSelection) {
-        case SELECT_EVENT:
-            [self displayEvent];
-            break;
-            
-        case SELECT_OUPEI:
-            [self displayOupei:dataString];
-            break;
-            
-        default:
-            break;
+    if (self.oupeiString == nil || needReload){
+        [self loadOupeiDataFromServer];
+        return NO;
     }
-}
-
-- (void)showResult
-{
-    [self showActivityWithText:FNS(@"加载数据中...")];
-    [self.timer invalidate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
     
-    showDataFinish = YES;
+    [self updateOupeiView:self.oupeiString];
+    return YES;
 }
 
-- (BOOL)isLoadFinish
+#pragma Event
+#pragma mark - 
+
+- (void)loadMatchEventFromServer
 {
-    return (loadCounter >= 2);
+    [self showActivityWithText:@"加载数据中..."];
+    [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];    
 }
 
-- (void)getMatchEventFinish:(int)result match:(Match *)matchValue
+- (void)getMatchEventFinish:(int)result data:(NSString *)data
 {    
-    if (result == 0) {
-        NSMutableArray *eventArray = [NSMutableArray arrayWithCapacity:[matchValue.events count]];
-        NSMutableArray *statArray = [NSMutableArray arrayWithCapacity:[matchValue.stats count]];
+    [self hideActivity];
+    if (result == 0) {                
         
-        for (MatchEvent *event in matchValue.events) {
-            [eventArray addObject:[event toJsonString]];
+        self.eventString = data;        
+        if (currentSelection == SELECT_EVENT){
+            [self updateEventView:self.eventString];
         }
-        for (MatchStat *stat in matchValue.stats) {
-            [statArray addObject:[stat toJsonString]];
-        }
-        
-        self.eventJsonArray = [eventArray componentsJoinedByString:@", "];
-        self.statJsonArray = [statArray componentsJoinedByString:@", "];
-
-        self.eventJsonArray = [NSString stringWithFormat:@"[%@]",eventJsonArray];
-        self.statJsonArray = [NSString stringWithFormat:@"[%@]",statJsonArray];
-        
-        if ([self isLoadFinish]){
-            [self showResult];
-        }
-        
     }
 }
 
+- (void)updateEventView:(NSString*)eventDataString
+{
+    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\");",eventDataString];    
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    
+    self.dataWebView.hidden = NO;    
+    [self hideActivity];
+}
+
+// return the view is shown directly or not
+- (BOOL)showEventView:(BOOL)needReload
+{
+    if (self.eventString == nil || needReload){
+        [self loadMatchEventFromServer];
+        return NO;
+    }
+    
+    [self updateEventView:self.eventString];
+    return YES;
+}
+
+#pragma Header Methods
+#pragma mark -
 
 - (void) setHeaderInfo:(DetailHeader *)header
 {
@@ -463,12 +392,67 @@
     
 }
 
+- (void)loadMatchDetailHeaderFromServer
+{
+    [self showActivityWithText:FNS(@"加载数据中...")];    
+    [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];  
+}
+
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo
 {
-    self.detailHeader = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
+    self.detailHeader = [[[DetailHeader alloc] initWithDetailHeaderArray:headerInfo] autorelease];
     [self setHeaderInfo:self.detailHeader];
 }
 
+#pragma Web View Related & Web View Delegate
+#pragma mark - 
+
+- (void)showWebView:(BOOL)needReload
+{
+    switch (currentSelection) {
+        case SELECT_EVENT:
+            [self showEventView:needReload];
+            break;
+            
+        case SELECT_OUPEI:
+            [self showOupeiView:needReload];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)loadWebViewByHtml:(NSString*)html
+{
+    self.dataWebView.hidden = YES;
+    loadCounter = 0;
+    showDataFinish = NO;
+    
+    NSURL* url = [FileUtil bundleURL:html];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"load webview url = %@", [request description]);
+    if (request) {
+        [self.dataWebView loadRequest:request];        
+    }        
+}
+
+- (BOOL)isAppLaunched
+{
+    NSString *jsCode = [NSString stringWithFormat:@"isAppLaunched();"];    
+    PPDebug(@"<isAppLaunched> execute JS = %@",jsCode);    
+    NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
+    NSLog(@"result = %@", result);
+    if ([result intValue] == 1)
+        return YES;
+    else
+        return NO;
+}
+
+- (void)initWebView
+{
+    [self loadWebViewByHtml:@"www/match_detail.html"];
+}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {   
@@ -476,20 +460,85 @@
     
 }
 
+- (void)detectAppLaunch
+{
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(checkAppLaunched) userInfo:nil repeats:NO];
+}
+
+- (void)checkAppLaunched
+{
+    if ([self isAppLaunched]){
+        firstLoadWebView = NO;
+        isWebViewReady = YES;
+        
+        [self showWebView:YES];        // this is the first time, so need reload
+        self.timer = nil;
+        return;
+    }
+    
+    // if not, continue to detect
+    [self detectAppLaunch];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
-    loadCounter ++;
-
-    if ([self isLoadFinish] && showDataFinish == NO){
-        [self showResult];
-    }        
+    loadCounter ++; 
+    
+    [self detectAppLaunch];    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    
+    NSLog(@"<webView> didFailLoadWithError, error=%@", [error description]);
 }
 
+#pragma Button Actions
+#pragma mark -
+
+- (void)updateButtonState:(UIButton*)button
+{
+    int selectMatchStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:selectMatchStatus];    
+}
+
+- (void)showWebViewByClick:(BOOL)needReload
+{
+    if (isWebViewReady){
+        [self showWebView:needReload];
+    }
+}
+
+- (IBAction)clickMatchesDatasButton:(id)sender;
+{        
+    if (currentSelection == SELECT_EVENT)
+        return;
+
+    [self updateButtonState:sender];    
+    currentSelection = SELECT_EVENT;
+    [self showWebViewByClick:NO];
+}
+
+- (IBAction)clickMatchesOupeiButton:(id)sender
+{
+    if (currentSelection == SELECT_OUPEI)
+        return;
+    
+    [self updateButtonState:sender];    
+    currentSelection = SELECT_OUPEI;
+    
+    [self showWebViewByClick:NO];
+}
+
+- (void)clickReflashLeftButton{            
+    
+    [self showWebViewByClick:YES];
+    
+    NSLog(@"reflashing now ");
+    
+    
+    
+}
 
 @end
