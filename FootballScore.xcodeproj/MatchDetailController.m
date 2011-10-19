@@ -107,7 +107,7 @@
     
     // right button
     NSString * rightButtonName = @"refresh.png";    
-    [self setNavigationRightButton:nil imageName:rightButtonName action:@selector(clickBack:)];    
+    [self setNavigationRightButton:nil imageName:rightButtonName action:@selector(clickReflashLeftButton)];    
     
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
@@ -284,7 +284,11 @@
     
     
     
-
+    
+     NSLog(@"reflashing now ");
+    
+    
+    
 }
 
 
