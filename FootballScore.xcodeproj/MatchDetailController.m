@@ -118,7 +118,7 @@
     currentSelection = SELECT_EVENT;
     [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
 
-
+    [super viewDidLoad];
     
     // left button 
     NSString * leftButtonName = @"ss.png";    

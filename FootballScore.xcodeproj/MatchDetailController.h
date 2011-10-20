@@ -95,11 +95,11 @@ enum{
 - (void)resetWithMatch:(Match*)newMatch;
 
 // internal call
-//-(void)matchDataButtonBackGround;
 - (void)loadMatchDetailHeaderFromServer;
 - (void)initWebView;
 - (void)updateOupeiView:(NSString*)oupeiDataString;
 - (void)updateEventView:(NSString*)eventDataString;
 - (void)showWebViewByClick:(BOOL)needReload;
+- (void)matchDataButtonBackGround;
 
 @end
