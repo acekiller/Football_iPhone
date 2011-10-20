@@ -118,15 +118,11 @@ const int buttonsPerLine = 4;
     //Set the matches chosen buttons title color to #245393
     [topLeagueButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
     [selectAllButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
-    [ selectNoneButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];
-
-    
+    [ selectNoneButton setTitleColor:[ColorManager ToChooseTheMatchesButtonColor] forState:UIControlStateNormal];  
     
     
     [self.navigationItem setTitle:@"赛事筛选"];
-    
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
-    
     [self setNavigationRightButton:FNS(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
     
     
