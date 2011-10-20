@@ -16,11 +16,11 @@
 + (UIColor*)onGoTimeColor;
 + (UIColor*)onGoScore;
 + (UIColor*)finishScoreColor;
-+ (UIColor*)matchName1;
-+ (UIColor*)matchName2;
-+ (UIColor*)matchName3;
-+ (UIColor*)matchName4;
-+ (UIColor*)matchName5;
++ (UIColor*)leagueColor1;
++ (UIColor*)leagueColor2;
++ (UIColor*)leagueColor3;
++ (UIColor*)leagueColor4;
++ (UIColor*)leagueColor5;
 
 
 + (UIColor*)MatchesNameButtonNotChosenColor;

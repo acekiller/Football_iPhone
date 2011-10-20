@@ -63,35 +63,35 @@
                             blue:(0x00)/255.0
                            alpha:1.0];
 }
-+ (UIColor*)matchName1
++ (UIColor*)leagueColor1
 {
     return [UIColor colorWithRed:(0x51)/255.0 
                            green:(0x8e)/255.0
                             blue:(0xd2)/255.0
                            alpha:1.0];
 }
-+ (UIColor*)matchName2
++ (UIColor*)leagueColor2
 {
     return [UIColor colorWithRed:(0xe8)/255.0 
                     green:(0x81)/255.0
                      blue:(0x1a)/255.0
                     alpha:1.0];
 }
-+ (UIColor*)matchName3
++ (UIColor*)leagueColor3
 {
     return [UIColor colorWithRed:(0x94)/255.0 
                            green:(0x97)/255.0
                             blue:(0x20)/255.0
                            alpha:1.0];
 }
-+ (UIColor*)matchName4
++ (UIColor*)leagueColor4
 {
     return [UIColor colorWithRed:(0x8f)/255.0 
                            green:(0x6d)/255.0
                             blue:(0xd6)/255.0
                            alpha:1.0];
 }
-+ (UIColor*)matchName5
++ (UIColor*)leagueColor5
 {
     return [UIColor colorWithRed:(0x53)/255.0 
                            green:(0xac)/255.0

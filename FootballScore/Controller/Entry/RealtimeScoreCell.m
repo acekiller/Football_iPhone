@@ -92,6 +92,7 @@ enum cardType{
     [self updateCards:match];
     [self updateMatchInfo:match];
     [self updateFollow:match];
+    [self updateMatchTypeLabel:match];
     
 }
 
@@ -163,6 +164,14 @@ enum cardType{
 - (void)updateMatchTime:(Match*)match
 {    
     [self updateMatchStatus:match];
+}
+
+- (void)updateMatchTypeLabel:(Match *)match
+{
+    LeagueManager *manager = [LeagueManager defaultManager];
+    UIColor *labelColor = [manager getLeagueColorById:match.leagueId];
+    [matchTypeLabel setTextColor:labelColor];
+    
 }
 
 - (void)setCards:(UIButton*)card setMatch:(Match*)match withcardType:(int)type{

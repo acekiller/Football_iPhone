@@ -8,6 +8,7 @@
 
 #import "LeagueManager.h"
 #import "League.h"
+#import "ColorManager.h"
 
 
 
@@ -101,6 +102,31 @@ enum{
     
     League* league = [leagueData objectForKey:leagueId];
     return league.name;
+}
+
+- (UIColor*)getLeagueColorById:(NSString *)leagueId
+{
+    int colorIndex = [leagueId intValue]%5;
+    switch (colorIndex) {
+        case 0: {
+            return [ColorManager leagueColor1]; 
+        }
+        case 1: {
+            return [ColorManager leagueColor2];
+        }
+        case 2: {
+            return [ColorManager leagueColor3];
+        }
+        case 3: {
+            return [ColorManager leagueColor4];
+        }
+        case 4: {
+            return [ColorManager leagueColor5];
+        }
+        default:
+            break;
+    }
+    return [UIColor blackColor];
 }
 
 @end

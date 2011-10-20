@@ -92,20 +92,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
-         timestampString = "340771660.735623"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "180"
-         endingLineNumber = "180"
-         landmarkName = "-setCards:setMatch:withcardType:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
          timestampString = "340512867.297588"
          startingColumnNumber = "9223372036854775807"
@@ -211,6 +197,20 @@
          startingLineNumber = "261"
          endingLineNumber = "261"
          landmarkName = "-applicationWillEnterForeground:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
+         timestampString = "340775335.819166"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "173"
+         endingLineNumber = "173"
+         landmarkName = "-updateMatchTypeLabel:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
