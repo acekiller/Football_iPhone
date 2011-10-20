@@ -258,6 +258,8 @@ MatchManager* GlobalGetMatchManager()
                 [homeScoreUpdate release];
                 
                 PPDebug(@"match (%@) has realtime update, home team score, value = %d", [match description], increase);
+                
+                [match updateScoreModifyTime];
             }
             
             //away team score update
@@ -268,6 +270,8 @@ MatchManager* GlobalGetMatchManager()
                 [awayScoreUpdate release];
 
                 PPDebug(@"match (%@) has realtime update, away team score, value = %d", [match description], increase);
+                
+                [match updateScoreModifyTime];
             }
             
             //home team red card update
@@ -395,7 +399,7 @@ MatchManager* GlobalGetMatchManager()
             if ([awayTeamYellow length]){
                 [match setAwayTeamYellow:awayTeamYellow];
             }
-
+            
             PPDebug(@"match %@ updated, data=%@", 
                     [match description], [fields componentsJoinedByString:@" "]);
         }

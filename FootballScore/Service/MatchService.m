@@ -253,4 +253,14 @@
 
 }
 
+- (void)stopAllUpdates
+{
+    [self stopRealtimeScoreUpdate];
+}
+
+- (void)startAllUpdates:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
+{
+    [self getRealtimeMatch:delegate matchScoreType:matchScoreType];
+}
+
 @end

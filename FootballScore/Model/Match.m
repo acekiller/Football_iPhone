@@ -54,7 +54,7 @@
 @synthesize events;
 @synthesize stats;
 @synthesize isFollow;
-@synthesize lastModifyTime;
+@synthesize lastScoreTime;
 
 
 - (id)          initWithId:(NSString*)idValue
@@ -110,7 +110,7 @@
 
     
     self.isFollow = isFollowValue;   
-    self.lastModifyTime = time(0);
+    self.lastScoreTime = 0;
 
     return self;
 }
@@ -210,4 +210,8 @@
             matchId, homeTeamName, awayTeamName];
 }
 
+-(void) updateScoreModifyTime
+{
+    self.lastScoreTime = time(0);
+}
 @end
