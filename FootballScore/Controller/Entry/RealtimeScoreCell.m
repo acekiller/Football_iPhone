@@ -169,6 +169,7 @@ enum cardType{
     
     float cardWidth = 13;
     float titlewidth;
+    float cardTitleDistance = 3;
     float leftSide = 146;
     float rightSide = 192;
     float maxTitleLen = 80;
@@ -182,7 +183,7 @@ enum cardType{
             if (match.homeTeamRed != nil && [match.homeTeamRed intValue] > 0) {
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
-                cardPos.origin.x = leftSide-titlewidth-cardWidth;
+                cardPos.origin.x = leftSide-titlewidth-cardWidth-cardTitleDistance;
                 [card setFrame:cardPos];
                 [card setTitle:match.homeTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
@@ -198,10 +199,10 @@ enum cardType{
                 titleSize = [match.homeTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
                 if (match.homeTeamRed == nil || [match.homeTeamRed intValue] <= 0) {
-                cardPos.origin.x = leftSide-titlewidth-cardWidth;
+                cardPos.origin.x = leftSide-titlewidth-cardWidth-cardTitleDistance;
                 }
                 else {
-                    cardPos.origin.x = leftSide-titlewidth-cardWidth*2;
+                    cardPos.origin.x = leftSide-titlewidth-cardWidth*2-cardTitleDistance;
                 }
                 [card setFrame:cardPos];
                 [card setTitle:match.homeTeamYellow forState:UIControlStateNormal];
@@ -217,7 +218,7 @@ enum cardType{
             if (match.awayTeamRed != nil&& [match.awayTeamRed intValue] > 0) {
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
-                cardPos.origin.x = rightSide+titlewidth;
+                cardPos.origin.x = rightSide+titlewidth+cardTitleDistance;
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
@@ -234,10 +235,10 @@ enum cardType{
                 titleSize = [match.awayTeamName sizeWithFont:titleFont];
                 titlewidth = MIN(titleSize.width,maxTitleLen);
                 if (match.awayTeamRed == nil || [match.awayTeamRed intValue] <= 0) {
-                    cardPos.origin.x = rightSide+titlewidth;
+                    cardPos.origin.x = rightSide+titlewidth+cardTitleDistance;
                 }
                 else {
-                    cardPos.origin.x = rightSide+titlewidth+cardWidth;
+                    cardPos.origin.x = rightSide+titlewidth+cardWidth+cardTitleDistance;
                 }
                 [card setFrame:cardPos];
                 [card setTitle:match.awayTeamYellow forState:UIControlStateNormal];
