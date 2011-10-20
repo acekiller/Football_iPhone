@@ -16,9 +16,9 @@
     
 }
 
-+ (NSString*)toChuPanString:(NSNumber*)chupanNSValue language:(int)language;
++ (NSString*)toChuPanString:(NSNumber*)chupanNSValue;
 
-+ (NSString*)toMatchStatusString:(NSInteger)intValue language:(int)language;
++ (NSString*)toMatchStatusString:(NSInteger)intValue;
 
 /*
  类型序号对应依次为

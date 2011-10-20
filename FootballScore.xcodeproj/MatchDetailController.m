@@ -116,8 +116,8 @@
 {
     
     currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];                 
-    
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
+
     [super viewDidLoad];
     
     // left button 
@@ -339,7 +339,7 @@
 - (void) setHeaderInfo:(DetailHeader *)header
 {
     
-    self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus language:1];
+    self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
     NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
     
@@ -532,9 +532,7 @@
     [self showWebViewByClick:YES];
     
     NSLog(@"reflashing now ");
-    
-    
-    
+     
 }
 
 - (void)clickBack:(id)sender

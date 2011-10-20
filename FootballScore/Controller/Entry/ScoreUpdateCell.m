@@ -74,8 +74,7 @@
     self.leagueName.text = [scoreUpdate leagueName];
     self.homeTeam.text = [scoreUpdate homeTeamName];
     self.awayTeam.text = [scoreUpdate awayTeamName];
-    self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                            [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
+
 
     
     //set event type
@@ -89,6 +88,8 @@
         eventImage = [UIImage imageNamed:@"redcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比分");
         [self setTeamEventButton:type message:FNS(@"进球") color:[UIColor greenColor]];
+        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
+                                [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
         
     }else if(type < HOMETEAMYELLOW)
     {
@@ -97,6 +98,8 @@
         eventImage = [UIImage imageNamed:@"redcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") color:[UIColor redColor]];
+        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
+                                [scoreUpdate homeTeamRedcard],[scoreUpdate awayTeamRedcard]];
         
     }else if(type < TYPECOUNT)
     {
@@ -105,6 +108,8 @@
         eventImage = [UIImage imageNamed:@"yellowcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") color:[UIColor yellowColor]];
+        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
+                                [scoreUpdate homeTeamYellowcard],[scoreUpdate awayTeamYellowcard]];
     }
     self.eventStateImage = [[UIImageView alloc] initWithImage:eventImage];
 }

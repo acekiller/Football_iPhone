@@ -7,31 +7,27 @@
 //
 
 #import "DataUtils.h"
-
+#import "LocaleConstants.h"
 
 @implementation DataUtils
 
-+ (NSString*)toChuPanString:(NSNumber*)chupanNSValue language:(int)language
++ (NSString*)toChuPanString:(NSNumber*)chupanNSValue
 {
 
     NSArray *GoalCnMandarin = [NSArray arrayWithObjects:@"平手",@"平手/半球",@"半球",@"半球/一球",@"一球",@"一球/球半",@"球半",@"球半/两球",@"两球",@"两球/两球半",@"两球半",@"两球半/三球",@"三球",@"三球/三球半",@"三球半",@"三球半/四球",@"四球",@"四球/四球半",@"四球半",@"四球半/五球",@"五球",@"五球/五球半",@"五球半",@"五球半/六球",@"六球",@"六球/六球半",@"六球半",@"六球半/七球",@"七球",@"七球/七球半",@"七球半",@"七球半/八球",@"八球",@"八球/八球半",@"八球半",@"八球半/九球",@"九球",@"九球/九球半",@"九球半",@"九球半/十球",@"十球",nil];
     
-    NSArray *GoalCnConton = [NSArray arrayWithObjects:@"平手",@"平手/半球",@"半球",@"半球/一球",@"一球",@"一球/球半",@"球半",@"球半/兩球",@"兩球",@"兩球/兩球半",@"兩球半",@"兩球半/三球",@"三球",@"三球/三球半",@"三球半",@"三球半/四球",@"四球",@"四球/四球半",@"四球半",@"四球半/五球",@"五球",@"五球/五球半",@"五球半",@"五球半/六球",@"六球",@"六球/六球半",@"六球半",@"六球半/七球",@"七球",@"七球/七球半",@"七球半",@"七球半/八球",@"八球",@"八球/八球半",@"八球半",@"八球半/九球",@"九球",@"九球/九球半",@"九球半",@"九球半/十球",@"十球",nil];
+//    NSArray *GoalCnConton = [NSArray arrayWithObjects:@"平手",@"平手/半球",@"半球",@"半球/一球",@"一球",@"一球/球半",@"球半",@"球半/兩球",@"兩球",@"兩球/兩球半",@"兩球半",@"兩球半/三球",@"三球",@"三球/三球半",@"三球半",@"三球半/四球",@"四球",@"四球/四球半",@"四球半",@"四球半/五球",@"五球",@"五球/五球半",@"五球半",@"五球半/六球",@"六球",@"六球/六球半",@"六球半",@"六球半/七球",@"七球",@"七球/七球半",@"七球半",@"七球半/八球",@"八球",@"八球/八球半",@"八球半",@"八球半/九球",@"九球",@"九球/九球半",@"九球半",@"九球半/十球",@"十球",nil];
     
     NSString *Goal2Cn = [NSString stringWithFormat:@""];
     double chupanDoubleValue = [chupanNSValue doubleValue];
     int Goal2CnIndex = (int)(abs(chupanDoubleValue*4));
     
-    if(chupanNSValue == nil || Goal2CnIndex >= [GoalCnConton count]){
+    if(chupanNSValue == nil || Goal2CnIndex >= [GoalCnMandarin count]){
         return Goal2Cn;
     }
-    
-    if(language == LANG_CANTON ){
-        Goal2Cn =  [GoalCnConton objectAtIndex:Goal2CnIndex];
-    }
-    else{
-        Goal2Cn =  [GoalCnMandarin objectAtIndex:Goal2CnIndex];
-    }
+
+    Goal2Cn =  FNS([GoalCnMandarin objectAtIndex:Goal2CnIndex]);
+  
     
     if(chupanDoubleValue >= 0){
         return Goal2Cn;
@@ -56,37 +52,36 @@
 
 }
 
-+ (NSString*)toMatchStatusString:(NSInteger)intValue language:(int)language
++ (NSString*)toMatchStatusString:(NSInteger)intValue
 {
     switch (intValue) {
         case MATCH_STATUS_NOT_STARTED:
-            return @"未开";
+            return FNS(@"未开");
             break;
         case MATCH_STATUS_FIRST_HALF:
-            return @"上半场";
+            return FNS(@"上半场");
         case MATCH_STATUS_MIDDLE:
-            return @"中场";
+            return FNS(@"中场");
             break;
         case MATCH_STATUS_SECOND_HALF:
-            return @"下半场";
+            return FNS(@"下半场");
         case MATCH_STATUS_TBD:
-            return @"待定";
+            return FNS(@"待定");
             break;
         case MATCH_STATUS_KILL:
-            return @"腰斩";
+            return FNS(@"腰斩");
         case MATCH_STATUS_PAUSE:
-            return @"中断";
+            return FNS(@"中断");
             break;
         case MATCH_STATUS_POSTPONE:
-            return @"推迟";
+            return FNS(@"推迟");
         case MATCH_STATUS_FINISH:
-            return @"完场";
+            return FNS(@"完场");
             break;
         case MATCH_STATUS_CANCEL:
-            return @"取消";
+            return FNS(@"取消");
         default:
             return nil;
-            break;
     }
 }
 
