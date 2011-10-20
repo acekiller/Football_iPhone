@@ -26,7 +26,7 @@ static NSNumber *langId = nil;
             [LanguageManager setLanguage:0];
         }
     }
-    return 1;//[langId integerValue];
+    return [langId integerValue];
 }
 
 +(void) setLanguage:(NSInteger)lang

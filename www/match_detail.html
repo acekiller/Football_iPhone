@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 	<head>
@@ -93,6 +94,7 @@
 		<script type="text/javascript" src="js/model/MatchDetailManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/MatchEventView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/match_detail.js" charset='utf-8'></script>
 	</head>
 	<body>
@@ -149,6 +151,8 @@
 			</div>
 		</textarea>
 		<textarea id="oupei-stat-template" class="x-hidden-display">
+
+			 <script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>            
 			<ul>
         		<li>         主胜 平 客胜</li>
         		<li>初盘最高值 {chupanWinMax} {chupanDrawMax} {chupanLostMax}</li>
@@ -172,5 +176,17 @@
                 </tpl>
             </ul>
         </textarea>
-	</body>
+		
+		<div id="yapei-company-template" class="x-hidden-display">
+            <ul id="yapeiList"> 
+				<h1>公司 初盘 即时盘 变</h1>           	
+                <tpl for=".">
+                    <li>
+                        <h2>{name} {homeChupei} {chupan} {awayChupei} {homeJishi} {jishi} {awayJishi} &gt;</h2>
+                    </li>
+                </tpl>
+            </ul>
+        </div>      
+                  
+    </body> 
 </html>

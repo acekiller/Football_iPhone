@@ -148,7 +148,6 @@
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
-        [cell setBackgroundImageByName:@"kive_li.png"];
 	}		
     
     cell.indexPath = indexPath;

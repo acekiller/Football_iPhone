@@ -17,10 +17,12 @@
 //@synthesize homeYellowFlag;
 //@synthesize awayYelloFlag;
 @synthesize scoreUpdateType;
+@synthesize updateMinute;
 
 -(void)dealloc
 {
     [match release];
+    [updateMinute release];
     [super dealloc];
 }
 
@@ -30,6 +32,7 @@
     if (self) {
         self.match = aMatch;
         self.scoreUpdateType = type;
+        self.updateMinute = [[MatchManager defaultManager] matchMinutesString:match];
     }
     return self;
 }
@@ -49,6 +52,9 @@
 }
 - (NSDate *)startTime
 {
+    if (self.match.firstHalfStartDate) {
+        return self.match.firstHalfStartDate;
+    }
     return self.match.date;
 }
 - (NSString *)matchTimeString
