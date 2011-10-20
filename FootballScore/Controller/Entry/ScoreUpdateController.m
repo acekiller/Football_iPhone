@@ -52,9 +52,15 @@
     [self.dataTableView setEditing:NO];
     [self setDeleteFlag:NO];
     
-    // Do any additional setup after loading the view from its nib.
+    
+    
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
-    [self setNavigationLeftButton:FNS(@"编辑") action:@selector(clickEdit:)];
+    [self setNavigationRightButton:nil imageName:@"refresh.png" action:@selector(clickRefresh:)];
+    
+    
+    [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
+    
+    
     self.dateTimeLabel.text = [self getDateString];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     
@@ -174,14 +180,16 @@
 {
     [self setDeleteFlag:YES];
     [self.dataTableView reloadData];
-    [self setNavigationLeftButton:FNS(@"完成") action:@selector(clickDone:)];
-    [self setNavigationRightButton:FNS(@"清空") action:@selector(clickClear:)];
+    [self setNavigationLeftButton:FNS(@"完成")imageName:@"ss.png" action:@selector(clickDone:)];
+    [self setNavigationRightButton:FNS(@"清空") imageName:@"ss.png" action:@selector(clickClear:)];
+    
 }
 - (void)clickDone:(id)sender
 {
     [self setDeleteFlag:NO];
-    [self setNavigationLeftButton:FNS(@"编辑") action:@selector(clickEdit:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
+    [self setNavigationRightButton:nil imageName:@"refresh.png" action:@selector(clickRefresh:)];
+    [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
     [self.dataTableView reloadData];    
 }
 - (void)clickRefresh:(id)sender
@@ -191,8 +199,9 @@
 - (void)clickClear:(id)sender
 {
     [self setDeleteFlag:NO];
-    [self setNavigationLeftButton:FNS(@"编辑") action:@selector(clickEdit:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
+    [self setNavigationRightButton:nil imageName:@"refresh.png" action:@selector(clickRefresh:)];
+    [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
     [[ScoreUpdateManager defaultManager] removeAllScoreUpdates];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [self.dataTableView reloadData];

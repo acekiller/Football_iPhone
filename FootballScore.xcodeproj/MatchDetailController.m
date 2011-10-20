@@ -116,8 +116,8 @@
 {
     
     currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];                 
-    
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
+
     [super viewDidLoad];
     
     // left button 
@@ -532,9 +532,7 @@
     [self showWebViewByClick:YES];
     
     NSLog(@"reflashing now ");
-    
-    
-    
+     
 }
 
 - (void)clickBack:(id)sender
