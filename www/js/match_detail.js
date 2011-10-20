@@ -16,8 +16,8 @@ MatchDetailApp = new Ext.Application({
 //      testReadData();
 //      testUpdateMatchDetail();
 //      testUpdateOupeiDetail();
-		testUpdateYapeiDetail();
-        
+//		testUpdateYapeiDetail();
+        testUpdateOverunderDetail();
         MatchDetailApp.isLaunched = 1;
     }
 
@@ -72,3 +72,16 @@ function updateYapeiDetail(yapeiData){
 	MatchDetailApp.yapeiView.companyPanel.update(yapeiManager.dataArray);
 }
 
+function testUpdateOverunderDetail(){
+	var data = "ＳＢ^1978021^1.00^2.5^0.80^0.78^2.5^1.02!Bet365^1984678^1.025^2.5^0.825^0.875^2.5^0.975!立博^1990224^1.01^2.5^0.79^0.94^2.5^0.86!韦德^1983921^0.909^2.5^0.80^0.80^2.5^0.909!易胜^1991610^0.95^2.5^0.75^0.90^2.5^0.80!明陞^1984659^1.02^2.5^0.80^0.89^2.5^0.93!澳彩^1984554^0.95^2.5^0.75^0.95^2.5^0.75!10BET^1983752^1.00^2.5^0.78^0.85^2.5^0.90!金宝博^1984669^1.02^2.5^0.80^0.79^2.5^1.03!12bet/大发^1966126^1.02^2.5^0.80^0.89^2.5^0.93!利记^1965788^1.02^2.5^0.80^0.88^2.5^0.94!永利高^1983327^0.97^2.5^0.77^0.785^2.5^0.955!盈禾^1983312^1.02^2.5^0.80^0.80^2.5^1.02";
+	updateOverunderDetail(data);
+}
+
+function updateOverunderDetail(overunderData){
+	MatchDetailApp.overunderView = new OverunderView();
+	MatchDetailApp.viewport = MatchDetailApp.overunderView.mainPanel;
+	
+	overunderManager.readData(overunderData);
+	
+	MatchDetailApp.overunderView.companyPanel.update(overunderManager.dataArray);
+}

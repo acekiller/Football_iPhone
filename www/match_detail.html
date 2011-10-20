@@ -9,15 +9,18 @@
                         
             <script type="text/javascript" src="js/util/parserUtil.js" charset='utf-8'></script>       
             <script type="text/javascript" src="js/model/OupeiObject.js" charset='utf-8'></script> 
-			<script type="text/javascript" src="js/model/YapeiObject.js" charset='utf-8'></script>     
+			<script type="text/javascript" src="js/model/YapeiObject.js" charset='utf-8'></script>
+			<script type="text/javascript" src="js/model/OverunderObject.js" charset='utf-8'></script>     
         	<script type="text/javascript" src="js/model/OupeiManager.js" charset='utf-8'></script> 
-			<script type="text/javascript" src="js/model/YapeiManager.js" charset='utf-8'></script>               
+			<script type="text/javascript" src="js/model/YapeiManager.js" charset='utf-8'></script>
+			<script type="text/javascript" src="js/model/OverunderManager.js" charset='utf-8'></script>               
             <script type="text/javascript" src="js/model/MatchEventObject.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/model/MatchStatObject.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/model/MatchDetailManager.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/view/MatchEventView.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>
-			 <script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>            
+			<script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>
+			<script type="text/javascript" src="js/view/OverunderView.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/match_detail.js" charset='utf-8'></script>            
     	
             
@@ -83,7 +86,18 @@
                     </li>
                 </tpl>
             </ul>
-        </div>      
+        </div>
+		
+		<div id="overunder-company-template" class="x-hidden-display">
+            <ul id="overunderiList"> 
+				<h1>公司 初盘 即时盘 </h1>           	
+                <tpl for=".">
+                    <li>
+                        <h2>{name} {overChupei} {chupan} {underChupei} {overJishi} {jishi} {underJishi} </h2>
+                    </li>
+                </tpl>
+            </ul>
+        </div>        
                   
     </body> 
 </html>
