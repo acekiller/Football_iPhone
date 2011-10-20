@@ -156,8 +156,7 @@ enum cardType{
 }
 
 - (void)updatePeiLv:(Match*)match{
-    int localLanguage = LANG_CANTON; 
-    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan] language:localLanguage];
+    peilvLabel.text = [DataUtils toChuPanString:[match crownChuPan]];
 }
 
 - (void)updateMatchTime:(Match*)match
