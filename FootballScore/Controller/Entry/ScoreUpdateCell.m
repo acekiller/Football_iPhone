@@ -70,7 +70,7 @@
 - (void)setCellInfo:(ScoreUpdate *)scoreUpdate
 {
     self.matchState.text =  [[MatchManager defaultManager] matchMinutesString:scoreUpdate.match];
-    self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"hh:mm");
+    self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"HH:mm");
     self.leagueName.text = [scoreUpdate leagueName];
     self.homeTeam.text = [scoreUpdate homeTeamName];
     self.awayTeam.text = [scoreUpdate awayTeamName];

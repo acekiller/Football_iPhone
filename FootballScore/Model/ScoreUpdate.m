@@ -49,6 +49,9 @@
 }
 - (NSDate *)startTime
 {
+    if (self.match.firstHalfStartDate) {
+        return self.match.firstHalfStartDate;
+    }
     return self.match.date;
 }
 - (NSString *)matchTimeString

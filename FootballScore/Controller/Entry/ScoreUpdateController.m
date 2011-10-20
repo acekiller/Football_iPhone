@@ -49,9 +49,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [GlobalGetMatchService() setScoreUpdateControllerDelegate:self];
-    
     [self.dataTableView setEditing:NO];
     [self setDeleteFlag:NO];
     
@@ -59,8 +56,6 @@
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
     [self setNavigationLeftButton:FNS(@"编辑") action:@selector(clickEdit:)];
     self.dateTimeLabel.text = [self getDateString];
-   // ScoreUpdateManager *manager = [ScoreUpdateManager defaultManager];
-   // manager.scoreUpdateList = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     
 }
@@ -123,7 +118,6 @@
     ScoreUpdate* scoreUpdate = [dataList objectAtIndex:indexPath.row];
     
     [cell setCellInfo:scoreUpdate];
-    //[cell setCellInfo:nil];
 	
 	return cell;	
 }

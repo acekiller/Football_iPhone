@@ -26,6 +26,7 @@
 #import "RealtimeIndexController.h"
 #import "MoreController.h"
 #import "UserManager.h"
+#import "MatchManager.h"
 
 #define kDbFileName			@"FootballDB"
 
@@ -61,6 +62,7 @@ MatchService *GlobalGetMatchService()
 @synthesize dataManager;
 @synthesize reviewRequest;
 @synthesize matchService;
+@synthesize matchController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -76,19 +78,22 @@ enum
     
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
-	[UIUtils addViewController:[ScoreUpdateController alloc]
+	ScoreUpdateController* scoreUpdateController = (ScoreUpdateController*)
+        [UIUtils addViewController:[ScoreUpdateController alloc]
 					 viewTitle:FNS(@"比分动态")
 					 viewImage:@"b_menu_1.png"
 			  hasNavController:YES			
 			   viewControllers:controllers];	
     
-	RealtimeScoreController* matchController = (RealtimeScoreController*)
+	self.matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
                              viewTitle:FNS(@"即时比分")
                              viewImage:@"b_menu_2.png"
                       hasNavController:YES			
                        viewControllers:controllers];	
-    [matchService setMatchControllerDelegate:matchController];    
+    
+    [matchService setMatchControllerDelegate:self.matchController];    
+    [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -231,6 +236,9 @@ enum
 	
 	NSLog(@"applicationDidEnterBackground");	
 	
+    NSLog(@"application stop update data");
+    [self.matchService stopAllUpdates];
+    
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[self releaseResourceForAllViewControllers];	
 	[self stopAudioPlayer];
@@ -257,7 +265,11 @@ enum
      */
 	
 	NSLog(@"applicationWillEnterForeground");	
-	[MobClick appLaunched];
+    
+    int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
+    [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+	
+    [MobClick appLaunched];
     [self userRegister];
 //    [appService startAppUpdate];
     
@@ -338,7 +350,7 @@ enum
     [dataForRegistration release];
     [reviewRequest release];
     [matchService release];
-	
+	[matchController release];
     [super dealloc];
 }
 
