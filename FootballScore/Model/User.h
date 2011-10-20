@@ -17,5 +17,5 @@
 @property (nonatomic, retain) NSString *deviceToken;
 
 
-- (id)initWithUserId:(NSString *)aUserId deviceToken:(NSString *)aDeviceToken;
+- (id)initWithUserId:(NSString *)aUserId;
 @end

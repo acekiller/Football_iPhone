@@ -14,12 +14,11 @@
 @synthesize userId;
 @synthesize deviceToken;
 
-- (id)initWithUserId:(NSString *)aUserId deviceToken:(NSString *)aDeviceToken
+- (id)initWithUserId:(NSString *)aUserId
 {
     self = [super init];
     if (self) {
         self.userId = aUserId;
-        self.deviceToken = aDeviceToken;
     }
     return self;
 }

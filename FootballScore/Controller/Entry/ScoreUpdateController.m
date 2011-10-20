@@ -50,6 +50,8 @@
 {
     [super viewDidLoad];
     
+    [GlobalGetMatchService() setScoreUpdateControllerDelegate:self];
+    
     [self.dataTableView setEditing:NO];
     [self setDeleteFlag:NO];
     
@@ -180,25 +182,17 @@
     [self.dataTableView reloadData];
     [self setNavigationLeftButton:FNS(@"完成") action:@selector(clickDone:)];
     [self setNavigationRightButton:FNS(@"清空") action:@selector(clickClear:)];
-    NSLog(@"click Edit");
 }
 - (void)clickDone:(id)sender
 {
     [self setDeleteFlag:NO];
     [self setNavigationLeftButton:FNS(@"编辑") action:@selector(clickEdit:)];
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
-    [self.dataTableView reloadData];
-    NSLog(@"click Done");
-    
+    [self.dataTableView reloadData];    
 }
 - (void)clickRefresh:(id)sender
 {
-    
     [GlobalGetMatchService() getRealtimeScore];
-    
- //   [self.dataTableView reloadData];
-    
-  //  NSLog(@"click Refresh");
 }
 - (void)clickClear:(id)sender
 {
@@ -208,7 +202,6 @@
     [[ScoreUpdateManager defaultManager] removeAllScoreUpdates];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [self.dataTableView reloadData];
-    NSLog(@"click Clear");
 }
 
 @end

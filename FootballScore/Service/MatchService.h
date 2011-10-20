@@ -21,7 +21,9 @@
                    leagueArray:(NSArray*)leagueArray
               updateMatchArray:(NSArray*)updateMatchArray;
 
-- (void)getMatchEventFinish:(int)result match:(Match *)match;
+//- (void)getMatchEventFinish:(int)result match:(Match *)match;
+
+- (void)getMatchEventFinish:(int)result data:(NSString*)data;
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 

@@ -25,6 +25,7 @@
 #import "RealtimeScoreController.h"
 #import "RealtimeIndexController.h"
 #import "MoreController.h"
+#import "UserManager.h"
 
 #define kDbFileName			@"FootballDB"
 
@@ -155,6 +156,13 @@ enum
     self.matchService = [[MatchService alloc] init];
 }
 
+- (void)userRegister
+{
+    if (![UserManager isUserExisted]) {
+        [FootballNetworkRequest getRegisterUserId:1 token:[self getDeviceToken]];
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
@@ -168,6 +176,7 @@ enum
     
     // init all service 
     [self initMatchService];
+    [self userRegister];
 
 	[self initMobClick];
     [self initImageCacheManager];    
@@ -249,6 +258,7 @@ enum
 	
 	NSLog(@"applicationWillEnterForeground");	
 	[MobClick appLaunched];
+    [self userRegister];
 //    [appService startAppUpdate];
     
 }
