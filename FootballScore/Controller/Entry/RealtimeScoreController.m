@@ -22,6 +22,7 @@
 @synthesize myFollowCountView;
 
 @synthesize matchSecondTimer;
+@synthesize matchDetailController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+    [matchDetailController release];
     [matchSecondTimer release];
     [myFollowButton release];
     [myFollowCountView release];
@@ -47,96 +49,34 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+    self.matchDetailController = nil;
 }
 
 #pragma mark - View lifecycle
+
+
 
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
 {
     for (int i=MATCH_SELECT_STATUS_ALL; i<=MATCH_SELECT_STATUS_MYFOLLOW; i++){
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        switch (i) {
-            case MATCH_SELECT_STATUS_ALL:
-            {
-                [button setTitle:FNS(@"完整") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break;
-            case MATCH_SELECT_STATUS_NOT_STARTED:
-            {
-                [button setTitle:FNS(@"未开赛") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                    
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_ON_GOING:
-            {
-                [button setTitle:FNS(@"进行中") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_FINISH:
-            {
-                [button setTitle:FNS(@"已完场") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_MYFOLLOW:
-            {
-                [button setTitle:FNS(@"我的关注") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            default:
-                break;
+        if (i == selectMatchStatus) {
+            [button setSelected:YES];  
+            [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
+        else{
+            [button setSelected:NO];
+            [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }   
+        
     }
+
 }
+
+
+
 
 - (void)loadMatch:(int)scoreType
 {
@@ -222,9 +162,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Match* match = [self.dataList objectAtIndex:indexPath.row];
-    MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
-    [self.navigationController pushViewController:matchDetail animated:YES];
-    [matchDetail release];
+    
+    if (self.matchDetailController == nil){    
+        MatchDetailController *controller = [[MatchDetailController alloc] initWithMatch:match];    
+        self.matchDetailController = controller;
+        [controller release];
+    }
+    
+    [self.matchDetailController resetWithMatch:match];
+    [self.navigationController pushViewController:self.matchDetailController animated:YES];
 }
 
 #pragma remote request delegate
@@ -280,8 +226,8 @@
 								  initWithTitle:FNS(@"请选择赛事比分类型")
                                   delegate:self
 								  cancelButtonTitle:FNS(@"返回")
-								  destructiveButtonTitle:FNS(@"一级赛事")
-								  otherButtonTitles:FNS(@"全部比分"), 
+								  destructiveButtonTitle:FNS(@"全部比分")
+								  otherButtonTitles:FNS(@"一级赛事"), 
                                   FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
                                   ];
 	
@@ -295,10 +241,10 @@
 		return;
 	}
     
-    if (buttonIndex == matchScoreType){
-        // same type, no change, return directly
-        return;
-    }
+//    if (buttonIndex == matchScoreType){
+//        // same type, no change, return directly
+//        return;
+//    }
     
     matchScoreType = buttonIndex;
     
@@ -456,9 +402,9 @@
 
 - (void)showMyFollowCount
 {
-    int tagLen = 25;
+    int tagLen = 20;
     CGRect rect = [myFollowButton bounds];
-    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -4, tagLen, tagLen)];
+    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -1, tagLen, tagLen)];
     [self.myFollowCountView setShadowEnabled:NO];
     [self.myFollowButton addSubview:self.myFollowCountView];
     [self reloadMyFollowCount];

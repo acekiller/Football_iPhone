@@ -47,5 +47,9 @@ enum ScoreUpdateType{
 - (NSString *)leagueName;
 - (NSString *)homeTeamScore;
 - (NSString *)awayTeamScore;
+- (NSString *)homeTeamRedcard;
+- (NSString *)awayTeamRedcard;
+- (NSString *)homeTeamYellowcard;
+- (NSString *)awayTeamYellowcard;
 
 @end

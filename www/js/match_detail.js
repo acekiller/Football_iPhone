@@ -47,11 +47,12 @@ function testUpdateOupeiDetail(){
 }
 
 function updateOupeiDetail(oupeiData){
-	
+		
 	MatchDetailApp.oupeiView = new OupeiView();	
 	MatchDetailApp.viewport = MatchDetailApp.oupeiView.mainPanel;		
 
 	oupeiManager.readData(oupeiData);
-	MatchDetailApp.oupeiView.statPanel.update(oupeiManager.stat);
+	
+	MatchDetailApp.oupeiView.statPanel.update(oupeiManager.stat);	
 	MatchDetailApp.oupeiView.companyPanel.update(oupeiManager.dataArray);
 }

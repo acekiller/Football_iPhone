@@ -13,6 +13,8 @@
 #import "MatchDetailController.h"
 #import "UIBadgeView.h"
 
+@class MatchDetailController;
+
 @interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate, 
     UIActionSheetDelegate, SelectLeagueControllerDelegate> {
     
@@ -33,5 +35,6 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *myFollowButton;
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;
+@property (nonatomic, retain) MatchDetailController *matchDetailController;
 
 @end

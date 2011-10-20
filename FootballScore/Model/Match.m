@@ -109,8 +109,7 @@
     }
 
     
-    self.isFollow = isFollowValue;
-   
+    self.isFollow = isFollowValue;   
     self.lastModifyTime = time(0);
 
     return self;
@@ -203,6 +202,12 @@
     else if (status == MATCH_STATUS_SECOND_HALF){
         self.secondHalfStartDate = newStartDate;        
     }    
+}
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"[id=%@, home=%@, away=%@]",
+            matchId, homeTeamName, awayTeamName];
 }
 
 @end

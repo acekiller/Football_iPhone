@@ -61,6 +61,19 @@
     return self;
 }
 
+- (void)resetWithMatch:(Match*)newMatch
+{
+    self.match = newMatch;
+    self.eventString = nil;
+    self.oupeiString = nil;
+    
+    currentSelection = SELECT_EVENT;
+    [self updateSelectMatchStatusButtonState:currentSelection];
+    
+    [self loadMatchDetailHeaderFromServer];
+    [self showWebViewByClick:YES];
+}
+
 - (void)dealloc
 {
     [eventString release];
@@ -103,8 +116,9 @@
 {
     
     currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
-
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];                 
+    
+    [super viewDidLoad];
     
     // left button 
     NSString * leftButtonName = @"ss.png";    
@@ -120,11 +134,29 @@
     self.dataWebView.hidden = YES;
 
     [super viewDidLoad];
-    [self initWebView];    
+    [self initWebView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+//    [self.timer invalidate];    
+    [super viewDidDisappear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    if (self.timer){
+//        [self.timer fire];
+//    }
+    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewDidUnload
 {
+    [self.timer invalidate];
+    [self setTimer:nil];
+    
     [self setHomeTeamIcon:nil];
     [self setAwayTeamIcon:nil];
     [self setMatchStateLabel:nil];
@@ -153,104 +185,65 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
 {
     
-    for (int i=MATCH_DATA_STATUS_EVENT; i<=MATCH_DATA_STATUS_SIZE; i++){
+    
+    for ( int i=MATCH_DATA_STATUS_EVENT; i<=MATCH_DATA_STATUS_SIZE; i++){
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        switch (i) {
+        if (i == selectMatchStatus) {
+            [button setSelected:YES];  
+            [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        else{
+            [button setSelected:NO];
+            [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }   
+    }
+
+    /*
+    
+    for (int i=MATCH_DATA_STATUS_EVENT; i<=MATCH_DATA_STATUS_SIZE; i++){        
+            switch (i) {
             case MATCH_DATA_STATUS_EVENT:
-            {
-                if (i == selectMatchStatus) {
-                     [button setSelected:YES];  
-                     [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+            {                             
+                [self matchDataButtonBackGround : selectMatchStatus ];
             }
                 break;
             case MATCH_DATA_STATUS_LINEUP:
             {
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                    
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+                 [self matchDataButtonBackGround : selectMatchStatus ];             
             }
                 break; 
             case MATCH_DATA_STATUS_ANALYSIS:
             {
-                if (i == selectMatchStatus) {
-                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+                 [self matchDataButtonBackGround : selectMatchStatus ];
             }
                 break; 
             case MATCH_DATA_STATUS_ASIANODDS:
             {
-                if (i == selectMatchStatus) {
-                     [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+                 [self matchDataButtonBackGround : selectMatchStatus ];
             }
                 break; 
             case MATCH_DATA_STATUS_AUROPEANODDS:
-            {
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+            { 
+                [self matchDataButtonBackGround : selectMatchStatus ];           
             }
                 break; 
             case MATCH_DATA_STATUS_SIZE:
             {
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
+                 [self matchDataButtonBackGround : selectMatchStatus ];             
             }
                 break; 
-
-                
-                
             default:
                 break;
         }
     }
+     
+    */ 
 }
 
 #pragma Ou Pei
@@ -346,7 +339,7 @@
 - (void) setHeaderInfo:(DetailHeader *)header
 {
     
-    self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus language:1];
+    self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
     NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
     
@@ -400,8 +393,10 @@
 
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo
 {
-    self.detailHeader = [[[DetailHeader alloc] initWithDetailHeaderArray:headerInfo] autorelease];
+    DetailHeader* header = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
+    self.detailHeader = header;
     [self setHeaderInfo:self.detailHeader];
+    [header release];
 }
 
 #pragma Web View Related & Web View Delegate
@@ -451,6 +446,7 @@
 
 - (void)initWebView
 {
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [self loadWebViewByHtml:@"www/match_detail.html"];
 }
 
@@ -469,11 +465,11 @@
 - (void)checkAppLaunched
 {
     if ([self isAppLaunched]){
+        self.timer = nil;
         firstLoadWebView = NO;
         isWebViewReady = YES;
         
         [self showWebView:YES];        // this is the first time, so need reload
-        self.timer = nil;
         return;
     }
     
@@ -539,6 +535,13 @@
     
     
     
+}
+
+- (void)clickBack:(id)sender
+{
+//    [self.dataWebView stopLoading];
+//    self.dataWebView = nil;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

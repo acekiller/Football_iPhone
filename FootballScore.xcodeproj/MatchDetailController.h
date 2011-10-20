@@ -16,7 +16,11 @@
 enum{
     
     SELECT_EVENT,
-    SELECT_OUPEI
+    SELECT_LINEUP,
+    SELECT_ANALYSIS,
+    SELECT_YAPEI,
+    SELECT_OUPEI,
+    SELECT_DAXIAO
     
 };
 
@@ -87,9 +91,15 @@ enum{
 
 @property (nonatomic, retain) DetailHeader *detailHeader;
 
+// for external call after alloc object
+- (void)resetWithMatch:(Match*)newMatch;
+
 // internal call
+- (void)loadMatchDetailHeaderFromServer;
 - (void)initWebView;
 - (void)updateOupeiView:(NSString*)oupeiDataString;
 - (void)updateEventView:(NSString*)eventDataString;
+- (void)showWebViewByClick:(BOOL)needReload;
+- (void)matchDataButtonBackGround;
 
 @end

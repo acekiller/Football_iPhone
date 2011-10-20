@@ -12,6 +12,7 @@
 #import "LeagueManager.h"
 #import "Match.h"
 #import "MatchManager.h"
+#import "LanguageManager.h"
 #import "TimeUtils.h"
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
@@ -69,7 +70,7 @@
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
-    int lang = 1; // TODO replace by LanguageManager    
+    int lang = [LanguageManager getLanguage]; 
     NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
 
     // stop timer to avoid incorrect update
@@ -136,6 +137,7 @@
                 if ([output.arrayData count] > 0){
                     NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];                    
                     scoreUpdateSet = [[MatchManager defaultManager] getScoreUpdateSet:realtimeScoreArray];
+                    
                     updateMatchSet = [[MatchManager defaultManager] 
                                       updateMatchRealtimeScore:realtimeScoreArray];
                 }
@@ -169,8 +171,9 @@
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId
 {
-    int lang = 1; // TODO replace by LanguageManager    
+    int lang = [LanguageManager getLanguage];
     NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_EVENT];
+    [queue cancelAllOperations];
     
     [queue addOperationWithBlock:^{
         
@@ -205,6 +208,7 @@
 - (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_DETAIL_HEADER];
+    [queue cancelAllOperations];
     
     [queue addOperationWithBlock:^{
         
@@ -233,6 +237,7 @@
 - (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_MATCH_OUPEI];
+    [queue cancelAllOperations];
     
     [queue addOperationWithBlock:^{
         

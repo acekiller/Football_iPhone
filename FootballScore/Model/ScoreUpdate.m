@@ -68,4 +68,20 @@
     return [self.match awayTeamScore];
 }
 
+- (NSString *)homeTeamRedcard
+{
+    return [self.match homeTeamRed];
+}
+- (NSString *)awayTeamRedcard
+{
+    return [self.match awayTeamRed];
+}
+- (NSString *)homeTeamYellowcard
+{
+    return [self.match homeTeamYellow];
+}
+- (NSString *)awayTeamYellowcard
+{
+    return [self.match awayTeamYellow];
+}
 @end

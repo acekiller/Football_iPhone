@@ -50,6 +50,8 @@
 {
     [super viewDidLoad];
     
+    [GlobalGetMatchService() setScoreUpdateControllerDelegate:self];
+    
     [self.dataTableView setEditing:NO];
     [self setDeleteFlag:NO];
     
