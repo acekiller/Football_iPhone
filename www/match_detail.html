@@ -8,13 +8,16 @@
             <link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" /> 
                         
             <script type="text/javascript" src="js/util/parserUtil.js" charset='utf-8'></script>       
-            <script type="text/javascript" src="js/model/OupeiObject.js" charset='utf-8'></script>     
-        	<script type="text/javascript" src="js/model/OupeiManager.js" charset='utf-8'></script>                
+            <script type="text/javascript" src="js/model/OupeiObject.js" charset='utf-8'></script> 
+			<script type="text/javascript" src="js/model/YapeiObject.js" charset='utf-8'></script>     
+        	<script type="text/javascript" src="js/model/OupeiManager.js" charset='utf-8'></script> 
+			<script type="text/javascript" src="js/model/YapeiManager.js" charset='utf-8'></script>               
             <script type="text/javascript" src="js/model/MatchEventObject.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/model/MatchStatObject.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/model/MatchDetailManager.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/view/MatchEventView.js" charset='utf-8'></script>            
-            <script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>            
+            <script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>
+			 <script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>            
             <script type="text/javascript" src="js/match_detail.js" charset='utf-8'></script>            
     	
             
@@ -66,6 +69,17 @@
                     </li>
                     <li>
                         <h2>即时 {jishiWin} {jishiDraw} {jishiLost}</h2>
+                    </li>
+                </tpl>
+            </ul>
+        </div>
+		
+		<div id="yapei-company-template" class="x-hidden-display">
+            <ul id="yapeiList"> 
+				<h1>公司 初盘 即时盘 变</h1>           	
+                <tpl for=".">
+                    <li>
+                        <h2>{name} {homeChupei} {chupan} {awayChupei} {homeJishi} {jishi} {awayJishi} &gt;</h2>
                     </li>
                 </tpl>
             </ul>
