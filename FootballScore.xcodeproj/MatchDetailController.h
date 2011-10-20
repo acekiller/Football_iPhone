@@ -100,5 +100,6 @@ enum{
 - (void)updateOupeiView:(NSString*)oupeiDataString;
 - (void)updateEventView:(NSString*)eventDataString;
 - (void)showWebViewByClick:(BOOL)needReload;
+- (void)matchDataButtonBackGround;
 
 @end

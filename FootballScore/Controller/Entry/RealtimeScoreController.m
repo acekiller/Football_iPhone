@@ -54,92 +54,29 @@
 
 #pragma mark - View lifecycle
 
+
+
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
 {
     for (int i=MATCH_SELECT_STATUS_ALL; i<=MATCH_SELECT_STATUS_MYFOLLOW; i++){
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        switch (i) {
-            case MATCH_SELECT_STATUS_ALL:
-            {
-                [button setTitle:FNS(@"完整") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break;
-            case MATCH_SELECT_STATUS_NOT_STARTED:
-            {
-                [button setTitle:FNS(@"未开赛") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                    
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_ON_GOING:
-            {
-                [button setTitle:FNS(@"进行中") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_FINISH:
-            {
-                [button setTitle:FNS(@"已完场") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_3"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            case MATCH_SELECT_STATUS_MYFOLLOW:
-            {
-                [button setTitle:FNS(@"我的关注") forState:UIControlStateNormal];
-                if (i == selectMatchStatus) {
-                    [button setSelected:YES];  
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4_on"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                }
-                else{
-                    [button setSelected:NO];
-                    [button setBackgroundImage:[UIImage imageNamed:@"live_menu_4"] forState:UIControlStateNormal];
-                    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                }   
-            }
-                break; 
-            default:
-                break;
+        if (i == selectMatchStatus) {
+            [button setSelected:YES];  
+            [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
+        else{
+            [button setSelected:NO];
+            [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }   
+        
     }
+
 }
+
+
+
 
 - (void)loadMatch:(int)scoreType
 {
