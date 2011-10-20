@@ -24,6 +24,7 @@ enum ScoreUpdateType{
     
     Match *match;
     NSInteger scoreUpdateType;
+    NSString *updateMinute;
 //    NSInteger homeRedFlag;
 //    NSInteger awayRedFlag;
 //    NSInteger homeYellowFlag;
@@ -33,6 +34,7 @@ enum ScoreUpdateType{
 
 @property (nonatomic, retain) Match *match;
 @property (nonatomic, assign) NSInteger scoreUpdateType;
+@property (nonatomic, retain) NSString *updateMinute;
 //@property (nonatomic, assign) NSInteger homeRedFlag;
 //@property (nonatomic, assign) NSInteger awayRedFlag;
 //@property (nonatomic, assign) NSInteger homeYellowFlag;
@@ -51,5 +53,4 @@ enum ScoreUpdateType{
 - (NSString *)awayTeamRedcard;
 - (NSString *)homeTeamYellowcard;
 - (NSString *)awayTeamYellowcard;
-
 @end
