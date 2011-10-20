@@ -131,9 +131,9 @@
 {
     UIActionSheet *languageTable = [[UIActionSheet alloc]initWithTitle:FNS(@"请选择语言习惯") 
                                                               delegate:self 
-                                                     cancelButtonTitle:@"取消" 
-                                                destructiveButtonTitle:@"中国大陆" 
-                                                     otherButtonTitles:@"廣東/香港", nil];
+                                                     cancelButtonTitle:FNS(@"取消") 
+                                                destructiveButtonTitle:FNS(@"国语") 
+                                                     otherButtonTitles:FNS(@"粤语"),FNS(@"简体"), nil];
     
     [languageTable showFromTabBar:self.tabBarController.tabBar];
     [languageTable release];

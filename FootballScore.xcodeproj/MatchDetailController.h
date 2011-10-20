@@ -16,7 +16,11 @@
 enum{
     
     SELECT_EVENT,
-    SELECT_OUPEI
+    SELECT_LINEUP,
+    SELECT_ANALYSIS,
+    SELECT_YAPEI,
+    SELECT_OUPEI,
+    SELECT_DAXIAO
     
 };
 
@@ -47,7 +51,8 @@ enum{
     
     int      loadCounter;
     BOOL     showDataFinish;
-    
+    BOOL    firstLoadWebView;
+    BOOL    isWebViewReady;
    
     int     currentSelection;
     
@@ -57,7 +62,8 @@ enum{
 
 @property(nonatomic,retain) NSString *eventJsonArray;
 @property(nonatomic,retain) NSString *statJsonArray;
-@property(nonatomic,retain) NSString *dataString;
+@property(nonatomic,retain) NSString *oupeiString;
+@property(nonatomic,retain) NSString *eventString;
 
 - (id)initWithMatch:(Match *)aMatch;
 
@@ -85,8 +91,14 @@ enum{
 
 @property (nonatomic, retain) DetailHeader *detailHeader;
 
+// for external call after alloc object
+- (void)resetWithMatch:(Match*)newMatch;
+
 // internal call
-- (void)displayWebView;
-- (void)loadWebView;
+- (void)loadMatchDetailHeaderFromServer;
+- (void)initWebView;
+- (void)updateOupeiView:(NSString*)oupeiDataString;
+- (void)updateEventView:(NSString*)eventDataString;
+- (void)showWebViewByClick:(BOOL)needReload;
 
 @end

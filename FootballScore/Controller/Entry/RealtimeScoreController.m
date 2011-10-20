@@ -22,6 +22,7 @@
 @synthesize myFollowCountView;
 
 @synthesize matchSecondTimer;
+@synthesize matchDetailController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+    [matchDetailController release];
     [matchSecondTimer release];
     [myFollowButton release];
     [myFollowCountView release];
@@ -47,6 +49,7 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+    self.matchDetailController = nil;
 }
 
 #pragma mark - View lifecycle
@@ -222,9 +225,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Match* match = [self.dataList objectAtIndex:indexPath.row];
-    MatchDetailController *matchDetail = [[MatchDetailController alloc] initWithMatch:match];
-    [self.navigationController pushViewController:matchDetail animated:YES];
-    [matchDetail release];
+    
+    if (self.matchDetailController == nil){    
+        MatchDetailController *controller = [[MatchDetailController alloc] initWithMatch:match];    
+        self.matchDetailController = controller;
+        [controller release];
+    }
+    
+    [self.matchDetailController resetWithMatch:match];
+    [self.navigationController pushViewController:self.matchDetailController animated:YES];
 }
 
 #pragma remote request delegate
@@ -280,8 +289,8 @@
 								  initWithTitle:FNS(@"请选择赛事比分类型")
                                   delegate:self
 								  cancelButtonTitle:FNS(@"返回")
-								  destructiveButtonTitle:FNS(@"一级赛事")
-								  otherButtonTitles:FNS(@"全部比分"), 
+								  destructiveButtonTitle:FNS(@"全部比分")
+								  otherButtonTitles:FNS(@"一级赛事"), 
                                   FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
                                   ];
 	
@@ -295,10 +304,10 @@
 		return;
 	}
     
-    if (buttonIndex == matchScoreType){
-        // same type, no change, return directly
-        return;
-    }
+//    if (buttonIndex == matchScoreType){
+//        // same type, no change, return directly
+//        return;
+//    }
     
     matchScoreType = buttonIndex;
     

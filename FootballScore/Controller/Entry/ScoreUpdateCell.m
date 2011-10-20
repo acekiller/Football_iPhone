@@ -11,6 +11,7 @@
 #import "DataUtils.h"
 #import "TimeUtils.h"
 #import "LocaleConstants.h"
+#import "MatchManager.h"
 @implementation ScoreUpdateCell
 @synthesize leagueName;
 @synthesize startTime;
@@ -68,11 +69,7 @@
 
 - (void)setCellInfo:(ScoreUpdate *)scoreUpdate
 {
-    if (scoreUpdate == nil) {
-        self.matchState.text = @"00";
-        return;
-    }
-    self.matchState.text =  [DataUtils toMatchStatusString:[scoreUpdate state] language:1];
+    self.matchState.text =  [[MatchManager defaultManager] matchMinutesString:scoreUpdate.match];
     self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"hh:mm");
     self.leagueName.text = [scoreUpdate leagueName];
     self.homeTeam.text = [scoreUpdate homeTeamName];
@@ -84,16 +81,20 @@
     //set event type
     NSInteger type = scoreUpdate.scoreUpdateType;
     
+    UIImage *eventImage = nil;
+    
     if (type < HOMETEAMRED) {
         //score type
         //TO DO set score event image 
+        eventImage = [UIImage imageNamed:@"redcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比分");
-        [self setTeamEventButton:type message:@"进球" color:[UIColor greenColor]];
+        [self setTeamEventButton:type message:FNS(@"进球") color:[UIColor greenColor]];
         
     }else if(type < HOMETEAMYELLOW)
     {
         // red card type
         //TO DO set red card event image 
+        eventImage = [UIImage imageNamed:@"redcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") color:[UIColor redColor]];
         
@@ -101,9 +102,11 @@
     {
         //yellow card type
         //TO DO set yellow card event image 
+        eventImage = [UIImage imageNamed:@"yellowcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") color:[UIColor yellowColor]];
     }
+    self.eventStateImage = [[UIImageView alloc] initWithImage:eventImage];
 }
 
 - (void)dealloc {

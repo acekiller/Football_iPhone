@@ -19,15 +19,28 @@ function OupeiManager(){
 OupeiManager.prototype = {
 	constructor : OupeiManager,
 	
-	readData: function(inputString){	
+	readData: function(inputString){
+		
+		// clear data firstly
+		this.stat = null;
+		this.dataArray = null;
+
+		if (inputString == null || inputString.length == 0)
+			return null;
+			
 		var recordArray = parseRequestString(inputString);
 		if (recordArray == null) 
 			return null;
-
-		this.dataArray = null;		
-		this.dataArray = new Array();
-		this.stat = new OupeiStatObject();
+		
 		var len = recordArray.length;
+		if (len == 0){
+			return null;
+		}
+		else{
+			this.stat = new OupeiStatObject();			
+			this.dataArray = new Array();
+		}			
+		
 		for (var i = 0; i < len; i++) {
 			var record = recordArray[i];
 			if (record != null && record.length >= OUPEI_FIELD_COUNT) {

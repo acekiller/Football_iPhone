@@ -54,6 +54,8 @@
 @synthesize events;
 @synthesize stats;
 @synthesize isFollow;
+@synthesize lastModifyTime;
+
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
@@ -107,7 +109,8 @@
     }
 
     
-    self.isFollow = isFollowValue;
+    self.isFollow = isFollowValue;   
+    self.lastModifyTime = time(0);
 
     return self;
 }
@@ -199,6 +202,12 @@
     else if (status == MATCH_STATUS_SECOND_HALF){
         self.secondHalfStartDate = newStartDate;        
     }    
+}
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"[id=%@, home=%@, away=%@]",
+            matchId, homeTeamName, awayTeamName];
 }
 
 @end

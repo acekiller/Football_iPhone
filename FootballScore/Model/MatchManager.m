@@ -15,6 +15,7 @@
 #import "LeagueManager.h"
 #import "ScoreUpdateManager.h"
 #import "ScoreUpdate.h"
+#import "LogUtil.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
@@ -38,6 +39,7 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterMatchScoreType;
 @synthesize followMatchIdList;
 @synthesize serverDate;
+@synthesize followMatchArray;
 
 + (MatchManager*)defaultManager
 {
@@ -92,10 +94,15 @@ MatchManager* GlobalGetMatchManager()
         return;
     
     [match setIsFollow:YES];
-    [self.followMatchIdList addObject:match.matchId];
-    [self saveFollowMatchIdList];
     
-    NSLog(@"follow match (%@)", match.matchId);
+    if ([followMatchIdList containsObject:match.matchId] == NO){
+        
+        [self.followMatchIdList addObject:match.matchId];
+        [self saveFollowMatchIdList];
+        
+        PPDebug(@"follow match (%@)", [match description]);
+    }
+    
 }
 
 - (void)unfollowMatch:(Match*)match
@@ -107,7 +114,7 @@ MatchManager* GlobalGetMatchManager()
     [self.followMatchIdList removeObject:match.matchId];    
     [self saveFollowMatchIdList];
 
-    NSLog(@"unfollow match (%@)", match.matchId);
+    PPDebug(@"unfollow match (%@)", [match description]);
 }
 
 - (BOOL)isMatchFollowed:(NSString*)matchId
@@ -140,6 +147,7 @@ MatchManager* GlobalGetMatchManager()
 
 - (void)dealloc
 {
+    [followMatchArray release];
     [serverDate release];
     [matchArray release];
     [followMatchIdList release];
@@ -157,7 +165,7 @@ MatchManager* GlobalGetMatchManager()
             filterMatchStatus != MATCH_SELECT_STATUS_MYFOLLOW &&
             [match matchSelectStatus] != filterMatchStatus){
             // status not match, skip
-//            NSLog(@"match status = %d, select status = %d", match.status, [match matchSelectStatus]);
+//            PPDebug(@"match status = %d, select status = %d", match.status, [match matchSelectStatus]);
             continue;
         }
         
@@ -173,8 +181,8 @@ MatchManager* GlobalGetMatchManager()
 
         [retArray addObject:match];
     }
-    
-    NSLog(@"filter match done, total %d match return", [retArray count]);
+        
+    PPDebug(@"filter match done, total %d match return", [retArray count]);
     return retArray;
 
 }
@@ -184,7 +192,7 @@ MatchManager* GlobalGetMatchManager()
     if (newServerDate){        
         self.serverDate = newServerDate;
         serverDiffSeconds = [newServerDate timeIntervalSinceNow];
-        NSLog(@"<updateServerDate> new date : %@, diff = %d", [serverDate description], serverDiffSeconds);
+        PPDebug(@"<updateServerDate> new date : %@, diff = %d", [serverDate description], serverDiffSeconds);
     }
 }
 
@@ -206,12 +214,12 @@ MatchManager* GlobalGetMatchManager()
 {
     self.matchArray = updateArray;
     
-    
+    // TODO save match if match is followed
 }
 
 - (void)updateRealtimeMatchArray:(NSArray*)realtimeMatchArray
 {
-    // TODO
+    // TODO do what??? 
 }
 
 - (NSSet *)getScoreUpdateSet:(NSArray *)realtimeScoreStringArray
@@ -224,7 +232,7 @@ MatchManager* GlobalGetMatchManager()
     for (NSArray* fields in realtimeScoreStringArray){
         int fieldCount = [fields count];
         if (fieldCount < REALTIME_SCORE_FILED_COUNT){
-            NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
+            PPDebug(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
             continue;
         }
         else{
@@ -232,7 +240,7 @@ MatchManager* GlobalGetMatchManager()
             NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
             Match* match = [self getMathById:matchId];
             if (match == nil){
-                NSLog(@"<warning> cannot find match by match ID (%@)", matchId);
+                PPDebug(@"<warning> cannot find match by match ID (%@)", matchId);
                 continue;
             }
             NSString* homeTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_SCORE];
@@ -241,15 +249,15 @@ MatchManager* GlobalGetMatchManager()
             NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
             NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
             NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
-            
-            
-            NSMutableSet *retSet = [[[NSMutableSet alloc] init]autorelease];
+        
             //home team score update
             int increase = [homeTeamScore intValue] - [matchManager getHomeTeamScore:match];
             if (increase > 0) {
                 ScoreUpdate *homeScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
                 [retSet addObject:homeScoreUpdate];
                 [homeScoreUpdate release];
+                
+                PPDebug(@"match (%@) has realtime update, home team score, value = %d", [match description], increase);
             }
             
             //away team score update
@@ -258,6 +266,8 @@ MatchManager* GlobalGetMatchManager()
                 ScoreUpdate *awayScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMSCORE];
                 [retSet addObject:awayScoreUpdate];
                 [awayScoreUpdate release];
+
+                PPDebug(@"match (%@) has realtime update, away team score, value = %d", [match description], increase);
             }
             
             //home team red card update
@@ -266,6 +276,8 @@ MatchManager* GlobalGetMatchManager()
                 ScoreUpdate *homeRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
                 [retSet addObject:homeRedUpdate];
                 [homeRedUpdate release];
+                
+                PPDebug(@"match (%@) has realtime update, home team RED, value = %d", [match description], increase);                
             }
             
             //away team red card update
@@ -275,6 +287,7 @@ MatchManager* GlobalGetMatchManager()
                 [retSet addObject:awayRedUpdate];
                 [awayRedUpdate release];
                 
+                PPDebug(@"match (%@) has realtime update, away team RED, value = %d", [match description], increase);                
             }
             
             //home team yellow card update
@@ -283,6 +296,8 @@ MatchManager* GlobalGetMatchManager()
                 ScoreUpdate *homeYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
                 [retSet addObject:homeYellowUpdate];
                 [homeYellowUpdate release];
+                
+                PPDebug(@"match (%@) has realtime update, home team YELLOW, value = %d", [match description], increase);                                
             }
             
             //away team yellow card update
@@ -291,6 +306,8 @@ MatchManager* GlobalGetMatchManager()
                 ScoreUpdate *awayYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMYELLOW];
                 [retSet addObject:awayYellowUpdate];
                 [awayYellowUpdate release];
+                
+                PPDebug(@"match (%@) has realtime update, away team YELLOW, value = %d", [match description], increase);                                
             }
 
         }
@@ -309,7 +326,7 @@ MatchManager* GlobalGetMatchManager()
     for (NSArray* fields in realtimeScoreStringArray){
         int fieldCount = [fields count];
         if (fieldCount < REALTIME_SCORE_FILED_COUNT){
-            NSLog(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
+            PPDebug(@"<updateMatchRealtimeScore> get record but field count (%d) not enough!", fieldCount);
             continue;
         }
         else{
@@ -317,7 +334,7 @@ MatchManager* GlobalGetMatchManager()
             NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
             Match* match = [self getMathById:matchId];
             if (match == nil){
-                NSLog(@"<warning> cannot find match by match ID (%@)", matchId);
+                PPDebug(@"<warning> cannot find match by match ID (%@)", matchId);
                 continue;
             }
             
@@ -379,7 +396,8 @@ MatchManager* GlobalGetMatchManager()
                 [match setAwayTeamYellow:awayTeamYellow];
             }
 
-            NSLog(@"match %@ updated, data=%@", matchId, [fields componentsJoinedByString:@" "]);
+            PPDebug(@"match %@ updated, data=%@", 
+                    [match description], [fields componentsJoinedByString:@" "]);
         }
     }
     
@@ -399,7 +417,7 @@ MatchManager* GlobalGetMatchManager()
         NSArray* fields = [stringArray objectAtIndex:i];
         int fieldCount = [fields count];
         if (fieldCount != MATCH_FIELD_COUNT){
-            NSLog(@"incorrect match field count = %d", fieldCount);
+            PPDebug(@"incorrect match field count = %d", fieldCount);
             continue;
         }
         
@@ -425,14 +443,14 @@ MatchManager* GlobalGetMatchManager()
                                                 
         
 #ifdef DEBUG
-//        NSLog(@"add match : %@", [match description]);
+//        PPDebug(@"add match : %@", [match description]);
 #endif
         
         [retArray addObject:match];
         [match release];
     }
     
-    NSLog(@"parse match data, total %d match added", [retArray count]);
+    PPDebug(@"parse match data, total %d match added", [retArray count]);
 
     
     return retArray;
@@ -452,7 +470,7 @@ MatchManager* GlobalGetMatchManager()
         NSArray* fields = [stringArray objectAtIndex:i];
         int fieldCount = [fields count];
         if (fieldCount != MATCH_FIELD_COUNT){
-            NSLog(@"incorrect match field count = %d", fieldCount);
+            PPDebug(@"incorrect match field count = %d", fieldCount);
             continue;
         }
         
@@ -478,14 +496,14 @@ MatchManager* GlobalGetMatchManager()
         
         
 #ifdef DEBUG
-        //        NSLog(@"add match : %@", [match description]);
+        //        PPDebug(@"add match : %@", [match description]);
 #endif
         
         [retArray addObject:match];
         [match release];
     }
     
-    NSLog(@"parse match data, total %d match added", [retArray count]);
+    PPDebug(@"parse match data, total %d match added", [retArray count]);
     
     
     return retArray;
