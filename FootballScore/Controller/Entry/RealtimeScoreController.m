@@ -404,7 +404,7 @@
 {
     int tagLen = 20;
     CGRect rect = [myFollowButton bounds];
-    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen+2, -3, tagLen, tagLen)];
+    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -1, tagLen, tagLen)];
     [self.myFollowCountView setShadowEnabled:NO];
     [self.myFollowButton addSubview:self.myFollowCountView];
     [self reloadMyFollowCount];
