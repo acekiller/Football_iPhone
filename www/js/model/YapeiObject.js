@@ -13,3 +13,5 @@ function YapeiObject(name, homeChupei, chupan, awayChupei, homeJishi, jishi, awa
 YapeiObject.prototype = {
 	constructor : YapeiObject
 };
+
+
