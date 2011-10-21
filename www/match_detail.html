@@ -96,12 +96,18 @@
 		<script type="text/javascript" src="js/model/LineupManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/MatchEventObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/MatchStatObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/BetCompanyObject.js" charset="UTF-8" ></script>
+		<script type="text/javascript" src="js/model/BetComanyManager.js" charset="UTF-8" ></script>
+		<script type="text/javascript" src="js/model/YapeiObject.js" charset="UTF-8" ></script>
+		<script type="text/javascript" src="js/model/YapeiManager.js" charset="UTF-8" ></script>		
 		<script type="text/javascript" src="js/model/MatchDetailManager.js" charset='utf-8'></script>
+		
 		<script type="text/javascript" src="js/view/MatchEventView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/OverunderView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/LineupView.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/YapeiDetailView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/match_detail.js" charset='utf-8'></script>
 	</head>
 	<body>
@@ -238,6 +244,28 @@
                 </tpl>
             </ul>
         </div>     
+        
+        <textarea id="odds-detail-company-template" class="x-hidden-display">
+            <ul id="odds-company-list"> 
+				<h1>公司</h1>           	
+                <tpl for=".">
+                    <li>
+                        <h2><div onclick="MatchDetailApp.yapeiDetailView.updateCompanyOdds({[values.betId]})">{name}</div></h2>
+                    </li>
+                </tpl>
+            </ul>
+        </textarea>   
+                  
+		<textarea id="odds-detail-template" class="x-hidden-display">
+            <ul id="odds-detail-list"> 
+				<h1>初盘 即时盘 变</h1>           	
+                <tpl for=".">
+                    <li>
+                        <h2>{homeOdds} {pankou} {awayOdds} {modifyDate}</h2>
+                    </li>
+                </tpl>
+            </ul>
+        </textarea>                    
                   
     </body> 
 </html>

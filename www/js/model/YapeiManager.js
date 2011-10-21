@@ -36,7 +36,8 @@ YapeiManager.prototype = {
 			return null;
 		}
 		else{
-			this.dataArray = new Array();
+			this.dataArray = new Array();			
+			yapeiCompanyManager.clear();				
 		}			
 		
 		for (var i = 0; i < len; i++) {
@@ -47,6 +48,7 @@ YapeiManager.prototype = {
 				var obj = new YapeiObject(record[OUPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], CHUPAN, record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], JISHI, record[YAPEI_FIELD_AWAYJISHI]);				
 				this.dataArray.push(obj);
 				
+				yapeiCompanyManager.add(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME]);				
 			}
 			else {
 				console.log("<warning> readYAPEIData, but field in record is null or field count not enough");
