@@ -14,11 +14,12 @@ MatchDetailApp = new Ext.Application({
         		
         console.log("match javascript launched");
 //      testReadData();
-      testUpdateMatchDetail();
+//      testUpdateMatchDetail();
 //      testUpdateOupeiDetail();
-//		testUpdateYapeiDetail();
-        testUpdateOverunderDetail();
+		testUpdateYapeiDetail();
+//        testUpdateOverunderDetail();
         MatchDetailApp.isLaunched = 1;
+		Goal2GoalCn(0.75);
     }
 
 });
