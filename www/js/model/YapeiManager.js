@@ -43,7 +43,9 @@ YapeiManager.prototype = {
 		for (var i = 0; i < len; i++) {
 			var record = recordArray[i];
 			if (record != null && record.length >= OUPEI_FIELD_COUNT) {
-				var obj = new YapeiObject(record[YAPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], record[YAPEI_FIELD_CHUPAN], record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], record[YAPEI_FIELD_JISHI], record[YAPEI_FIELD_AWAYJISHI]);				
+				var CHUPAN = Goal2Goals(record[YAPEI_FIELD_CHUPAN]);
+				var JISHI = Goal2Goals(record[YAPEI_FIELD_JISHI]);
+				var obj = new YapeiObject(record[OUPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], CHUPAN, record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], JISHI, record[YAPEI_FIELD_AWAYJISHI]);				
 				this.dataArray.push(obj);
 				
 				yapeiCompanyManager.add(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME]);				
