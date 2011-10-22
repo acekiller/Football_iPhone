@@ -27,7 +27,7 @@ MatchDetailApp = new Ext.Application({
 //        testSendRequest();
 //		testUpdateYapeiDetail();
 //		testUpdateLineup();
-//        testYapeiOddsDetail();
+        testYapeiOddsDetail();
         
 //        testShowYapeiView();
     }
@@ -187,4 +187,18 @@ function updateLineup(lineupData){
 	MatchDetailApp.lineupView.homeReservePanel.update(lineupManager.data.homeReserve[0]);
 	MatchDetailApp.lineupView.awayLineupPanel.update(lineupManager.data.awayLineup[0]);
 	MatchDetailApp.lineupView.awayReservePanel.update(lineupManager.data.awayReserve[0]);
+}
+
+function changebg(index) {
+	 var len = yapeiCompanyManager.betCompanyList.length;
+	 for(var i=1;i<=len;i++) {
+	 	if (i==index){
+			continue;
+		} else {
+			anchorTag = document.getElementById("com"+i);
+	 		anchorTag.className= "ac_bg";
+		}
+	 } 
+	 anchorTag = document.getElementById("com"+index);
+	 anchorTag.className= "ac_Select";
 }

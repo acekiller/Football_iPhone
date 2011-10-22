@@ -232,7 +232,7 @@
         	<div class="ac_left_title">赔率公司选择</div>
 		    <ul id="ao_c" class="ac_bg">
 		    	<tpl for="betCompanyList">
-				    <li class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="MatchDetailApp.yapeiDetailView.updateCompanyOdds({[values.betId]})">{name}</div></li>
+				    <li id="com{#}" class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="changebg({#}),MatchDetailApp.yapeiDetailView.updateCompanyOdds({[values.betId]})">{name}</div></li>
     			</tpl>
     		</ul>    		
         </textarea>   
