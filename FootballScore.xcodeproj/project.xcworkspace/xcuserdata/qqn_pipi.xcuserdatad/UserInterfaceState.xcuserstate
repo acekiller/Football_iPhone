@@ -11805,9 +11805,9 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>340978712.08125001</real>
+		<real>340986312.532767</real>
 		<string>{7052, 1157}</string>
-		<string>{8005, 0}</string>
+		<string>{8175, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -23411,7 +23411,7 @@
 				<integer>1741</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>340978547.011985</real>
+			<real>340982357.69840097</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -23422,7 +23422,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 下午8:15</string>
+		<string>Today at 下午9:19</string>
 		<integer>106</integer>
 		<string>FootballScore</string>
 		<dict>
@@ -23779,7 +23779,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1987</integer>
+					<integer>1986</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -23791,7 +23791,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1988</integer>
+					<integer>1987</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -24046,7 +24046,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1804</integer>
+					<integer>1799</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -25000,15 +25000,15 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1966</integer>
+					<integer>1965</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>1973</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
 					<integer>1974</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>1975</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25409,7 +25409,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1964</integer>
+					<integer>1963</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25479,11 +25479,11 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1956</integer>
+					<integer>1955</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1960</integer>
+					<integer>1959</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -25491,11 +25491,11 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1961</integer>
+					<integer>1960</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1962</integer>
+					<integer>1961</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25634,22 +25634,13 @@
 			<key>documentURL</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1955</integer>
+				<integer>590</integer>
 			</dict>
 			<key>timestamp</key>
 			<dict>
 				<key>CF$UID</key>
 				<integer>0</integer>
 			</dict>
-		</dict>
-		<dict>
-			<key>$class</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>49</integer>
-			</dict>
-			<key>NS.string</key>
-			<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.m</string>
 		</dict>
 		<dict>
 			<key>$class</key>
@@ -25680,11 +25671,11 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1957</integer>
+					<integer>1956</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1958</integer>
+					<integer>1957</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -25692,14 +25683,14 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1959</integer>
+					<integer>1958</integer>
 				</dict>
 			</array>
 		</dict>
-		<real>340978712.08414</real>
+		<real>340986312.535438</real>
 		<string>{7052, 1157}</string>
-		<string>{8005, 0}</string>
-		<string>-updateYapeiView:</string>
+		<string>{8175, 0}</string>
+		<string>@implementation MatchDetailController</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -25715,7 +25706,7 @@
 			<key>NS.relative</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1963</integer>
+				<integer>1962</integer>
 			</dict>
 		</dict>
 		<string>file://localhost/gitdata/Football_iPhone/FootballScore.xcodeproj/MatchDetailController.m</string>
@@ -25729,7 +25720,7 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1965</integer>
+					<integer>1964</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25751,7 +25742,7 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1967</integer>
+					<integer>1966</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25765,11 +25756,11 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1968</integer>
+					<integer>1967</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1971</integer>
+					<integer>1970</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25794,11 +25785,11 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1969</integer>
+					<integer>1968</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1970</integer>
+					<integer>1969</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25825,11 +25816,11 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1972</integer>
+					<integer>1971</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1973</integer>
+					<integer>1972</integer>
 				</dict>
 			</array>
 		</dict>
@@ -25860,12 +25851,12 @@
 			<key>primaryEditorContextNode</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1976</integer>
+				<integer>1975</integer>
 			</dict>
 			<key>rootLayoutTreeNode</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1985</integer>
+				<integer>1984</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -25884,14 +25875,14 @@
 			<key>documentArchivableRepresentation</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1977</integer>
+				<integer>1976</integer>
 			</dict>
 			<key>orientation</key>
 			<integer>0</integer>
 			<key>parent</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1985</integer>
+				<integer>1984</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -25913,7 +25904,7 @@
 			<key>IdentifierPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1978</integer>
+				<integer>1977</integer>
 			</dict>
 			<key>IndexOfDocumentIdentifier</key>
 			<dict>
@@ -25931,6 +25922,10 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
+					<integer>1978</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>1979</integer>
 				</dict>
 				<dict>
@@ -25944,10 +25939,6 @@
 				<dict>
 					<key>CF$UID</key>
 					<integer>1982</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>1983</integer>
 				</dict>
 			</array>
 		</dict>
@@ -26008,7 +25999,7 @@
 			<key>Identifier</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1984</integer>
+				<integer>1983</integer>
 			</dict>
 		</dict>
 		<string>FootballScore</string>
@@ -26021,7 +26012,7 @@
 			<key>children</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1986</integer>
+				<integer>1985</integer>
 			</dict>
 			<key>contentType</key>
 			<integer>0</integer>
@@ -26048,7 +26039,7 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1976</integer>
+					<integer>1975</integer>
 				</dict>
 			</array>
 		</dict>
