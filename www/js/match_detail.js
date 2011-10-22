@@ -25,7 +25,7 @@ MatchDetailApp = new Ext.Application({
 //        testJSONP();
 //        testSendRequest();
 //		testUpdateYapeiDetail();
-		testUpdateLineup();
+//		testUpdateLineup();
     }
 
 });
