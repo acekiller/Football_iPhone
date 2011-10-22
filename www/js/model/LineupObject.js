@@ -8,5 +8,5 @@ function LineupObject(homeLineup,homeReserve,awayLineup,awayReserve){
 }
 
 LineupObject.prototype = {
-	constructor : LineupObject,
+	constructor : LineupObject
 };

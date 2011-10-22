@@ -7,6 +7,7 @@ var YAPEI_CHANGE_FIELD_COUNT = 4;
 
 //define Yapei Model
 function BetCompanyManager() {
+	this.selectCompanyId = null;
 	this.betCompanyList = new Array();
 	this.oddsChangeList = null;
 }
