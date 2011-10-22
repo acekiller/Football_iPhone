@@ -290,6 +290,23 @@
     return YES;
 }
 
+- (void)updateYapeiView:(NSString*)dataString
+{           
+    NSString *jsCode = [NSString stringWithFormat:@"showYapeiView(%@);", match.matchId];      
+    PPDebug(@"<updateYapeiView> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
+}
+
+// return the view is shown directly or not
+- (BOOL)showYapeiView:(BOOL)needReload
+{
+    [self updateYapeiView:nil];
+    return YES;
+}
+
 #pragma Event
 #pragma mark - 
 
@@ -413,6 +430,10 @@
             [self showOupeiView:needReload];
             break;
             
+        case SELECT_YAPEI:
+            [self showYapeiView:needReload];
+            break;
+            
         default:
             break;
     }
@@ -506,25 +527,44 @@
     }
 }
 
-- (IBAction)clickMatchesDatasButton:(id)sender;
-{        
-    if (currentSelection == SELECT_EVENT)
+- (void)handleClickButton:(id)sender selection:(int)newSelection
+{
+    if (currentSelection == newSelection)
         return;
-
+    
     [self updateButtonState:sender];    
-    currentSelection = SELECT_EVENT;
-    [self showWebViewByClick:NO];
+    currentSelection = newSelection;
+    [self showWebViewByClick:NO];    
+}
+
+- (IBAction)clickMatchesDatasButton:(id)sender;
+{       
+    [self handleClickButton:sender selection:SELECT_EVENT];
 }
 
 - (IBAction)clickMatchesOupeiButton:(id)sender
 {
-    if (currentSelection == SELECT_OUPEI)
-        return;
-    
-    [self updateButtonState:sender];    
-    currentSelection = SELECT_OUPEI;
-    
-    [self showWebViewByClick:NO];
+    [self handleClickButton:sender selection:SELECT_OUPEI];
+}
+
+- (IBAction)clickSelectYapeiButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_YAPEI];
+}
+
+- (IBAction)clickSelectLineupButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_LINEUP];
+}
+
+- (IBAction)clickSelectAnalysisButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_ANALYSIS];    
+}
+
+- (IBAction)clickSelectDaxiaoButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_DAXIAO];
 }
 
 - (void)clickReflashLeftButton{            

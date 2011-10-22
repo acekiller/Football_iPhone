@@ -69,6 +69,10 @@ enum{
 
 - (IBAction)clickMatchesDatasButton:(id)sender;
 - (IBAction)clickMatchesOupeiButton:(id)sender;
+- (IBAction)clickSelectLineupButton:(id)sender;
+- (IBAction)clickSelectYapeiButton:(id)sender;
+- (IBAction)clickSelectAnalysisButton:(id)sender;
+- (IBAction)clickSelectDaxiaoButton:(id)sender;
 
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus;
 
@@ -100,6 +104,6 @@ enum{
 - (void)updateOupeiView:(NSString*)oupeiDataString;
 - (void)updateEventView:(NSString*)eventDataString;
 - (void)showWebViewByClick:(BOOL)needReload;
-- (void)matchDataButtonBackGround;
+//- (void)matchDataButtonBackGround;
 
 @end

@@ -20,7 +20,7 @@ OddsChangeObject.prototype = {
 	constructor : OddsChangeObject,
 	
 	getPankouText : function(){
-		return this.pankou;	// TODO need implementation
+		return Goal2GoalCn(parseFloat(this.pankou));	// TODO need implementation
 	},
 	
 	getModifyDate : function(){
