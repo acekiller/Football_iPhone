@@ -35,7 +35,7 @@
 @synthesize homeTeamLeaguePos;         // from detail interface
 @synthesize awayTeamLeaguePos;         // from detail interface
 
-@synthesize hasLineUp;                  // 是否有阵容
+//@synthesize hasLineUp;                  // 是否有阵容
 
 @synthesize homeTeamScore;
 @synthesize awayTeamScore;
@@ -79,13 +79,13 @@
     self = [super init];
     self.matchId = idValue;
     self.leagueId = leagueIdValue;
-    self.status = [statusValue intValue];
+    [self setStatus:[NSNumber numberWithInt:[statusValue intValue]]];
     
-    if (status == MATCH_STATUS_FIRST_HALF){
+    if ([status intValue] == MATCH_STATUS_FIRST_HALF){
         self.firstHalfStartDate = dateFromChineseStringByFormat(dateValue, 
                                                             DEFAULT_DATE_FORMAT);
     }
-    else if (status == MATCH_STATUS_SECOND_HALF){
+    else if ([status intValue] == MATCH_STATUS_SECOND_HALF){
         self.secondHalfStartDate = dateFromChineseStringByFormat(dateValue, 
                                                                 DEFAULT_DATE_FORMAT);        
     }
@@ -109,8 +109,8 @@
     }
 
     
-    self.isFollow = isFollowValue;   
-    self.lastModifyTime = time(0);
+    [self setIsFollow:[NSNumber numberWithBool:isFollowValue]];   
+    [self setLastModifyTime:[NSNumber numberWithInt:time(0)]];
 
     return self;
 }
@@ -120,6 +120,7 @@
     [matchId release];
         
     [leagueId release];
+    [status release];
     [date release];
     [firstHalfStartDate release];
     [secondHalfStartDate release];
@@ -155,6 +156,8 @@
         
     [events release];
     [stats release];
+    [isFollow release];
+    [lastModifyTime release];
     [super dealloc];
 }
 
@@ -173,7 +176,7 @@
 //    MATCH_STATUS_FINISH = -1,
 //    MATCH_STATUS_CANCEL = -10
     
-    switch (status) {
+    switch ([status intValue]) {
                         
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_MIDDLE:
@@ -196,18 +199,108 @@
 
 - (void)updateStartDate:(NSDate*)newStartDate
 {
-    if (status == MATCH_STATUS_FIRST_HALF){
+    if ([status intValue] == MATCH_STATUS_FIRST_HALF){
         self.firstHalfStartDate = newStartDate;
     }
-    else if (status == MATCH_STATUS_SECOND_HALF){
+    else if ([status intValue] == MATCH_STATUS_SECOND_HALF){
         self.secondHalfStartDate = newStartDate;        
     }    
+}
+
+- (void)updateByMatch:(Match *)match
+{
+    self.status = match.status;
+    self.firstHalfStartDate = match.firstHalfStartDate;
+    self.secondHalfStartDate = match.secondHalfStartDate;
+    self.homeTeamScore = match.homeTeamScore;
+    self.awayTeamScore = match.awayTeamScore;
+    self.homeTeamFirstHalfScore = match.homeTeamFirstHalfScore;
+    self.awayTeamFirstHalfScore = match.awayTeamFirstHalfScore;
+    self.homeTeamRed = match.homeTeamRed;
+    self.awayTeamRed = match.awayTeamRed;
+    self.homeTeamYellow = match.awayTeamYellow;
+    self.awayTeamYellow = match.awayTeamYellow;
+    
 }
 
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"[id=%@, home=%@, away=%@]",
             matchId, homeTeamName, awayTeamName];
+}
+
+- (void) encodeWithCoder: (NSCoder *)coder  
+{  
+    [coder encodeObject:matchId forKey:@"matchId"];  
+    [coder encodeObject:leagueId forKey:@"leagueId"];  
+    [coder encodeObject:status forKey:@"status"];
+    [coder encodeObject:date forKey:@"date"];
+    [coder encodeObject:firstHalfStartDate forKey:@"firstHalfStartDate"];
+    [coder encodeObject:secondHalfStartDate forKey:@"secondHalfStartDate"];
+    [coder encodeObject:homeTeamName forKey:@"homeTeamName"];
+    [coder encodeObject:awayTeamName forKey:@"awayTeamName"];
+    [coder encodeObject:homeTeamMandarinName forKey:@"homeTeamMandarinName"];
+    [coder encodeObject:awayTeamMandarinName forKey:@"awayTeamMandarinName"];
+    [coder encodeObject:homeTeamCantonName forKey:@"homeTeamCantonName"];
+    [coder encodeObject:homeTeamName forKey:@"homeTeamCantonName"];
+    [coder encodeObject:homeTeamImage forKey:@"homeTeamImage"];
+    [coder encodeObject:awayTeamImage forKey:@"awayTeamImage"];   
+    [coder encodeObject:homeTeamLeaguePos forKey:@"homeTeamLeaguePos"];
+    [coder encodeObject:awayTeamLeaguePos forKey:@"awayTeamLeaguePos"];
+//  [coder encodeObject:hasLineUp forKey:@"hasLineUp"];  
+    [coder encodeObject:homeTeamScore forKey:@"homeTeamScore"];
+    [coder encodeObject:awayTeamScore forKey:@"awayTeamScore"];   
+    [coder encodeObject:homeTeamFirstHalfScore forKey:@"homeTeamFirstHalfScore"];
+    [coder encodeObject:awayTeamFirstHalfScore forKey:@"awayTeamFirstHalfScore"];   
+    [coder encodeObject:awayTeamFirstHalfScore forKey:@"awayTeamFirstHalfScore"];
+    [coder encodeObject:awayTeamRed forKey:@"awayTeamRed"];   
+    [coder encodeObject:homeTeamYellow forKey:@"homeTeamYellow"];
+    [coder encodeObject:awayTeamYellow forKey:@"awayTeamYellow"];
+    [coder encodeObject:crownChuPan forKey:@"crownChuPan"];    
+    [coder encodeObject:events forKey:@"events"];
+    [coder encodeObject:stats forKey:@"stats"];
+    [coder encodeObject:isFollow forKey:@"isFollow"];
+    [coder encodeObject:lastModifyTime forKey:@"lastModifyTime"];
+    
+} 
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init])  
+    {  
+        self.matchId = [coder decodeObjectForKey:@"matchId"];  
+        self.leagueId = [coder decodeObjectForKey:@"leagueId"];  
+        self.status = [coder decodeObjectForKey:@"status"];
+        self.date = [coder decodeObjectForKey:@"date"];
+        self.firstHalfStartDate = [coder decodeObjectForKey:@"firstHalfStartDate"];
+        self.secondHalfStartDate = [coder decodeObjectForKey:@"secondHalfStartDate"];   
+        self.homeTeamName = [coder decodeObjectForKey:@"homeTeamName"];
+        self.awayTeamName = [coder decodeObjectForKey:@"awayTeamName"];   
+        self.homeTeamMandarinName = [coder decodeObjectForKey:@"homeTeamMandarinName"];
+        self.awayTeamMandarinName = [coder decodeObjectForKey:@"awayTeamMandarinName"];
+        self.homeTeamCantonName = [coder decodeObjectForKey:@"homeTeamCantonName"]; 
+        self.awayTeamCantonName = [coder decodeObjectForKey:@"awayTeamCantonName"];          
+        self.homeTeamImage = [coder decodeObjectForKey:@"homeTeamImage"];
+        self.awayTeamImage = [coder decodeObjectForKey:@"awayTeamImage"];   
+        self.homeTeamLeaguePos = [coder decodeObjectForKey:@"homeTeamLeaguePos"];
+        self.awayTeamLeaguePos = [coder decodeObjectForKey:@"awayTeamLeaguePos"];
+    //  self.hasLineUp = [coder decodeObjectForKey:@"hasLineUp"];//  是否有阵容  
+        self.homeTeamScore = [coder decodeObjectForKey:@"homeTeamScore"];
+        self.awayTeamScore = [coder decodeObjectForKey:@"awayTeamScore"];  
+        self.homeTeamFirstHalfScore = [coder decodeObjectForKey:@"homeTeamFirstHalfScore"];
+        self.awayTeamFirstHalfScore = [coder decodeObjectForKey:@"awayTeamFirstHalfScore"];   
+        self.homeTeamRed = [coder decodeObjectForKey:@"leaghomeTeamRedueId"];
+        self.awayTeamRed = [coder decodeObjectForKey:@"awayTeamRed"];   
+        self.homeTeamYellow = [coder decodeObjectForKey:@"leaghomeTeamYellowueId"];
+        self.awayTeamYellow = [coder decodeObjectForKey:@"awayTeamYellow"];   
+        self.crownChuPan = [coder decodeObjectForKey:@"crownChuPan"];   
+        self.events = [coder decodeObjectForKey:@"events"];
+        self.stats = [coder decodeObjectForKey:@"stats"];
+        self.isFollow = [coder decodeObjectForKey:@"isFollow"];
+        self.lastModifyTime = [coder decodeObjectForKey:@"lastModifyTime"];
+    }  
+    return self; 
+
 }
 
 @end

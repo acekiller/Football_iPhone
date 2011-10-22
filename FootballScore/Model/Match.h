@@ -61,13 +61,13 @@ enum{
 };
 
 
-@interface Match : NSObject {
+@interface Match : NSObject <NSCoding>{
     
-    int         sportsType;                 // football, basketball, etc
+   // int         sportsType;                 // football, basketball, etc
     
     NSString    *matchId;
     NSString    *leagueId;
-    int         status;
+    NSNumber    *status;
     NSDate      *date;
     NSDate      *firstHalfStartDate;
     NSDate      *secondHalfStartDate;
@@ -87,7 +87,7 @@ enum{
     NSString    *homeTeamLeaguePos;         // from detail interface
     NSString    *awayTeamLeaguePos;         // from detail interface
 
-    BOOL        hasLineUp;                  // 是否有阵容
+//    BOOL        hasLineUp;                  // 是否有阵容
     
     NSString    *homeTeamScore;
     NSString    *awayTeamScore;
@@ -106,13 +106,13 @@ enum{
     NSMutableArray  *events;
     NSMutableArray  *stats;
     
-    BOOL        isFollow;
-    time_t  lastModifyTime;
+    NSNumber        *isFollow;
+    NSNumber  *lastModifyTime;
 }
 
 @property (nonatomic, retain) NSString    *matchId;
 @property (nonatomic, retain) NSString    *leagueId;
-@property (nonatomic, assign) int         status;
+@property (nonatomic, retain) NSNumber    *status;
 @property (nonatomic, retain) NSDate      *date;
 @property (nonatomic, retain) NSDate      *firstHalfStartDate;
 @property (nonatomic, retain) NSDate      *secondHalfStartDate;
@@ -132,7 +132,7 @@ enum{
 @property (nonatomic, retain) NSString    *homeTeamLeaguePos;         // from detail interface
 @property (nonatomic, retain) NSString    *awayTeamLeaguePos;         // from detail interface
 
-@property (nonatomic, assign) BOOL        hasLineUp;                  // 是否有阵容
+//@property (nonatomic, assign) BOOL        hasLineUp;                  // 是否有阵容
 
 @property (nonatomic, retain) NSString    *homeTeamScore;
 @property (nonatomic, retain) NSString    *awayTeamScore;
@@ -151,9 +151,9 @@ enum{
 @property (nonatomic, retain) NSMutableArray  *events;
 @property (nonatomic, retain) NSMutableArray  *stats;
 
-@property (nonatomic, assign) BOOL        isFollow;
+@property (nonatomic, retain) NSNumber       *isFollow;
 
-@property (nonatomic, assign)  time_t  lastModifyTime;
+@property (nonatomic, retain)  NSNumber  *lastModifyTime;
 
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
@@ -175,5 +175,6 @@ enum{
 
 - (int)matchSelectStatus;
 - (void)updateStartDate:(NSDate*)newStartDate;
+- (void)updateByMatch:(Match*)match;
 
 @end

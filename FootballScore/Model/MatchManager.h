@@ -23,14 +23,13 @@
     NSDate*         serverDate;
     int             serverDiffSeconds;
     
-    NSMutableSet*   followMatchIdList;
-    NSMutableArray* followMatchArray;
+    NSMutableDictionary*   followMatchList;
 }
 
 @property (nonatomic, retain) NSDate*           serverDate;
 @property (nonatomic, retain) NSArray*          matchArray;
 @property (nonatomic, retain) NSMutableSet*     filterLeagueIdList;
-@property (nonatomic, retain) NSMutableSet*     followMatchIdList;
+@property (nonatomic, retain) NSMutableDictionary*     followMatchList;
 @property (nonatomic, assign) int               filterMatchStatus;
 @property (nonatomic, assign) int               filterMatchScoreType;
 @property (nonatomic, retain) NSMutableArray*   followMatchArray;
@@ -48,11 +47,15 @@
 - (NSSet*)updateMatchRealtimeScore:(NSArray*)realtimeScoreStringArray;
 - (NSSet *)getScoreUpdateSet:(NSArray *)realtimeScoreStringArray;
 - (Match *)getMathById:(NSString *)matchId;
+- (Match *)getFollowMatchById:(NSString *)matchId;
 
 // follow match methods
 - (void)followMatch:(Match*)match;
 - (void)unfollowMatch:(Match*)match;
 - (BOOL)isMatchFollowed:(NSString*)matchId;
+- (NSArray*)getAllFollowMatch;
+- (void)updateFollowMatch:(Match*)match;
+- (void)updateMatch:(Match*)match ByFields:(NSArray*)fields;
 
 - (NSString *)getLeagueNameByMatchId:(NSString *)matchId;
 - (NSString *)getLeagueNameByMatch:(Match *)match;

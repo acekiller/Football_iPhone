@@ -93,13 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "340512867.297588"
+         timestampString = "340858688.497253"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "473"
-         endingLineNumber = "473"
-         landmarkName = "-showMyFollowCount"
-         landmarkType = "5">
+         startingLineNumber = "479"
+         endingLineNumber = "479">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -183,20 +181,6 @@
          startingLineNumber = "206"
          endingLineNumber = "206"
          landmarkName = "-buttonClicked:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "FootballScore/FootballScoreAppDelegate.m"
-         timestampString = "340703858.606063"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
-         landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

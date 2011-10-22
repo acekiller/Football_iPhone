@@ -124,7 +124,7 @@ enum cardType{
 }
 
 -(void)updateFollow:(Match*)match{
-    if([match isFollow])
+    if(match.isFollow == [NSNumber numberWithBool:YES])
         [followButton setBackgroundImage:[UIImage imageNamed:@"star2"] forState:UIControlStateNormal];
     else
         [followButton setBackgroundImage:[UIImage imageNamed:@"star1"] forState:UIControlStateNormal];
@@ -139,7 +139,7 @@ enum cardType{
 }
 
 - (void)updateScores:(Match*)match{
-    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+    scoreLabel.text = [NSString stringWithFormat:@"%@:%@", match.homeTeamScore, match.awayTeamScore];
     halfScoreLabel.text = [NSString stringWithFormat:@"(%@:%@)",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
 }
 
@@ -269,7 +269,7 @@ enum cardType{
     CGRect middlePosition = CGRectMake(151, 11, 36, 20);
     CGRect originalPosition = CGRectMake(151, 6, 36, 14);
     
-    switch (match.status) {
+    switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         {
             [scoreLabel setHidden:NO];
