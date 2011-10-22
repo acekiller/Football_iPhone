@@ -3,11 +3,11 @@ function YapeiView(){
 	
 	 var helperFunctions = {};
 
-    var oupeiCompanyTemplate = Ext.XTemplate.from("yapei-company-template", helperFunctions);
+    var yapeiCompanyTemplate = Ext.XTemplate.from("yapei-company-template", helperFunctions);
 
     this.companyPanel = new Ext.Panel({            
         id : 'companyPanel',
-        tpl : oupeiCompanyTemplate,
+        tpl : yapeiCompanyTemplate,
         margin: '20 10 20 0',
         align: 'left'
     });	        	       

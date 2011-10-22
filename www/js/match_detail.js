@@ -15,7 +15,7 @@ MatchDetailApp = new Ext.Application({
         console.log("match javascript launched");
 //      testReadData();
 //      testUpdateMatchDetail();
-//      testUpdateOupeiDetail();
+      testUpdateOupeiDetail();
 //		testUpdateYapeiDetail();
 //      testUpdateOverunderDetail();
         
@@ -26,8 +26,7 @@ MatchDetailApp = new Ext.Application({
 //        testSendRequest();
 //		testUpdateYapeiDetail();
 //		testUpdateLineup();
-        
-        testYapeiOddsDetail();
+//        testYapeiOddsDetail();
     }
 
 });
