@@ -17,6 +17,7 @@ MatchDetailApp = new Ext.Application({
 //      testUpdateMatchDetail();
 //      testUpdateOupeiDetail();
 //		testUpdateYapeiDetail();
+//		testUpdateYapeiDetail();
 //      testUpdateOverunderDetail();
         
         MatchDetailApp.isLaunched = 1;
@@ -28,7 +29,7 @@ MatchDetailApp = new Ext.Application({
 //		testUpdateLineup();
 //        testYapeiOddsDetail();
         
-        testShowYapeiView();
+//        testShowYapeiView();
     }
 
 });
