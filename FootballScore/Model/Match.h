@@ -106,8 +106,10 @@ enum{
     NSMutableArray  *events;
     NSMutableArray  *stats;
     
+
     NSNumber        *isFollow;
     NSNumber  *lastModifyTime;
+    time_t  lastScoreTime;
 }
 
 @property (nonatomic, retain) NSString    *matchId;
@@ -155,6 +157,9 @@ enum{
 
 @property (nonatomic, retain)  NSNumber  *lastModifyTime;
 
+@property (nonatomic, assign)  time_t  lastScoreTime;
+
+
 - (id)          initWithId:(NSString*)idValue
                   leagueId:(NSString*)leagueIdValue
                     status:(NSString*)statusValue
@@ -176,5 +181,7 @@ enum{
 - (int)matchSelectStatus;
 - (void)updateStartDate:(NSDate*)newStartDate;
 - (void)updateByMatch:(Match*)match;
+
+-(void) updateScoreModifyTime;
 
 @end

@@ -54,7 +54,7 @@
 @synthesize events;
 @synthesize stats;
 @synthesize isFollow;
-@synthesize lastModifyTime;
+@synthesize lastScoreTime;
 
 
 - (id)          initWithId:(NSString*)idValue
@@ -107,10 +107,11 @@
     if (crownChuPanValue != nil){
         self.crownChuPan = [NSNumber numberWithInt:[crownChuPanValue doubleValue]];   
     }
-
     
     [self setIsFollow:[NSNumber numberWithBool:isFollowValue]];   
     [self setLastModifyTime:[NSNumber numberWithInt:time(0)]];
+
+    self.lastScoreTime = 0;
 
     return self;
 }
@@ -261,6 +262,7 @@
     [coder encodeObject:stats forKey:@"stats"];
     [coder encodeObject:isFollow forKey:@"isFollow"];
     [coder encodeObject:lastModifyTime forKey:@"lastModifyTime"];
+    [coder encodeInt:lastScoreTime forKey:@"lastScoreTime"];
     
 } 
 
@@ -298,9 +300,16 @@
         self.stats = [coder decodeObjectForKey:@"stats"];
         self.isFollow = [coder decodeObjectForKey:@"isFollow"];
         self.lastModifyTime = [coder decodeObjectForKey:@"lastModifyTime"];
+        self.lastScoreTime = [coder decodeIntForKey:@"lastScoreTime"];
     }  
     return self; 
 
+}
+
+
+-(void) updateScoreModifyTime
+{
+    self.lastScoreTime = time(0);
 }
 
 @end

@@ -17,6 +17,7 @@
 
 @class ReviewRequest;
 @class MatchService;
+@class RealtimeScoreController;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -33,7 +34,7 @@
     ReviewRequest           *reviewRequest;
     NSString                *dataForRegistration;
     MatchService            *matchService;
-    
+    RealtimeScoreController *matchController;
     UIBackgroundTaskIdentifier backgroundTask;
 }
 
@@ -42,7 +43,7 @@
 @property (nonatomic, retain) CoreDataManager				*dataManager;
 @property (nonatomic, retain) ReviewRequest                 *reviewRequest;
 @property (nonatomic, retain) MatchService                  *matchService;
-
+@property (nonatomic, retain) RealtimeScoreController       *matchController;
 @end
 
 

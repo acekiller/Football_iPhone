@@ -11,9 +11,10 @@
 #import "LeagueManager.h"
 #import "MatchManager.h"
 #import "DataUtils.h"
-#define TIME_ZONE_GMT @"Asia/Shanghai"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "UITableViewCellUtil.h"
+#import "TimeUtils.h"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -81,11 +82,21 @@ enum cardType{
     [super dealloc];
 }
 
-
+- (void)updateBackground:(Match *)match
+{
+    time_t now = time(0);
+    if (now - match.lastScoreTime <= 10) {
+        [self setBackgroundImageByName:@"kive_li2.png"];
+    }
+    else{
+        [self setBackgroundImageByName:@"kive_li.png"];
+    }
+}
 
 - (void)setCellInfo:(Match*)match
 {
-
+    [self updateBackground:match];
+    
     [self updatePeiLv:match];
     [self updateMatchStatus:match];
     [self updateStartTime:match];

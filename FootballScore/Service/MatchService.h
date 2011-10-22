@@ -56,6 +56,11 @@
 
 - (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 
+- (void)stopAllUpdates;
+- (void)startAllUpdates:(id<MatchServiceDelegate>)delegate 
+         matchScoreType:(int)matchScoreType;
+
+
 @end
 
 extern MatchService *GlobalGetMatchService();
