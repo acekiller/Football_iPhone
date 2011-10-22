@@ -15,8 +15,8 @@ MatchDetailApp = new Ext.Application({
         console.log("match javascript launched");
 //      testReadData();
 //      testUpdateMatchDetail();
-      testUpdateOupeiDetail();
-//		testUpdateYapeiDetail();
+//      testUpdateOupeiDetail();
+		testUpdateYapeiDetail();
 //      testUpdateOverunderDetail();
         
         MatchDetailApp.isLaunched = 1;
