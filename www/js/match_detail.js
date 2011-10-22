@@ -15,7 +15,7 @@ MatchDetailApp = new Ext.Application({
         console.log("match javascript launched");
 //      testReadData();
 //      testUpdateMatchDetail();
-      testUpdateOupeiDetail();
+//      testUpdateOupeiDetail();
 //		testUpdateYapeiDetail();
 //      testUpdateOverunderDetail();
         
@@ -27,6 +27,8 @@ MatchDetailApp = new Ext.Application({
 //		testUpdateYapeiDetail();
 //		testUpdateLineup();
 //        testYapeiOddsDetail();
+        
+        testShowYapeiView();
     }
 
 });
@@ -55,6 +57,20 @@ function testUpdateOupeiDetail(){
 	updateOupeiDetail(data);
 }
 
+function showYapeiOddsDetail(betCompanyId){
+
+	if (MatchDetailApp == null || MatchDetailApp == undefined){
+		return;
+	}
+
+	// create view
+	MatchDetailApp.yapeiDetailView = new YapeiDetailView();
+	MatchDetailApp.viewport = MatchDetailApp.yapeiDetailView.mainPanel;
+			
+	// request data from server and update view
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
+}
+
 function updateOupeiDetail(oupeiData){
 	
 //	alert("updateOupeiDetail 1");
@@ -78,6 +94,14 @@ function updateOupeiDetail(oupeiData){
 function testUpdateYapeiDetail(){
 	var data = "ＳＢ^2490884^1.02^-0.25^0.80^0.90^-0.5^0.92!Bet365^2497415^1.10^-0.25^0.775^0.95^-0.5^0.90!立博^2502862^1.08^-0.25^0.72^1.08^-0.25^0.72!韦德^2496650^1.10^-0.25^0.75^1.16^-0.25^0.69!易胜^2504231^0.72^-0.5^1.08^0.87^-0.5^0.93!明陞^2497396^1.11^-0.25^0.74^0.97^-0.5^0.87!澳彩^2497282^1.02^-0.25^0.80^1.12^-0.25^0.70!10BET^2496512^1.06^-0.25^0.76^0.90^-0.5^0.90!金宝博^2497406^1.04^-0.25^0.80^0.91^-0.5^0.93!12bet/大发^2479187^1.11^-0.25^0.74^0.97^-0.5^0.87!利记^2478851^0.94^-0.25^0.90^0.94^-0.5^0.90!永利高^2496090^0.99^-0.25^0.77^0.87^-0.5^0.89!盈禾^2496075^1.03^-0.25^0.82^0.91^-0.5^0.94";
 	updateYapeiDetail(data);
+}
+
+function showYapeiView(matchId){
+	loadYapeiView(yapeiManager, matchId);
+}
+
+function testShowYapeiView(){
+	showYapeiView("590043");
 }
 
 function updateYapeiDetail(yapeiData){

@@ -10,8 +10,11 @@ var YAPEI_FIELD_JISHI = 6;
 var YAPEI_FIELD_AWAYJISHI = 7;
 var YAPEI_FIELD_COUNT = 8;
 
+var YAPEI_URL = "http://bf.bet007.com/phone/Handicap.aspx?ID=";
+
 // define YapeiMangager Model
-function YapeiManager(){
+function YapeiManager(url){
+	this.url = url;
 	this.dataArray = null;
 }
 
@@ -45,7 +48,7 @@ YapeiManager.prototype = {
 			if (record != null && record.length >= YAPEI_FIELD_COUNT) {
 				var CHUPAN = Goal2Goals(record[YAPEI_FIELD_CHUPAN]);
 				var JISHI = Goal2Goals(record[YAPEI_FIELD_JISHI]);
-				var obj = new YapeiObject(record[YAPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], CHUPAN, record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], JISHI, record[YAPEI_FIELD_AWAYJISHI]);				
+				var obj = new YapeiObject(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], CHUPAN, record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], JISHI, record[YAPEI_FIELD_AWAYJISHI]);				
 				this.dataArray.push(obj);
 				
 				yapeiCompanyManager.add(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME]);				
@@ -56,11 +59,21 @@ YapeiManager.prototype = {
 		}
 						
 		return this.dataArray;
+	},
+	
+	requestDataFromServer : function(matchId){
+		  var xhr = new XMLHttpRequest();
+		  var fullURL = this.url + matchId;
+		  xhr.open("get", fullURL, false);
+		  xhr.send(null);
+		  if (xhr.status == 200) {
+		 	 this.readData(xhr.responseText);
+		  }			
 	}
 };
 
 // init the global object
-var yapeiManager = new YapeiManager();
+var yapeiManager = new YapeiManager(YAPEI_URL);
 
 
 

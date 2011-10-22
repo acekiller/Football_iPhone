@@ -1,6 +1,8 @@
 
 //define Yapei Model
-function YapeiObject(name, homeChupei, chupan, awayChupei, homeJishi, jishi, awayJishi) {
+function YapeiObject(betCompanyId, name, homeChupei, chupan, awayChupei, homeJishi, jishi, awayJishi) {
+	
+	this.betCompanyId = betCompanyId;
 	this.name = name;
 	this.homeChupei = homeChupei;
 	this.chupan = chupan;

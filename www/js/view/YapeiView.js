@@ -8,7 +8,7 @@ function YapeiView(){
     this.companyPanel = new Ext.Panel({            
         id : 'companyPanel',
         tpl : yapeiCompanyTemplate,
-        margin: '20 10 20 0',
+        margin: '0 0 0 0',
         align: 'left'
     });	        	       
 
@@ -26,5 +26,13 @@ function YapeiView(){
 }
 
 YapeiView.prototype = {
-	constructor : YapeiView
+	constructor : YapeiView	
 };
+
+function loadYapeiView(manager, matchId){	
+	var yapeiView = new YapeiView();
+	MatchDetailApp.viewport = yapeiView.mainPanel;	
+	manager.requestDataFromServer(matchId);	
+	yapeiView.companyPanel.update(manager.dataArray);
+}
+
