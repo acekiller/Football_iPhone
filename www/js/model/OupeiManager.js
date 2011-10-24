@@ -56,6 +56,11 @@ OupeiManager.prototype = {
 		}
 						
 		return this.dataArray;
+	},
+	
+	requestDataFromServer : function(matchId, lang){
+		// TODO 
+		return true;
 	}
 };
 

@@ -18,28 +18,23 @@ MatchDetailApp = new Ext.Application({
         MatchDetailApp.isLaunched = 1;
         
 //		测试比赛事件
-//      testUpdateMatchDetail();
-		testDisplayMatchEventLocally();
+//		testDisplayMatchEventLocally();
 		
-//		测试比赛事件
-//      testUpdateOupeiDetail();
+//		测试欧赔
+//        testDisplayOupeiDetail();
 
 //		测试亚赔
-//		testUpdateYapeiDetail();
+		testDisplayYapeiDetail();
 
 //		测试亚赔变化
 //      testYapeiOddsDetail();
 
-
 //		测试大小
-//      testUpdateOverunderDetail();
+//      testDisplayOverunder();
 
 //		测试阵容
-//		testUpdateLineup();
+//		testDisplayLineup();
 
-//      testShowYapeiView();
-        
-        
     }
 
 });
@@ -54,6 +49,26 @@ function setCurrentView(panel){
 
 function getMatchDetailView(){	
 	return new MatchDetailView(); 
+}
+
+function getOupeiView(){
+	return new OupeiView();
+}
+
+function getYapeiView(){
+	return new YapeiView();
+}
+
+function getLineupView() {
+	return new LineupView();
+}
+
+function getOverunderView() {
+	return new OverunderView();
+}
+
+function getYapeiDetailView() {
+	return new YapeiDetailView();
 }
 
 function displayMatchEvent(reload, matchId, lang, data){
@@ -75,19 +90,21 @@ function displayMatchEvent(reload, matchId, lang, data){
 	return true;
 }
 
-function updateMatchDetail(inputString){
+function displayYapeiOddsDetail(betCompanyId){
 
-	if (MatchDetailApp.matchDetailView == null || MatchDetailApp.matchDetailView == undefined){
-		MatchDetailApp.matchDetailView = new MatchDetailView();
+	if (MatchDetailApp == null || MatchDetailApp == undefined){
+		return;
 	}
-	
-	MatchDetailApp.viewport = MatchDetailApp.matchDetailView.mainPanel;		
-	
-	matchDetailManager.readData(inputString);	
-	MatchDetailApp.matchDetailView.eventPanel.update(matchDetailManager.eventArray);
-	MatchDetailApp.matchDetailView.statPanel.update(matchDetailManager.statArray);
+	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
+		MatchDetailApp.yapeiDetailView = getYapeiDetailView();
+	}
+			
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
+	setCurrentView(MatchDetailApp.yapeiDetailView.mainPanel);
+	return true;
 }
 
+//Deprecated
 function showYapeiOddsDetail(betCompanyId){
 
 	if (MatchDetailApp == null || MatchDetailApp == undefined){
@@ -104,58 +121,68 @@ function showYapeiOddsDetail(betCompanyId){
 	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
 }
 
-function updateOupeiDetail(oupeiData){
-	
-//	alert("updateOupeiDetail 1");
-	
-	MatchDetailApp.oupeiView = new OupeiView();	
-	MatchDetailApp.viewport = MatchDetailApp.oupeiView.mainPanel;		
-
-//	alert("updateOupeiDetail 2");
-	
-	oupeiManager.readData(oupeiData);
-	
-//	alert("updateOupeiDetail 3 " + oupeiData);
-
-	MatchDetailApp.oupeiView.statPanel.update(oupeiManager.stat);	
-	MatchDetailApp.oupeiView.companyPanel.update(oupeiManager.dataArray);
-	
-//	alert("updateOupeiDetail 4 " + oupeiManager.stat);
-
+function displayOupeiDetail(reload, matchId, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (oupeiManager.readData(data) == false) {
+				return false;
+			}
+		} else if (oupeiManager.requestDataFromServer(matchId, lang) == false){
+			return false;
+		}
+	}
+	MatchDetailApp.oupeiView = getOupeiView();	
+	MatchDetailApp.oupeiView.updateView(oupeiManager);
+	setCurrentView(MatchDetailApp.oupeiView.mainPanel);	
+	return true;	
 }
 
-function showYapeiView(matchId){
-	loadYapeiView(yapeiManager, matchId);
+function displayYapeiDetail(reload, matchId, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (yapeiManager.readData(data) == false) {
+				return false;
+			}
+		} else if (yapeiManager.requestDataFromServer(matchId, lang) == false){
+			return false;
+		}
+	}
+	MatchDetailApp.yapeiView = getYapeiView();	
+	MatchDetailApp.yapeiView.updateView(yapeiManager);
+	setCurrentView(MatchDetailApp.yapeiView.mainPanel);	
+	return true;	
 }
 
-function updateYapeiDetail(yapeiData){
-	MatchDetailApp.yapeiView = new YapeiView();
-	MatchDetailApp.viewport = MatchDetailApp.yapeiView.mainPanel;
-	
-	yapeiManager.readData(yapeiData);
-	
-	MatchDetailApp.yapeiView.companyPanel.update(yapeiManager.dataArray);
+function displayOverunder(reload, matchId, lang, data) {
+	if (reload) {
+		if (data != undefined) {
+			if (overunderManager.readData(data) == false) {
+				return false;
+			}
+		} else if (overunderManager.requestDataFromServer(matchId, lang) == false) {
+				return false;
+		}
+	}
+		MatchDetailApp.overunderView = getOverunderView();
+		MatchDetailApp.overunderView.updateView(overunderManager);
+		setCurrentView(MatchDetailApp.overunderView.mainPanel);
+		return true;
 }
 
-function updateOverunderDetail(overunderData){
-	MatchDetailApp.overunderView = new OverunderView();
-	MatchDetailApp.viewport = MatchDetailApp.overunderView.mainPanel;
-	
-	overunderManager.readData(overunderData);
-	
-	MatchDetailApp.overunderView.companyPanel.update(overunderManager.dataArray);
-}
-
-function updateLineup(lineupData){
-	MatchDetailApp.lineupView = new LineupView();
-	MatchDetailApp.viewport = MatchDetailApp.lineupView.mainPanel;
-	
-	lineupManager.readData(lineupData);
-	
-	MatchDetailApp.lineupView.homeLineupPanel.update(lineupManager.data.homeLineup[0]);
-	MatchDetailApp.lineupView.homeReservePanel.update(lineupManager.data.homeReserve[0]);
-	MatchDetailApp.lineupView.awayLineupPanel.update(lineupManager.data.awayLineup[0]);
-	MatchDetailApp.lineupView.awayReservePanel.update(lineupManager.data.awayReserve[0]);
+function displayLineup(reload, matchId, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (lineupManager.readData(data) == false) {
+				return false;
+			}
+		} else if (lineupManager.requestDataFromServer(matchId, lang) == false){
+			return false;
+		}
+	}
+	MatchDetailApp.lineupView = getLineupView();	
+	MatchDetailApp.lineupView.updateView(lineupManager);
+	setCurrentView(MatchDetailApp.lineupView.mainPanel);	
+	return true;	
 }
 
 function changebg(index) {

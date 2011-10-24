@@ -28,7 +28,10 @@ function YapeiView(){
 }
 
 YapeiView.prototype = {
-	constructor : YapeiView	
+	constructor : YapeiView,
+	updateView : function(manager) {
+		this.companyPanel.update(manager.dataArray);
+	}
 };
 
 function loadYapeiView(manager, matchId){	

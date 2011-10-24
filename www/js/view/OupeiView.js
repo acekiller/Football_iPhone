@@ -42,5 +42,9 @@ function OupeiView(){
 }
 
 OupeiView.prototype = {
-	constructor : OupeiView
+	constructor : OupeiView,
+	updateView : function(manager) {
+		this.companyPanel.update(manager.dataArray);
+		this.statPanel.update(manager.stat);
+	}
 };
