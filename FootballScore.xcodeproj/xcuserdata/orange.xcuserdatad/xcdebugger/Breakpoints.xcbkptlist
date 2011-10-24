@@ -42,7 +42,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "118"
          endingLineNumber = "118"
-         landmarkName = "-viewDidUnload"
+         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -70,7 +70,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "108"
          endingLineNumber = "108"
-         landmarkName = "-viewDidLoad"
+         landmarkName = "-createLeagueButtons"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
