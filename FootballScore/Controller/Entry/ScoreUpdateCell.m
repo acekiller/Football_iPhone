@@ -12,6 +12,9 @@
 #import "TimeUtils.h"
 #import "LocaleConstants.h"
 #import "MatchManager.h"
+#import "LeagueManager.h"
+#import "Match.h"
+
 @implementation ScoreUpdateCell
 @synthesize leagueName;
 @synthesize startTime;
@@ -67,23 +70,34 @@
    // settingButton.titleLabel.text = message;  用这种方法不行阿 ？？？？调用方法更加好阿 。
     
     NSLog(@"This is a :%@",message);
-    [settingButton setBackgroundImage:image  forState:UIControlStateNormal ] ;
-    [settingButton setTitle:message forState:UIControlStateNormal];
-    [settingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
+    [settingButton setBackgroundImage:image  forState:UIControlStateDisabled ] ;
+    [settingButton setTitle:message forState:UIControlStateDisabled];
+    [settingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
 }
 
 
-- (void)setCellInfo:(ScoreUpdate *)scoreUpdate
-{
+- (void)setCellInfo:(ScoreUpdate *)scoreUpdate 
+{ 
+
+    
+    //更新时间 ，颜色
     self.matchState.text =  scoreUpdate.updateMinute;
+    self.matchState.textColor= [UIColor redColor];
+    
+    //比分颜色
+    self.matchScore.textColor= [UIColor greenColor];
+    
     self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"HH:mm");
+    self.startTime.textColor=[UIColor grayColor];
+    
+    
+    
     self.leagueName.text = [scoreUpdate leagueName];
+    self.leagueName.textColor = [[LeagueManager defaultManager] getLeagueColorById:[[scoreUpdate match]leagueId]];
+
     self.homeTeam.text = [scoreUpdate homeTeamName];
     self.awayTeam.text =  [scoreUpdate awayTeamName];
 
-
-    
     //set event type
     NSInteger type = scoreUpdate.scoreUpdateType;
     
@@ -97,7 +111,6 @@
         //TO DO set score event image 
         eventImage = [UIImage imageNamed:@"ls_ball.png"];
         self.scoreTypeName.text = FNS(@"比分");
-        
         [self setTeamEventButton:type message:FNS(@"进球") image:[UIImage imageNamed:@"ls_img1.png"]];
         
     }else if(type < HOMETEAMYELLOW)
@@ -116,12 +129,8 @@
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") image:[UIImage  imageNamed:@"ls_img3.png"]];
     }
-    
-     
 
     [self.eventStateImage setImage:eventImage];
-     
-    
     
 }
 
