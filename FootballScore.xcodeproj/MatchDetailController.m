@@ -289,9 +289,9 @@
 
 - (void)updateLineupView:(NSString*)dataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"displayOverunder(true, %@, %d);", 
+    NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, %@, %d);", 
                         match.matchId, [LanguageManager getLanguage]];      
-    PPDebug(@"<updateOverunderView> execute java script = %@",jsCode);        
+    PPDebug(@"<updateLineupView> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
     
     [self hideActivity];
