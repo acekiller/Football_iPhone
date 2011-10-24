@@ -1,7 +1,29 @@
 
 function YapeiDetailView(){
 	
-	var helperFunctions = {};
+	var helperFunctions = {
+		pankouString : function(string)
+	    {			
+	        return Goal2GoalCn(string);	    
+	    },
+		
+		pankouDateString : function(str){
+
+			if (str == null || str.length < 12){
+				return str;				
+			}
+						
+			var year = str.substring(0, 4);
+			var month = str.substring(4, 6);
+			var day = str.substring(6, 8);
+			var hour = str.substring(8, 10);
+			var minute = str.substring(10, 12);
+			
+			var result = year + "/" + month + "/" + day + " " + hour + ":" + minute;
+			return result;			
+		}
+		
+	};
 
     var companyTemplate = Ext.XTemplate.from("odds-detail-company-template", helperFunctions);
 	var oddsTemplate = Ext.XTemplate.from("odds-detail-template", helperFunctions);

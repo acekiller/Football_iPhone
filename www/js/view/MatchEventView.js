@@ -131,7 +131,11 @@ function MatchDetailView(){
 }
 
 MatchDetailView.prototype = {
-	constructor : MatchDetailView
+	constructor : MatchDetailView,
+	updateView : function(manager){
+		this.eventPanel.update(manager.eventArray);
+		this.statPanel.update(manager.statArray);
+	}
 };
 
 

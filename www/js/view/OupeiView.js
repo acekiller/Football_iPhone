@@ -17,14 +17,14 @@ function OupeiView(){
         id : 'companyPanel',
 //        tpl : oupeiCompanyTemplate,
 		tpl : oupeiCompanyTemplate,
-        margin: '20 10 20 0',
+        margin: '0 0 0 0',
         align: 'left'
     });	        	       
 
     this.statPanel = new Ext.Panel({            
         id : 'statPanel',
         tpl : oupeiStatTemplate,
-        margin: '20 10 20 0',
+        margin: '0 0 0 0',
         align: 'left'
     });	        	       
 

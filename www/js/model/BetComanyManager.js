@@ -78,4 +78,3 @@ BetCompanyManager.prototype = {
 	}
 };
 
-var yapeiCompanyManager = new BetCompanyManager();
