@@ -167,8 +167,13 @@ enum
 {
     if (![UserManager isUserExisted]) {
         CommonNetworkOutput *output = [FootballNetworkRequest getRegisterUserId:1 token:[self getDeviceToken]];
-        [UserManager createUser:output.textData];
-        NSLog(@"Created User <%@>",output.textData);
+        if (output.textData != nil) {
+            [UserManager createUser:output.textData];
+            NSLog(@"Created User <%@>",output.textData);
+        }
+        else {
+            NSLog(@"Get User ID faild");
+        }
     }
     else {
         NSLog(@"User existed,User ID is <%@>",[UserManager getUserId]);
