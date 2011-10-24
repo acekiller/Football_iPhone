@@ -20,7 +20,7 @@ function Goal2GoalCn(goal) {
 		Goal2GoalCn = "受" + GoalCn[(-goal) * 4];
 	}
 	return Goal2GoalCn;
-	console.log("ParseGoal2GoalCn, result = " + Goal2GoalCn);
+//	console.log("ParseGoal2GoalCn, result = " + Goal2GoalCn);
 }
 
 function Goal2Goals(goal) {
@@ -33,7 +33,7 @@ function Goal2Goals(goal) {
 	} else {
 		Goal2Goals = Goal[(-goal) * 4];
 	}
-	console.log("ParseGoal2Goals, result = " + Goal2Goals);
+//	console.log("ParseGoal2Goals, result = " + Goal2Goals);
 	return Goal2Goals;
 }
 

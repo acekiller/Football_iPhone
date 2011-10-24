@@ -38,6 +38,11 @@ LineupManager.prototype = {
         this.data = obj;
 						
 		return this.data;
+	},
+	
+	requestDataFromServer : function(matchId, lang){
+		// TODO 
+		return true;
 	}
 };
 

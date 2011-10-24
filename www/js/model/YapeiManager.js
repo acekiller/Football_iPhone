@@ -73,6 +73,11 @@ YapeiManager.prototype = {
 		  else{
 		  	 return false;
 		  }
+	},
+	
+	requestDataFromServer : function(matchId, lang){
+		// TODO 
+		return true;
 	}
 };
 
