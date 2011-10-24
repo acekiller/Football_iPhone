@@ -53,5 +53,3 @@ OverunderManager.prototype = {
 	}
 };
 
-// init the global object
-var overunderManager = new OverunderManager();
