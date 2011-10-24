@@ -57,15 +57,22 @@
 }
 
 //buttonId = 0 for homeTeam, other for awayTeam;
-- (void)setTeamEventButton:(NSInteger)buttonId message:(NSString *)message color:(UIColor *)color
+- (void)setTeamEventButton:(NSInteger)buttonId message:(NSString *)message image:(UIImage *)image
 {
     UIButton *settingButton = buttonId ? awayTeamEvent : homeTeamEvent;
     UIButton *hiddenButton = (!buttonId) ? awayTeamEvent : homeTeamEvent;
     [settingButton setHidden:NO];
     [hiddenButton setHidden:YES];
-    settingButton.titleLabel.text = message;
-    settingButton.titleLabel.backgroundColor = color;
+    
+   // settingButton.titleLabel.text = message;  用这种方法不行阿 ？？？？调用方法更加好阿 。
+    
+    NSLog(@"This is a :%@",message);
+    [settingButton setBackgroundImage:image  forState:UIControlStateNormal ] ;
+    [settingButton setTitle:message forState:UIControlStateNormal];
+    [settingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
 }
+
 
 - (void)setCellInfo:(ScoreUpdate *)scoreUpdate
 {
@@ -73,7 +80,7 @@
     self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"HH:mm");
     self.leagueName.text = [scoreUpdate leagueName];
     self.homeTeam.text = [scoreUpdate homeTeamName];
-    self.awayTeam.text = [scoreUpdate awayTeamName];
+    self.awayTeam.text =  [scoreUpdate awayTeamName];
 
 
     
@@ -85,9 +92,11 @@
     if (type < HOMETEAMRED) {
         //score type
         //TO DO set score event image 
-        eventImage = [UIImage imageNamed:@"redcard@2x.png"];
+        eventImage = [UIImage imageNamed:@"ls_ball.png"];
         self.scoreTypeName.text = FNS(@"比分");
-        [self setTeamEventButton:type message:FNS(@"进球") color:[UIColor greenColor]];
+        
+        [self setTeamEventButton:type message:FNS(@"进球") image:[UIImage imageNamed:@"ls_img1.png"]];
+                
         self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
                                 [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
         
@@ -95,9 +104,9 @@
     {
         // red card type
         //TO DO set red card event image 
-        eventImage = [UIImage imageNamed:@"redcard@2x.png"];
+        eventImage = [UIImage imageNamed:@"redcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
-        [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") color:[UIColor redColor]];
+        [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") image :[UIImage imageNamed:@"ls_img2.png"]];
         self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
                                 [scoreUpdate homeTeamRedcard],[scoreUpdate awayTeamRedcard]];
         
@@ -105,14 +114,24 @@
     {
         //yellow card type
         //TO DO set yellow card event image 
-        eventImage = [UIImage imageNamed:@"yellowcard@2x.png"];
+        eventImage = [UIImage imageNamed:@"yellowcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
-        [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") color:[UIColor yellowColor]];
+        [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") image:[UIImage  imageNamed:@"ls_img3.png"]];
+        
+        
         self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
                                 [scoreUpdate homeTeamYellowcard],[scoreUpdate awayTeamYellowcard]];
     }
-    self.eventStateImage = [[UIImageView alloc] initWithImage:eventImage];
+    
+     
+
+    [self.eventStateImage setImage:eventImage];
+     
+    
+    
 }
+
+
 
 - (void)dealloc {
     [leagueName release];
