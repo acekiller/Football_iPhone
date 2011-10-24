@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "340858688.497253"
+         timestampString = "340972081.308872"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "479"
-         endingLineNumber = "479">
+         startingLineNumber = "480"
+         endingLineNumber = "480">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -189,13 +189,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
-         timestampString = "340775335.819166"
+         timestampString = "340964791.511514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "173"
-         endingLineNumber = "173"
-         landmarkName = "-updateMatchTypeLabel:"
-         landmarkType = "5">
+         startingLineNumber = "174"
+         endingLineNumber = "174"
+         landmarkName = "@implementation RealtimeScoreCell"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
    <SymbolicBreakpoints>

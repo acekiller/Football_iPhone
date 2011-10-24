@@ -15,6 +15,7 @@
 #import "ColorManager.h"
 #import "UITableViewCellUtil.h"
 #import "TimeUtils.h"
+#define TIME_ZONE_GMT @"Asia/Shanghai"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;

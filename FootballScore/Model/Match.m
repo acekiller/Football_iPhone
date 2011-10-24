@@ -54,6 +54,7 @@
 @synthesize events;
 @synthesize stats;
 @synthesize isFollow;
+@synthesize lastModifyTime;
 @synthesize lastScoreTime;
 
 

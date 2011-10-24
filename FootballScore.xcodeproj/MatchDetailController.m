@@ -251,7 +251,8 @@
 
 - (void)loadOupeiDataFromServer
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
 }
 
@@ -295,7 +296,8 @@
 
 - (void)loadMatchEventFromServer
 {
-    [self showActivityWithText:@"加载数据中..."];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];    
 }
 
@@ -387,7 +389,8 @@
 
 - (void)loadMatchDetailHeaderFromServer
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];    
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];    
     [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];  
 }
 
@@ -446,7 +449,8 @@
 
 - (void)initWebView
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [self loadWebViewByHtml:@"www/match_detail.html"];
 }
 
