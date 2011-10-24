@@ -1,7 +1,4 @@
 
-
-
-
 MatchDetailApp = new Ext.Application({
 
 //Ext.regApplication({
@@ -13,11 +10,36 @@ MatchDetailApp = new Ext.Application({
     launch: function() {
         		
         console.log("match javascript launched");
-//      testReadData();
-//      testUpdateMatchDetail();
-//      testUpdateOupeiDetail();
         
+        // define all views here
+        MatchDetailApp.matchDetailView = null;
+        
+        // set launched flag
         MatchDetailApp.isLaunched = 1;
+        
+//		测试比赛事件
+//      testUpdateMatchDetail();
+		testDisplayMatchEventLocally();
+		
+//		测试比赛事件
+//      testUpdateOupeiDetail();
+
+//		测试亚赔
+//		testUpdateYapeiDetail();
+
+//		测试亚赔变化
+//      testYapeiOddsDetail();
+
+
+//		测试大小
+//      testUpdateOverunderDetail();
+
+//		测试阵容
+//		testUpdateLineup();
+
+//      testShowYapeiView();
+        
+        
     }
 
 });
@@ -26,14 +48,39 @@ function isAppLaunched(){
 	return MatchDetailApp.isLaunched;
 }
 
-function testUpdateMatchDetail(){
-	var data = "0^1^3^D.卡里奴!1^1^42^F.蒙迪路!0^1^60^施薩 迪加度$$3^8^6!4^5^4!5^5^3!6^3^3!9^0^3!11^1^2!16^2^4";
-	updateMatchDetail(data);
+function setCurrentView(panel){
+	MatchDetailApp.viewport = panel;
+}
+
+function getMatchDetailView(){	
+	return new MatchDetailView(); 
+}
+
+function displayMatchEvent(reload, matchId, lang, data){
+		
+	if (reload){
+		if (data != undefined){
+			if (matchDetailManager.readData(data) == false){
+				return false;
+			}
+		}	
+		else if (matchDetailManager.requestDataFromServer(matchId, lang) == false){
+			return false;
+		}
+	}
+	
+	MatchDetailApp.matchDetailView = getMatchDetailView();
+	MatchDetailApp.matchDetailView.updateView(matchDetailManager);
+	setCurrentView(MatchDetailApp.matchDetailView.mainPanel);	
+	return true;
 }
 
 function updateMatchDetail(inputString){
 
-	MatchDetailApp.matchDetailView = new MatchDetailView();	
+	if (MatchDetailApp.matchDetailView == null || MatchDetailApp.matchDetailView == undefined){
+		MatchDetailApp.matchDetailView = new MatchDetailView();
+	}
+	
 	MatchDetailApp.viewport = MatchDetailApp.matchDetailView.mainPanel;		
 	
 	matchDetailManager.readData(inputString);	
@@ -41,18 +88,86 @@ function updateMatchDetail(inputString){
 	MatchDetailApp.matchDetailView.statPanel.update(matchDetailManager.statArray);
 }
 
-function testUpdateOupeiDetail(){
-	var data = "盈禾^2580078^1.70^3.30^4.35^1.65^3.45^4.50!韦德^2574267^1.615^3.50^4.75^1.667^3.60^5.50!Bet365^2573522^1.61^3.40^5.00^1.65^4.20^4.60!易胜^2579536^1.65^3.40^4.75^1.62^3.40^5.00!ＳＢ^2580075^1.70^3.30^4.35^1.65^3.30^4.50!利记^2579424^1.70^3.40^4.20^1.64^3.35^4.80!永利高^2580277^1.70^3.30^4.35^1.46^3.30^4.35!10BET^2579343^1.61^3.47^4.92^1.54^3.58^5.26!金宝博^2580170^1.70^3.30^4.35^1.61^3.55^4.65!12bet/大发^2579540^1.67^3.45^4.32^1.64^3.37^4.68!明陞^2579541^1.67^3.45^4.32^1.64^3.37^4.68";
-	updateOupeiDetail(data);
+function showYapeiOddsDetail(betCompanyId){
+
+	if (MatchDetailApp == null || MatchDetailApp == undefined){
+		return;
+	}
+
+	// create view
+	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
+		MatchDetailApp.yapeiDetailView = new YapeiDetailView();
+	}
+	MatchDetailApp.viewport = MatchDetailApp.yapeiDetailView.mainPanel;
+			
+	// request data from server and update view
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
 }
 
 function updateOupeiDetail(oupeiData){
-		
+	
+//	alert("updateOupeiDetail 1");
+	
 	MatchDetailApp.oupeiView = new OupeiView();	
 	MatchDetailApp.viewport = MatchDetailApp.oupeiView.mainPanel;		
 
+//	alert("updateOupeiDetail 2");
+	
 	oupeiManager.readData(oupeiData);
 	
+//	alert("updateOupeiDetail 3 " + oupeiData);
+
 	MatchDetailApp.oupeiView.statPanel.update(oupeiManager.stat);	
 	MatchDetailApp.oupeiView.companyPanel.update(oupeiManager.dataArray);
+	
+//	alert("updateOupeiDetail 4 " + oupeiManager.stat);
+
+}
+
+function showYapeiView(matchId){
+	loadYapeiView(yapeiManager, matchId);
+}
+
+function updateYapeiDetail(yapeiData){
+	MatchDetailApp.yapeiView = new YapeiView();
+	MatchDetailApp.viewport = MatchDetailApp.yapeiView.mainPanel;
+	
+	yapeiManager.readData(yapeiData);
+	
+	MatchDetailApp.yapeiView.companyPanel.update(yapeiManager.dataArray);
+}
+
+function updateOverunderDetail(overunderData){
+	MatchDetailApp.overunderView = new OverunderView();
+	MatchDetailApp.viewport = MatchDetailApp.overunderView.mainPanel;
+	
+	overunderManager.readData(overunderData);
+	
+	MatchDetailApp.overunderView.companyPanel.update(overunderManager.dataArray);
+}
+
+function updateLineup(lineupData){
+	MatchDetailApp.lineupView = new LineupView();
+	MatchDetailApp.viewport = MatchDetailApp.lineupView.mainPanel;
+	
+	lineupManager.readData(lineupData);
+	
+	MatchDetailApp.lineupView.homeLineupPanel.update(lineupManager.data.homeLineup[0]);
+	MatchDetailApp.lineupView.homeReservePanel.update(lineupManager.data.homeReserve[0]);
+	MatchDetailApp.lineupView.awayLineupPanel.update(lineupManager.data.awayLineup[0]);
+	MatchDetailApp.lineupView.awayReservePanel.update(lineupManager.data.awayReserve[0]);
+}
+
+function changebg(index) {
+	 var len = yapeiCompanyManager.betCompanyList.length;
+	 for(var i=1;i<=len;i++) {
+	 	if (i==index){
+			continue;
+		} else {
+			anchorTag = document.getElementById("com"+i);
+	 		anchorTag.className= "ac_bg";
+		}
+	 } 
+	 anchorTag = document.getElementById("com"+index);
+	 anchorTag.className= "ac_Select";
 }

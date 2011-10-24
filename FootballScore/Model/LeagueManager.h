@@ -29,6 +29,8 @@
 // get league name by league ID
 - (NSString*)getNameById:(NSString*)leagueId;
 
+- (UIColor*)getLeagueColorById:(NSString*)leagueId;
+
 @end
 
 extern LeagueManager* GlobalLeagueManager();

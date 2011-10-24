@@ -92,28 +92,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
-         timestampString = "340771660.735623"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "180"
-         endingLineNumber = "180"
-         landmarkName = "-setCards:setMatch:withcardType:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "340512867.297588"
+         timestampString = "340972081.308872"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "473"
-         endingLineNumber = "473"
-         landmarkName = "-showMyFollowCount"
-         landmarkType = "5">
+         startingLineNumber = "480"
+         endingLineNumber = "480">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -200,18 +184,18 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "FootballScore/FootballScoreAppDelegate.m"
-         timestampString = "340703858.606063"
+         filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
+         timestampString = "340964791.511514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
-         landmarkName = "-applicationWillEnterForeground:"
-         landmarkType = "5">
+         startingLineNumber = "174"
+         endingLineNumber = "174"
+         landmarkName = "@implementation RealtimeScoreCell"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
    <SymbolicBreakpoints>

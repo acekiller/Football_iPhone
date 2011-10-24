@@ -80,7 +80,8 @@
 
 - (void)loadMatch:(int)scoreType
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
 }
 
@@ -185,6 +186,7 @@
     [self hideActivity];
     
     [self showMyFollowCount];
+    
 }
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
@@ -236,7 +238,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-	if (buttonIndex == actionSheet.cancelButtonIndex) {
+	if (buttonIndex == actionSheet.cancelButtonIndex || matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) {
 		return;
 	}
     
@@ -264,6 +266,8 @@
 
 - (void)didSelectLeague:(NSSet*)selectedLeagueArray
 {
+    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW)
+        return;
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
@@ -274,26 +278,21 @@
 - (IBAction)clickSelectMatchStatus:(id)sender
 {
     UIButton* button = (UIButton*)sender;
-    int selectMatchStatus = button.tag;
-    [self updateSelectMatchStatusButtonState:selectMatchStatus];
+    matchSelectStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:matchSelectStatus];
     
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
-    [manager updateFilterMatchStatus:selectMatchStatus];
+    [manager updateFilterMatchStatus:matchSelectStatus];
     self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];    
 }
 
 - (IBAction)clickMyFollow:(id)sender
 {
-    UIButton* button = (UIButton*)sender;
-    int selectMatchStatus = button.tag;
-    [self updateSelectMatchStatusButtonState:selectMatchStatus];
-    
-    // filter data list
-    MatchManager* manager = [MatchManager defaultManager];
-    [manager updateFilterMatchStatus:selectMatchStatus];
-    self.dataList = [manager filterMatch];
+
+    MatchManager *manager = [MatchManager defaultManager];
+    self.dataList = [manager getAllFollowMatch];
     [[self dataTableView] reloadData];
 }
 
@@ -302,7 +301,7 @@
     // TODO call Match Manager follow/unfollow method
     Match* match = [self.dataList objectAtIndex:indexPath.row];
     MatchManager* manager = [MatchManager defaultManager];
-    if ([match isFollow]){
+    if (match.isFollow == [NSNumber numberWithBool:YES]){
         [manager unfollowMatch:match];  
     }
     else{
@@ -412,7 +411,7 @@
 - (void)reloadMyFollowCount
 {
     MatchManager *manager = [MatchManager defaultManager];
-    int followMatchCount = [manager getCurrentFollowMatchCount];
+    int followMatchCount = [[manager getAllFollowMatch] count];
     self.myFollowCountView.badgeString = [NSString stringWithFormat:@"%d", followMatchCount];
     [self.myFollowCountView setBadgeColor:[UIColor redColor]];
     

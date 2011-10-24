@@ -59,8 +59,3 @@ OupeiManager.prototype = {
 	}
 };
 
-// init the global object
-var oupeiManager = new OupeiManager();
-
-
-

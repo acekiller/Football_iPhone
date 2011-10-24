@@ -19,6 +19,7 @@
     UIActionSheetDelegate, SelectLeagueControllerDelegate> {
     
     int matchScoreType;
+    int matchSelectStatus;   
         
     NSTimer *matchSecondTimer;
     UIButton *myFollowButton;

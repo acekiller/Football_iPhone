@@ -251,7 +251,8 @@
 
 - (void)loadOupeiDataFromServer
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
 }
 
@@ -290,12 +291,30 @@
     return YES;
 }
 
+- (void)updateYapeiView:(NSString*)dataString
+{           
+    NSString *jsCode = [NSString stringWithFormat:@"showYapeiView(%@);", match.matchId];      
+    PPDebug(@"<updateYapeiView> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
+}
+
+// return the view is shown directly or not
+- (BOOL)showYapeiView:(BOOL)needReload
+{
+    [self updateYapeiView:nil];
+    return YES;
+}
+
 #pragma Event
 #pragma mark - 
 
 - (void)loadMatchEventFromServer
 {
-    [self showActivityWithText:@"加载数据中..."];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];    
 }
 
@@ -387,7 +406,8 @@
 
 - (void)loadMatchDetailHeaderFromServer
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];    
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];    
     [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];  
 }
 
@@ -411,6 +431,10 @@
             
         case SELECT_OUPEI:
             [self showOupeiView:needReload];
+            break;
+            
+        case SELECT_YAPEI:
+            [self showYapeiView:needReload];
             break;
             
         default:
@@ -446,7 +470,8 @@
 
 - (void)initWebView
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    CGPoint point = CGPointMake(160, 290);
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
     [self loadWebViewByHtml:@"www/match_detail.html"];
 }
 
@@ -506,25 +531,44 @@
     }
 }
 
-- (IBAction)clickMatchesDatasButton:(id)sender;
-{        
-    if (currentSelection == SELECT_EVENT)
+- (void)handleClickButton:(id)sender selection:(int)newSelection
+{
+    if (currentSelection == newSelection)
         return;
-
+    
     [self updateButtonState:sender];    
-    currentSelection = SELECT_EVENT;
-    [self showWebViewByClick:NO];
+    currentSelection = newSelection;
+    [self showWebViewByClick:NO];    
+}
+
+- (IBAction)clickMatchesDatasButton:(id)sender;
+{       
+    [self handleClickButton:sender selection:SELECT_EVENT];
 }
 
 - (IBAction)clickMatchesOupeiButton:(id)sender
 {
-    if (currentSelection == SELECT_OUPEI)
-        return;
-    
-    [self updateButtonState:sender];    
-    currentSelection = SELECT_OUPEI;
-    
-    [self showWebViewByClick:NO];
+    [self handleClickButton:sender selection:SELECT_OUPEI];
+}
+
+- (IBAction)clickSelectYapeiButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_YAPEI];
+}
+
+- (IBAction)clickSelectLineupButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_LINEUP];
+}
+
+- (IBAction)clickSelectAnalysisButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_ANALYSIS];    
+}
+
+- (IBAction)clickSelectDaxiaoButton:(id)sender
+{
+    [self handleClickButton:sender selection:SELECT_DAXIAO];
 }
 
 - (void)clickReflashLeftButton{            

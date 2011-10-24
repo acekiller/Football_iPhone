@@ -15,6 +15,7 @@
 #import "ColorManager.h"
 #import "UITableViewCellUtil.h"
 #import "TimeUtils.h"
+#define TIME_ZONE_GMT @"Asia/Shanghai"
 
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
@@ -103,6 +104,7 @@ enum cardType{
     [self updateCards:match];
     [self updateMatchInfo:match];
     [self updateFollow:match];
+    [self updateMatchTypeLabel:match];
     
 }
 
@@ -134,7 +136,7 @@ enum cardType{
 }
 
 -(void)updateFollow:(Match*)match{
-    if([match isFollow])
+    if(match.isFollow == [NSNumber numberWithBool:YES])
         [followButton setBackgroundImage:[UIImage imageNamed:@"star2"] forState:UIControlStateNormal];
     else
         [followButton setBackgroundImage:[UIImage imageNamed:@"star1"] forState:UIControlStateNormal];
@@ -149,7 +151,7 @@ enum cardType{
 }
 
 - (void)updateScores:(Match*)match{
-    scoreLabel.text = [NSString stringWithFormat:@"%@ : %@", match.homeTeamScore, match.awayTeamScore];
+    scoreLabel.text = [NSString stringWithFormat:@"%@:%@", match.homeTeamScore, match.awayTeamScore];
     halfScoreLabel.text = [NSString stringWithFormat:@"(%@:%@)",match.homeTeamFirstHalfScore,match.awayTeamFirstHalfScore];  
 }
 
@@ -173,6 +175,14 @@ enum cardType{
 - (void)updateMatchTime:(Match*)match
 {    
     [self updateMatchStatus:match];
+}
+
+- (void)updateMatchTypeLabel:(Match *)match
+{
+    LeagueManager *manager = [LeagueManager defaultManager];
+    UIColor *labelColor = [manager getLeagueColorById:match.leagueId];
+    [matchTypeLabel setTextColor:labelColor];
+    
 }
 
 - (void)setCards:(UIButton*)card setMatch:(Match*)match withcardType:(int)type{
@@ -271,7 +281,7 @@ enum cardType{
     CGRect middlePosition = CGRectMake(151, 11, 36, 20);
     CGRect originalPosition = CGRectMake(151, 6, 36, 14);
     
-    switch (match.status) {
+    switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         {
             [scoreLabel setHidden:NO];

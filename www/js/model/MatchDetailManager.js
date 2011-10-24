@@ -1,16 +1,6 @@
 
 
 // constants
-var OUPEI_FIELD_NAME = 0;
-var OUPEI_FIELD_ID = 1;
-var OUPEI_FIELD_CHUPANWIN = 2;
-var OUPEI_FIELD_CHUPANDRAW = 3;
-var OUPEI_FIELD_CHUPANLOST = 4;
-var OUPEI_FIELD_JISHIWIN = 5;
-var OUPEI_FIELD_JISHIDRAW = 6;
-var OUPEI_FIELD_JISHILOST = 7;
-var OUPEI_FIELD_COUNT = 8;
-
 var MATCH_DETAIL_SEGMENT_EVENT = 0;
 var MATCH_DETAIL_SEGMENT_STAT = 1;
 var MATCH_DETAIL_SEGMENT_COUNT = 2;
@@ -87,11 +77,14 @@ MatchDetailManager.prototype = {
 		}
 						
 		return this.eventArray;
+	},
+	
+	requestDataFromServer : function(matchId, lang){
+		// TODO 
+		return true;
 	}
 };
 
-// init the global object
-var matchDetailManager = new MatchDetailManager();
 
 function testReadData(){
 	var data = "0^1^3^D.卡里奴!1^1^42^F.蒙迪路!0^1^60^施薩 迪加度$$3^8^6!4^5^4!5^5^3!6^3^3!9^0^3!11^1^2!16^2^4";
