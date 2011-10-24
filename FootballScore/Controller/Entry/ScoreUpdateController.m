@@ -11,7 +11,7 @@
 #import "ScoreUpdate.h"
 #import "ScoreUpdateManager.h"
 #import "TimeUtils.h"
-
+#import "MatchManager.h"
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
 @synthesize deleteFlag;
@@ -62,8 +62,22 @@
     
     
     self.dateTimeLabel.text = [self getDateString];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     
+        
+    
+    
+
+    MatchManager *manager = [MatchManager defaultManager];
+    Match *match = [manager.matchArray objectAtIndex:2];
+    ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
+    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
+    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+
+    
+    
+    
+    
+    [update release];
 }
 
 - (void)viewDidUnload

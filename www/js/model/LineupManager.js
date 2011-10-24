@@ -41,5 +41,3 @@ LineupManager.prototype = {
 	}
 };
 
-// init the global object
-var lineupManager = new LineupManager();

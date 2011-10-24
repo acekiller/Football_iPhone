@@ -19,7 +19,7 @@ MatchDetailApp = new Ext.Application({
         
 //		测试比赛事件
 //      testUpdateMatchDetail();
-//		testDisplayMatchEventLocally();
+		testDisplayMatchEventLocally();
 		
 //		测试比赛事件
 //      testUpdateOupeiDetail();
