@@ -1,7 +1,9 @@
 
 function YapeiView(){
 	
-	 var helperFunctions = {};
+	 var helperFunctions = {
+	 	
+	 };
 
     var yapeiCompanyTemplate = Ext.XTemplate.from("yapei-company-template", helperFunctions);
 

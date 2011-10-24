@@ -68,12 +68,14 @@ YapeiManager.prototype = {
 		  xhr.send(null);
 		  if (xhr.status == 200) {
 		 	 this.readData(xhr.responseText);
+			 return true;
 		  }			
+		  else{
+		  	 return false;
+		  }
 	}
 };
 
-// init the global object
-var yapeiManager = new YapeiManager(YAPEI_URL);
 
 
 

@@ -27,3 +27,19 @@ Ext.application({
     }
 });
 
+function test(){
+	
+}
+
+function createXHR(){
+	var xhr = new XMLHttpRequest();
+	return xhr;
+}
+
+function testSendRequest(){
+  var xhr = new XMLHttpRequest();
+  xhr.open("get", "http://bf.bet007.com/phone/HandicapDetail.aspx?OddsID=2490932", false);
+  xhr.send(null);
+  alert("xhr status = " + xhr.status + ", text = " + xhr.responseText);
+}
+

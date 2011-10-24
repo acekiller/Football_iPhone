@@ -13,6 +13,14 @@ MatchDetailApp = new Ext.Application({
     launch: function() {
         		
         console.log("match javascript launched");
+        
+        // define all views here
+        MatchDetailApp.matchDetailView = null;
+        
+        // set launched flag
+        MatchDetailApp.isLaunched = 1;
+        
+        
 //      testReadData();
 //      testUpdateMatchDetail();
 //      testUpdateOupeiDetail();
@@ -20,16 +28,17 @@ MatchDetailApp = new Ext.Application({
 //		testUpdateYapeiDetail();
 //      testUpdateOverunderDetail();
         
-        MatchDetailApp.isLaunched = 1;
         
 //        testYapeiOddsDetail();
 //        testJSONP();
 //        testSendRequest();
 //		testUpdateYapeiDetail();
 //		testUpdateLineup();
-        testYapeiOddsDetail();
+//        testYapeiOddsDetail();
         
 //        testShowYapeiView();
+        
+        testDisplayMatchEvent();
     }
 
 });
@@ -38,6 +47,44 @@ function isAppLaunched(){
 	return MatchDetailApp.isLaunched;
 }
 
+function setCurrentView(panel){
+	MatchDetailApp.viewport = panel;
+}
+
+function getMatchDetailView(){	
+	return new MatchDetailView(); 
+}
+
+function displayMatchEvent(reload, matchId, lang, data){
+		
+	if (reload){
+		if (data != undefined){
+			if (matchDetailManager.readData(data) == false){
+				return false;
+			}
+		}	
+		else if (matchDetailManager.requestDataFromServer(matchId, lang) == false){
+			return false;
+		}
+	}
+	
+	MatchDetailApp.matchDetailView = getMatchDetailView();
+	MatchDetailApp.matchDetailView.updateView(matchDetailManager);
+	setCurrentView(MatchDetailApp.matchDetailView.mainPanel);	
+	return true;
+}
+
+function testDisplayMatchEventLocally(){
+	var data = "0^1^3^D.卡里奴!1^1^42^F.蒙迪路!0^1^60^施薩 迪加度$$3^8^6!4^5^4!5^5^3!6^3^3!9^0^3!11^1^2!16^2^4";
+	displayMatchEvent(true, "", 0, data);
+}
+
+function testDisplayMatchEventRemote(){
+	displayMatchEvent(true, "matchId", 0); // TODO change match Id
+}
+
+
+
 function testUpdateMatchDetail(){
 	var data = "0^1^3^D.卡里奴!1^1^42^F.蒙迪路!0^1^60^施薩 迪加度$$3^8^6!4^5^4!5^5^3!6^3^3!9^0^3!11^1^2!16^2^4";
 	updateMatchDetail(data);
@@ -45,7 +92,10 @@ function testUpdateMatchDetail(){
 
 function updateMatchDetail(inputString){
 
-	MatchDetailApp.matchDetailView = new MatchDetailView();	
+	if (MatchDetailApp.matchDetailView == null || MatchDetailApp.matchDetailView == undefined){
+		MatchDetailApp.matchDetailView = new MatchDetailView();
+	}
+	
 	MatchDetailApp.viewport = MatchDetailApp.matchDetailView.mainPanel;		
 	
 	matchDetailManager.readData(inputString);	
@@ -65,7 +115,9 @@ function showYapeiOddsDetail(betCompanyId){
 	}
 
 	// create view
-	MatchDetailApp.yapeiDetailView = new YapeiDetailView();
+	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
+		MatchDetailApp.yapeiDetailView = new YapeiDetailView();
+	}
 	MatchDetailApp.viewport = MatchDetailApp.yapeiDetailView.mainPanel;
 			
 	// request data from server and update view
@@ -139,21 +191,6 @@ function testYapeiOddsDetail(){
 	MatchDetailApp.yapeiDetailView.updateCompany();
 }
 
-function test(){
-	
-}
-
-function createXHR(){
-	var xhr = new XMLHttpRequest();
-	return xhr;
-}
-
-function testSendRequest(){
-  var xhr = new XMLHttpRequest();
-  xhr.open("get", "http://bf.bet007.com/phone/HandicapDetail.aspx?OddsID=2490932", false);
-  xhr.send(null);
-  alert("xhr status = " + xhr.status + ", text = " + xhr.responseText);
-}
 
 function testUpdateOverunderDetail(){
 	var data = "ＳＢ^1978021^1.00^2.5^0.80^0.78^2.5^1.02!Bet365^1984678^1.025^2.5^0.825^0.875^2.5^0.975!立博^1990224^1.01^2.5^0.79^0.94^2.5^0.86!韦德^1983921^0.909^2.5^0.80^0.80^2.5^0.909!易胜^1991610^0.95^2.5^0.75^0.90^2.5^0.80!明陞^1984659^1.02^2.5^0.80^0.89^2.5^0.93!澳彩^1984554^0.95^2.5^0.75^0.95^2.5^0.75!10BET^1983752^1.00^2.5^0.78^0.85^2.5^0.90!金宝博^1984669^1.02^2.5^0.80^0.79^2.5^1.03!12bet/大发^1966126^1.02^2.5^0.80^0.89^2.5^0.93!利记^1965788^1.02^2.5^0.80^0.88^2.5^0.94!永利高^1983327^0.97^2.5^0.77^0.785^2.5^0.955!盈禾^1983312^1.02^2.5^0.80^0.80^2.5^1.02";
