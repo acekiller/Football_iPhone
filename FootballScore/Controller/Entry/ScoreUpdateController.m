@@ -183,9 +183,10 @@
         [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [[ScoreUpdateManager defaultManager] removeScoreUpdateAtIndex:indexPath.row];
         self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-
         [self.dataTableView endUpdates];
-
+        if (!self.dataList || [self.dataList count] == 0) {
+            [self clickDone:nil];
+        }
     }
 }
 #pragma action selector

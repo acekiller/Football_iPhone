@@ -89,6 +89,9 @@
     
     UIImage *eventImage = nil;
     
+    self.matchScore.text = [NSString stringWithFormat:@"%d : %d", 
+                            [scoreUpdate homeTeamDataCount],[scoreUpdate awayTeamDataCount]];
+    
     if (type < HOMETEAMRED) {
         //score type
         //TO DO set score event image 
@@ -96,9 +99,6 @@
         self.scoreTypeName.text = FNS(@"比分");
         
         [self setTeamEventButton:type message:FNS(@"进球") image:[UIImage imageNamed:@"ls_img1.png"]];
-                
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
         
     }else if(type < HOMETEAMYELLOW)
     {
@@ -107,8 +107,6 @@
         eventImage = [UIImage imageNamed:@"redcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") image :[UIImage imageNamed:@"ls_img2.png"]];
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamRedcard],[scoreUpdate awayTeamRedcard]];
         
     }else if(type < TYPECOUNT)
     {
@@ -117,10 +115,6 @@
         eventImage = [UIImage imageNamed:@"yellowcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") image:[UIImage  imageNamed:@"ls_img3.png"]];
-        
-        
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamYellowcard],[scoreUpdate awayTeamYellowcard]];
     }
     
      
