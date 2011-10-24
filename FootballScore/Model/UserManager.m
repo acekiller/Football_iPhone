@@ -48,9 +48,9 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults objectForKey:USERID];
     if (userId) {
-        return true;
+        return YES ;
     }
-    return false;
+    return NO;
 }
 
 @end
