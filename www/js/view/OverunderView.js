@@ -8,7 +8,7 @@ function OverunderView(){
     this.companyPanel = new Ext.Panel({            
         id : 'companyPanel',
         tpl : overunderCompanyTemplate,
-        margin: '20 10 20 0',
+        margin: '0 0 0 0',
         align: 'left'
     });	        	       
 
