@@ -189,11 +189,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreCell.m"
-         timestampString = "340964791.511514"
+         timestampString = "341134809.994351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "174"
-         endingLineNumber = "174"
+         startingLineNumber = "197"
+         endingLineNumber = "197"
          landmarkName = "@implementation RealtimeScoreCell"
          landmarkType = "3">
       </FileBreakpoint>
