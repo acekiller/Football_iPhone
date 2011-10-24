@@ -69,5 +69,11 @@ function LineupView(){
 }
 
 LineupView.prototype = {
-    constructor: LineupView
+    constructor: LineupView,
+	updateView : function(manager) {
+		this.homeLineupPanel.update(manager.data.homeLineup[0]);
+		this.homeReservePanel.update(manager.data.homeReserve[0]);
+		this.awayLineupPanel.update(manager.data.awayLineup[0]);
+		this.awayReservePanel.update(manager.data.awayReserve[0]);
+	}
 };

@@ -26,5 +26,8 @@ function OverunderView(){
 }
 
 OverunderView.prototype = {
-	constructor : OverunderView
+	constructor : OverunderView,
+	updateView : function(manager) {
+		this.companyPanel.update(manager.dataArray);
+	}
 };
