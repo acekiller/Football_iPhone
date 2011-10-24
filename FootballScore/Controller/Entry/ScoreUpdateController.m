@@ -64,20 +64,18 @@
     self.dateTimeLabel.text = [self getDateString];
     
         
-    
+    /*  假数据，调试使用。
     
 
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
-    ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
+    ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
     [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-
-    
-    
-    
-    
     [update release];
+     
+     */
+
 }
 
 - (void)viewDidUnload
@@ -183,9 +181,10 @@
         [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [[ScoreUpdateManager defaultManager] removeScoreUpdateAtIndex:indexPath.row];
         self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-
         [self.dataTableView endUpdates];
-
+        if (!self.dataList || [self.dataList count] == 0) {
+            [self clickDone:nil];
+        }
     }
 }
 #pragma action selector

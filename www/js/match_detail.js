@@ -31,6 +31,7 @@ MatchDetailApp = new Ext.Application({
 
 //		测试大小
 //      testDisplayOverunder();
+		testDisplayOverunderRemote();
 
 //		测试阵容
 //		testDisplayLineup();

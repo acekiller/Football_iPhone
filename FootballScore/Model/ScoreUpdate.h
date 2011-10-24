@@ -25,20 +25,16 @@ enum ScoreUpdateType{
     Match *match;
     NSInteger scoreUpdateType;
     NSString *updateMinute;
-//    NSInteger homeRedFlag;
-//    NSInteger awayRedFlag;
-//    NSInteger homeYellowFlag;
-//    NSInteger awayYelloFlag;
+    NSInteger homeTeamDataCount;
+    NSInteger awayTeamDataCount;
     
 }
 
 @property (nonatomic, retain) Match *match;
 @property (nonatomic, assign) NSInteger scoreUpdateType;
 @property (nonatomic, retain) NSString *updateMinute;
-//@property (nonatomic, assign) NSInteger homeRedFlag;
-//@property (nonatomic, assign) NSInteger awayRedFlag;
-//@property (nonatomic, assign) NSInteger homeYellowFlag;
-//@property (nonatomic, assign) NSInteger awayYelloFlag;
+@property (nonatomic, assign) NSInteger homeTeamDataCount;
+@property (nonatomic, assign) NSInteger awayTeamDataCount;
 
 -(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type;
 - (NSInteger)state;
@@ -47,10 +43,4 @@ enum ScoreUpdateType{
 - (NSDate *)startTime;
 - (NSString *)matchTimeString;
 - (NSString *)leagueName;
-- (NSString *)homeTeamScore;
-- (NSString *)awayTeamScore;
-- (NSString *)homeTeamRedcard;
-- (NSString *)awayTeamRedcard;
-- (NSString *)homeTeamYellowcard;
-- (NSString *)awayTeamYellowcard;
 @end

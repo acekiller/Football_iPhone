@@ -10,8 +10,11 @@ var OVERUNDER_FIELD_JISHI = 6;
 var OVERUNDER_FIELD_UNDERJISHI = 7;
 var OVERUNDER_FIELD_COUNT = 8;
 
+var OVERUNDER_URL = "http://bf.bet007.com/phone/OverUnder.aspx?ID=";
+
 //define OverunderManager Model
-function OverunderManager() {
+function OverunderManager(url) {
+	this.url = url;
 	this.dataArray = null;
 }
 
@@ -53,7 +56,11 @@ OverunderManager.prototype = {
 	},
 	
 	requestDataFromServer : function(matchId, lang){
-		// TODO 
+		var data = sendRequest(this.url + matchId);
+		if (data == null)
+			return false;
+			
+		this.readData(data);
 		return true;
 	}
 };
