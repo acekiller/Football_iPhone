@@ -70,7 +70,7 @@ BetCompanyManager.prototype = {
 		  var xhr = new XMLHttpRequest();
 		  xhr.open("get", "http://bf.bet007.com/phone/HandicapDetail.aspx?OddsID=" + companyBetId, false);
 		  // --allow-file-access-from-files
-		  // xhr.setRequestHeader("Access-Control-Allow-Origin", "1");
+		  // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 		  xhr.send(null);
 		  if (xhr.status == 200) {
 		 	 this.parseOddsChangeRecord(xhr.responseText);
