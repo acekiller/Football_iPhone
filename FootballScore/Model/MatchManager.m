@@ -18,7 +18,7 @@
 #import "LogUtil.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
-#define FOLLOW_MATCH_ID_LIST        @"FOLLOW_MATCH_ID_LIST"
+#define FOLLOW_MATCH_LIST        @"FOLLOW_MATCH_LIST"
 
 MatchManager* matchManager;
 
@@ -37,7 +37,7 @@ MatchManager* GlobalGetMatchManager()
 @synthesize filterLeagueIdList;
 @synthesize filterMatchStatus;
 @synthesize filterMatchScoreType;
-@synthesize followMatchIdList;
+@synthesize followMatchList;
 @synthesize serverDate;
 @synthesize followMatchArray;
 
@@ -70,22 +70,23 @@ MatchManager* GlobalGetMatchManager()
 #pragma FOLLOW MATCH
 #pragma mark
 
-- (void)loadFollowMatchIdList
+- (void)loadFollowMatchList
 {
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    NSArray* list = [userDefault objectForKey:FOLLOW_MATCH_ID_LIST];
-    if (list != nil){
-        [self.followMatchIdList addObjectsFromArray:list];
-    }    
+    NSData* listData = [userDefault objectForKey:FOLLOW_MATCH_LIST];
+    NSMutableDictionary *getFollowMatchList = [NSKeyedUnarchiver unarchiveObjectWithData:listData];
+    self.followMatchList = getFollowMatchList;                 
 }
 
-- (void)saveFollowMatchIdList
+- (void)saveFollowMatchList
 {
-    if (followMatchIdList == nil || [followMatchIdList count] == 0)
+    if (followMatchList == nil)
         return;
     
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setObject:[self.followMatchIdList allObjects] forKey:FOLLOW_MATCH_ID_LIST];
+    NSData *followList = [NSKeyedArchiver archivedDataWithRootObject:self.followMatchList];
+    [userDefault setObject:followList forKey:FOLLOW_MATCH_LIST];
+
 }
 
 - (void)followMatch:(Match*)match
@@ -93,12 +94,12 @@ MatchManager* GlobalGetMatchManager()
     if (match == nil)
         return;
     
-    [match setIsFollow:YES];
+    [match setIsFollow:[NSNumber numberWithBool:YES]];
     
-    if ([followMatchIdList containsObject:match.matchId] == NO){
+    if ([followMatchList objectForKey:match.matchId] == nil){
         
-        [self.followMatchIdList addObject:match.matchId];
-        [self saveFollowMatchIdList];
+        [self.followMatchList setObject:match forKey:match.matchId];
+        [self saveFollowMatchList];
         
         PPDebug(@"follow match (%@)", [match description]);
     }
@@ -110,19 +111,23 @@ MatchManager* GlobalGetMatchManager()
     if (match == nil)
         return;
 
-    [match setIsFollow:NO];
-    [self.followMatchIdList removeObject:match.matchId];    
-    [self saveFollowMatchIdList];
+    [match setIsFollow:[NSNumber numberWithBool:NO]];
+    [self.followMatchList removeObjectForKey:match.matchId];    
+    [self saveFollowMatchList];
 
     PPDebug(@"unfollow match (%@)", [match description]);
 }
 
 - (BOOL)isMatchFollowed:(NSString*)matchId
 {
-    if (matchId == nil)
+    if (matchId == nil || followMatchList == nil)
         return NO;
-    
-    return [followMatchIdList containsObject:matchId];
+    if ([followMatchList objectForKey:matchId] == nil) {
+        return NO;
+    } else {
+        return YES;
+    }
+
 }
 
 #pragma INIT/DEALLOC
@@ -134,8 +139,8 @@ MatchManager* GlobalGetMatchManager()
     filterLeagueIdList = [[NSMutableSet alloc] init];
     [self loadFilterLeagueIdList];
     
-    followMatchIdList = [[NSMutableSet alloc] init];
-    [self loadFollowMatchIdList];
+    followMatchList = [[NSMutableDictionary alloc] init];
+    [self loadFollowMatchList];
     
     serverDate = [[NSDate date] retain];
     
@@ -150,7 +155,7 @@ MatchManager* GlobalGetMatchManager()
     [followMatchArray release];
     [serverDate release];
     [matchArray release];
-    [followMatchIdList release];
+    [followMatchList release];
     [filterLeagueIdList release];
     [super dealloc];
 }
@@ -170,7 +175,7 @@ MatchManager* GlobalGetMatchManager()
         }
         
         if (filterMatchStatus == MATCH_SELECT_STATUS_MYFOLLOW &&
-            [match isFollow] == NO){
+            match.isFollow == [NSNumber numberWithBool:NO]){
             // follow required by the match is not followed
             continue;
         }
@@ -214,7 +219,12 @@ MatchManager* GlobalGetMatchManager()
 {
     self.matchArray = updateArray;
     
+    for (Match *match in updateArray) {
+        [self updateFollowMatch:match];
+    }
+    
     // TODO save match if match is followed
+    
 }
 
 - (void)updateRealtimeMatchArray:(NSArray*)realtimeMatchArray
@@ -334,9 +344,12 @@ MatchManager* GlobalGetMatchManager()
             continue;
         }
         else{
-                        
+           
             NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
+            Match* followMatch = [self getFollowMatchById:matchId];
+            [self updateMatch:followMatch ByFields:fields];
             Match* match = [self getMathById:matchId];
+            
             if (match == nil){
                 PPDebug(@"<warning> cannot find match by match ID (%@)", matchId);
                 continue;
@@ -344,64 +357,8 @@ MatchManager* GlobalGetMatchManager()
             
             [retSet addObject:matchId];
             
-            NSString* status = [fields objectAtIndex:INDEX_REALTIME_SCORE_STATUS];
-            NSString* dateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_DATE];
-            NSString* startDateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_START_DATE];
-            NSString* homeTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_SCORE];
-            NSString* awayTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_SCORE];
-            NSString* homeTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_FIRST_HALF_SCORE];
-            NSString* awayTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_FIRST_HALF_SCORE];
-            NSString* homeTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_RED];
-            NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
-            NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
-            NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
+            [self updateMatch:match ByFields:fields];
             
-            if ([status length]){
-                [match setStatus:[status intValue]];
-            }
-            
-            if ([dateString length]){
-                [match setDate:dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT)];
-            }
-                 
-            if ([startDateString length]){
-                [match updateStartDate:dateFromChineseStringByFormat(startDateString, DEFAULT_DATE_FORMAT)];
-            }
-
-            if ([homeTeamScore length]){
-                [match setHomeTeamScore:homeTeamScore];
-            }
-
-            if ([awayTeamScore length]){
-                [match setAwayTeamScore:awayTeamScore];
-            }
-
-            if ([homeTeamFirstHalfScore length]){
-                [match setHomeTeamFirstHalfScore:homeTeamFirstHalfScore];
-            }
-
-            if ([awayTeamFirstHalfScore length]){
-                [match setAwayTeamFirstHalfScore:awayTeamFirstHalfScore];
-            }
-
-            if ([homeTeamRed length]){
-                [match setHomeTeamRed:homeTeamRed];
-            }
-
-            if ([awayTeamRed length]){
-                [match setAwayTeamRed:awayTeamRed];
-            }
-
-            if ([homeTeamYellow length]){
-                [match setHomeTeamYellow:homeTeamYellow];
-            }
-
-            if ([awayTeamYellow length]){
-                [match setAwayTeamYellow:awayTeamYellow];
-            }
-            
-            PPDebug(@"match %@ updated, data=%@", 
-                    [match description], [fields componentsJoinedByString:@" "]);
         }
     }
     
@@ -530,6 +487,19 @@ MatchManager* GlobalGetMatchManager()
     return nil;
 }
 
+- (Match *)getFollowMatchById:(NSString *)matchId
+{
+    if (matchId == nil) {
+        return nil;
+    }
+    for (Match* match in [self.followMatchList allValues]) {
+        if ([match.matchId isEqualToString:matchId]) {
+            return match;
+        }
+    }
+    return nil;
+}
+
 - (void)updateMatch:(Match*)match WithEventArray:(NSArray *)eventArray
 {
     if (eventArray == nil || [eventArray count] == 0) {
@@ -591,7 +561,7 @@ MatchManager* GlobalGetMatchManager()
         return nil;
     
     NSDate* startDate = nil;
-    if (match.status == MATCH_STATUS_FIRST_HALF){
+    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF){
 
         if (match.firstHalfStartDate != nil)
             startDate = match.firstHalfStartDate;
@@ -604,7 +574,7 @@ MatchManager* GlobalGetMatchManager()
         int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds; // add server difference
         return [NSNumber numberWithInt:seconds];
     }
-    else if (match.status == MATCH_STATUS_SECOND_HALF){
+    else if ([match.status intValue]== MATCH_STATUS_SECOND_HALF){
         if (match.secondHalfStartDate != nil)
             startDate = match.secondHalfStartDate;
         else if (match.date != nil)
@@ -640,7 +610,7 @@ MatchManager* GlobalGetMatchManager()
     if (seconds == nil){
         return @"";
     }
-    else if (match.status == MATCH_STATUS_FIRST_HALF){
+    else if ([match.status intValue] == MATCH_STATUS_FIRST_HALF){
         if ([seconds intValue] <= MATCH_MAX_FIRST_HALF_TIME){
             return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
         }
@@ -648,7 +618,7 @@ MatchManager* GlobalGetMatchManager()
             return @"45+";
         }
     }
-    else if (match.status == MATCH_STATUS_SECOND_HALF){
+    else if ([match.status intValue] == MATCH_STATUS_SECOND_HALF){
         if ([seconds intValue] <= MATCH_MAX_TIME){
             return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
         }
@@ -680,7 +650,7 @@ MatchManager* GlobalGetMatchManager()
 {
     int count = 0;
     for (Match* match in matchArray){                
-        if ([match isFollow]){
+        if (match.isFollow == [NSNumber numberWithBool:YES]){
             count ++;
         }    
     }
@@ -749,5 +719,79 @@ MatchManager* GlobalGetMatchManager()
     return 0;
 }
 
+- (NSArray*)getAllFollowMatch
+{
+    return [followMatchList allValues];
+}
+
+- (void)updateFollowMatch:(Match*)match
+{
+    Match *matchInFollow = [self.followMatchList objectForKey:match.matchId];
+    if (matchInFollow != nil) {
+        [matchInFollow updateByMatch:match];
+    }
+}
+
+- (void)updateMatch:(Match*)match ByFields:(NSArray*)fields
+{
+    NSString* status = [fields objectAtIndex:INDEX_REALTIME_SCORE_STATUS];
+    NSString* dateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_DATE];
+    NSString* startDateString = [fields objectAtIndex:INDEX_REALTIME_SCORE_START_DATE];
+    NSString* homeTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_SCORE];
+    NSString* awayTeamScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_SCORE];
+    NSString* homeTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_FIRST_HALF_SCORE];
+    NSString* awayTeamFirstHalfScore = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_FIRST_HALF_SCORE];
+    NSString* homeTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_RED];
+    NSString* awayTeamRed = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_RED];
+    NSString* homeTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_HOME_TEAM_YELLOW];
+    NSString* awayTeamYellow = [fields objectAtIndex:INDEX_REALTIME_SCORE_AWAY_TEAM_YELLOW];
+    
+    if ([status length]){
+        [match setStatus:[NSNumber numberWithInt:[status intValue]]];
+    }
+    
+    if ([dateString length]){
+        [match setDate:dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT)];
+    }
+    
+    if ([startDateString length]){
+        [match updateStartDate:dateFromChineseStringByFormat(startDateString, DEFAULT_DATE_FORMAT)];
+    }
+    
+    if ([homeTeamScore length]){
+        [match setHomeTeamScore:homeTeamScore];
+    }
+    
+    if ([awayTeamScore length]){
+        [match setAwayTeamScore:awayTeamScore];
+    }
+    
+    if ([homeTeamFirstHalfScore length]){
+        [match setHomeTeamFirstHalfScore:homeTeamFirstHalfScore];
+    }
+    
+    if ([awayTeamFirstHalfScore length]){
+        [match setAwayTeamFirstHalfScore:awayTeamFirstHalfScore];
+    }
+    
+    if ([homeTeamRed length]){
+        [match setHomeTeamRed:homeTeamRed];
+    }
+    
+    if ([awayTeamRed length]){
+        [match setAwayTeamRed:awayTeamRed];
+    }
+    
+    if ([homeTeamYellow length]){
+        [match setHomeTeamYellow:homeTeamYellow];
+    }
+    
+    if ([awayTeamYellow length]){
+        [match setAwayTeamYellow:awayTeamYellow];
+    }
+    
+    PPDebug(@"match %@ updated, data=%@", 
+            [match description], [fields componentsJoinedByString:@" "]);
+}
 
 @end

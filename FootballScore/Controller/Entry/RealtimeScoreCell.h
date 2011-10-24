@@ -70,6 +70,7 @@
 - (void)setCards:(UIButton*)card setMatch:(Match*)Match withcardType:(int)type;
 - (void)updateMatchTime:(Match*)match;
 - (void)updateMatchStatus:(Match*)match;
+- (void)updateMatchTypeLabel:(Match*)match;
 
 
 @end

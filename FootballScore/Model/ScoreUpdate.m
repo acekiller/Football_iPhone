@@ -39,7 +39,7 @@
 
 - (NSInteger)state
 {
-    return self.match.status;
+    return [self.match.status intValue];
 }
 
 - (NSString *)homeTeamName
