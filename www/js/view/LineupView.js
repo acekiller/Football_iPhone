@@ -42,15 +42,14 @@ function LineupView(){
         layout: 'vbox',
 		bodyStyle:'background-image: url(images/team_bg@2x.png);background-repeat: no-repeat;width: 310px;height: 326px;',  
         defaults: {
-            flex: 1,
             width: '100%',
             defaults: {
                 height: '100%'
             }
         },
-        
+        scroll: 'vertical',
         items: [{
-			scroll: 'vertical',
+			flex: 1,
 			margin: '10 0 0 0',
             xtype: 'panel',
             layout: 'hbox',
@@ -59,7 +58,7 @@ function LineupView(){
                this.awayLineupPanel
             ]
         }, {
-			scroll: 'vertical',
+			flex: 1,
 			margin: '-60 0 0 0',						
             xtype: 'panel',
             layout: 'hbox',
@@ -74,9 +73,18 @@ function LineupView(){
 LineupView.prototype = {
     constructor: LineupView,
 	updateView : function(manager) {
-		this.homeLineupPanel.update(manager.data.homeLineup[0]);
-		this.homeReservePanel.update(manager.data.homeReserve[0]);
-		this.awayLineupPanel.update(manager.data.awayLineup[0]);
-		this.awayReservePanel.update(manager.data.awayReserve[0]);
+		if (manager.data.homeLineup[0].length > 0 && manager.data.homeReserve[0].length > 0 
+		 && manager.data.awayLineup[0].length > 0 && manager.data.awayReserve[0].length > 0 ) {
+			this.homeLineupPanel.update(manager.data.homeLineup[0]);
+			this.homeReservePanel.update(manager.data.homeReserve[0]);
+			this.awayLineupPanel.update(manager.data.awayLineup[0]);
+			this.awayReservePanel.update(manager.data.awayReserve[0]);
+		}
+		 else if (manager.data.homeLineup[0].length == 0){
+			Ext.get('homelist').dom.style.display = 'none'; 
+			Ext.get('homeReservelist').dom.style.display = 'none'; 
+			Ext.get('awaylist').dom.style.display = 'none'; 
+			Ext.get('awayReservelist').dom.style.display = 'none'; 
+		}
 	}
 };

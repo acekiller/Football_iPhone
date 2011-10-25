@@ -206,6 +206,9 @@ const int buttonsPerLine = 4;
 -(IBAction)selectTopLeague:(id)sender{
     
     LeagueManager* manager = [LeagueManager defaultManager];
+//    for (League* league in manager.leagueArray){
+//        [self deselectLeague:league.leagueId];
+//    }    
     for (League* league in manager.leagueArray){
         if ([league isTop]){
             [self selectLeague:league.leagueId];

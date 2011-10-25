@@ -29,7 +29,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        matchScoreType = MATCH_SCORE_TYPE_FIRST;
+        matchScoreType = MATCH_SCORE_TYPE_ALL;
     }
     return self;
 }
@@ -96,7 +96,7 @@
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     [self setRightBarButtons];
-//    [self setLeftBarButtons];等 logo完成之后，这个取消注释
+    [self setLeftBarButtons];//等 logo完成之后，这个取消注释
 
     self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
                                                 green:(0xf7)/255.0 
@@ -273,6 +273,7 @@
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
     self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];
+    
 }
 
 - (IBAction)clickSelectMatchStatus:(id)sender
@@ -289,11 +290,11 @@
 }
 
 - (IBAction)clickMyFollow:(id)sender
-{
-
-    MatchManager *manager = [MatchManager defaultManager];
-    self.dataList = [manager getAllFollowMatch];
-    [[self dataTableView] reloadData];
+{    
+    [self reloadMyFollowList];
+//    MatchManager *manager = [MatchManager defaultManager];
+//    self.dataList = [manager getAllFollowMatch];
+//    [[self dataTableView] reloadData];
 }
 
 - (void)didClickFollowButton:(id)sender atIndex:(NSIndexPath*)indexPath
@@ -388,6 +389,7 @@
     [leftTopBarView release];
     
     self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
     [leftBarButton release];
     
 }
@@ -395,7 +397,10 @@
 
 - (void)clickRefleshButton
 {
-    [self loadMatch:matchScoreType];
+    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
+        return;
+        [self loadMatch:matchScoreType];
+    
 }
 
 - (void)showMyFollowCount
@@ -422,6 +427,13 @@
         [myFollowCountView setHidden:NO];
     }
 
+}
+
+- (void)reloadMyFollowList
+{
+    MatchManager *manager = [MatchManager defaultManager];
+    self.dataList = [manager getAllFollowMatch];
+    [[self dataTableView] reloadData];
 }
 
 @end
