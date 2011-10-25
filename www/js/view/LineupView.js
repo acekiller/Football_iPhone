@@ -73,18 +73,23 @@ function LineupView(){
 LineupView.prototype = {
     constructor: LineupView,
 	updateView : function(manager) {
-		if (manager.data.homeLineup[0].length > 0 && manager.data.homeReserve[0].length > 0 
-		 && manager.data.awayLineup[0].length > 0 && manager.data.awayReserve[0].length > 0 ) {
-			this.homeLineupPanel.update(manager.data.homeLineup[0]);
-			this.homeReservePanel.update(manager.data.homeReserve[0]);
-			this.awayLineupPanel.update(manager.data.awayLineup[0]);
-			this.awayReservePanel.update(manager.data.awayReserve[0]);
+		if (manager.data.homeLineup.length > 0 && manager.data.homeReserve.length > 0 
+		 && manager.data.awayLineup.length > 0 && manager.data.awayReserve.length > 0 ) {
+			this.homeLineupPanel.update(manager.data.homeLineup);
+			this.homeReservePanel.update(manager.data.homeReserve);
+			this.awayLineupPanel.update(manager.data.awayLineup);
+			this.awayReservePanel.update(manager.data.awayReserve);
 		}
-		 else if (manager.data.homeLineup[0].length == 0){
-			Ext.get('homelist').dom.style.display = 'none'; 
-			Ext.get('homeReservelist').dom.style.display = 'none'; 
-			Ext.get('awaylist').dom.style.display = 'none'; 
-			Ext.get('awayReservelist').dom.style.display = 'none'; 
+		 else if (manager.data.homeLineup.length == 0){
+//			Ext.get('homelist').dom.style.display = 'none'; 
+//			Ext.get('homeReservelist').dom.style.display = 'none'; 
+//			Ext.get('awaylist').dom.style.display = 'none'; 
+//			Ext.get('awayReservelist').dom.style.display = 'none';		
+//			console.log("no lineup data");	
+			this.homeReservePanel.hide();
+			this.homeLineupPanel.hide();
+			this.awayLineupPanel.hide();
+			this.awayReservePanel.hide(); 
 		}
 	}
 };

@@ -13964,9 +13964,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>341207937.74579</real>
-		<string>{5686, 1199}</string>
-		<string>{6015, 64}</string>
+		<real>341213881.28124899</real>
+		<string>{8477, 1822}</string>
+		<string>{9234, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21716,7 +21716,7 @@
 				<integer>1592</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>341207112.93476498</real>
+			<real>341213877.87260598</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -21727,7 +21727,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 上午11:45</string>
+		<string>Today at 下午1:37</string>
 		<integer>106</integer>
 		<string>FootballScore</string>
 		<dict>
@@ -24898,9 +24898,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>341207937.74832398</real>
-		<string>{5686, 1199}</string>
-		<string>{6015, 64}</string>
+		<real>341213881.28350103</real>
+		<string>{8477, 1822}</string>
+		<string>{9234, 0}</string>
 		<string>-getScoreUpdateSet:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>

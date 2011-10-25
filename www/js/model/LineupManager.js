@@ -30,12 +30,18 @@ LineupManager.prototype = {
 		if (len == 0){
 			return null;
 		}
-		else{
-			this.dataArray = new Array();
+		else if (len < LINEUP_FIELD_COUNT){
+			console.log("read lineup data but segment not enough");
+			return null;
 		}
 					
-        var obj = new LineupObject(recordArray[LINEUP_FIELD_HOME], recordArray[LINEUP_FIELD_HOMERESERVE], recordArray[LINEUP_FIELD_AWAY], recordArray[LINEUP_FIELD_AWAYRESERVE]);
+        var obj = new LineupObject(recordArray[LINEUP_FIELD_HOME][0], 
+			recordArray[LINEUP_FIELD_HOMERESERVE][0], 
+			recordArray[LINEUP_FIELD_AWAY][0], 
+			recordArray[LINEUP_FIELD_AWAYRESERVE][0]);
+			
         this.data = obj;
+		console.log(this.data);
 						
 		return this.data;
 	},
