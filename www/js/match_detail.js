@@ -18,7 +18,7 @@ MatchDetailApp = new Ext.Application({
         MatchDetailApp.isLaunched = 1;
         
 //		测试比赛事件
-		testDisplayMatchEventLocally();
+//		testDisplayMatchEventLocally();
 		
 //		测试欧赔
 //        testDisplayOupeiDetail();
@@ -34,7 +34,7 @@ MatchDetailApp = new Ext.Application({
 //		testDisplayOverunderRemote();
 
 //		测试阵容
-//		testDisplayLineup();
+		testDisplayLineup();
 //		testDisplayLineupRemote();
 
     }
