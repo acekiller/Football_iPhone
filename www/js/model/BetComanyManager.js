@@ -6,10 +6,12 @@ var YAPEI_CHANGE_FIELD_MODIFYDATE = 3;// 变化时间
 var YAPEI_CHANGE_FIELD_COUNT = 4;
 
 //define Yapei Model
-function BetCompanyManager() {
+function BetCompanyManager(url, type) {
+	this.type = type;
 	this.selectCompanyId = null;
 	this.betCompanyList = new Array();
 	this.oddsChangeList = null;
+	this.url = url;
 }
 
 BetCompanyManager.prototype = {
@@ -68,7 +70,7 @@ BetCompanyManager.prototype = {
 	
 	requestOddsChangeFromServer : function(companyBetId){
 		  var xhr = new XMLHttpRequest();
-		  xhr.open("get", "http://bf.bet007.com/phone/HandicapDetail.aspx?OddsID=" + companyBetId, false);
+		  xhr.open("get", this.url + companyBetId, false);
 		  // --allow-file-access-from-files
 		  // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 		  xhr.send(null);

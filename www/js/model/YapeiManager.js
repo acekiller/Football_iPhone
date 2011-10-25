@@ -12,10 +12,11 @@ var YAPEI_FIELD_COUNT = 8;
 
 
 // define YapeiMangager Model
-function YapeiManager(url, companyManager){
+function YapeiManager(url, companyManager, type){
 	this.url = url;
 	this.dataArray = null;
 	this.companyManager = companyManager;
+	this.type = type;
 }
 
 YapeiManager.prototype = {
@@ -62,17 +63,16 @@ YapeiManager.prototype = {
 	},
 	
 	requestDataFromServer : function(matchId){
-		  var xhr = new XMLHttpRequest();
-		  var fullURL = this.url + matchId;
-		  xhr.open("get", fullURL, false);
-		  xhr.send(null);
-		  if (xhr.status == 200) {
-		 	 this.readData(xhr.responseText);
-			 return true;
-		  }			
-		  else{
-		  	 return false;
-		  }
+		var data = sendRequest(this.url + matchId);
+		if (data == null)
+			return false;
+			
+		this.readData(data);
+		return true;
+	},
+	
+	getType : function() {
+		return this.type;
 	}
 	
 //	requestDataFromServer : function(matchId, lang){
