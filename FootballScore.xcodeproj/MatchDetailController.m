@@ -408,7 +408,8 @@
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
-    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE) {
+    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE || 
+        header.matchStatus == MATCH_STATUS_FINISH) {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
         [self.scoreButton setTitle:title forState:UIControlStateNormal];
