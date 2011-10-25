@@ -324,3 +324,7 @@ ul,li {
 	padding-left: 13px;
 	margin-left: 28px;
 }
+
+.hide{
+	display:none
+}
