@@ -144,8 +144,8 @@
                                 [scoreUpdate homeTeamYellowcard],[scoreUpdate awayTeamYellowcard]];
     }
     
-     
-
+  // self.eventStateImage.frame.size.height = eventImage.size.height;
+ //   [self.eventStateImage setFrame:CGRectMake(eventStateImage.frame.origin.x, eventStateImage.frame.origin.y, eventImage.size.width, eventImage.size.height)];
     [self.eventStateImage setImage:eventImage];
      
     

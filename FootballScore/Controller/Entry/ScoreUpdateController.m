@@ -66,7 +66,6 @@
         
     /*  假数据，调试使用。
     
-
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -74,7 +73,31 @@
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
      
-     */
+    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
+    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
+    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+    [update release];
+    
+    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
+    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
+    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+    [update release];
+    
+    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
+    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
+    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+    [update release];
+    
+    
+    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
+    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
+    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+    [update release];
+
+
+     
+    */
+    
 
 }
 
