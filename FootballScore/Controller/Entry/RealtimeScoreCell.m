@@ -105,6 +105,7 @@ enum cardType{
     [self updateCards:match];
     [self updateFollow:match];
     [self updateMatchTypeLabel:match];
+    [self positionAdjust];
     
 }
 
@@ -143,34 +144,12 @@ enum cardType{
 }
 
 - (void)updateMatchInfo:(Match*)match{
-    float cardWidth = 13;
-    float titleLen = 80;
+
     LeagueManager *league = [LeagueManager defaultManager];
     matchTypeLabel.text = [league getNameById:match.leagueId];
 
     homeTeamLabel.text = match.homeTeamName;
-    if ((match.homeTeamRed == nil || [match.homeTeamRed intValue] <= 0) && (match.homeTeamYellow == nil || [match.homeTeamYellow intValue] <= 0)) {
-        [homeTeamLabel setFrame:CGRectMake(66-2*cardWidth, 21, titleLen+cardWidth*2, 20)];
-        
-    }
-    else if ((match.homeTeamRed != nil || [match.homeTeamRed intValue] > 0) && (match.homeTeamYellow != nil || [match.homeTeamYellow intValue] > 0)) {
-        [homeTeamLabel setFrame:CGRectMake(66, 21, titleLen, 20)];
-    }
-    else {
-        [homeTeamLabel setFrame:CGRectMake(66-cardWidth, 21, titleLen+cardWidth, 20)];
-    }
-    
-    
     awayTeamLabel.text = match.awayTeamName;
-    if ((match.awayTeamRed == nil || [match.awayTeamRed intValue] <= 0) && (match.awayTeamYellow == nil || [match.awayTeamYellow intValue] <= 0)) {
-        [awayTeamLabel setFrame:CGRectMake(192, 21, titleLen+2*cardWidth, 20)];
-    }
-    else if ((match.awayTeamRed != nil || [match.awayTeamRed intValue] > 0) && (match.awayTeamYellow != nil || [match.awayTeamYellow intValue] > 0)) {
-        [awayTeamLabel setFrame:CGRectMake(192, 21, titleLen, 20)];
-    }
-    else {
-        [awayTeamLabel setFrame:CGRectMake(192, 21, titleLen+cardWidth, 20)];
-    }
 }
 
 - (void)updateScores:(Match*)match{
@@ -209,27 +188,11 @@ enum cardType{
 }
 
 - (void)setCards:(UIButton*)card setMatch:(Match*)match withcardType:(int)type{
-    
-    float cardWidth = 13;
-    float titlewidth;
-    float cardTitleDistance = 3;
-    float leftSide = 146;
-    float rightSide = 192;
-    float maxTitleLen = 80;
-    float homeTeamNameLen = homeTeamLabel.frame.size.width;
-    float awayTeamNameLen = awayTeamLabel.frame.size.width;
-    CGSize titleSize;
-    CGRect cardPos = CGRectMake(0, 23, 13, 15);
-    UIFont *titleFont = [UIFont systemFontOfSize:14];
-    
+  
     switch (type) {
         case HOME_RED:
         {
             if (match.homeTeamRed != nil && [match.homeTeamRed intValue] > 0) {
-                titleSize = [match.homeTeamName sizeWithFont:titleFont];
-                titlewidth = MIN(titleSize.width,maxTitleLen);
-                cardPos.origin.x = leftSide-homeTeamNameLen-cardWidth-cardTitleDistance;
-                [card setFrame:cardPos];
                 [card setTitle:match.homeTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
             }
@@ -241,15 +204,6 @@ enum cardType{
         case HOME_YELLOW:
         { 
             if (match.homeTeamYellow != nil && [match.homeTeamYellow intValue] > 0) {
-                titleSize = [match.homeTeamName sizeWithFont:titleFont];
-                titlewidth = MIN(titleSize.width,maxTitleLen);
-                if (match.homeTeamRed == nil || [match.homeTeamRed intValue] <= 0) {
-                cardPos.origin.x = leftSide-homeTeamNameLen-cardWidth-cardTitleDistance;
-                }
-                else {
-                    cardPos.origin.x = leftSide-homeTeamNameLen-cardWidth*2-cardTitleDistance;
-                }
-                [card setFrame:cardPos];
                 [card setTitle:match.homeTeamYellow forState:UIControlStateNormal];
                 [card setHidden:NO];
             }
@@ -261,10 +215,6 @@ enum cardType{
         case AWAY_RED:
         {
             if (match.awayTeamRed != nil&& [match.awayTeamRed intValue] > 0) {
-                titleSize = [match.awayTeamName sizeWithFont:titleFont];
-                titlewidth = MIN(titleSize.width,maxTitleLen);
-                cardPos.origin.x = rightSide+awayTeamNameLen+cardTitleDistance;
-                [card setFrame:cardPos];
                 [card setTitle:match.awayTeamRed forState:UIControlStateNormal];
                 [card setHidden:NO];
 
@@ -277,15 +227,6 @@ enum cardType{
         case AWAY_YELLOW:
         {
             if (match.awayTeamYellow != nil && [match.awayTeamYellow intValue] > 0) {
-                titleSize = [match.awayTeamName sizeWithFont:titleFont];
-                titlewidth = MIN(titleSize.width,maxTitleLen);
-                if (match.awayTeamRed == nil || [match.awayTeamRed intValue] <= 0) {
-                    cardPos.origin.x = rightSide+awayTeamNameLen+cardTitleDistance;
-                }
-                else {
-                    cardPos.origin.x = rightSide+awayTeamNameLen+cardWidth+cardTitleDistance;
-                }
-                [card setFrame:cardPos];
                 [card setTitle:match.awayTeamYellow forState:UIControlStateNormal];
                 [card setHidden:NO];
 
@@ -386,5 +327,91 @@ enum cardType{
             
     }
 
+}
+
+- (void)positionAdjust
+{
+    float maxWidth = 110;
+    float cardWidth = 13;
+    float cardTitleSpace = 4;
+    int leftCard = 0;
+    int rightCard = 0;
+    float homeTitleWidth;
+    float awayTitleWidth;
+    UIFont *titleFont = [UIFont systemFontOfSize:14];
+ 
+    homeTitleWidth = [homeTeamLabel.text sizeWithFont:titleFont].width;
+    awayTitleWidth = [awayTeamLabel.text sizeWithFont:titleFont].width;
+    if (![homeRedCard isHidden]) {
+        leftCard ++;
+    }
+    if (![homeYellowCard isHidden]) {
+        leftCard ++;
+    }
+    if (![awayRedCard isHidden]) {
+        rightCard ++;
+    }
+    if (![awayYellowCard isHidden]) {
+        rightCard ++;
+    }
+    
+    if ((homeTitleWidth+cardTitleSpace+cardWidth*leftCard) > maxWidth) {
+        [homeTeamLabel setFrame:CGRectMake(36+cardWidth*leftCard+cardTitleSpace, 
+                                          21, 
+                                          maxWidth-cardTitleSpace-cardWidth*leftCard, 
+                                          20)];
+        [homeRedCard setFrame:CGRectMake(36+cardWidth*(leftCard-1)+cardTitleSpace, 
+                                        21, 
+                                        cardWidth, 
+                                        16)];
+        [homeYellowCard setFrame:CGRectMake(36+cardTitleSpace, 
+                                            21, 
+                                            cardWidth, 
+                                            16)];
+    } else {
+        [homeTeamLabel setFrame:CGRectMake(36, 
+                                           21, 
+                                           maxWidth, 
+                                           20)];
+        [homeRedCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth-cardTitleSpace, 
+                                         21, 
+                                         cardWidth, 
+                                         16)];
+        [homeYellowCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth*leftCard-cardTitleSpace,
+                                            21, 
+                                            cardWidth, 
+                                            16)];
+    }
+    
+    if ((awayTitleWidth+cardTitleSpace+cardWidth*rightCard) > maxWidth) {
+        [awayTeamLabel setFrame:CGRectMake(192,
+                                           21, 
+                                           maxWidth-cardTitleSpace-cardWidth*rightCard, 
+                                           20)];
+        [awayRedCard setFrame:CGRectMake(192+maxWidth-cardWidth*rightCard-cardTitleSpace, 
+                                         21, 
+                                         cardWidth, 
+                                         16)];
+        [awayYellowCard setFrame:CGRectMake(192+maxWidth-cardWidth*(rightCard-1)-cardTitleSpace, 
+                                            21, 
+                                            cardWidth, 
+                                            16)];
+    } else {
+        [awayTeamLabel setFrame:CGRectMake(192, 
+                                           21, 
+                                           maxWidth, 
+                                           20)];
+        [awayRedCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace, 
+                                         21, 
+                                         cardWidth, 
+                                         16)];
+        [awayYellowCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace+cardWidth*(rightCard-1),
+                                            21, 
+                                            cardWidth, 
+                                            16)];
+    }
+
+    
+    
 }
 @end
