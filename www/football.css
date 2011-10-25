@@ -67,6 +67,8 @@ ul,li {
 	width: 305px;
 	padding-right: 16px;
 	padding-left: 16px;	
+	margin-top:-5px;
+	margin-bottom:-7px;
 }
 .ts li{
 	line-height: 28px;
