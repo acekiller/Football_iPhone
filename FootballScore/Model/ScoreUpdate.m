@@ -24,7 +24,9 @@
     [super dealloc];
 }
 
--(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type
+
+//Increment
+-(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type increment:(NSInteger)increment
 {
     self = [super init];
     if (self) {
@@ -49,6 +51,14 @@
             self.awayTeamDataCount = 0;
         }
         
+        //set increase data
+        if (type < TYPECOUNT && type >= 0) {
+            if (type %2 == 0) {
+                self.homeTeamDataCount += increment;
+            }else{
+                self.awayTeamDataCount += increment;
+            }
+        }
     }
     return self;
 }

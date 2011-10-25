@@ -51,6 +51,9 @@ function parseRequestString(inputString){
 		var record = recordArray[i];
 		var fieldsArray = record.split(FIELD_SEP);
 //		console.log(fieldsArray);
+		if (fieldsArray.length == 1 && fieldsArray[0].length == 0){
+			fieldsArray.pop();
+		}
 		retArray.push(fieldsArray);
 	}
 
