@@ -607,7 +607,7 @@ MatchManager* GlobalGetMatchManager()
 - (NSString*)matchMinutesString:(Match*)match
 {
     int MATCH_MAX_FIRST_HALF_TIME = 45*60;
-    int MATCH_MAX_TIME = 90*60;    
+    int MATCH_MAX_TIME = (90)*60;    
     
     NSNumber* seconds = [self matchSeconds:match];
     if (seconds == nil){
@@ -626,6 +626,7 @@ MatchManager* GlobalGetMatchManager()
             return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
         }
         else{
+            NSLog(@"match (%@) seconds = %d, minutes = %d", [match description], [seconds intValue], [seconds intValue]/60);
             return @"90+";
         }
     }

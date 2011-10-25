@@ -9,6 +9,7 @@
 #import "MatchConstants.h"
 #import "Match.h"
 #import "TimeUtils.h"
+#import "LogUtil.h"
 
 @implementation Match
 
@@ -82,16 +83,27 @@
     self.leagueId = leagueIdValue;
     [self setStatus:[NSNumber numberWithInt:[statusValue intValue]]];
     
-    if ([status intValue] == MATCH_STATUS_FIRST_HALF){
-        self.firstHalfStartDate = dateFromChineseStringByFormat(dateValue, 
-                                                            DEFAULT_DATE_FORMAT);
-    }
-    else if ([status intValue] == MATCH_STATUS_SECOND_HALF){
-        self.secondHalfStartDate = dateFromChineseStringByFormat(dateValue, 
-                                                                DEFAULT_DATE_FORMAT);        
-    }
     self.date = dateFromChineseStringByFormat(dateValue, 
                                               DEFAULT_DATE_FORMAT); 
+
+    if ([status intValue] == MATCH_STATUS_FIRST_HALF){
+        self.firstHalfStartDate = dateFromChineseStringByFormat(startDateValue, 
+                                                            DEFAULT_DATE_FORMAT);
+//        PPDebug(@"%@ firstHalfStartDate = %@, input = %@", [self description], [firstHalfStartDate description], dateValue);
+    }
+    else if ([status intValue] == MATCH_STATUS_SECOND_HALF){
+        NSDate* newDate = dateFromChineseStringByFormat(startDateValue, 
+                                                                DEFAULT_DATE_FORMAT);   
+        
+        if ([newDate isEqualToDate:self.firstHalfStartDate] || [newDate isEqualToDate:self.date]){
+            PPDebug(@"warning, second half date is the same as match date or first half date! match = %@, date=%@", [self description], dateValue);
+        }
+        else{
+            self.secondHalfStartDate = newDate;
+        }
+        
+//        PPDebug(@"%@ secondHalfStartDate = %@, input = %@",[self description], [secondHalfStartDate description], dateValue);
+    }
     
     self.homeTeamName = homeTeamNameValue;
     self.homeTeamRed = homeTeamRedValue;

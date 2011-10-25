@@ -1,17 +1,26 @@
 
-// init all global objects
 
+// all remote request URL
 var YAPEI_URL = "http://bf.bet007.com/phone/Handicap.aspx?ID=";
 var OVERUNDER_URL = "http://bf.bet007.com/phone/OverUnder.aspx?ID=";
+var LINEUP_URL = "http://bf.bet007.com/phone/Lineup.aspx?ID=";
+var YAPEI_DETAIL_URL = "http://bf.bet007.com/phone/HandicapDetail.aspx?OddsID=";
+var OVERUNDER_DETAIL_URL = "http://bf.bet007.com/phone/OverUnderDetail.aspx?OddsID=";
 
+var TYPE_YAPEI = 1;
+var TYPE_OVERUNDER = 2;
+
+// current language
 var language = 0;
 
+// init all global objects
 var oupeiManager = new OupeiManager();
-var yapeiManager = new YapeiManager(YAPEI_URL);
-var yapeiCompanyManager = new BetCompanyManager();
-var lineupManager = new LineupManager();
+var yapeiCompanyManager = new BetCompanyManager(YAPEI_DETAIL_URL, TYPE_YAPEI);
+var yapeiManager = new YapeiManager(YAPEI_URL, yapeiCompanyManager, TYPE_YAPEI);
+var lineupManager = new LineupManager(LINEUP_URL);
 var matchDetailManager = new MatchDetailManager();
-var overunderManager = new OverunderManager(OVERUNDER_URL);
+//var overunderManager = new OverunderManager(OVERUNDER_URL);
+var overunderCompanyManager = new BetCompanyManager(OVERUNDER_DETAIL_URL, TYPE_OVERUNDER);
+var overunderManager = new YapeiManager(OVERUNDER_URL, overunderCompanyManager, TYPE_OVERUNDER);
 
 var matchService = new MatchService();
-

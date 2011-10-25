@@ -24,7 +24,7 @@ MatchDetailApp = new Ext.Application({
 //        testDisplayOupeiDetail();
 
 //		测试亚赔
-		testDisplayYapeiDetail();
+//		testDisplayYapeiDetail();
 
 //		测试亚赔变化
 //      testYapeiOddsDetail();
@@ -35,6 +35,7 @@ MatchDetailApp = new Ext.Application({
 
 //		测试阵容
 //		testDisplayLineup();
+//		testDisplayLineupRemote();
 
     }
 
@@ -56,8 +57,8 @@ function getOupeiView(){
 	return new OupeiView();
 }
 
-function getYapeiView(){
-	return new YapeiView();
+function getYapeiView(type){
+	return new YapeiView(type);
 }
 
 function getLineupView() {
@@ -65,11 +66,11 @@ function getLineupView() {
 }
 
 function getOverunderView() {
-	return new OverunderView();
+	return new YapeiView();	// the same as yapei view
 }
 
-function getYapeiDetailView() {
-	return new YapeiDetailView();
+function getYapeiDetailView(type) {
+	return new YapeiDetailView(type);
 }
 
 function displayMatchEvent(reload, matchId, lang, data){
@@ -91,16 +92,19 @@ function displayMatchEvent(reload, matchId, lang, data){
 	return true;
 }
 
-function displayYapeiOddsDetail(betCompanyId){
+function displayYapeiOddsDetail(type, betCompanyId){
 
-	if (MatchDetailApp == null || MatchDetailApp == undefined){
-		return;
+	var betManager = null;
+	if (type == TYPE_YAPEI){
+		betManager = yapeiCompanyManager;
 	}
-	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
-		MatchDetailApp.yapeiDetailView = getYapeiDetailView();
+	else{
+		betManager = overunderCompanyManager;
 	}
+	
+	MatchDetailApp.yapeiDetailView = getYapeiDetailView(type);
 			
-	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betManager, betCompanyId); // TODO
 	setCurrentView(MatchDetailApp.yapeiDetailView.mainPanel);
 	return true;
 }
@@ -148,7 +152,7 @@ function displayYapeiDetail(reload, matchId, lang, data){
 			return false;
 		}
 	}
-	MatchDetailApp.yapeiView = getYapeiView();	
+	MatchDetailApp.yapeiView = getYapeiView(TYPE_YAPEI);	
 	MatchDetailApp.yapeiView.updateView(yapeiManager);
 	setCurrentView(MatchDetailApp.yapeiView.mainPanel);	
 	return true;	
@@ -164,10 +168,11 @@ function displayOverunder(reload, matchId, lang, data) {
 				return false;
 		}
 	}
-		MatchDetailApp.overunderView = getOverunderView();
-		MatchDetailApp.overunderView.updateView(overunderManager);
-		setCurrentView(MatchDetailApp.overunderView.mainPanel);
-		return true;
+	
+	MatchDetailApp.overunderView = getOverunderView(TYPE_OVERUNDER);
+	MatchDetailApp.overunderView.updateView(overunderManager);
+	setCurrentView(MatchDetailApp.overunderView.mainPanel);
+	return true;
 }
 
 function displayLineup(reload, matchId, lang, data){

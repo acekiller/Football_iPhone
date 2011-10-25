@@ -170,18 +170,17 @@
                     <td width="37%">即时盘</td>
                     <td width="9%">变</td>
                 </tr>
-				<tpl for=".">
+				<tpl for="dataArray">
 				<tr>
 					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
         			<td>{homeChupei} {chupan} {awayChupei}</td>
         			<td>{homeJishi} {jishi} {awayJishi}</td>
-        			<td><div onclick="displayYapeiOddsDetail({[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
+        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
 				</tr>
 				</tpl>
         </textarea>
 		<textarea id="home-lineup-template" class="x-hidden-display">
-            <ul id="homelist"> 
-				<h1>主队正选阵容</h1>           	
+            <ul id="homelist" class="teams1"> 
                 <tpl for=".">
                     <li>
                         <h2>{.}</h2>
@@ -190,8 +189,7 @@
             </ul>
         </textarea>
 		<textarea id="home-reserve-template" class="x-hidden-display">
-            <ul id="homeReservelist"> 
-				<h1>主队后备</h1>           	
+            <ul id="homeReservelist" class="teams3"> 
                 <tpl for=".">
                     <li>
                         <h2>{.}</h2>
@@ -200,8 +198,7 @@
             </ul>
         </textarea>
 		<textarea id="away-lineup-template" class="x-hidden-display">
-            <ul id="awaylist"> 
-				<h1>客队正选阵容</h1>           	
+            <ul id="awaylist" class="teams2"> 
                 <tpl for=".">
                     <li>
                         <h2>{.}</h2>
@@ -210,8 +207,7 @@
             </ul>
         </textarea>
 		<textarea id="away-reserve-template" class="x-hidden-display">
-            <ul id="awayReservelist"> 
-				<h1>客队后备</h1>           	
+            <ul id="awayReservelist" class="teams4"> 
                 <tpl for=".">
                     <li>
                         <h2>{.}</h2>
@@ -223,7 +219,7 @@
         	<div class="ac_left_title">赔率公司选择</div>
 		    <ul id="ao_c" class="ac_bg">
 		    	<tpl for="betCompanyList">
-				    <li id="com{#}" class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="changebg({#}),MatchDetailApp.yapeiDetailView.updateCompanyOdds({[values.betId]})">{name}</div></li>
+				    <li id="com{#}" class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="changebg({#}),displayYapeiOddsDetail({[parent.type]}, {[values.betId]})">{name}</div></li>
     			</tpl>
     		</ul>    		
         </textarea>
