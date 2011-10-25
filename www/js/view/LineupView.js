@@ -44,7 +44,7 @@ function LineupView(){
         defaults: {
             width: '100%',
             defaults: {
-                height: '100%'
+//                height: '100%'
             }
         },
         scroll: 'vertical',
@@ -59,7 +59,7 @@ function LineupView(){
             ]
         }, {
 			flex: 1,
-			margin: '-60 0 0 0',						
+			margin: '0 0 0 0',						
             xtype: 'panel',
             layout: 'hbox',
             items: [
