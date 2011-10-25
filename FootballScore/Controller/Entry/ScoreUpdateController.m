@@ -66,7 +66,6 @@
     self.dateTimeLabel.text = [self getDateString];
 //    UIColor *dateTimeTextColor=[UIColor colorWithRed:0x1B/255.0 green:0x4A/255.0 blue:0x6D/255.0 alpha:1];
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
-    
         
     /*  假数据，调试使用。
     
@@ -199,7 +198,7 @@
                 NSInteger homeCount = [scoreUpdate homeTeamDataCount];
                 NSInteger awayCount = [scoreUpdate awayTeamDataCount];
                 NSString *statusText = [NSString stringWithFormat:@"%@ %d : %d %@",homeTeamName,homeCount,awayCount,awayTeamName];
-                [StatusView showtStatusText:statusText vibrate:YES duration:60];
+                [StatusView showtStatusText:statusText vibrate:YES duration:10];
                 break;
             }
         }

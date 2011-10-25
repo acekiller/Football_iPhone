@@ -11,63 +11,60 @@ function LineupView(){
     this.homeLineupPanel = new Ext.Panel({
         id: 'homeLineupPanel',
         tpl: homeLineupTemplate,
-        margin: '0 0 0 20',
-        align: 'left'
+        margin: '10 0 10 20',
+        align: 'left',
     });
     
     this.homeReservePanel = new Ext.Panel({
         id: 'homeReservePanel',
         tpl: homeReserveTemplate,
         margin: '0 0 0 20',
-        align: 'left'
     });
     
     this.awayLineupPanel = new Ext.Panel({
         id: 'awayLineupPanel',
         tpl: awayLineupTemplate,
-        margin: '0 0 0 10',
+        margin: '10 0 10 110',
         align: 'left'
     });
     
     this.awayReservePanel = new Ext.Panel({
         id: 'awayReservePanel',
         tpl: awayReserveTemplate,
-        margin: '0 0 0 10',
-        align: 'left'
+        margin: '0 0 0 110',
     });
-    
-    this.mainPanel = new Ext.Panel({
-    
-        fullscreen: true,
-        layout: 'vbox',
-		bodyStyle:'background-image: url(images/team_bg@2x.png);background-repeat: no-repeat;width: 310px;height: 326px;',  
-        defaults: {
-            width: '100%',
-            defaults: {
-//                height: '100%'
-            }
-        },
-        scroll: 'vertical',
-        items: [{
-			flex: 1,
-			margin: '10 0 0 0',
-            xtype: 'panel',
-            layout: 'hbox',
-            items: [
-               this.homeLineupPanel,
-               this.awayLineupPanel
-            ]
-        }, {
-			flex: 1,
-			margin: '0 0 0 0',						
-            xtype: 'panel',
-            layout: 'hbox',
-            items: [
-                this.homeReservePanel,
-                this.awayReservePanel
-            ]
-        }, ]
-    });
+	
+	this.subPanel1 = new Ext.Panel({	
+	    layout: {
+	        type: 'vbox',
+	        align: 'left'
+	    },
+	    items: [this.homeLineupPanel,
+               this.homeReservePanel]          
+	});
+	
+	this.subPanel2 = new Ext.Panel({	
+	    layout: {
+	        type: 'vbox',
+	        align: 'left'
+	    },
+	    items: [this.awayLineupPanel,
+               this.awayReservePanel]          
+	});
+	
+	this.mainPanel = new Ext.Panel({
+		fullscreen: true,
+		bodyStyle:'background-image: url(images/team_bg@2x.png);background-repeat: no-repeat',
+		layout: {
+	        type: 'hbox',
+			align: 'left'
+	    }, 
+		scroll : 'vertical',
+	    items: [this.subPanel1,
+               this.subPanel2]   
+
+	});
+
 }
 
 LineupView.prototype = {
@@ -80,16 +77,11 @@ LineupView.prototype = {
 			this.awayLineupPanel.update(manager.data.awayLineup);
 			this.awayReservePanel.update(manager.data.awayReserve);
 		}
-		 else if (manager.data.homeLineup.length == 0){
-//			Ext.get('homelist').dom.style.display = 'none'; 
-//			Ext.get('homeReservelist').dom.style.display = 'none'; 
-//			Ext.get('awaylist').dom.style.display = 'none'; 
-//			Ext.get('awayReservelist').dom.style.display = 'none';		
-//			console.log("no lineup data");	
-			this.homeReservePanel.hide();
-			this.homeLineupPanel.hide();
-			this.awayLineupPanel.hide();
-			this.awayReservePanel.hide(); 
+		 else if (manager.data.homeLineup[0].length == 0){
+			Ext.get('homelist').dom.style.display = 'none'; 
+			Ext.get('homeReservelist').dom.style.display = 'none'; 
+			Ext.get('awaylist').dom.style.display = 'none'; 
+			Ext.get('awayReservelist').dom.style.display = 'none'; 
 		}
 	}
 };
