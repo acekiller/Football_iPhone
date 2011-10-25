@@ -1,6 +1,8 @@
 
-function YapeiDetailView(){
+function YapeiDetailView(type){
 	
+	this.type = type;
+
 	var helperFunctions = {
 		pankouString : function(string)
 	    {			
@@ -24,11 +26,12 @@ function YapeiDetailView(){
 		}
 		
 	};
-
+	
     var companyTemplate = Ext.XTemplate.from("odds-detail-company-template", helperFunctions);
 	var oddsTemplate = Ext.XTemplate.from("odds-detail-template", helperFunctions);
 
 	this.selectCompanyId = null;
+	this.manager = null;
 
     this.companyPanel = new Ext.Panel({            
         id : 'companyPanel',
@@ -62,23 +65,24 @@ function YapeiDetailView(){
 YapeiDetailView.prototype = {
 	constructor : YapeiDetailView,
 	
-	updateCompany : function(){
-		this.companyPanel.update(yapeiCompanyManager);
+	updateCompany : function(manager){
+		this.manager = manager;
+		this.companyPanel.update(manager);
 	},
 	
-	updateCompanyOdds : function(companyId){
+	updateCompanyOdds : function(manager, companyId){
 
 		if (companyId == null || companyId.length <= 0) {
 			console.log("update company odds by id but id is null or length <= 0");
 			return;
 		}			
 		
-		yapeiCompanyManager.selectCompanyId = companyId;
+		this.manager = manager;
+		manager.selectCompanyId = companyId;
 		
-//		alert("updateCompanyOdds, companyId=" + companyId);
-		yapeiCompanyManager.requestOddsChangeFromServer(companyId);		
-		this.oddsPanel.update(yapeiCompanyManager.oddsChangeList);
-		this.companyPanel.update(yapeiCompanyManager);
+		manager.requestOddsChangeFromServer(companyId);		
+		this.oddsPanel.update(manager.oddsChangeList);
+		this.companyPanel.update(manager);
 	},
 	
 	test : function(){

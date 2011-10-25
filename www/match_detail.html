@@ -170,12 +170,12 @@
                     <td width="37%">即时盘</td>
                     <td width="9%">变</td>
                 </tr>
-				<tpl for=".">
+				<tpl for="dataArray">
 				<tr>
 					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
         			<td>{homeChupei} {chupan} {awayChupei}</td>
         			<td>{homeJishi} {jishi} {awayJishi}</td>
-        			<td><div onclick="displayYapeiOddsDetail({[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
+        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
 				</tr>
 				</tpl>
         </textarea>
@@ -223,7 +223,7 @@
         	<div class="ac_left_title">赔率公司选择</div>
 		    <ul id="ao_c" class="ac_bg">
 		    	<tpl for="betCompanyList">
-				    <li id="com{#}" class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="changebg({#}),MatchDetailApp.yapeiDetailView.updateCompanyOdds({[values.betId]})">{name}</div></li>
+				    <li id="com{#}" class={[parent.selectCompanyId === values.betId ? "ac_Select" : ""]}><div onclick="changebg({#}),displayYapeiOddsDetail({[parent.type]}, {[values.betId]})">{name}</div></li>
     			</tpl>
     		</ul>    		
         </textarea>

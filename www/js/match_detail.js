@@ -57,8 +57,8 @@ function getOupeiView(){
 	return new OupeiView();
 }
 
-function getYapeiView(){
-	return new YapeiView();
+function getYapeiView(type){
+	return new YapeiView(type);
 }
 
 function getLineupView() {
@@ -69,8 +69,8 @@ function getOverunderView() {
 	return new YapeiView();	// the same as yapei view
 }
 
-function getYapeiDetailView() {
-	return new YapeiDetailView();
+function getYapeiDetailView(type) {
+	return new YapeiDetailView(type);
 }
 
 function displayMatchEvent(reload, matchId, lang, data){
@@ -92,12 +92,19 @@ function displayMatchEvent(reload, matchId, lang, data){
 	return true;
 }
 
-function displayYapeiOddsDetail(betCompanyId){
+function displayYapeiOddsDetail(type, betCompanyId){
 
+	var betManager = null;
+	if (type == TYPE_YAPEI){
+		betManager = yapeiCompanyManager;
+	}
+	else{
+		betManager = overunderCompanyManager;
+	}
 	
-	MatchDetailApp.yapeiDetailView = getYapeiDetailView();
+	MatchDetailApp.yapeiDetailView = getYapeiDetailView(type);
 			
-	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId); // TODO
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betManager, betCompanyId); // TODO
 	setCurrentView(MatchDetailApp.yapeiDetailView.mainPanel);
 	return true;
 }
@@ -145,7 +152,7 @@ function displayYapeiDetail(reload, matchId, lang, data){
 			return false;
 		}
 	}
-	MatchDetailApp.yapeiView = getYapeiView();	
+	MatchDetailApp.yapeiView = getYapeiView(TYPE_YAPEI);	
 	MatchDetailApp.yapeiView.updateView(yapeiManager);
 	setCurrentView(MatchDetailApp.yapeiView.mainPanel);	
 	return true;	
@@ -162,7 +169,7 @@ function displayOverunder(reload, matchId, lang, data) {
 		}
 	}
 	
-	MatchDetailApp.overunderView = getOverunderView();
+	MatchDetailApp.overunderView = getOverunderView(TYPE_OVERUNDER);
 	MatchDetailApp.overunderView.updateView(overunderManager);
 	setCurrentView(MatchDetailApp.overunderView.mainPanel);
 	return true;

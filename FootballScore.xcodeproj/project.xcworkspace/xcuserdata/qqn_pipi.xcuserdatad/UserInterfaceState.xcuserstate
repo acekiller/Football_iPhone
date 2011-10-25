@@ -9681,9 +9681,9 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>341154713.36881697</real>
-		<string>{2384, 1800}</string>
-		<string>{3530, 19}</string>
+		<real>341202200.49173599</real>
+		<string>{5259, 1686}</string>
+		<string>{6533, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13964,7 +13964,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>341160660.93901098</real>
+		<real>341196825.68645298</real>
 		<string>{20429, 1069}</string>
 		<string>{21124, 0}</string>
 		<dict>
@@ -21716,7 +21716,7 @@
 				<integer>1592</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>341160649.34312803</real>
+			<real>341202198.89516801</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -21727,7 +21727,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 下午10:50</string>
+		<string>Today at 上午10:23</string>
 		<integer>106</integer>
 		<string>FootballScore</string>
 		<dict>
@@ -21883,7 +21883,7 @@
 				<integer>1607</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Service/MatchService.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21901,7 +21901,7 @@
 				<integer>1609</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21919,7 +21919,7 @@
 				<integer>1611</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/Match.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21937,7 +21937,7 @@
 				<integer>1613</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/Match.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/Match.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21955,7 +21955,7 @@
 				<integer>1615</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Common_Iphone/Utils/TimeUtils.h</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/Match.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21973,7 +21973,7 @@
 				<integer>1617</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Common_Iphone/Utils/TimeUtils.m</string>
+		<string>file://localhost/gitdata/Common_Iphone/Utils/TimeUtils.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -21991,7 +21991,7 @@
 				<integer>1619</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/xcode4/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSDateFormatter.h</string>
+		<string>file://localhost/gitdata/Common_Iphone/Utils/TimeUtils.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -22009,7 +22009,7 @@
 				<integer>1621</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/LeagueManager.m</string>
+		<string>file://localhost/xcode4/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSDateFormatter.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -22027,7 +22027,7 @@
 				<integer>1623</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Service/MatchService.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/LeagueManager.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -23966,7 +23966,7 @@
 		<string>IDEWorkspaceTabControllerDesignAreaSplitView</string>
 		<string>IDEShowUtilities</string>
 		<string>AssistantEditorsLayout</string>
-		<string>MatchManager.m</string>
+		<string>MatchService.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -24165,7 +24165,7 @@
 				<integer>1803</integer>
 			</dict>
 		</dict>
-		<string>MatchManager.m</string>
+		<string>MatchService.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -24178,7 +24178,7 @@
 				<integer>1805</integer>
 			</dict>
 		</dict>
-		<string>Model</string>
+		<string>Service</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -24213,7 +24213,7 @@
 			<key>documentURL</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>594</integer>
+				<integer>414</integer>
 			</dict>
 			<key>timestamp</key>
 			<dict>
@@ -24897,10 +24897,10 @@
 				</dict>
 			</array>
 		</dict>
-		<real>341160660.94221503</real>
-		<string>{20429, 1069}</string>
-		<string>{21124, 0}</string>
-		<string>-matchMinutesString:</string>
+		<real>341202200.52395397</real>
+		<string>{5259, 1686}</string>
+		<string>{6533, 0}</string>
+		<string>-getMatchEvent:matchId:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -24919,7 +24919,7 @@
 				<integer>1872</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Model/MatchManager.m</string>
+		<string>file://localhost/gitdata/Football_iPhone/FootballScore/Service/MatchService.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -24934,7 +24934,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {834, 508}}</string>
+		<string>{{0, 0}, {834, 514}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -25004,7 +25004,7 @@
 			</array>
 		</dict>
 		<string>IDEEditor</string>
-		<real>530</real>
+		<real>536</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -25035,7 +25035,7 @@
 			</array>
 		</dict>
 		<string>IDEDebuggerArea</string>
-		<real>213</real>
+		<real>207</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -25290,7 +25290,7 @@
 		<string>IDESCMStatusFilteringEnabled</string>
 		<string>IDESelectedObjects</string>
 		<string>IDEExpandedItemsSet</string>
-		<string>{{0, 167}, {290, 699}}</string>
+		<string>{{0, 452}, {290, 699}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -25358,7 +25358,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1918</integer>
+					<integer>1917</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -25440,11 +25440,10 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1917</integer>
+					<integer>1805</integer>
 				</dict>
 			</array>
 		</dict>
-		<string>Service</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -25463,10 +25462,11 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>1805</integer>
+					<integer>1918</integer>
 				</dict>
 			</array>
 		</dict>
+		<string>Model</string>
 		<dict>
 			<key>$class</key>
 			<dict>
