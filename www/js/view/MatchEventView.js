@@ -16,14 +16,15 @@ function getEventString(type){
 	}
 }
 
+var statArray = [
+    "先开球", "第一个角球", "第一张黄牌", "射门次数", "射正次数", "犯规次数", "角球次数", "角球次数(加时)", 
+    "任意球次数", "越位次数", "乌龙球数", "黄牌数", "黄牌数(加时)", "红牌数", "控球时间", "头球", "救球", 
+    "守门员出击", "丟球", "成功抢断", "阻截", "长传", "短传", "助攻", "成功传中", "第一个换人", "最后换人", 
+    "第一个越位", "最后越位", "换人数", "最后角球", "最后黄牌", "换人数(加时)", "越位次数(加时)", "红牌数(加时)"
+    ];
+
 function MatchDetailView(){
 
-	var statArray = [
-	    "先开球", "第一个角球", "第一张黄牌", "射门次数", "射正次数", "犯规次数", "角球次数", "角球次数(加时)", 
-	    "任意球次数", "越位次数", "乌龙球数", "黄牌数", "黄牌数(加时)", "红牌数", "控球时间", "头球", "救球", 
-	    "守门员出击", "丟球", "成功抢断", "阻截", "长传", "短传", "助攻", "成功传中", "第一个换人", "最后换人", 
-	    "第一个越位", "最后越位", "换人数", "最后角球", "最后黄牌", "换人数(加时)", "越位次数(加时)", "红牌数(加时)"
-	    ];
 	
 	var helperFunctions = {
 	
@@ -38,7 +39,7 @@ function MatchDetailView(){
 	    eventString : function(type){
 	    	switch (type){
 	    	case "1":
-	    		return "入球";
+	    		return "进球";
 	    	case "2":
 	    		return "红牌";
 	    	case "3":
@@ -57,15 +58,14 @@ function MatchDetailView(){
 			console.log("call eventImage, type = " + type);
 	    	switch (parseInt(type)){
 	    	case 1:{
-				console.log("return images/3.png");
-				return "images/3.png";
+				return "images/5.png";
 			}
 	    	case 2:
 	    		return "images/redcard.png";
 	    	case 3:
-	    		return "images/s2.png";
+	    		return "images/yellowcard@2x.png";
 	    	case 7:
-	    		return "images/5.png";
+	    		return "images/3.png";
 	    	case 8:
 	    		return "images/s.png";
 	    	case 9:
@@ -96,8 +96,7 @@ function MatchDetailView(){
 	    statString : function(type)
 	    {
 			console.log("stat string, type = "+type);
-	        return ""+statArray[type];
-	    
+	        return statArray[parseInt(type)];	    
 	    }
 	
 	};

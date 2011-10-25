@@ -66,7 +66,7 @@ enum{
 @property(nonatomic,retain) NSString *eventString;
 
 - (id)initWithMatch:(Match *)aMatch;
-
+- (void)handleClickButton:(id)sender selection:(int)newSelection;
 - (IBAction)clickMatchesDatasButton:(id)sender;
 - (IBAction)clickMatchesOupeiButton:(id)sender;
 - (IBAction)clickSelectLineupButton:(id)sender;

@@ -17,6 +17,7 @@
 #import "MatchConstants.h"
 #import "LogUtil.h"
 
+
 @implementation MatchDetailController
 
 @synthesize homeTeamIcon;
@@ -58,6 +59,7 @@
     if (self) {
         self.match = aMatch;
         currentSelection = SELECT_EVENT;
+        //currentSelection = -1;
     }
     return self;
 }
@@ -67,9 +69,8 @@
     self.match = newMatch;
     self.eventString = nil;
     self.oupeiString = nil;
-    
     currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:currentSelection];
+    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];
     
     [self loadMatchDetailHeaderFromServer];
     [self showWebViewByClick:YES];
@@ -116,11 +117,12 @@
 - (void)viewDidLoad
 {
     
+    
+    [super viewDidLoad];
+    // set default select button for button_event
     currentSelection = SELECT_EVENT;
     [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
 
-    [super viewDidLoad];
-    
     // left button 
     NSString * leftButtonName = @"ss.png";    
     [self setNavigationLeftButton:FNS(@"返回") imageName:leftButtonName action:@selector(clickBack:)];
@@ -133,9 +135,7 @@
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
     self.dataWebView.hidden = YES;
-
-    [super viewDidLoad];
-    [self initWebView];
+    [self initWebView];    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -198,7 +198,7 @@
             [button setBackgroundImage:[UIImage imageNamed:@"data_m_2.png"] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
-        else{
+        else{            
             [button setSelected:NO];
             [button setBackgroundImage:[UIImage imageNamed:@"data_m_1.png"] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -353,6 +353,48 @@
 #pragma Header Methods
 #pragma mark -
 
+- (void)setTeamNameLable:(UILabel *)label name:(NSString *)name
+{
+    NSInteger length = [name length];
+    if (length > 8) {
+        length = 8;
+    }
+    const CGFloat pxPerLetter = 14.0;
+    [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
+    if (label == self.homeTeamName) {
+        CGPoint point = CGPointMake(self.homeTeamIcon.center.x, label.center.y);
+        [label setCenter:point];
+    }else if(label == self.awayTeamName)
+    {
+        CGPoint point = CGPointMake(self.awayTeamIcon.center.x, label.center.y);
+        [label setCenter:point];
+    }
+    [label setText:name];
+}
+
+- (void)setTeamRankLable:(UILabel *)label rank:(NSString *)rank
+{
+    NSInteger length = [rank length];
+    
+    if (length > 6) {
+        length = 6;
+    }
+    const CGFloat pxPerLetter = 11.0;
+    if (label == self.homeTeamRank) {
+        
+        CGFloat x = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5;
+        [label setFrame:CGRectMake(x , label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
+        
+    }else if(label == self.awayTeamRank)
+    {
+    
+        CGFloat x = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5;
+        [label setFrame:CGRectMake(x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
+    }
+    
+    [label setText:rank];
+}
+
 - (void) setHeaderInfo:(DetailHeader *)header
 {
     
@@ -373,20 +415,39 @@
     
     //acoording to the language setting, show the team names.
     if (lang == LANG_CANTON) {
-        self.homeTeamName.text = header.homeTeamYYName;
-        self.awayTeamName.text = header.awayTeamYYName;
+       // self.homeTeamName.text = header.homeTeamYYName;
+       // self.awayTeamName.text = header.awayTeamYYName;
+        [self setTeamNameLable:self.homeTeamName name:header.homeTeamYYName];
+        [self setTeamNameLable:self.awayTeamName name:header.awayTeamYYName];
     }else{
-        self.homeTeamName.text = header.homeTeamSCName;
-        self.awayTeamName.text = header.awayTeamSCName;
+       // self.homeTeamName.text = header.homeTeamSCName;
+       // self.awayTeamName.text = header.awayTeamSCName;
+        [self setTeamNameLable:self.homeTeamName name:header.homeTeamSCName];
+        [self setTeamNameLable:self.awayTeamName name:header.awayTeamSCName];
     }
     
+    NSLog(@"homeTeamName size = %d",[self.homeTeamName.text length]);
+    NSLog(@"awayTeamName size = %d",[self.awayTeamName.text length]);    
+//    
+//    if ([header.homeTeamRank length] > 0) {
+//        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
+//    }else{
+//        self.homeTeamRank.text = nil;
+//    }
+//    if ([header.awayTeamRank length] > 0) {
+//        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
+//    }else{
+//        self.awayTeamRank.text = nil;
+//    }
+
     if ([header.homeTeamRank length] > 0) {
-        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
+        [self setTeamRankLable:self.homeTeamRank rank:[NSString stringWithFormat:@"[%@]",header.homeTeamRank]];
     }else{
         self.homeTeamRank.text = nil;
     }
+    
     if ([header.awayTeamRank length] > 0) {
-        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
+        [self setTeamRankLable:self.awayTeamRank rank:[NSString stringWithFormat:@"[%@]",header.awayTeamRank]];
     }else{
         self.awayTeamRank.text = nil;
     }

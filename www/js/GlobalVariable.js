@@ -24,3 +24,4 @@ var overunderCompanyManager = new BetCompanyManager(OVERUNDER_DETAIL_URL, TYPE_O
 var overunderManager = new YapeiManager(OVERUNDER_URL, overunderCompanyManager, TYPE_OVERUNDER);
 
 var matchService = new MatchService();
+var loadingView = null;

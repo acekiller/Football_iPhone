@@ -62,7 +62,7 @@
 
 // filter match by conditions : league, match status, match score type
 - (NSArray*)filterMatch;
-
+- (BOOL) isFilter:(Match *)match;
 
 // match event && static method
 - (void)updateMatch:(Match*)match WithEventArray:(NSArray *)eventArray;
