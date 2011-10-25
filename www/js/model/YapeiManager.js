@@ -10,12 +10,12 @@ var YAPEI_FIELD_JISHI = 6;
 var YAPEI_FIELD_AWAYJISHI = 7;
 var YAPEI_FIELD_COUNT = 8;
 
-var YAPEI_URL = "http://bf.bet007.com/phone/Handicap.aspx?ID=";
 
 // define YapeiMangager Model
-function YapeiManager(url){
+function YapeiManager(url, companyManager){
 	this.url = url;
 	this.dataArray = null;
+	this.companyManager = companyManager;
 }
 
 YapeiManager.prototype = {
@@ -40,7 +40,7 @@ YapeiManager.prototype = {
 		}
 		else{
 			this.dataArray = new Array();			
-			yapeiCompanyManager.clear();				
+			this.companyManager.clear();				
 		}			
 		
 		for (var i = 0; i < len; i++) {
@@ -51,7 +51,7 @@ YapeiManager.prototype = {
 				var obj = new YapeiObject(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME], record[YAPEI_FIELD_HOMECHUPEI], CHUPAN, record[YAPEI_FIELD_AWAYCHUPEI], record[YAPEI_FIELD_HOMEJISHI], JISHI, record[YAPEI_FIELD_AWAYJISHI]);				
 				this.dataArray.push(obj);
 				
-				yapeiCompanyManager.add(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME]);				
+				this.companyManager.add(record[YAPEI_FIELD_ID], record[YAPEI_FIELD_NAME]);				
 			}
 			else {
 				console.log("<warning> readYAPEIData, but field in record is null or field count not enough");
@@ -73,12 +73,12 @@ YapeiManager.prototype = {
 		  else{
 		  	 return false;
 		  }
-	},
-	
-	requestDataFromServer : function(matchId, lang){
-		// TODO 
-		return true;
 	}
+	
+//	requestDataFromServer : function(matchId, lang){
+		// TODO 
+//		return true;
+//	}
 };
 
 

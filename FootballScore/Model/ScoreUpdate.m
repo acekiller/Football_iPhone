@@ -12,10 +12,8 @@
 @implementation ScoreUpdate
 
 @synthesize match;
-//@synthesize homeRedFlag;
-//@synthesize awayRedFlag;
-//@synthesize homeYellowFlag;
-//@synthesize awayYelloFlag;
+@synthesize homeTeamDataCount;
+@synthesize awayTeamDataCount;
 @synthesize scoreUpdateType;
 @synthesize updateMinute;
 
@@ -33,6 +31,24 @@
         self.match = aMatch;
         self.scoreUpdateType = type;
         self.updateMinute = [[MatchManager defaultManager] matchMinutesString:match];
+        if (type < HOMETEAMRED && type >= HOMETEAMSCORE) {
+            //score
+            self.homeTeamDataCount =[[match homeTeamScore] integerValue];
+            self.awayTeamDataCount = [[match awayTeamScore] integerValue];
+        }else if(type < HOMETEAMYELLOW){
+            //red card
+            self.homeTeamDataCount = [[match homeTeamRed] integerValue];
+            self.awayTeamDataCount = [[match awayTeamRed] integerValue];
+        }else if(type < TYPECOUNT){
+            //yellow card
+            self.homeTeamDataCount = [[match homeTeamYellow] integerValue];
+            self.awayTeamDataCount = [[match awayTeamYellow] integerValue];
+        }else{
+            //error type
+            self.homeTeamDataCount = 0;
+            self.awayTeamDataCount = 0;
+        }
+        
     }
     return self;
 }
@@ -64,30 +80,5 @@
 - (NSString *)leagueName
 {
     return [[MatchManager defaultManager] getLeagueNameByMatch:self.match];
-}
-- (NSString *)homeTeamScore
-{
-    return [self.match homeTeamScore];
-}
-- (NSString *)awayTeamScore
-{
-    return [self.match awayTeamScore];
-}
-
-- (NSString *)homeTeamRedcard
-{
-    return [self.match homeTeamRed];
-}
-- (NSString *)awayTeamRedcard
-{
-    return [self.match awayTeamRed];
-}
-- (NSString *)homeTeamYellowcard
-{
-    return [self.match homeTeamYellow];
-}
-- (NSString *)awayTeamYellowcard
-{
-    return [self.match awayTeamYellow];
 }
 @end

@@ -57,6 +57,7 @@
     self = [super init];
     if (self) {
         self.match = aMatch;
+        currentSelection = SELECT_EVENT;
     }
     return self;
 }
@@ -203,47 +204,6 @@
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }   
     }
-
-    /*
-    
-    for (int i=MATCH_DATA_STATUS_EVENT; i<=MATCH_DATA_STATUS_SIZE; i++){        
-            switch (i) {
-            case MATCH_DATA_STATUS_EVENT:
-            {                             
-                [self matchDataButtonBackGround : selectMatchStatus ];
-            }
-                break;
-            case MATCH_DATA_STATUS_LINEUP:
-            {
-                 [self matchDataButtonBackGround : selectMatchStatus ];             
-            }
-                break; 
-            case MATCH_DATA_STATUS_ANALYSIS:
-            {
-                 [self matchDataButtonBackGround : selectMatchStatus ];
-            }
-                break; 
-            case MATCH_DATA_STATUS_ASIANODDS:
-            {
-                 [self matchDataButtonBackGround : selectMatchStatus ];
-            }
-                break; 
-            case MATCH_DATA_STATUS_AUROPEANODDS:
-            { 
-                [self matchDataButtonBackGround : selectMatchStatus ];           
-            }
-                break; 
-            case MATCH_DATA_STATUS_SIZE:
-            {
-                 [self matchDataButtonBackGround : selectMatchStatus ];             
-            }
-                break; 
-            default:
-                break;
-        }
-    }
-     
-    */ 
 }
 
 #pragma Ou Pei
@@ -271,7 +231,7 @@
 
 - (void)updateOupeiView:(NSString*)oupeiDataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"updateOupeiDetail(\"%@\");", oupeiDataString];      
+    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
     PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
 
@@ -293,7 +253,8 @@
 
 - (void)updateYapeiView:(NSString*)dataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"showYapeiView(%@);", match.matchId];      
+    NSString *jsCode = [NSString stringWithFormat:@"displayYapeiDetail(true, %@, %d);", 
+                        match.matchId, [LanguageManager getLanguage]];      
     PPDebug(@"<updateYapeiView> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
     
@@ -305,6 +266,42 @@
 - (BOOL)showYapeiView:(BOOL)needReload
 {
     [self updateYapeiView:nil];
+    return YES;
+}
+
+- (void)updateOverunderView:(NSString*)dataString
+{           
+    NSString *jsCode = [NSString stringWithFormat:@"displayOverunder(true, %@, %d);", 
+                        match.matchId, [LanguageManager getLanguage]];      
+    PPDebug(@"<updateOverunderView> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
+}
+
+// return the view is shown directly or not
+- (BOOL)showOverunderView:(BOOL)needReload
+{
+    [self updateOverunderView:nil];
+    return YES;
+}
+
+- (void)updateLineupView:(NSString*)dataString
+{           
+    NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, %@, %d);", 
+                        match.matchId, [LanguageManager getLanguage]];      
+    PPDebug(@"<updateLineupView> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
+}
+
+// return the view is shown directly or not
+- (BOOL)showLineupView:(BOOL)needReload
+{
+    [self updateLineupView:nil];
     return YES;
 }
 
@@ -332,7 +329,8 @@
 
 - (void)updateEventView:(NSString*)eventDataString
 {
-    NSString *jsCode = [NSString stringWithFormat:@"updateMatchDetail(\"%@\");",eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+                        [LanguageManager getLanguage], eventDataString];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -435,6 +433,14 @@
             
         case SELECT_YAPEI:
             [self showYapeiView:needReload];
+            break;
+            
+        case SELECT_DAXIAO:
+            [self showOverunderView:needReload];
+            break;
+            
+        case SELECT_LINEUP:
+            [self showLineupView:needReload];
             break;
             
         default:

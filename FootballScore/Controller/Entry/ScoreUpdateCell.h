@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewCell.h"
-
 @protocol ScoreUpdateCellDelegate <NSObject>
 
 -(void) endClickDeleteButton:(NSIndexPath *)indexPath;
 
 @end
+
 
 @class ScoreUpdate;
 @interface ScoreUpdateCell : PPTableViewCell {
@@ -43,10 +43,13 @@
 @property (nonatomic, retain) IBOutlet UIImageView *eventStateImage;
 @property (nonatomic, retain) IBOutlet UIButton *deleteButton;
 @property (nonatomic, assign) id<ScoreUpdateCellDelegate> scoreUpdateCellDelegate;
+
 - (IBAction)clickDeleteButton:(id)sender;
 
 + (ScoreUpdateCell*)createCell:(id)delegate;
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
 - (void)setCellInfo:(ScoreUpdate *)scoreUpdate;
+
+
 @end
