@@ -39,7 +39,7 @@ function MatchDetailView(){
 	    eventString : function(type){
 	    	switch (type){
 	    	case "1":
-	    		return "入球";
+	    		return "进球";
 	    	case "2":
 	    		return "红牌";
 	    	case "3":
@@ -58,15 +58,14 @@ function MatchDetailView(){
 			console.log("call eventImage, type = " + type);
 	    	switch (parseInt(type)){
 	    	case 1:{
-				console.log("return images/3.png");
-				return "images/3.png";
+				return "images/5.png";
 			}
 	    	case 2:
 	    		return "images/redcard.png";
 	    	case 3:
-	    		return "images/s2.png";
+	    		return "images/yellowcard@2x.png";
 	    	case 7:
-	    		return "images/5.png";
+	    		return "images/3.png";
 	    	case 8:
 	    		return "images/s.png";
 	    	case 9:
