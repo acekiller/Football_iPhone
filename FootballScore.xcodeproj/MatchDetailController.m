@@ -42,6 +42,7 @@
 
 @synthesize match;
 @synthesize detailHeader;
+@synthesize scoreButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +102,7 @@
     [dataWebView release];
     
     [detailHeader release];
+    [scoreButton release];
     [super dealloc];
 }
 
@@ -175,6 +177,7 @@
     [self setDataWebView:nil];
     
     [self setDetailHeader:nil];
+    [self setScoreButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -361,8 +364,8 @@
 - (void)setTeamNameLable:(UILabel *)label name:(NSString *)name
 {
     NSInteger length = [name length];
-    if (length > 8) {
-        length = 8;
+    if (length > 9) {
+        length = 9;
     }
     const CGFloat pxPerLetter = 14.0;
     [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
@@ -384,7 +387,7 @@
     if (length > 6) {
         length = 6;
     }
-    const CGFloat pxPerLetter = 11.0;
+    const CGFloat pxPerLetter = 9.0;
     if (label == self.homeTeamRank) {
         
         CGFloat x = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5;
@@ -405,7 +408,19 @@
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
+    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE) {
+        //score text
+        NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
+        [self.scoreButton setTitle:title forState:UIControlStateNormal];
+        [self.scoreButton setImage:nil forState:UIControlStateNormal];
+    }else{
+        // vs image
+        [self.scoreButton setImage:[UIImage imageNamed:@"vs.png"] forState:UIControlStateNormal];
+        [self.scoreButton setTitle:nil forState:UIControlStateNormal];
+    }
+//    [self.scoreButton setEnabled:NO];
     NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
+    
     
     
     NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
