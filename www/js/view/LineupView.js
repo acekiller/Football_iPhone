@@ -60,7 +60,7 @@ function LineupView(){
             ]
         }, {
 			scroll: 'vertical',
-			margin: '-60 0 0 0',						
+			margin: '0 0 0 0',						
             xtype: 'panel',
             layout: 'hbox',
             items: [

@@ -64,5 +64,5 @@ function testDisplayLineup(){
 }
 
 function testDisplayLineupRemote(){
-	displayLineup(true, "512045", 0);
+	displayLineup(true, "587978", 0);
 }
