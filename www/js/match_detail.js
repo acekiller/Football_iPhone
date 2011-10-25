@@ -17,6 +17,9 @@ MatchDetailApp = new Ext.Application({
         // set launched flag
         MatchDetailApp.isLaunched = 1;
         
+        // setup loading view
+        loadingView = new Ext.LoadMask(Ext.getBody(), {msg:"加载中..."});
+        
 //		测试比赛事件
 //		testDisplayMatchEventLocally();
 		
@@ -31,10 +34,10 @@ MatchDetailApp = new Ext.Application({
 
 //		测试大小
 //      testDisplayOverunder();
-//		testDisplayOverunderRemote();
+		testDisplayOverunderRemote();
 
 //		测试阵容
-		testDisplayLineup();
+//		testDisplayLineup();
 //		testDisplayLineupRemote();
 
     }
