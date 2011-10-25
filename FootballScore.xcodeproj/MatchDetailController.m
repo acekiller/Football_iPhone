@@ -231,7 +231,10 @@
 
 - (void)updateOupeiView:(NSString*)oupeiDataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+//    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+
+    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
 
@@ -242,10 +245,10 @@
 // return the view is shown directly or not
 - (BOOL)showOupeiView:(BOOL)needReload
 {
-    if (self.oupeiString == nil || needReload){
-        [self loadOupeiDataFromServer];
-        return NO;
-    }
+//    if (self.oupeiString == nil || needReload){
+//        [self loadOupeiDataFromServer];
+//        return NO;
+//    }
     
     [self updateOupeiView:self.oupeiString];
     return YES;
@@ -329,8 +332,10 @@
 
 - (void)updateEventView:(NSString*)eventDataString
 {
-    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
-                        [LanguageManager getLanguage], eventDataString];    
+//    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+//                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -341,10 +346,10 @@
 // return the view is shown directly or not
 - (BOOL)showEventView:(BOOL)needReload
 {
-    if (self.eventString == nil || needReload){
-        [self loadMatchEventFromServer];
-        return NO;
-    }
+//    if (self.eventString == nil || needReload){
+//        [self loadMatchEventFromServer];
+//        return NO;
+//    }
     
     [self updateEventView:self.eventString];
     return YES;
@@ -406,7 +411,7 @@
     NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
     
     if (date && dateString) {
-        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"[%@]",dateString];
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"%@",dateString];
     }else{
         self.matchStarttimeLabel.text = nil;
     }
@@ -415,30 +420,13 @@
     
     //acoording to the language setting, show the team names.
     if (lang == LANG_CANTON) {
-       // self.homeTeamName.text = header.homeTeamYYName;
-       // self.awayTeamName.text = header.awayTeamYYName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamYYName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamYYName];
     }else{
-       // self.homeTeamName.text = header.homeTeamSCName;
-       // self.awayTeamName.text = header.awayTeamSCName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamSCName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamSCName];
     }
-    
-    NSLog(@"homeTeamName size = %d",[self.homeTeamName.text length]);
-    NSLog(@"awayTeamName size = %d",[self.awayTeamName.text length]);    
-//    
-//    if ([header.homeTeamRank length] > 0) {
-//        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
-//    }else{
-//        self.homeTeamRank.text = nil;
-//    }
-//    if ([header.awayTeamRank length] > 0) {
-//        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
-//    }else{
-//        self.awayTeamRank.text = nil;
-//    }
+
 
     if ([header.homeTeamRank length] > 0) {
         [self setTeamRankLable:self.homeTeamRank rank:[NSString stringWithFormat:@"[%@]",header.homeTeamRank]];

@@ -36,11 +36,12 @@ enum ScoreUpdateType{
 @property (nonatomic, assign) NSInteger homeTeamDataCount;
 @property (nonatomic, assign) NSInteger awayTeamDataCount;
 
--(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type increment:(NSInteger)increment;
+-(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type;
 - (NSInteger)state;
 - (NSString *)homeTeamName;
 - (NSString *)awayTeamName;
 - (NSDate *)startTime;
 - (NSString *)matchTimeString;
 - (NSString *)leagueName;
+- (void)calculateAndSetData;
 @end

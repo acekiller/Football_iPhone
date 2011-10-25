@@ -26,39 +26,13 @@
 
 
 //Increment
--(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type increment:(NSInteger)increment
+-(id)initWithMatch:(Match *)aMatch ScoreUpdateType:(int)type
 {
     self = [super init];
     if (self) {
         self.match = aMatch;
         self.scoreUpdateType = type;
         self.updateMinute = [[MatchManager defaultManager] matchMinutesString:match];
-        if (type < HOMETEAMRED && type >= HOMETEAMSCORE) {
-            //score
-            self.homeTeamDataCount =[[match homeTeamScore] integerValue];
-            self.awayTeamDataCount = [[match awayTeamScore] integerValue];
-        }else if(type < HOMETEAMYELLOW){
-            //red card
-            self.homeTeamDataCount = [[match homeTeamRed] integerValue];
-            self.awayTeamDataCount = [[match awayTeamRed] integerValue];
-        }else if(type < TYPECOUNT){
-            //yellow card
-            self.homeTeamDataCount = [[match homeTeamYellow] integerValue];
-            self.awayTeamDataCount = [[match awayTeamYellow] integerValue];
-        }else{
-            //error type
-            self.homeTeamDataCount = 0;
-            self.awayTeamDataCount = 0;
-        }
-        
-        //set increase data
-        if (type < TYPECOUNT && type >= 0) {
-            if (type %2 == 0) {
-                self.homeTeamDataCount += increment;
-            }else{
-                self.awayTeamDataCount += increment;
-            }
-        }
     }
     return self;
 }
@@ -66,6 +40,29 @@
 - (NSInteger)state
 {
     return [self.match.status intValue];
+}
+
+- (void)calculateAndSetData
+{
+    NSInteger type = self.scoreUpdateType;
+    
+    if (type < HOMETEAMRED && type >= HOMETEAMSCORE) {
+        //score
+        self.homeTeamDataCount =[[match homeTeamScore] integerValue];
+        self.awayTeamDataCount = [[match awayTeamScore] integerValue];
+    }else if(type < HOMETEAMYELLOW){
+        //red card
+        self.homeTeamDataCount = [[match homeTeamRed] integerValue];
+        self.awayTeamDataCount = [[match awayTeamRed] integerValue];
+    }else if(type < TYPECOUNT){
+        //yellow card
+        self.homeTeamDataCount = [[match homeTeamYellow] integerValue];
+        self.awayTeamDataCount = [[match awayTeamYellow] integerValue];
+    }else{
+        //error type
+        self.homeTeamDataCount = 0;
+        self.awayTeamDataCount = 0;
+    }
 }
 
 - (NSString *)homeTeamName

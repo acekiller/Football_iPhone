@@ -66,6 +66,7 @@
 		CA3C9FBE144E694E00D6692B /* se_btn2_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3C9FB9144E694E00D6692B /* se_btn2_3@2x.png */; };
 		CA3C9FBF144E694E00D6692B /* set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3C9FBA144E694E00D6692B /* set@2x.png */; };
 		CA3C9FC0144E694E00D6692B /* set2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3C9FBB144E694E00D6692B /* set2@2x.png */; };
+		CA3E8E091456ACB400C2E57C /* vs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3E8E081456ACB400C2E57C /* vs@2x.png */; };
 		CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3FD46E143ABAC600119BD4 /* LanguageManager.m */; };
 		CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */; };
 		CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA7144E82E1009B2318 /* Mandarin.strings */; };
@@ -440,6 +441,7 @@
 		CA3C9FB9144E694E00D6692B /* se_btn2_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn2_3@2x.png"; sourceTree = "<group>"; };
 		CA3C9FBA144E694E00D6692B /* set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "set@2x.png"; sourceTree = "<group>"; };
 		CA3C9FBB144E694E00D6692B /* set2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "set2@2x.png"; sourceTree = "<group>"; };
+		CA3E8E081456ACB400C2E57C /* vs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vs@2x.png"; sourceTree = "<group>"; };
 		CA3FD46D143ABAC500119BD4 /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
 		CA3FD46E143ABAC600119BD4 /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
 		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
@@ -993,6 +995,7 @@
 		C2B41317143199E100084F14 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CA3E8E081456ACB400C2E57C /* vs@2x.png */,
 				CA220ECD144FC4B6005AFDC5 /* ls_ball@2x.png */,
 				CA220ECE144FC4B6005AFDC5 /* ls_bg@2x.png */,
 				CA220ECF144FC4B6005AFDC5 /* ls_del@2x.png */,
@@ -2171,6 +2174,7 @@
 				CA220EDC144FC4B6005AFDC5 /* ls_redcard@2x.png in Resources */,
 				CA220EDD144FC4B6005AFDC5 /* ls_time_bg@2x.png in Resources */,
 				CA220EDE144FC4B6005AFDC5 /* ls_yellowcard@2x.png in Resources */,
+				CA3E8E091456ACB400C2E57C /* vs@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

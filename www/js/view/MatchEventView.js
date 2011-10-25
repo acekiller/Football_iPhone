@@ -132,8 +132,13 @@ function MatchDetailView(){
 MatchDetailView.prototype = {
 	constructor : MatchDetailView,
 	updateView : function(manager){
+		
 		this.eventPanel.update(manager.eventArray);
-		this.statPanel.update(manager.statArray);
+		
+		if (manager.statArray == null || manager.statArray.length == 0)
+			this.statPanel.hide();
+		else
+			this.statPanel.update(manager.statArray);
 	}
 };
 
