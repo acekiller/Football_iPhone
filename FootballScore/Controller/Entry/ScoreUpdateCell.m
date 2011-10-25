@@ -94,32 +94,24 @@
     
     self.leagueName.text = [scoreUpdate leagueName];
     self.leagueName.textColor = [[LeagueManager defaultManager] getLeagueColorById:[[scoreUpdate match]leagueId]];
-    NSLog(@"leagueId = %@",scoreUpdate.match.leagueId);
-   
-    
+
     self.homeTeam.text = [scoreUpdate homeTeamName];
     self.awayTeam.text =  [scoreUpdate awayTeamName];
 
-
-    
     //set event type
     NSInteger type = scoreUpdate.scoreUpdateType;
     
     UIImage *eventImage = nil;
+    
+    self.matchScore.text = [NSString stringWithFormat:@"%d : %d", 
+                            [scoreUpdate homeTeamDataCount],[scoreUpdate awayTeamDataCount]];
     
     if (type < HOMETEAMRED) {
         //score type
         //TO DO set score event image 
         eventImage = [UIImage imageNamed:@"ls_ball.png"];
         self.scoreTypeName.text = FNS(@"比分");
-        
-        
         [self setTeamEventButton:type message:FNS(@"进球") image:[UIImage imageNamed:@"ls_img1.png"]];
-            
-    
-        
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamScore],[scoreUpdate awayTeamScore]];
         
     }else if(type < HOMETEAMYELLOW)
     {
@@ -128,8 +120,6 @@
         eventImage = [UIImage imageNamed:@"redcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") image :[UIImage imageNamed:@"ls_img2.png"]];
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamRedcard],[scoreUpdate awayTeamRedcard]];
         
     }else if(type < TYPECOUNT)
     {
@@ -138,17 +128,9 @@
         eventImage = [UIImage imageNamed:@"yellowcard.png"];
         self.scoreTypeName.text = FNS(@"比数");
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") image:[UIImage  imageNamed:@"ls_img3.png"]];
-        
-        
-        self.matchScore.text = [NSString stringWithFormat:@"%@ : %@",
-                                [scoreUpdate homeTeamYellowcard],[scoreUpdate awayTeamYellowcard]];
     }
-    
-  // self.eventStateImage.frame.size.height = eventImage.size.height;
- //   [self.eventStateImage setFrame:CGRectMake(eventStateImage.frame.origin.x, eventStateImage.frame.origin.y, eventImage.size.width, eventImage.size.height)];
+
     [self.eventStateImage setImage:eventImage];
-     
-    
     
 }
 

@@ -12,6 +12,7 @@
 #import "ScoreUpdateManager.h"
 #import "TimeUtils.h"
 #import "MatchManager.h"
+#import "StatusView.h"
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
 @synthesize deleteFlag;
@@ -176,21 +177,32 @@
     ScoreUpdateManager *scoreUpdateManager = [ScoreUpdateManager defaultManager];
     
     
-    NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
-    [self.dataTableView beginUpdates];
-    
     int count = [scoreUpdateManager insertScoreUpdateSet:scoreUpdateSet];
-    self.dataList = [scoreUpdateManager scoreUpdateList];
-    
-    for (int i = 0; i < count; ++ i) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [indexPathArray addObject:indexPath];
+    if (count) {
+        NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
+        [self.dataTableView beginUpdates];
+        self.dataList = [scoreUpdateManager scoreUpdateList];
+        for (int i = 0; i < count; ++ i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [indexPathArray addObject:indexPath];
+        }
+        [self.dataTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:YES];
+        [self.dataTableView endUpdates];
+        [indexPathArray release];
+        
+        for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
+            if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE || scoreUpdate.scoreUpdateType == AWAYTEAMSCORE) {
+                NSString *homeTeamName = [scoreUpdate homeTeamName];
+                NSString *awayTeamName = [scoreUpdate awayTeamName];
+                NSInteger homeCount = [scoreUpdate homeTeamDataCount];
+                NSInteger awayCount = [scoreUpdate awayTeamDataCount];
+                NSString *statusText = [NSString stringWithFormat:@"%@ %d : %d %@",homeTeamName,homeCount,awayCount,awayTeamName];
+                [StatusView showtStatusText:statusText vibrate:YES duration:60];
+                break;
+            }
+        }
     }
-    
-    [self.dataTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:YES];
-    
-    [self.dataTableView endUpdates];
-    [indexPathArray release];
+
 }
 
 
@@ -204,9 +216,10 @@
         [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [[ScoreUpdateManager defaultManager] removeScoreUpdateAtIndex:indexPath.row];
         self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-
         [self.dataTableView endUpdates];
-
+        if (!self.dataList || [self.dataList count] == 0) {
+            [self clickDone:nil];
+        }
     }
 }
 #pragma action selector

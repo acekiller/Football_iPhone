@@ -24,7 +24,7 @@ MatchDetailApp = new Ext.Application({
 //        testDisplayOupeiDetail();
 
 //		测试亚赔
-		testDisplayYapeiDetail();
+//		testDisplayYapeiDetail();
 
 //		测试亚赔变化
 //      testYapeiOddsDetail();
@@ -35,6 +35,7 @@ MatchDetailApp = new Ext.Application({
 
 //		测试阵容
 //		testDisplayLineup();
+//		testDisplayLineupRemote();
 
     }
 
@@ -65,7 +66,7 @@ function getLineupView() {
 }
 
 function getOverunderView() {
-	return new OverunderView();
+	return new YapeiView();	// the same as yapei view
 }
 
 function getYapeiDetailView() {
@@ -93,14 +94,10 @@ function displayMatchEvent(reload, matchId, lang, data){
 
 function displayYapeiOddsDetail(betCompanyId){
 
-	if (MatchDetailApp == null || MatchDetailApp == undefined){
-		return;
-	}
-	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
-		MatchDetailApp.yapeiDetailView = getYapeiDetailView();
-	}
+	
+	MatchDetailApp.yapeiDetailView = getYapeiDetailView();
 			
-	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
+	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId); // TODO
 	setCurrentView(MatchDetailApp.yapeiDetailView.mainPanel);
 	return true;
 }
@@ -164,10 +161,11 @@ function displayOverunder(reload, matchId, lang, data) {
 				return false;
 		}
 	}
-		MatchDetailApp.overunderView = getOverunderView();
-		MatchDetailApp.overunderView.updateView(overunderManager);
-		setCurrentView(MatchDetailApp.overunderView.mainPanel);
-		return true;
+	
+	MatchDetailApp.overunderView = getOverunderView();
+	MatchDetailApp.overunderView.updateView(overunderManager);
+	setCurrentView(MatchDetailApp.overunderView.mainPanel);
+	return true;
 }
 
 function displayLineup(reload, matchId, lang, data){

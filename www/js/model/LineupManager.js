@@ -7,8 +7,8 @@ var LINEUP_FIELD_AWAYRESERVE = 3;
 var LINEUP_FIELD_COUNT = 4;
 
 //define LineupManager Model
-function LineupManager(){
-	
+function LineupManager(url){
+	this.url = url;
 }
 
 LineupManager.prototype = {
@@ -41,7 +41,11 @@ LineupManager.prototype = {
 	},
 	
 	requestDataFromServer : function(matchId, lang){
-		// TODO 
+		var data = sendRequest(this.url + matchId + "&lang=" + lang);
+		if (data == null)
+			return false;
+			
+		this.readData(data);
 		return true;
 	}
 };
