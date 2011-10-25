@@ -54,21 +54,53 @@ ul,li {
 	margin-right: auto;
 	margin-left: auto;
 	background-color: #475F85;
-	background-image: url(images/ss.png);
-	background-repeat: no-repeat;
-	padding-right: 20px;
-	padding-left: 20px;
-	padding-top: 36px;
-	padding-bottom: 20px;
+	padding-right: 8px;
+	padding-left: 7px;
+	padding-top: 15px;
+	padding-bottom: 10px;
 }
-#teamdata td {
-	text-align:center;
-	line-height: 22px;
+
+.ts  {
+	background-image: url(images/data_team_2@2x.png);
+	background-repeat: repeat-y;
+	float: left;
+	width: 305px;
+	padding-right: 16px;
+	padding-left: 16px;	
+}
+.ts li{
+	line-height: 28px;
+	height: 28px;
+}
+.ts .p1 {
+	float: left;
+	font-size: 12px;
 	font-weight: bold;
 	color: #666666;
-	font-family: "Times New Roman", Times, serif;
-	
+	width: 78px;
+	text-align: center;
+	line-height: 26px;
+	height: 26px;
 }
+.ts .p1 img {
+	margin-top: 4px;
+}
+.ts .p2 {
+	float: left;
+	color: #405C8C;
+	font-size: 14px;
+	width: 115px;
+	text-align: center;
+	line-height: 26px;
+	height: 26px;
+	font-weight: bold;
+}
+.ts .line {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #C0DFEF;
+}
+
 #Asiaodds {
 	width: 320px;
 	margin:0  auto;

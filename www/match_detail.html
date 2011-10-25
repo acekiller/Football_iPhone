@@ -63,30 +63,23 @@
 				</tpl>
 			</ul>
 		</textarea>
-		<textarea id="stat-template" class="x-hidden-display">
-        	<div id="teamdata">
-    			<table width="100%" border="0" cellpadding="0" cellspacing="0">  
-					<tr>
-        				<td width="30%"><img src="images/dwq.png" width="12" height="15" /></td>
-        				<td width="41%">&nbsp;</td>
-        				<td width="29%">&nbsp;</td>
-					</tr>
-      				<tr>
-        				<td>&nbsp;</td>
-        				<td>&nbsp;</td>
-        				<td><img src="images/s2.png" width="18" height="22" /></td>
-      				</tr>
 
-                	<tpl for=".">
-                	<tr>
-                		<td>{homeValue}</td>
-                	 	<td> </td> 
-                	 	<td>{awayValue}</td>
-                	</tr>
-                	</tpl>		                
-				</table>
-			</div>
+		<textarea id="stat-template" class="x-hidden-display">
+			<div id="teamdata">
+    			<div><img src="images/data_team_1@2x.png" width="305" height="28" /></div>
+    			<ul class="ts">    	
+    				<tpl for=".">
+      				<li class="line">
+      					<div class="p1">{homeValue}</div>
+      					<div class="p2">{type}</div>
+      					<div class="p1">{awayValue}</div>
+      				</li>
+      				</tpl>
+    			</ul>
+    			<div><img src="images/data_team_3@2x.png" width="305" height="10" /></div>
+    		</div>			
 		</textarea>
+		
 		<textarea id="oupei-stat-template" class="x-hidden-display">
 			<div class="euodds">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -241,7 +234,6 @@
       			</table>
 		    </div>
         </textarea>
-		
 		<textarea id="overunder-company-template" class="x-hidden-display">
 			<div id="Asiaodds">
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -259,6 +251,6 @@
         			<td><div onclick=""><img src="images/ew.png" width="9" height="14" /></div></td>
 				</tr>
 				</tpl>
-        </textarea>  
+        </textarea>
 	</body>
 </html>
