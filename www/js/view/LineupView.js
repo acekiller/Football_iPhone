@@ -6,8 +6,7 @@ function LineupView(){
     var homeLineupTemplate = Ext.XTemplate.from("home-lineup-template", helperFunctions);
     var homeReserveTemplate = Ext.XTemplate.from("home-reserve-template", helperFunctions);
     var awayLineupTemplate = Ext.XTemplate.from("away-lineup-template", helperFunctions);
-    var awayReserveTemplate = Ext.XTemplate.from("away-reserve-template", helperFunctions);
-    
+    var awayReserveTemplate = Ext.XTemplate.from("away-reserve-template", helperFunctions);    
     
     this.homeLineupPanel = new Ext.Panel({
         id: 'homeLineupPanel',
