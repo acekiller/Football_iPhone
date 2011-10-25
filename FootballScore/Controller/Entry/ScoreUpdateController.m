@@ -177,6 +177,11 @@
 {
     ScoreUpdateManager *scoreUpdateManager = [ScoreUpdateManager defaultManager];
     
+    // according to the score update type set the hometeam data count and awayteam data count
+    
+    for (ScoreUpdate *update in scoreUpdateSet) {
+        [update calculateAndSetData];
+    }
     
     int count = [scoreUpdateManager insertScoreUpdateSet:scoreUpdateSet];
     if (count) {

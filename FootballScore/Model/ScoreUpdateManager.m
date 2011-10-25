@@ -52,6 +52,7 @@ ScoreUpdateManager* GlobalGetScoreUpdateManager()
     }
     for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
         if (scoreUpdate) {
+            
             [self.scoreUpdateList insertObject:scoreUpdate atIndex:0];
             ++count;
         }

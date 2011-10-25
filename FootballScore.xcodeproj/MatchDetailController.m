@@ -406,7 +406,7 @@
     NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
     
     if (date && dateString) {
-        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"[%@]",dateString];
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"%@",dateString];
     }else{
         self.matchStarttimeLabel.text = nil;
     }
@@ -415,30 +415,13 @@
     
     //acoording to the language setting, show the team names.
     if (lang == LANG_CANTON) {
-       // self.homeTeamName.text = header.homeTeamYYName;
-       // self.awayTeamName.text = header.awayTeamYYName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamYYName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamYYName];
     }else{
-       // self.homeTeamName.text = header.homeTeamSCName;
-       // self.awayTeamName.text = header.awayTeamSCName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamSCName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamSCName];
     }
-    
-    NSLog(@"homeTeamName size = %d",[self.homeTeamName.text length]);
-    NSLog(@"awayTeamName size = %d",[self.awayTeamName.text length]);    
-//    
-//    if ([header.homeTeamRank length] > 0) {
-//        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
-//    }else{
-//        self.homeTeamRank.text = nil;
-//    }
-//    if ([header.awayTeamRank length] > 0) {
-//        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
-//    }else{
-//        self.awayTeamRank.text = nil;
-//    }
+
 
     if ([header.homeTeamRank length] > 0) {
         [self setTeamRankLable:self.homeTeamRank rank:[NSString stringWithFormat:@"[%@]",header.homeTeamRank]];

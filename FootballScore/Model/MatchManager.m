@@ -277,7 +277,7 @@ MatchManager* GlobalGetMatchManager()
             //home team score update
             int increase = [homeTeamScore intValue] - [matchManager getHomeTeamScore:match];
             if (increase > 0) {
-                ScoreUpdate *homeScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE increment:increase];
+                ScoreUpdate *homeScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
                 [retSet addObject:homeScoreUpdate];
                 [homeScoreUpdate release];
                 
@@ -289,7 +289,7 @@ MatchManager* GlobalGetMatchManager()
             //away team score update
             increase = [awayTeamScore intValue] - [matchManager getAwayTeamScore:match];
             if (increase > 0) {
-                ScoreUpdate *awayScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMSCORE increment:increase];
+                ScoreUpdate *awayScoreUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMSCORE];
                 [retSet addObject:awayScoreUpdate];
                 [awayScoreUpdate release];
 
@@ -301,7 +301,7 @@ MatchManager* GlobalGetMatchManager()
             //home team red card update
             increase = [homeTeamRed intValue] - [matchManager getHomeTeamRedCount:match];
             if (increase > 0) {
-                ScoreUpdate *homeRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED increment:increase];
+                ScoreUpdate *homeRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
                 [retSet addObject:homeRedUpdate];
                 [homeRedUpdate release];
                 
@@ -311,7 +311,7 @@ MatchManager* GlobalGetMatchManager()
             //away team red card update
             increase = [awayTeamRed intValue] - [matchManager getAwayTeamRedCount:match];
             if (increase > 0) {
-                ScoreUpdate *awayRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMRED increment:increase];
+                ScoreUpdate *awayRedUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMRED];
                 [retSet addObject:awayRedUpdate];
                 [awayRedUpdate release];
                 
@@ -321,7 +321,7 @@ MatchManager* GlobalGetMatchManager()
             //home team yellow card update
             increase = [homeTeamYellow intValue] - [matchManager getHomeTeamYellowCount:match];
             if (increase > 0) {
-                ScoreUpdate *homeYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW increment:increase];
+                ScoreUpdate *homeYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
                 [retSet addObject:homeYellowUpdate];
                 [homeYellowUpdate release];
                 
@@ -331,7 +331,7 @@ MatchManager* GlobalGetMatchManager()
             //away team yellow card update
             increase = [awayTeamYellow intValue] - [matchManager getAwayTeamYellowCount:match];
             if (increase > 0) {
-                ScoreUpdate *awayYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMYELLOW increment:increase];
+                ScoreUpdate *awayYellowUpdate = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:AWAYTEAMYELLOW];
                 [retSet addObject:awayYellowUpdate];
                 [awayYellowUpdate release];
                 
