@@ -1,8 +1,9 @@
 
-function YapeiView(){
+function YapeiView(type){
 	
+	this.type = type;
+
 	 var helperFunctions = {
-	 	
 	 };
 
     var yapeiCompanyTemplate = Ext.XTemplate.from("yapei-company-template", helperFunctions);
@@ -25,19 +26,16 @@ function YapeiView(){
         scroll : 'vertical',
         items: [this.companyPanel]            
     });	
+	
+	this.manager = null;
 }
 
 YapeiView.prototype = {
 	constructor : YapeiView,
 	updateView : function(manager) {
-		this.companyPanel.update(manager.dataArray);
+		this.manager = manager;
+		this.companyPanel.update(manager);
 	}
 };
 
-function loadYapeiView(manager, matchId){	
-	var yapeiView = new YapeiView();
-	MatchDetailApp.viewport = yapeiView.mainPanel;	
-	manager.requestDataFromServer(matchId);	
-	yapeiView.companyPanel.update(manager.dataArray);
-}
 

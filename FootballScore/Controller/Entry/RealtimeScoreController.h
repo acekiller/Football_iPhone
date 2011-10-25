@@ -33,6 +33,7 @@
 - (void)clickRefleshButton;
 - (void)showMyFollowCount;
 - (void)reloadMyFollowCount;
+- (void)reloadMyFollowList;
 
 @property (nonatomic, retain) IBOutlet UIButton *myFollowButton;
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;

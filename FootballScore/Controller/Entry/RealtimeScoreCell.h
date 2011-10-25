@@ -71,6 +71,7 @@
 - (void)updateMatchTime:(Match*)match;
 - (void)updateMatchStatus:(Match*)match;
 - (void)updateMatchTypeLabel:(Match*)match;
+- (void)positionAdjust;
 
 
 @end

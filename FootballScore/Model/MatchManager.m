@@ -75,7 +75,7 @@ MatchManager* GlobalGetMatchManager()
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
     NSData* listData = [userDefault objectForKey:FOLLOW_MATCH_LIST];
     NSMutableDictionary *getFollowMatchList = [NSKeyedUnarchiver unarchiveObjectWithData:listData];
-    self.followMatchList = getFollowMatchList;                 
+    [self.followMatchList setDictionary:getFollowMatchList];                 
 }
 
 - (void)saveFollowMatchList
@@ -164,6 +164,9 @@ MatchManager* GlobalGetMatchManager()
 {
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
     BOOL isCheckLeague = ([filterLeagueIdList count] > 0);
+    if (!isCheckLeague) {
+        return retArray;
+    }
     for (Match* match in matchArray){
         
         if (filterMatchStatus != MATCH_SELECT_STATUS_ALL && 
