@@ -14,6 +14,7 @@
 #import "MatchManager.h"
 #import "LeagueManager.h"
 #import "Match.h"
+#import "ColorManager.h"
 
 @implementation ScoreUpdateCell
 @synthesize leagueName;
@@ -66,9 +67,7 @@
     UIButton *hiddenButton = (!buttonId) ? awayTeamEvent : homeTeamEvent;
     [settingButton setHidden:NO];
     [hiddenButton setHidden:YES];
-    
-   // settingButton.titleLabel.text = message;  用这种方法不行阿 ？？？？调用方法更加好阿 。
-    
+        
     NSLog(@"This is a :%@",message);
     [settingButton setBackgroundImage:image  forState:UIControlStateDisabled ] ;
     [settingButton setTitle:message forState:UIControlStateDisabled];
@@ -82,55 +81,66 @@
     
     //更新时间 ，颜色
     self.matchState.text =  scoreUpdate.updateMinute;
-    self.matchState.textColor= [UIColor redColor];
+    self.matchState.textColor= [ColorManager matchStateTextColor];
     
-    //比分颜色
-    self.matchScore.textColor= [UIColor greenColor];
-    
+   
+    //开赛时间
     self.startTime.text = dateToChineseStringByFormat([scoreUpdate startTime], @"HH:mm");
-    self.startTime.textColor=[UIColor grayColor];
+    self.startTime.textColor=[ ColorManager startTimeTextColor ];
     
     
-    
+    //联赛类型
     self.leagueName.text = [scoreUpdate leagueName];
     self.leagueName.textColor = [[LeagueManager defaultManager] getLeagueColorById:[[scoreUpdate match]leagueId]];
-
+    
+    
+    //队名
     self.homeTeam.text = [scoreUpdate homeTeamName];
     self.awayTeam.text =  [scoreUpdate awayTeamName];
+    self.homeTeam.textColor = [ColorManager TeamTextColor];
+    self.awayTeam.textColor = [ColorManager TeamTextColor];
+
+   
 
     //set event type
     NSInteger type = scoreUpdate.scoreUpdateType;
-    
     UIImage *eventImage = nil;
     
+    
+    //比分
     self.matchScore.text = [NSString stringWithFormat:@"%d : %d", 
                             [scoreUpdate homeTeamDataCount],[scoreUpdate awayTeamDataCount]];
+            self.matchScore.textColor=  [ColorManager MatchScoreTextColor];
+    
     
     if (type < HOMETEAMRED) {
         //score type
         //TO DO set score event image 
-        eventImage = [UIImage imageNamed:@"ls_ball.png"];
+        eventImage = [UIImage imageNamed:@"ls_ball@2x.png"];
         self.scoreTypeName.text = FNS(@"比分");
+        self.scoreTypeName.textColor=[ColorManager  TeamTextColor];
         [self setTeamEventButton:type message:FNS(@"进球") image:[UIImage imageNamed:@"ls_img1.png"]];
         
     }else if(type < HOMETEAMYELLOW)
     {
         // red card type
         //TO DO set red card event image 
-        eventImage = [UIImage imageNamed:@"redcard.png"];
+        eventImage = [UIImage imageNamed:@"redcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
+        self.scoreTypeName.textColor=[ColorManager  TeamTextColor];
         [self setTeamEventButton:type-HOMETEAMRED  message:FNS(@"红牌") image :[UIImage imageNamed:@"ls_img2.png"]];
         
     }else if(type < TYPECOUNT)
     {
         //yellow card type
         //TO DO set yellow card event image 
-        eventImage = [UIImage imageNamed:@"yellowcard.png"];
+        eventImage = [UIImage imageNamed:@"yellowcard@2x.png"];
         self.scoreTypeName.text = FNS(@"比数");
+        self.scoreTypeName.textColor=[ColorManager  TeamTextColor];
         [self setTeamEventButton:type-HOMETEAMYELLOW  message:FNS(@"黄牌") image:[UIImage  imageNamed:@"ls_img3.png"]];
     }
 
-    [self.eventStateImage setImage:eventImage];
+        [self.eventStateImage setImage:eventImage];
     
 }
 
