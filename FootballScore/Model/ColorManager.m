@@ -99,6 +99,14 @@
                            alpha:1.0];
 }
 
+
+
+
+
+
+
+
+
 + (UIColor*)MatchesNameButtonNotChosenColor{
     
     
@@ -115,12 +123,55 @@
                            green:(0x53)/255.0
                             blue:(0x93)/255.0
                            alpha:1.0];
-
-    
 }
 
 
 
 
+//ScoreUpStateCell
+
++ (UIColor*)matchStateTextColor{
+
+    
+    return [UIColor colorWithRed:0xff/255.0 
+                           green:0x33/255.0 
+                            blue:0x00/255.0 
+                           alpha:1];
+}
++(UIColor*)startTimeTextColor{
+
+   return [ UIColor colorWithRed:0x66/255.0 
+                           green:0x66/255.0 
+                            blue:0x66/255.0
+                           alpha:1];
+
+}
++(UIColor*)TeamTextColor{
+    
+    return [UIColor colorWithRed:0x39/255.0
+                           green:0x39/255.0 
+                            blue:0x39/255.0 
+                           alpha:1];
+
+}
++(UIColor*)MatchScoreTextColor{
+    
+    return [UIColor colorWithRed:0x33/255.0 
+                           green:0x99/255.0 
+                            blue:0x00/255.0
+                            alpha:1];
+
+}
+
+//ScoreUpDateController
+
++(UIColor*)dateTimeTextColor{
+    
+     return [UIColor colorWithRed:0x1B/255.0
+                            green:0x4A/255.0
+                             blue:0x6D/255.0 
+                            alpha:1];
+
+}
 
 @end

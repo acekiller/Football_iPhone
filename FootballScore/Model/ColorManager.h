@@ -26,5 +26,16 @@
 + (UIColor*)MatchesNameButtonNotChosenColor;
 + (UIColor*)ToChooseTheMatchesButtonColor;
 
+//ScoreUpStateCell
++ (UIColor*)matchStateTextColor;
++(UIColor*)startTimeTextColor;
++(UIColor*)TeamTextColor;
++(UIColor*)MatchScoreTextColor;
+
+
+
+//ScoreUpDateController
++(UIColor*)dateTimeTextColor;
+
 
 @end
