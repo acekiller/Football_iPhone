@@ -361,11 +361,11 @@ enum cardType{
                                           maxWidth-cardTitleSpace-cardWidth*leftCard, 
                                           20)];
         [homeRedCard setFrame:CGRectMake(36+cardWidth*(leftCard-1)+cardTitleSpace, 
-                                        21, 
+                                        23, 
                                         cardWidth, 
                                         16)];
         [homeYellowCard setFrame:CGRectMake(36+cardTitleSpace, 
-                                            21, 
+                                            23, 
                                             cardWidth, 
                                             16)];
     } else {
@@ -374,11 +374,11 @@ enum cardType{
                                            maxWidth, 
                                            20)];
         [homeRedCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth-cardTitleSpace, 
-                                         21, 
+                                         23, 
                                          cardWidth, 
                                          16)];
         [homeYellowCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth*leftCard-cardTitleSpace,
-                                            21, 
+                                            23, 
                                             cardWidth, 
                                             16)];
     }
@@ -389,11 +389,11 @@ enum cardType{
                                            maxWidth-cardTitleSpace-cardWidth*rightCard, 
                                            20)];
         [awayRedCard setFrame:CGRectMake(192+maxWidth-cardWidth*rightCard-cardTitleSpace, 
-                                         21, 
+                                         23, 
                                          cardWidth, 
                                          16)];
         [awayYellowCard setFrame:CGRectMake(192+maxWidth-cardWidth*(rightCard-1)-cardTitleSpace, 
-                                            21, 
+                                            23, 
                                             cardWidth, 
                                             16)];
     } else {
@@ -402,11 +402,11 @@ enum cardType{
                                            maxWidth, 
                                            20)];
         [awayRedCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace, 
-                                         21, 
+                                         23, 
                                          cardWidth, 
                                          16)];
         [awayYellowCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace+cardWidth*(rightCard-1),
-                                            21, 
+                                            23, 
                                             cardWidth, 
                                             16)];
     }
