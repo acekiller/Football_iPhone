@@ -17,14 +17,14 @@ MatchDetailApp = new Ext.Application({
         // set launched flag
         MatchDetailApp.isLaunched = 1;
         
-        // setup loading view
-        loadingView = new Ext.LoadMask(Ext.getBody(), {msg:"加载中..."});
         
 //		测试比赛事件
 //		testDisplayMatchEventLocally();
+//        testDisplayMatchEventRemote();
 		
 //		测试欧赔
 //        testDisplayOupeiDetail();
+//        testDisplayOupeiDetailRemote();
 
 //		测试亚赔
 //		testDisplayYapeiDetail();
@@ -34,10 +34,10 @@ MatchDetailApp = new Ext.Application({
 
 //		测试大小
 //      testDisplayOverunder();
-		testDisplayOverunderRemote();
+//		testDisplayOverunderRemote();
 
 //		测试阵容
-//		testDisplayLineup();
+		testDisplayLineup();
 //		testDisplayLineupRemote();
 
     }
@@ -110,23 +110,6 @@ function displayYapeiOddsDetail(type, betCompanyId){
 	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betManager, betCompanyId); // TODO
 	setCurrentView(MatchDetailApp.yapeiDetailView.mainPanel);
 	return true;
-}
-
-//Deprecated
-function showYapeiOddsDetail(betCompanyId){
-
-	if (MatchDetailApp == null || MatchDetailApp == undefined){
-		return;
-	}
-
-	// create view
-	if (MatchDetailApp.yapeiDetailView == null || MatchDetailApp.yapeiDetailView == undefined){
-		MatchDetailApp.yapeiDetailView = new YapeiDetailView();
-	}
-	MatchDetailApp.viewport = MatchDetailApp.yapeiDetailView.mainPanel;
-			
-	// request data from server and update view
-	MatchDetailApp.yapeiDetailView.updateCompanyOdds(betCompanyId);
 }
 
 function displayOupeiDetail(reload, matchId, lang, data){

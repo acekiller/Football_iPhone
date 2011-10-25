@@ -231,7 +231,10 @@
 
 - (void)updateOupeiView:(NSString*)oupeiDataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+//    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+
+    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
 
@@ -242,10 +245,10 @@
 // return the view is shown directly or not
 - (BOOL)showOupeiView:(BOOL)needReload
 {
-    if (self.oupeiString == nil || needReload){
-        [self loadOupeiDataFromServer];
-        return NO;
-    }
+//    if (self.oupeiString == nil || needReload){
+//        [self loadOupeiDataFromServer];
+//        return NO;
+//    }
     
     [self updateOupeiView:self.oupeiString];
     return YES;
@@ -329,8 +332,10 @@
 
 - (void)updateEventView:(NSString*)eventDataString
 {
-    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
-                        [LanguageManager getLanguage], eventDataString];    
+//    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+//                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -341,10 +346,10 @@
 // return the view is shown directly or not
 - (BOOL)showEventView:(BOOL)needReload
 {
-    if (self.eventString == nil || needReload){
-        [self loadMatchEventFromServer];
-        return NO;
-    }
+//    if (self.eventString == nil || needReload){
+//        [self loadMatchEventFromServer];
+//        return NO;
+//    }
     
     [self updateEventView:self.eventString];
     return YES;
