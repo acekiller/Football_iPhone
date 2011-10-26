@@ -9,7 +9,6 @@ function YapeiView(type){
     var yapeiCompanyTemplate = Ext.XTemplate.from("yapei-company-template", helperFunctions);
 
     this.companyPanel = new Ext.Panel({            
-        id : 'companyPanel',
         tpl : yapeiCompanyTemplate,
         margin: '0 0 0 0',
         align: 'left'

@@ -17,6 +17,7 @@
 #import "MatchConstants.h"
 #import "LogUtil.h"
 
+#define WEBVIEW_CENTERPOINT CGPointMake(160, 280)
 
 @implementation MatchDetailController
 
@@ -214,8 +215,7 @@
 
 - (void)loadOupeiDataFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
 }
 
@@ -293,7 +293,7 @@
     return YES;
 }
 
-- (void)updateLineupView:(NSString*)dataString
+- (void)updateLineupView:(NSString*)dataString needReload:(BOOL)needReload
 {           
     NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, %@, %d);", 
                         match.matchId, [LanguageManager getLanguage]];      
@@ -307,7 +307,7 @@
 // return the view is shown directly or not
 - (BOOL)showLineupView:(BOOL)needReload
 {
-    [self updateLineupView:nil];
+    [self updateLineupView:nil needReload:needReload];
     return YES;
 }
 
@@ -316,8 +316,7 @@
 
 - (void)loadMatchEventFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];    
 }
 
@@ -469,8 +468,7 @@
 
 - (void)loadMatchDetailHeaderFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];    
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];    
     [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];  
 }
 
@@ -485,8 +483,9 @@
 #pragma Web View Related & Web View Delegate
 #pragma mark - 
 
-- (void)showWebView:(BOOL)needReload
+- (void)trueShowWebView:(NSNumber*)needReloadValue
 {
+    BOOL needReload = [needReloadValue boolValue];
     switch (currentSelection) {
         case SELECT_EVENT:
             [self showEventView:needReload];
@@ -511,6 +510,17 @@
         default:
             break;
     }
+    
+    [self hideActivity];
+}
+
+
+- (void)showWebView:(BOOL)needReload
+{
+    [self showActivityWithText:FNS(@"加载数据中....")  withCenter:WEBVIEW_CENTERPOINT];
+    [self performSelector:@selector(trueShowWebView:) 
+               withObject:[NSNumber numberWithBool:needReload] 
+               afterDelay:0.0f];
 }
 
 - (void)loadWebViewByHtml:(NSString*)html
@@ -541,8 +551,7 @@
 
 - (void)initWebView
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [self loadWebViewByHtml:@"www/match_detail.html"];
 }
 

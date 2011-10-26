@@ -33,17 +33,17 @@ function YapeiDetailView(type){
 	this.selectCompanyId = null;
 	this.manager = null;
 
-    this.companyPanel = new Ext.Panel({            
-        id : 'companyPanel',
+    this.detailCompanyPanel = new Ext.Panel({            
+//        id : 'detailCompanyPanel' + type.toString(),
         tpl : companyTemplate,
         margin: '0 0 0 0',
 		flex: 93/320,
 //        align: 'top',
         scroll : 'vertical'
     });	        	       
-	
+		
 	this.oddsPanel = new Ext.Panel({
-        id : 'oddsPanel',
+//        id : 'oddsPanel' + type.toString(),
         tpl : oddsTemplate,
         margin: '0 0 0 0',
 		flex: (320-93)/320,
@@ -58,7 +58,7 @@ function YapeiDetailView(type){
             type: 'hbox',
             align: 'stretch'
         },
-        items: [this.companyPanel, this.oddsPanel]            
+        items: [this.detailCompanyPanel, this.oddsPanel]            
     });	
 }
 
@@ -67,7 +67,7 @@ YapeiDetailView.prototype = {
 	
 	updateCompany : function(manager){
 		this.manager = manager;
-		this.companyPanel.update(manager);
+		this.detailCompanyPanel.update(manager);
 	},
 	
 	updateCompanyOdds : function(manager, companyId){
@@ -82,7 +82,7 @@ YapeiDetailView.prototype = {
 		
 		manager.requestOddsChangeFromServer(companyId);		
 		this.oddsPanel.update(manager.oddsChangeList);
-		this.companyPanel.update(manager);
+		this.detailCompanyPanel.update(manager);
 	},
 	
 	test : function(){
