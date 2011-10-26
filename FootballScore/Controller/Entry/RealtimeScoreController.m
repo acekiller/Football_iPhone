@@ -80,8 +80,7 @@
 
 - (void)loadMatch:(int)scoreType
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
 }
 
