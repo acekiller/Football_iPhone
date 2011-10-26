@@ -67,8 +67,8 @@
 //    UIColor *dateTimeTextColor=[UIColor colorWithRed:0x1B/255.0 green:0x4A/255.0 blue:0x6D/255.0 alpha:1];
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
         
-    /*  假数据，调试使用。
-    
+    //  假数据，调试使用。
+    /*
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -97,8 +97,8 @@
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
 
-
-     */
+*/
+     
     
 
 }
@@ -154,7 +154,7 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;							
 	}		
     cell.scoreUpdateCellDelegate = self;
-    cell.indexPath = indexPath;
+    cell.indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
     
     [cell.deleteButton setHidden:!self.deleteFlag];
     
@@ -216,18 +216,22 @@
 {
     if (indexPath.section == 0) {
         
-
         
         NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
         
         [[ScoreUpdateManager defaultManager] removeScoreUpdateAtIndex:indexPath.row];
         self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
 
-        [self.dataTableView beginUpdates];
-        
+        [self.dataTableView beginUpdates];        
         [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-
         [self.dataTableView endUpdates];
+        
+        
+        [self.dataTableView beginUpdates];        
+        [self.dataTableView reloadRowsAtIndexPaths:[self.dataTableView indexPathsForVisibleRows]  
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        [self.dataTableView endUpdates];
+
         
         if (!self.dataList || [self.dataList count] == 0) {
             [self clickDone:nil];

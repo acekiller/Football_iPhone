@@ -48,6 +48,8 @@
 @synthesize match;
 @synthesize detailHeader;
 @synthesize scoreButton;
+@synthesize defaultHomeTeamIcon;
+@synthesize defaultAwayTeamIcon;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,6 +110,8 @@
     
     [detailHeader release];
     [scoreButton release];
+    [defaultHomeTeamIcon release];
+    [defaultAwayTeamIcon release];
     [super dealloc];
 }
 
@@ -183,6 +187,8 @@
     
     [self setDetailHeader:nil];
     [self setScoreButton:nil];
+    [self setDefaultHomeTeamIcon:nil];
+    [self setDefaultAwayTeamIcon:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -454,15 +460,29 @@
         self.awayTeamRank.text = nil;
     }
     
+    [self.defaultHomeTeamIcon setHidden:NO];
+    [self.defaultAwayTeamIcon setHidden:NO];
+    
     [self.homeTeamIcon clear];
+    [self.awayTeamIcon clear];
+    self.homeTeamIcon.callbackOnSetImage = self;
+    self.awayTeamIcon.callbackOnSetImage = self;
+    
     self.homeTeamIcon.url = [NSURL URLWithString:header.homeTeamImage];
     [GlobalGetImageCache() manage:self.homeTeamIcon];
-    
-    [self.awayTeamIcon clear];
-    
     self.awayTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
     [GlobalGetImageCache() manage:self.awayTeamIcon];    
     
+}
+
+- (void) managedImageSet:(HJManagedImageV*)mi
+{
+    if (mi == self.homeTeamIcon){
+        // hide home team default icon
+        [self.defaultHomeTeamIcon setHidden:YES];
+    }else if(mi == self.awayTeamIcon){
+        [self.defaultAwayTeamIcon setHidden:YES];
+    }
 }
 
 - (void)loadMatchDetailHeaderFromServer

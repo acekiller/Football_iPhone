@@ -24,7 +24,7 @@ enum{
     
 };
 
-@interface MatchDetailController : PPViewController<MatchServiceDelegate> {
+@interface MatchDetailController : PPViewController<MatchServiceDelegate, HJManagedImageVDelegate> {
     
     Match *match;
     
@@ -95,6 +95,8 @@ enum{
 
 @property (nonatomic, retain) DetailHeader *detailHeader;
 @property (retain, nonatomic) IBOutlet UIButton *scoreButton;
+@property (retain, nonatomic) IBOutlet UIImageView *defaultHomeTeamIcon;
+@property (retain, nonatomic) IBOutlet UIImageView *defaultAwayTeamIcon;
 
 // for external call after alloc object
 - (void)resetWithMatch:(Match*)newMatch;
