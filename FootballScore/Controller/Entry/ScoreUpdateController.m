@@ -215,14 +215,20 @@
 -(void) endClickDeleteButton:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        [self.dataTableView beginUpdates];
+        
+
         
         NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
         
-        [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [[ScoreUpdateManager defaultManager] removeScoreUpdateAtIndex:indexPath.row];
         self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+
+        [self.dataTableView beginUpdates];
+        
+        [self.dataTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+
         [self.dataTableView endUpdates];
+        
         if (!self.dataList || [self.dataList count] == 0) {
             [self clickDone:nil];
         }
