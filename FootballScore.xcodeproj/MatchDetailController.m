@@ -17,6 +17,11 @@
 #import "MatchConstants.h"
 #import "LogUtil.h"
 
+#define MAX_TEAM_NAME_SIZE 7
+#define MAX_TEAM_RANK_SIZE 5
+
+#define WEBVIEW_CENTERPOINT CGPointMake(160, 280)
+
 
 @implementation MatchDetailController
 
@@ -42,6 +47,7 @@
 
 @synthesize match;
 @synthesize detailHeader;
+@synthesize scoreButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +107,7 @@
     [dataWebView release];
     
     [detailHeader release];
+    [scoreButton release];
     [super dealloc];
 }
 
@@ -175,6 +182,7 @@
     [self setDataWebView:nil];
     
     [self setDetailHeader:nil];
+    [self setScoreButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -211,8 +219,7 @@
 
 - (void)loadOupeiDataFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [GlobalGetMatchService() getMatchOupei:self matchId:match.matchId];
 }
 
@@ -290,7 +297,7 @@
     return YES;
 }
 
-- (void)updateLineupView:(NSString*)dataString
+- (void)updateLineupView:(NSString*)dataString needReload:(BOOL)needReload
 {           
     NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, %@, %d);", 
                         match.matchId, [LanguageManager getLanguage]];      
@@ -304,7 +311,7 @@
 // return the view is shown directly or not
 - (BOOL)showLineupView:(BOOL)needReload
 {
-    [self updateLineupView:nil];
+    [self updateLineupView:nil needReload:needReload];
     return YES;
 }
 
@@ -313,8 +320,7 @@
 
 - (void)loadMatchEventFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [GlobalGetMatchService() getMatchEvent:self matchId:match.matchId];    
 }
 
@@ -360,10 +366,8 @@
 
 - (void)setTeamNameLable:(UILabel *)label name:(NSString *)name
 {
-    NSInteger length = [name length];
-    if (length > 8) {
-        length = 8;
-    }
+    NSInteger length = MIN([name length],MAX_TEAM_NAME_SIZE);
+
     const CGFloat pxPerLetter = 14.0;
     [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
     if (label == self.homeTeamName) {
@@ -379,12 +383,9 @@
 
 - (void)setTeamRankLable:(UILabel *)label rank:(NSString *)rank
 {
-    NSInteger length = [rank length];
+    NSInteger length = MIN([rank length], MAX_TEAM_RANK_SIZE);
     
-    if (length > 6) {
-        length = 6;
-    }
-    const CGFloat pxPerLetter = 11.0;
+    const CGFloat pxPerLetter = 9.0;
     if (label == self.homeTeamRank) {
         
         CGFloat x = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5;
@@ -405,7 +406,20 @@
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
+    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE || 
+        header.matchStatus == MATCH_STATUS_FINISH) {
+        //score text
+        NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
+        [self.scoreButton setTitle:title forState:UIControlStateNormal];
+        [self.scoreButton setImage:nil forState:UIControlStateNormal];
+    }else{
+        // vs image
+        [self.scoreButton setImage:[UIImage imageNamed:@"vs.png"] forState:UIControlStateNormal];
+        [self.scoreButton setTitle:nil forState:UIControlStateNormal];
+    }
+//    [self.scoreButton setEnabled:NO];
     NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
+    
     
     
     NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
@@ -453,8 +467,7 @@
 
 - (void)loadMatchDetailHeaderFromServer
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];    
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];    
     [GlobalGetMatchService() getMatchDetailHeader:self matchId:match.matchId];  
 }
 
@@ -469,8 +482,9 @@
 #pragma Web View Related & Web View Delegate
 #pragma mark - 
 
-- (void)showWebView:(BOOL)needReload
+- (void)trueShowWebView:(NSNumber*)needReloadValue
 {
+    BOOL needReload = [needReloadValue boolValue];
     switch (currentSelection) {
         case SELECT_EVENT:
             [self showEventView:needReload];
@@ -495,6 +509,17 @@
         default:
             break;
     }
+    
+    [self hideActivity];
+}
+
+
+- (void)showWebView:(BOOL)needReload
+{
+    [self showActivityWithText:FNS(@"加载数据中....")  withCenter:WEBVIEW_CENTERPOINT];
+    [self performSelector:@selector(trueShowWebView:) 
+               withObject:[NSNumber numberWithBool:needReload] 
+               afterDelay:0.0f];
 }
 
 - (void)loadWebViewByHtml:(NSString*)html
@@ -525,8 +550,7 @@
 
 - (void)initWebView
 {
-    CGPoint point = CGPointMake(160, 290);
-    [self showActivityWithText:FNS(@"加载数据中...") withCenter:point];
+    [self showActivityWithText:FNS(@"加载数据中...") withCenter:WEBVIEW_CENTERPOINT];
     [self loadWebViewByHtml:@"www/match_detail.html"];
 }
 

@@ -9,8 +9,8 @@ var OVERUNDER_DETAIL_URL = "http://bf.bet007.com/phone/OverUnderDetail.aspx?Odds
 var MATCH_EVENT_URL = "http://bf.bet007.com/phone/ResultDetail.aspx?ID=";
 var OUPEI_URL = "http://bf.bet007.com/phone/1x2.aspx?ID=";
 
-var TYPE_YAPEI = 1;
-var TYPE_OVERUNDER = 2;
+var TYPE_YAPEI = 0;
+var TYPE_OVERUNDER = 1;
 
 // current language
 var language = 0;

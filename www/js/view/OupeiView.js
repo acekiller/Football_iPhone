@@ -13,16 +13,16 @@ function OupeiView(){
             '</tpl>',
             '</table>');
 
-    this.companyPanel = new Ext.Panel({            
-        id : 'companyPanel',
+    this.oupeiCompanyPanel = new Ext.Panel({            
+        id : 'oupeiCompanyPanel',
 //        tpl : oupeiCompanyTemplate,
 		tpl : oupeiCompanyTemplate,
         margin: '0 0 0 0',
         align: 'left'
     });	        	       
 
-    this.statPanel = new Ext.Panel({            
-        id : 'statPanel',
+    this.oupeiStatPanel = new Ext.Panel({            
+        id : 'oupeiStatPanel',
         tpl : oupeiStatTemplate,
         margin: '0 0 0 0',
         align: 'left'
@@ -36,15 +36,15 @@ function OupeiView(){
             align: 'stretch'
         },
         scroll : 'vertical',
-        items: [this.statPanel,
-                this.companyPanel]            
+        items: [this.oupeiStatPanel,
+                this.oupeiCompanyPanel]            
     });	
 }
 
 OupeiView.prototype = {
 	constructor : OupeiView,
 	updateView : function(manager) {
-		this.companyPanel.update(manager.dataArray);
-		this.statPanel.update(manager.stat);
+		this.oupeiCompanyPanel.update(manager.dataArray);
+		this.oupeiStatPanel.update(manager.stat);
 	}
 };

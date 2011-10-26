@@ -301,7 +301,7 @@ enum cardType{
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            matchStatusLabel.text = FNS(@"已完场"); 
+            matchStatusLabel.text = FNS(@"完场"); 
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
             [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];

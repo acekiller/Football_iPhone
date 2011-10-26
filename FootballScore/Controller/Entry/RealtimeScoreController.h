@@ -25,7 +25,7 @@
     UIButton *myFollowButton;
 }
 
-@property (nonatomic, retain) NSTimer *matchSecondTimer;
+@property (nonatomic,retain) NSTimer *matchSecondTimer;
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
 - (void)setRightBarButtons;

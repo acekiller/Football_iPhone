@@ -135,10 +135,13 @@ MatchDetailView.prototype = {
 		
 		this.eventPanel.update(manager.eventArray);
 		
-		if (manager.statArray == null || manager.statArray.length == 0)
+		if (manager.statArray == null || manager.statArray.length == 0) {
 			this.statPanel.hide();
-		else
+		}
+		else {
+			this.statPanel.show();
 			this.statPanel.update(manager.statArray);
+		}
 	}
 };
 
