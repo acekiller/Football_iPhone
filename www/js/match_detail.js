@@ -39,7 +39,7 @@ MatchDetailApp = new Ext.Application({
 //        testDisplayOupeiDetailRemote();
 
 //		测试亚赔
-        testDisplayYapeiRemote();
+//        testDisplayYapeiRemote();
 
 //		测试亚赔变化
 //        testYapeiOddsDetailLocal();
