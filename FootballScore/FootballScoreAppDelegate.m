@@ -12,6 +12,7 @@
 #import "ReviewRequest.h"
 #import "PPTabBarController.h"
 #import "UINavigationBarExt.h"
+#import "DeviceDetection.h"
 
 #import "FootballNetworkRequest.h"
 
@@ -188,11 +189,12 @@ enum
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
         
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0 
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top_live.png"] forBarMetrics:UIBarMetricsDefault];
-#elif
-    GlobalSetNavBarBackground(@"top_live.png");        
-#endif     
+    if ([DeviceDetection isOS5]){
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top_live.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    else{
+        GlobalSetNavBarBackground(@"top_live.png");        
+    }
     
     [tabBarController setBarBackground:@"bottom_bg.png"];
     
@@ -218,7 +220,7 @@ enum
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
     
     if (![self isPushNotificationEnable]){
-        [self bindDevice];
+//        [self bindDevice];
     }
     
     return YES;

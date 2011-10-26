@@ -25,6 +25,10 @@ function testDisplayYapeiDetail(){
 	displayYapeiDetail(true,"matchId",0,data);
 }
 
+function testDisplayYapeiRemote(){
+	displayYapeiDetail(true,"643118",0);
+}
+
 //测试亚赔变化数据
 function testYapeiOddsDetail(){
 	
