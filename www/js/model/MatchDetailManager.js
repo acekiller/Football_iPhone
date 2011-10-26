@@ -17,9 +17,10 @@ var STAT_FIELD_AWAYVALUE = 2;
 var STAT_FIELD_COUNT = 3;
 
 // define Oupei Model
-function MatchDetailManager(){
+function MatchDetailManager(url){
 	this.eventArray = null;
 	this.statArray = null;
+	this.url = url;
 }
 
 MatchDetailManager.prototype = {
@@ -80,7 +81,11 @@ MatchDetailManager.prototype = {
 	},
 	
 	requestDataFromServer : function(matchId, lang){
-		// TODO 
+		var data = sendRequest(this.url + matchId + "&lang=" + lang);
+		if (data == null)
+			return false;
+			
+		this.readData(data);
 		return true;
 	}
 };

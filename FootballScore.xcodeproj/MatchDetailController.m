@@ -42,6 +42,7 @@
 
 @synthesize match;
 @synthesize detailHeader;
+@synthesize scoreButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +102,7 @@
     [dataWebView release];
     
     [detailHeader release];
+    [scoreButton release];
     [super dealloc];
 }
 
@@ -175,6 +177,7 @@
     [self setDataWebView:nil];
     
     [self setDetailHeader:nil];
+    [self setScoreButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -231,7 +234,10 @@
 
 - (void)updateOupeiView:(NSString*)oupeiDataString
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+//    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, null, %d, \"%@\");", [LanguageManager getLanguage], oupeiDataString];      
+
+    NSString *jsCode = [NSString stringWithFormat:@"displayOupeiDetail(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayOupei> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
 
@@ -242,10 +248,10 @@
 // return the view is shown directly or not
 - (BOOL)showOupeiView:(BOOL)needReload
 {
-    if (self.oupeiString == nil || needReload){
-        [self loadOupeiDataFromServer];
-        return NO;
-    }
+//    if (self.oupeiString == nil || needReload){
+//        [self loadOupeiDataFromServer];
+//        return NO;
+//    }
     
     [self updateOupeiView:self.oupeiString];
     return YES;
@@ -329,8 +335,10 @@
 
 - (void)updateEventView:(NSString*)eventDataString
 {
-    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
-                        [LanguageManager getLanguage], eventDataString];    
+//    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+//                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, \"%@\", %d);",
+                        match.matchId, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -341,10 +349,10 @@
 // return the view is shown directly or not
 - (BOOL)showEventView:(BOOL)needReload
 {
-    if (self.eventString == nil || needReload){
-        [self loadMatchEventFromServer];
-        return NO;
-    }
+//    if (self.eventString == nil || needReload){
+//        [self loadMatchEventFromServer];
+//        return NO;
+//    }
     
     [self updateEventView:self.eventString];
     return YES;
@@ -356,8 +364,8 @@
 - (void)setTeamNameLable:(UILabel *)label name:(NSString *)name
 {
     NSInteger length = [name length];
-    if (length > 8) {
-        length = 8;
+    if (length > 9) {
+        length = 9;
     }
     const CGFloat pxPerLetter = 14.0;
     [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
@@ -379,7 +387,7 @@
     if (length > 6) {
         length = 6;
     }
-    const CGFloat pxPerLetter = 11.0;
+    const CGFloat pxPerLetter = 9.0;
     if (label == self.homeTeamRank) {
         
         CGFloat x = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5;
@@ -400,13 +408,26 @@
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
 
+    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE || 
+        header.matchStatus == MATCH_STATUS_FINISH) {
+        //score text
+        NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
+        [self.scoreButton setTitle:title forState:UIControlStateNormal];
+        [self.scoreButton setImage:nil forState:UIControlStateNormal];
+    }else{
+        // vs image
+        [self.scoreButton setImage:[UIImage imageNamed:@"vs.png"] forState:UIControlStateNormal];
+        [self.scoreButton setTitle:nil forState:UIControlStateNormal];
+    }
+//    [self.scoreButton setEnabled:NO];
     NSDate *date = dateFromStringByFormat(header.matchDateString, DEFAULT_DATE_FORMAT);
+    
     
     
     NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
     
     if (date && dateString) {
-        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"[%@]",dateString];
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"%@",dateString];
     }else{
         self.matchStarttimeLabel.text = nil;
     }
@@ -415,30 +436,13 @@
     
     //acoording to the language setting, show the team names.
     if (lang == LANG_CANTON) {
-       // self.homeTeamName.text = header.homeTeamYYName;
-       // self.awayTeamName.text = header.awayTeamYYName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamYYName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamYYName];
     }else{
-       // self.homeTeamName.text = header.homeTeamSCName;
-       // self.awayTeamName.text = header.awayTeamSCName;
         [self setTeamNameLable:self.homeTeamName name:header.homeTeamSCName];
         [self setTeamNameLable:self.awayTeamName name:header.awayTeamSCName];
     }
-    
-    NSLog(@"homeTeamName size = %d",[self.homeTeamName.text length]);
-    NSLog(@"awayTeamName size = %d",[self.awayTeamName.text length]);    
-//    
-//    if ([header.homeTeamRank length] > 0) {
-//        self.homeTeamRank.text = [NSString stringWithFormat:@"[%@]",header.homeTeamRank];
-//    }else{
-//        self.homeTeamRank.text = nil;
-//    }
-//    if ([header.awayTeamRank length] > 0) {
-//        self.awayTeamRank.text = [NSString stringWithFormat:@"[%@]",header.awayTeamRank];
-//    }else{
-//        self.awayTeamRank.text = nil;
-//    }
+
 
     if ([header.homeTeamRank length] > 0) {
         [self setTeamRankLable:self.homeTeamRank rank:[NSString stringWithFormat:@"[%@]",header.homeTeamRank]];

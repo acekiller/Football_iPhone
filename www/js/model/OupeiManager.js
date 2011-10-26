@@ -11,9 +11,10 @@ var OUPEI_FIELD_JISHILOST = 7;
 var OUPEI_FIELD_COUNT = 8;
 
 // define Oupei Model
-function OupeiManager(){
+function OupeiManager(url){
 	this.dataArray = null;
 	this.stat = null;
+	this.url = url;
 }
 
 OupeiManager.prototype = {
@@ -59,7 +60,11 @@ OupeiManager.prototype = {
 	},
 	
 	requestDataFromServer : function(matchId, lang){
-		// TODO 
+		var data = sendRequest(this.url + matchId + "&lang=" + lang);
+		if (data == null)
+			return false;
+			
+		this.readData(data);
 		return true;
 	}
 };

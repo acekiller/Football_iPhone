@@ -94,6 +94,7 @@ enum{
 @property (nonatomic, retain) IBOutlet UIWebView *dataWebView;
 
 @property (nonatomic, retain) DetailHeader *detailHeader;
+@property (retain, nonatomic) IBOutlet UIButton *scoreButton;
 
 // for external call after alloc object
 - (void)resetWithMatch:(Match*)newMatch;

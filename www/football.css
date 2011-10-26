@@ -280,7 +280,6 @@ ul,li {
 	padding-left: 12px;
 }
 .teams1 {
-	float: left;
 	height: 205px;
 	width: 122px;
 	background-image: url(images/home_tile1@2x.png);
@@ -291,7 +290,6 @@ ul,li {
 	padding-left: 13px;
 }
 .teams2 {
-	float: left;
 	height: 205px;
 	width: 122px;
 	background-image: url(images/home_tile2@2x.png);
@@ -304,7 +302,6 @@ ul,li {
 	margin-bottom: 10px;
 }
 .teams3 {
-	float: left;
 	height: 145px;
 	width: 122px;
 	background-image: url(images/home_tile3@2x.png);
@@ -315,7 +312,6 @@ ul,li {
 	padding-left: 13px;
 }
 .teams4 {
-	float: left;
 	height: 145px;
 	width: 122px;
 	background-image: url(images/home_tile4@2x.png);

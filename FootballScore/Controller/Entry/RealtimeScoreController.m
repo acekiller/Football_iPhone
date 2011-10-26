@@ -290,7 +290,10 @@
 }
 
 - (IBAction)clickMyFollow:(id)sender
-{    
+{ 
+    UIButton* button = (UIButton*)sender;
+    matchSelectStatus = button.tag;
+    [self updateSelectMatchStatusButtonState:matchSelectStatus];
     [self reloadMyFollowList];
 //    MatchManager *manager = [MatchManager defaultManager];
 //    self.dataList = [manager getAllFollowMatch];
