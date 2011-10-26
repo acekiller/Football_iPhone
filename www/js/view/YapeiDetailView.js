@@ -23,6 +23,14 @@ function YapeiDetailView(type){
 			
 			var result = year + "/" + month + "/" + day + " " + hour + ":" + minute;
 			return result;			
+		},
+		
+		getSelectCompanyClass : function(selectedCompanyId, currentId){
+			console.log("call getSelectCompanyclass");
+			if (selectedCompanyId == currentId)
+				return "ac_Select";
+			else
+				return "ac_bg";
 		}
 		
 	};
@@ -83,6 +91,14 @@ YapeiDetailView.prototype = {
 		manager.requestOddsChangeFromServer(companyId);		
 		this.oddsPanel.update(manager.oddsChangeList);
 		this.detailCompanyPanel.update(manager);
+	},
+	
+	updateView : function(manager, companyId){
+		this.manager = manager;
+		manager.selectCompanyId = companyId;
+		
+		this.oddsPanel.update(manager.oddsChangeList);
+		this.detailCompanyPanel.update(manager);		
 	},
 	
 	test : function(){

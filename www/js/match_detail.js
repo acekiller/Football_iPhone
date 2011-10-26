@@ -39,10 +39,10 @@ MatchDetailApp = new Ext.Application({
 //        testDisplayOupeiDetailRemote();
 
 //		测试亚赔
-//        testDisplayYapeiRemote();
+        testDisplayYapeiRemote();
 
 //		测试亚赔变化
-//      testYapeiOddsDetail();
+//        testYapeiOddsDetailLocal();
 
 //		测试大小
 //      testDisplayOverunder();
@@ -242,16 +242,29 @@ function displayLineup(reload, matchId, lang, data){
 	return true;	
 }
 
-function changebg(index) {
-	 var len = yapeiCompanyManager.betCompanyList.length;
-	 for(var i=1;i<=len;i++) {
-	 	if (i==index){
+function getOddsCompanyElementName(index, type){
+	return "com"+"-"+index+"-"+type;
+}
+
+function changebg(index, type) {
+	
+	var manager = null;	
+	if (type == TYPE_YAPEI)
+		manager = yapeiCompanyManager;
+	else
+		manager = overunderCompanyManager;		
+		
+	 var len = manager.betCompanyList.length;
+	 for(var i=1; i<=len; i++) {
+	 	if (i == index){
 			continue;
 		} else {
-			anchorTag = document.getElementById("com"+i);
+			anchorTag = document.getElementById(getOddsCompanyElementName(i, type));
 	 		anchorTag.className= "ac_bg";
+	 		console.log("set " + i + " to ac_bg");
 		}
 	 } 
-	 anchorTag = document.getElementById("com"+index);
+	 anchorTag = document.getElementById(getOddsCompanyElementName(index, type));
 	 anchorTag.className= "ac_Select";
+	 console.log("set " + index + " to ac_Select");
 }
