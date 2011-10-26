@@ -68,7 +68,7 @@ ul,li {
 	padding-right: 16px;
 	padding-left: 16px;	
 	margin-top:-5px;
-	margin-bottom:-7px;
+	margin-bottom:-8px;
 }
 .ts li{
 	line-height: 28px;
@@ -280,7 +280,7 @@ ul,li {
 	padding-left: 12px;
 }
 .teams1 {
-	height: 205px;
+	height: 215px;
 	width: 122px;
 	background-image: url(images/home_tile1@2x.png);
 	background-repeat: no-repeat;
@@ -290,7 +290,7 @@ ul,li {
 	padding-left: 13px;
 }
 .teams2 {
-	height: 205px;
+	height: 215px;
 	width: 122px;
 	background-image: url(images/home_tile2@2x.png);
 	background-repeat: no-repeat;
@@ -302,7 +302,7 @@ ul,li {
 	margin-bottom: 10px;
 }
 .teams3 {
-	height: 145px;
+	height: 150px;
 	width: 122px;
 	background-image: url(images/home_tile3@2x.png);
 	background-repeat: no-repeat;
@@ -312,7 +312,7 @@ ul,li {
 	padding-left: 13px;
 }
 .teams4 {
-	height: 145px;
+	height: 150px;
 	width: 122px;
 	background-image: url(images/home_tile4@2x.png);
 	background-repeat: no-repeat;

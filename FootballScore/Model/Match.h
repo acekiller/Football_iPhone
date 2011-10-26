@@ -181,7 +181,7 @@ enum{
 - (int)matchSelectStatus;
 - (void)updateStartDate:(NSDate*)newStartDate;
 - (void)updateByMatch:(Match*)match;
-
--(void) updateScoreModifyTime;
+- (void)updateDate:(NSDate*)newDate startDate:(NSDate*)newStartDate;
+- (void)updateScoreModifyTime;
 
 @end

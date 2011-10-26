@@ -262,8 +262,12 @@ MatchManager* GlobalGetMatchManager()
                 continue;
             }
             
+            NSDate* newStartDate = dateFromChineseStringByFormat([fields objectAtIndex:INDEX_REALTIME_SCORE_START_DATE], DEFAULT_DATE_FORMAT);
+            NSDate* newDate = dateFromChineseStringByFormat([fields objectAtIndex:INDEX_REALTIME_SCORE_DATE], DEFAULT_DATE_FORMAT);
+            [match updateDate:newDate startDate:newStartDate];
+            
             if (![self isFilter:match]) {
-                PPDebug(@"<warning> the match is not in the filer match list, ID = %@", matchId);
+                PPDebug(@"match %@ not in filter list, no score update", [match description]);
                 continue;
             }
             
@@ -360,19 +364,21 @@ MatchManager* GlobalGetMatchManager()
         else{
            
             NSString* matchId = [fields objectAtIndex:INDEX_REALTIME_SCORE_MATCHID];
-            Match* followMatch = [self getFollowMatchById:matchId];
-            [self updateMatch:followMatch ByFields:fields];
-            Match* match = [self getMathById:matchId];
             
+            // update follow match
+            Match* followMatch = [self getFollowMatchById:matchId];
+            if (followMatch){
+                [self updateMatch:followMatch ByFields:fields];
+            }
+
+            Match* match = [self getMathById:matchId];            
             if (match == nil){
                 PPDebug(@"<warning> cannot find match by match ID (%@)", matchId);
                 continue;
             }
             
-            [retSet addObject:matchId];
-            
-            [self updateMatch:match ByFields:fields];
-            
+            [retSet addObject:matchId];            
+            [self updateMatch:match ByFields:fields];            
         }
     }
     
@@ -602,7 +608,10 @@ MatchManager* GlobalGetMatchManager()
         return [NSNumber numberWithInt:seconds];
     }
     else{
-        return nil;
+        startDate = match.date;
+        NSDate* now = [NSDate date];
+        int seconds = [now timeIntervalSinceDate:startDate] + serverDiffSeconds; // add server difference
+        return [NSNumber numberWithInt:seconds];
     }
 }
 

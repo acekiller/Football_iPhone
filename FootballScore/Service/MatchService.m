@@ -136,8 +136,11 @@
                 // parse score records and update match
                 if ([output.arrayData count] > 0){
                     NSArray* realtimeScoreArray = [output.arrayData objectAtIndex:0];                    
-                    scoreUpdateSet = [[MatchManager defaultManager] getScoreUpdateSet:realtimeScoreArray];
                     
+                    // update real time score info
+                    scoreUpdateSet = [[MatchManager defaultManager] getScoreUpdateSet:realtimeScoreArray];
+
+                    // update match info
                     updateMatchSet = [[MatchManager defaultManager] 
                                       updateMatchRealtimeScore:realtimeScoreArray];
                 }
