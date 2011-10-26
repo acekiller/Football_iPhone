@@ -234,6 +234,8 @@
     self.awayTeamRed = match.awayTeamRed;
     self.homeTeamYellow = match.awayTeamYellow;
     self.awayTeamYellow = match.awayTeamYellow;
+    self.lastScoreTime = match.lastScoreTime;
+    self.crownChuPan = match.crownChuPan;
     
 }
 

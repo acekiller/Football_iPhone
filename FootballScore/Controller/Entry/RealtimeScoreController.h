@@ -31,7 +31,7 @@
 - (void)setRightBarButtons;
 - (void)setLeftBarButtons;
 - (void)clickRefleshButton;
-- (void)showMyFollowCount;
+- (void)myFollowCountBadgeViewInit;
 - (void)reloadMyFollowCount;
 - (void)reloadMyFollowList;
 
