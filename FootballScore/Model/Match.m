@@ -118,7 +118,7 @@
     self.awayTeamFirstHalfScore = awayTeamFirstHalfScoreValue;
 
     if (crownChuPanValue != nil){
-        self.crownChuPan = [NSNumber numberWithInt:[crownChuPanValue doubleValue]];   
+        self.crownChuPan = [NSNumber numberWithDouble:[crownChuPanValue doubleValue]];   
     }
     
     [self setIsFollow:[NSNumber numberWithBool:isFollowValue]];   
