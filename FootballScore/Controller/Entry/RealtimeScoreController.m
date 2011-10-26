@@ -97,6 +97,7 @@
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     [self setRightBarButtons];
     [self setLeftBarButtons];//等 logo完成之后，这个取消注释
+    [self myFollowCountBadgeViewInit];
 
     self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
                                                 green:(0xf7)/255.0 
@@ -184,8 +185,6 @@
     self.dataList = [[MatchManager defaultManager] filterMatch];
     [[self dataTableView] reloadData];
     [self hideActivity];
-    
-    [self showMyFollowCount];
     
 }
 
@@ -284,6 +283,7 @@
     
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
+    
     [manager updateFilterMatchStatus:matchSelectStatus];
     self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];    
@@ -312,10 +312,11 @@
         [manager followMatch:match];
     }
     
-    if ([manager filterMatchStatus] == MATCH_SELECT_STATUS_MYFOLLOW){
+    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW){
         // only unfollow is possible here... so just update data list and delete the row
-        self.dataList = [manager filterMatch];
-        [self.dataTableView reloadData];             // I am lazy today so I just reload the table view
+        Match* matchInMatchArray = [manager getMathById:match.matchId];
+        [matchInMatchArray setIsFollow:[NSNumber numberWithBool:NO]];//because in myfollow,we can just delete,not add   
+        [self reloadMyFollowList];            // I am lazy today so I just reload the table view
     }
     else{
         [self.dataTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
@@ -406,12 +407,13 @@
     
 }
 
-- (void)showMyFollowCount
+- (void)myFollowCountBadgeViewInit
 {
     int tagLen = 20;
     CGRect rect = [myFollowButton bounds];
     self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -1, tagLen, tagLen)];
     [self.myFollowCountView setShadowEnabled:NO];
+    [self.myFollowCountView setBadgeColor:[UIColor redColor]];
     [self.myFollowButton addSubview:self.myFollowCountView];
     [self reloadMyFollowCount];
 }
@@ -421,8 +423,6 @@
     MatchManager *manager = [MatchManager defaultManager];
     int followMatchCount = [[manager getAllFollowMatch] count];
     self.myFollowCountView.badgeString = [NSString stringWithFormat:@"%d", followMatchCount];
-    [self.myFollowCountView setBadgeColor:[UIColor redColor]];
-    
     if (followMatchCount == 0) {
         [myFollowCountView setHidden:YES];
     }
