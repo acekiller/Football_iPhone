@@ -17,6 +17,12 @@ MatchDetailApp = new Ext.Application({
         // set launched flag
         MatchDetailApp.isLaunched = 1;
         
+//        MatchDetailApp.viewport = new Ext.Panel({
+//    	    fullscreen: true,
+//    	    layout: {
+//    	        type: 'auto'
+//    	    }
+//        });
         
 //		测试比赛事件
 //		testDisplayMatchEventLocally();
@@ -49,6 +55,7 @@ function isAppLaunched(){
 }
 
 function setCurrentView(panel){
+	
 	MatchDetailApp.viewport = panel;
 }
 
