@@ -17,6 +17,9 @@
 #import "MatchConstants.h"
 #import "LogUtil.h"
 
+#define MAX_TEAM_NAME_SIZE 7
+#define MAX_TEAM_RANK_SIZE 5
+
 
 @implementation MatchDetailController
 
@@ -363,10 +366,8 @@
 
 - (void)setTeamNameLable:(UILabel *)label name:(NSString *)name
 {
-    NSInteger length = [name length];
-    if (length > 9) {
-        length = 9;
-    }
+    NSInteger length = MIN([name length],MAX_TEAM_NAME_SIZE);
+
     const CGFloat pxPerLetter = 14.0;
     [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
     if (label == self.homeTeamName) {
@@ -382,11 +383,8 @@
 
 - (void)setTeamRankLable:(UILabel *)label rank:(NSString *)rank
 {
-    NSInteger length = [rank length];
+    NSInteger length = MIN([rank length], MAX_TEAM_RANK_SIZE);
     
-    if (length > 6) {
-        length = 6;
-    }
     const CGFloat pxPerLetter = 9.0;
     if (label == self.homeTeamRank) {
         
