@@ -185,6 +185,10 @@
     [[self dataTableView] reloadData];
     [self hideActivity];
     
+    if (result == 0 && updateMatchArray == nil) {
+        [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
+    }
+    
 }
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
@@ -305,10 +309,12 @@
     Match* match = [self.dataList objectAtIndex:indexPath.row];
     MatchManager* manager = [MatchManager defaultManager];
     if (match.isFollow == [NSNumber numberWithBool:YES]){
-        [manager unfollowMatch:match];  
+        [manager unfollowMatch:match]; 
+        [self popupMessage:FNS(@"已成功取消关注") title:@""];
     }
     else{
         [manager followMatch:match];
+        [self popupMessage:FNS(@"已成功关注") title:@""];
     }
     
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW){
