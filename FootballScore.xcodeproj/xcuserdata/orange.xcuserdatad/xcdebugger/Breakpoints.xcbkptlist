@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "341378970.983907"
+         timestampString = "341381417.702311"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "501"
-         endingLineNumber = "501">
+         startingLineNumber = "500"
+         endingLineNumber = "500">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
