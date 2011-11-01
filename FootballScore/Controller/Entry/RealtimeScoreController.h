@@ -23,6 +23,11 @@
         
     NSTimer *matchSecondTimer;
     UIButton *myFollowButton;
+        
+        
+    UIButton *scoreTypeButton;
+        
+        
 }
 
 @property (nonatomic,retain) NSTimer *matchSecondTimer;
@@ -34,8 +39,11 @@
 - (void)myFollowCountBadgeViewInit;
 - (void)reloadMyFollowCount;
 - (void)reloadMyFollowList;
+-(void)setScoreButtonTitle:(NSInteger)buttonIndex;
 
 @property (nonatomic, retain) IBOutlet UIButton *myFollowButton;
+@property (nonatomic, retain) UIButton *scoreTypeButton;
+
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;
 @property (nonatomic, retain) MatchDetailController *matchDetailController;
 

@@ -20,7 +20,7 @@
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
 @synthesize myFollowCountView;
-
+@synthesize scoreTypeButton;
 @synthesize matchSecondTimer;
 @synthesize matchDetailController;
 
@@ -36,6 +36,7 @@
 
 - (void)dealloc
 {
+    [scoreTypeButton release];
     [matchDetailController release];
     [matchSecondTimer release];
     [myFollowButton release];
@@ -229,13 +230,20 @@
 								  initWithTitle:FNS(@"请选择赛事比分类型")
                                   delegate:self
 								  cancelButtonTitle:FNS(@"返回")
+                                  
+                                  
+                                  
 								  destructiveButtonTitle:FNS(@"全部比分")
 								  otherButtonTitles:FNS(@"一级赛事"), 
-                                  FNS(@"单场比分"), FNS(@"足彩比分"), FNS(@"竞彩比分"), nil
+                                  FNS(@"足彩比分"), FNS(@"竞彩比分"), FNS(@"单场比分"), nil
                                   ];
 	
-	[actionSheet showFromTabBar:self.tabBarController.tabBar];
-	[actionSheet release];
+    	[actionSheet showFromTabBar:self.tabBarController.tabBar];
+    	[actionSheet release];
+    
+    
+    
+    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -250,9 +258,41 @@
 //    }
     
     matchScoreType = buttonIndex;
-    
-    // reload data
+        
+       // reload data
     [self loadMatch:matchScoreType];
+    
+    // update score type button display   
+    
+    [self setScoreButtonTitle:buttonIndex];
+      
+}
+
+-(void)setScoreButtonTitle:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
+            break;
+            
+        case 1:
+            [scoreTypeButton setTitle:FNS(@"一级") forState:UIControlStateNormal];
+            break;
+            
+        case 2:
+            [scoreTypeButton setTitle:FNS(@"足彩") forState:UIControlStateNormal];
+            break;
+            
+        case 3:
+            [scoreTypeButton setTitle:FNS(@"竞彩") forState:UIControlStateNormal];
+            break;
+            
+        case 4:
+            [scoreTypeButton setTitle:FNS(@"单场") forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+            
+    }
 }
 
 
@@ -360,14 +400,18 @@
     [rightButtonView addSubview:refleshButton];
     [refleshButton release];
     
-    UIButton *scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
+    
+    
+    
+    
+    scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [scoreTypeButton setTitle:FNS(@"完整") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:scoreTypeButton];
-    [scoreTypeButton release];
+    
     
     UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
