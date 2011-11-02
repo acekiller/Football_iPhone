@@ -108,5 +108,6 @@ enum{
 - (void)updateEventView:(NSString*)eventDataString;
 - (void)showWebViewByClick:(BOOL)needReload;
 //- (void)matchDataButtonBackGround;
+- (void)setSelection;
 
 @end

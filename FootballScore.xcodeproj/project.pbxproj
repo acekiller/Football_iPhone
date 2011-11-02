@@ -14,6 +14,7 @@
 		C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C28529B1144BE49400CA3CE9 /* ColorManager.m */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
 		CA1F4DBD145802CE001C3F19 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = CA1F4DBB145802CE001C3F19 /* 57.png */; };
 		CA1F4DBE145802CE001C3F19 /* 57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA1F4DBC145802CE001C3F19 /* 57@2x.png */; };
@@ -377,6 +378,8 @@
 		C28529B1144BE49400CA3CE9 /* ColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManager.m; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		C2D36E8F1460E64100603923 /* PPSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSegmentControl.h; sourceTree = "<group>"; };
+		C2D36E901460E64100603923 /* PPSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSegmentControl.m; sourceTree = "<group>"; };
 		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		CA1F4DBB145802CE001C3F19 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		CA1F4DBC145802CE001C3F19 /* 57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "57@2x.png"; sourceTree = "<group>"; };
@@ -1074,6 +1077,16 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		C2D36E8E1460E64100603923 /* PPSegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				C2D36E8F1460E64100603923 /* PPSegmentControl.h */,
+				C2D36E901460E64100603923 /* PPSegmentControl.m */,
+			);
+			name = PPSegmentControl;
+			path = Components/PPSegmentControl;
+			sourceTree = "<group>";
+		};
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1353,6 +1366,7 @@
 		CAF4CC88142ED00E001D5B4A /* Common_Iphone */ = {
 			isa = PBXGroup;
 			children = (
+				C2D36E8E1460E64100603923 /* PPSegmentControl */,
 				CAF4CF23142ED014001D5B4A /* AddressBookUtils */,
 				CAF4CF26142ED014001D5B4A /* Application */,
 				CAF4CF46142ED014001D5B4A /* Components */,
@@ -2433,6 +2447,7 @@
 				C280CAAA1447D6F000EBCD9A /* AlertController.m in Sources */,
 				C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */,
 				C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */,
+				C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -66,7 +66,7 @@
     self = [super init];
     if (self) {
         self.match = aMatch;
-        currentSelection = SELECT_EVENT;
+       // currentSelection = SELECT_EVENT;
         //currentSelection = -1;
     }
     return self;
@@ -77,8 +77,7 @@
     self.match = newMatch;
     self.eventString = nil;
     self.oupeiString = nil;
-    currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];
+    [self setSelection];
     
     [self loadMatchDetailHeaderFromServer];
     [self showWebViewByClick:YES];
@@ -131,8 +130,7 @@
     
     [super viewDidLoad];
     // set default select button for button_event
-    currentSelection = SELECT_EVENT;
-    [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];             
+    [self setSelection];           
 
     // left button 
     NSString * leftButtonName = @"ss.png";    
@@ -683,6 +681,35 @@
 //    [self.dataWebView stopLoading];
 //    self.dataWebView = nil;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setSelection
+{
+    switch ([match.status intValue]) {
+        case MATCH_STATUS_NOT_STARTED:
+        {
+            currentSelection = SELECT_ANALYSIS;
+            [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_ANALYSIS]; 
+        }
+            break;
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+        case MATCH_STATUS_MIDDLE:
+        case MATCH_STATUS_PAUSE:       
+        case MATCH_STATUS_FINISH:
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        default:
+        {
+            currentSelection = SELECT_EVENT;
+            [self updateSelectMatchStatusButtonState:MATCH_DATA_STATUS_EVENT];  
+        }
+            break;
+            
+    }
+
 }
 
 @end

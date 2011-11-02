@@ -82,11 +82,14 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	ScoreUpdateController* scoreUpdateController = (ScoreUpdateController*)
-        [UIUtils addViewController:[ScoreUpdateController alloc]
+        [UIUtils addViewController:[[ScoreUpdateController alloc]
+                  initWithDelegate:self]
 					 viewTitle:FNS(@"比分动态")
 					 viewImage:@"b_menu_1.png"
 			  hasNavController:YES			
-			   viewControllers:controllers];	
+			   viewControllers:controllers];
+
+    
     
 	self.matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
@@ -453,7 +456,11 @@ enum
 	}	
 }
 
-
+-(void) updateScoreMessageCount:(NSInteger)count
+{
+    [self.tabBarController setBadgeValue:[NSString stringWithFormat:@"%d", count] buttonTag:0];
+    
+}
 
 @end
 
