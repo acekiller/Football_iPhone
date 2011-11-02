@@ -17,11 +17,22 @@
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
 @synthesize deleteFlag;
+@synthesize ScoreUpdateControllerDelegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithDelegate:(id<ScoreUpdateControllerDelegate>) delegate
+{
+    self.ScoreUpdateControllerDelegate = delegate;
+    self = [self init];
+    if (self) {
+        //
     }
     return self;
 }
@@ -68,7 +79,7 @@
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
         
     //  假数据，调试使用。
-    /*
+/*
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -96,10 +107,8 @@
     [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
-
-*/
-     
-    
+*/    
+    [self refleshCount];
 
 }
 
@@ -208,6 +217,7 @@
             }
         }
     }
+    [self refleshCount];
 
 }
 
@@ -237,6 +247,7 @@
             [self clickDone:nil];
         }
     }
+    [self refleshCount];
 }
 #pragma action selector
 
@@ -254,6 +265,7 @@
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
     [self setNavigationRightButton:nil imageName:@"refresh.png" action:@selector(clickRefresh:)];
     [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
+    [self refleshCount];
     [self.dataTableView reloadData];    
 }
 - (void)clickRefresh:(id)sender
@@ -268,7 +280,15 @@
     [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
     [[ScoreUpdateManager defaultManager] removeAllScoreUpdates];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
+    [self refleshCount];
     [self.dataTableView reloadData];
+}
+
+- (void)refleshCount
+{
+    if (self.ScoreUpdateControllerDelegate && [self.ScoreUpdateControllerDelegate respondsToSelector:@selector(updateScoreMessageCount:)]) {
+        [self.ScoreUpdateControllerDelegate updateScoreMessageCount:[self.dataList count]];
+    }
 }
 
 @end
