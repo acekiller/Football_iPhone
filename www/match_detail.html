@@ -4,31 +4,31 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Match Detail</title>
 		<link href="football.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/analysis_action.js.js" charset='utf-8'></script>
 		<script src="lib/touch/sencha-touch.js" type="text/javascript"></script>
 		<link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/util/parserUtil.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/util/NetworkUtil.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/OupeiObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/YapeiObject.js" charset='utf-8'></script>
-		<script type="text/javascript" src="js/model/OverunderObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/LineupObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/AnalysisObject.js" charset="UTF-8" ></script>
 		<script type="text/javascript" src="js/model/OupeiManager.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/AnalysisManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/YapeiManager.js" charset='utf-8'></script>
-		<script type="text/javascript" src="js/model/OverunderManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/LineupManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/MatchEventObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/MatchStatObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/BetCompanyObject.js" charset="UTF-8" ></script>
 		<script type="text/javascript" src="js/model/BetComanyManager.js" charset="UTF-8" ></script>
-		<script type="text/javascript" src="js/model/YapeiObject.js" charset="UTF-8" ></script>
 		<script type="text/javascript" src="js/model/YapeiManager.js" charset="UTF-8" ></script>
 		<script type="text/javascript" src="js/model/MatchDetailManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/MatchEventView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/OupeiView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/YapeiView.js" charset='utf-8'></script>
-		<script type="text/javascript" src="js/view/OverunderView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/LineupView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/YapeiDetailView.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/AnalysisView.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/service/MatchService.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/GlobalVariable.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/match_detail.js" charset='utf-8'></script>
@@ -252,5 +252,181 @@
 				</tr>
 				</tpl>
         </textarea>
+		
+		<textarea id="analysis-template" class="x-hidden-display">
+			<table id="expandable_table">
+			<tbody>
+<!--积分排名-->					
+				<tr name="points">
+					<td> 
+						<a href="#" onclick="pointsAction()">积分排名</a>
+							<ul id ="table_points" style="display:none;">
+								<li>
+									{hometeam} 全场
+								<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+									<tr>
+	                    				<td></td><td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
+	                				</tr>
+									<tpl for="homePointsArray">
+										<tr>
+										<td></td><td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
+										</tr>
+									</tpl>
+								</table>
+								</li>
+								<li>
+									{awayteam} 全场
+								</li>
+								<li>
+									<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+									<tr>
+	                    				<td></td><td>赛&nbsp;</td><td>胜&nbsp;</td><td>平&nbsp;</td><td>负&nbsp;</td><td>得&nbsp;</td><td>失&nbsp;</td><td>净&nbsp;</td><td>得分&nbsp;</td><td>排名&nbsp;</td><td>胜率&nbsp;</td>
+	                				</tr>
+									<tpl for="awayPointsArray">
+										<tr>
+										<td></td><td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
+										</tr>
+									</tpl>
+								</table>
+								</li>
+								</li>
+							</ul>
+							
+					</td>
+				</tr>
+<!--对赛往绩-->				
+				<tr name="headtohead">
+					<td> 
+						<a href="#" onclick="headtoheadActoin()">对赛往绩</a>
+							<ul id ="table_headtohead" style="display:none;">
+								<tpl for="groupHeadtoheadArray">
+								<li>
+									{[this.getYearFromDate(values)]}
+								</li>
+								<li>
+									<table  width="100%" border="0" cellpadding="0" cellspacing="0" >
+									<tr><td>日期&nbsp;&nbsp;</td><td>赛事&nbsp;</td><td>主场&nbsp;</td><td>比分&nbsp;</td><td>客场&nbsp;</td><td>半场&nbsp;</td></tr>
+									<tpl for=".">
+										<tr>
+										<td>{[this.getMonthDayFromDate(values.time)]}&nbsp;&nbsp;</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{home}</td><td>{homeHalfPoints}-{awayHalfPoints}</td>
+										</tr>
+									</tpl>
+									
+									</table>
+								</li>
+								</tpl>
+							</ul>
+					</td>
+				</tr>
+<!--近期战绩-->					
+				<tr name="records">
+					<td> 
+						<a href="#" onclick="recordsAction()">近期战绩</a>
+							<ul id="table_records" style="display:none;">
+								<li>
+									{hometeam}
+								</li>
+								<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>日期&nbsp;&nbsp;</td><td>赛事&nbsp</td><td>主队&nbsp</td><td>比分&nbsp</td><td>客队&nbsp</td><td>盘路&nbsp</td>
+										</tr>
+										<tpl for="homeRecordArray">
+										<tr>
+											<td>{[this.formateDate(values.time)]}&nbsp;</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{odds}</td>
+										</tr>
+										</tpl>
+									</table>
+								</li>
+								<li>
+									{awayteam}
+								</li>
+								<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>日期&nbsp;&nbsp;</td><td>赛事&nbsp</td><td>主队&nbsp</td><td>比分&nbsp</td><td>客队&nbsp</td><td>盘路&nbsp</td>
+										</tr>
+										<tpl for="awayRecordArray">
+										<tr>
+											<td>{[this.formateDate(values.time)]}&nbsp;</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{odds}</td>
+										</tr>
+										</tpl>
+									</table>
+								</li>
+							</ul>							
+							
+					</td>
+				</tr>
+<!--未来三场-->					
+				<tr name="near3games">
+					<td> 
+						<a href="#" onclick="near3gamesAction()">未来三场</a>	
+							<ul id="table_near3games" style="display:none;">
+								<li>
+									{hometeam}
+								</li>
+								<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>时间&nbsp;</td><td>赛事&nbsp;</td><td>对阵&nbsp;</td><td>间隔&nbsp;</td>
+										</tr>
+										<tpl for="homeNear3GamesArray">
+										<tr>
+											<td>{[this.formateDate(values.time)]}&nbsp;</td><td>{league}</td><td>{[values.home==parent.hometeam ? values.away : values.home]}</td><td>{offsetday}</td>
+										</tr>
+										</tpl>
+									</table>
+								</li>
+								<li>
+									{awayteam}
+								</li>
+								<li>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>时间&nbsp;</td><td>赛事&nbsp;</td><td>对阵&nbsp;</td><td>间隔&nbsp;</td>
+										</tr>
+										<tpl for="awayNear3GamesArray">
+										<tr>
+											<td>{[this.formateDate(values.time)]}&nbsp;</td><td>{league}</td><td>{[values.home==parent.awayteam ? values.away : values.home]}</td><td>{offsetday}</td>
+										</tr>
+										</tpl>
+									</table>
+								</li>
+							</ul>						
+					</td>
+				</tr>
+<!--心水推荐-->				
+				<tr name="recommend">
+					<td> 
+						<a href="#" onclick="recommendAction()">心水推荐</a>	
+							<ul id="table_recommend" style="display:none;">
+								<li>
+									<tpl for="recommendArray">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+										<tr>
+											<td>球队&nbsp;</td><td>近期走势&nbsp;</td><td>盘路输赢&nbsp;</td>
+										</tr>
+										<tr>
+											<td>{home}</td><td>{homeTrend}</td><td>{homeOdds}</td>
+										</tr>
+										<tr>
+											<td>{away}</td><td>{awayTrend}</td><td>{awayOdds}</td>
+										</tr>
+									</table>
+								</li>
+								<li>
+									{analysis}
+								</li>
+								</tpl>
+							</ul>						
+					</td>
+				</tr>
+							
+			</tbody>
+		</table>
+			
+		</textarea>
 	</body>
 </html>
