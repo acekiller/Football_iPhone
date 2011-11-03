@@ -183,6 +183,7 @@ ul,li {
 	background-color: #FFF;}
 .fx_title1 {
 	background-image: url(images/fx_title.png);
+	background-repeat:no-repeat; 
 	font-weight: bold;
 	color: #2D6EAE;
 	font-size: 12px;
