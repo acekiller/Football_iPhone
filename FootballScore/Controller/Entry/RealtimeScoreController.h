@@ -26,6 +26,7 @@
         
         
     UIButton *scoreTypeButton;
+    UIButton *filterBarButton;
         
         
 }
@@ -43,6 +44,7 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *myFollowButton;
 @property (nonatomic, retain) UIButton *scoreTypeButton;
+@property (nonatomic, retain) UIButton *filterBarButton;
 
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;
 @property (nonatomic, retain) MatchDetailController *matchDetailController;
