@@ -21,6 +21,7 @@
 @synthesize myFollowButton;
 @synthesize myFollowCountView;
 @synthesize scoreTypeButton;
+@synthesize filterBarButton;
 @synthesize matchSecondTimer;
 @synthesize matchDetailController;
 
@@ -37,6 +38,7 @@
 - (void)dealloc
 {
     [scoreTypeButton release];
+    [filterBarButton release];
     [matchDetailController release];
     [matchSecondTimer release];
     [myFollowButton release];
@@ -320,6 +322,11 @@
 
 - (IBAction)clickSelectMatchStatus:(id)sender
 {
+    if ([filterBarButton isHidden]) 
+        [filterBarButton setHidden:NO];
+    if ([scoreTypeButton isHidden]) 
+        [scoreTypeButton setHidden:NO];
+    
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
@@ -334,6 +341,11 @@
 
 - (IBAction)clickMyFollow:(id)sender
 { 
+    if (![filterBarButton isHidden]) 
+        [filterBarButton setHidden:YES];
+    if (![scoreTypeButton isHidden]) 
+        [scoreTypeButton setHidden:YES];
+    
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
@@ -399,11 +411,7 @@
     [refleshButton addTarget:self action:@selector(clickRefleshButton) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:refleshButton];
     [refleshButton release];
-    
-    
-    
-    
-    
+
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [scoreTypeButton setTitle:FNS(@"完整") forState:UIControlStateNormal];
@@ -413,15 +421,14 @@
     [rightButtonView addSubview:scoreTypeButton];
     
     
-    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
-    [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
-    [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [filterButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
-    [filterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [filterButton.titleLabel setFont:font];
-    [rightButtonView addSubview:filterButton];
-    [filterButton release];
+    filterBarButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
+    [filterBarButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [filterBarButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
+    [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [filterBarButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
+    [filterBarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [filterBarButton.titleLabel setFont:font];
+    [rightButtonView addSubview:filterBarButton];
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
     [rightButtonView release];
@@ -451,7 +458,8 @@
 - (void)clickRefleshButton
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
-        return;
+        [self reloadMyFollowList];
+    else
         [self loadMatch:matchScoreType];
     
 }
