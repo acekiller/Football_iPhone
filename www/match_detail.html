@@ -59,9 +59,9 @@
     			<ul class="ts">    	
     				<tpl for=".">
       				<li class="line">
-      					<div class="p1">{[this.displayStat(values.homeValue)]}</div>
+      					<div class="p1">{[this.displayStat(values.type,values.homeValue)]}</div>
       					<div class="p2">{type:this.statString()}</div>
-      					<div class="p1">{awayValue}</div>
+      					<div class="p1">{[this.displayStat(values.type,values.awayValue)]}</div>
       				</li>
       				</tpl>
     			</ul>

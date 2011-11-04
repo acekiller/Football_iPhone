@@ -99,11 +99,17 @@ function MatchDetailView(){
 	        return statArray[parseInt(type)];	    
 	    },
 		
-		displayStat : function(homeValue) {
-			if (homeValue == "*") {
+		displayStat : function(type, value) {
+			if (type == "0" && value == "*") { //先开球
 				return "<img src=images/dwq.png />";
 			}
-			return homeValue;
+			if (type == "2" && value == "1") { //第一张黄牌
+				return "<img src=images/yellowcard@2x.png />";
+			}
+			if (type == "25" && value == "1") { //第一个换人
+				return "<img src=images/2.png />";
+			}
+			return value;
 		}
 	
 	};
