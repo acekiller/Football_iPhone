@@ -46,7 +46,7 @@ MatchDetailApp = new Ext.Application({
 //		testDisplayLineupRemote();
 
 //		测试分析
-		testDisplayAnalysisLocal();
+		//testDisplayAnalysisLocal();
 		//testDisplayAnalysisRemote();
 		//testSep();
     }
