@@ -47,8 +47,8 @@ MatchDetailApp = new Ext.Application({
 
 //		测试分析
 		//testDisplayAnalysisLocal();
-		testDisplayAnalysisRemote();
-		
+		//testDisplayAnalysisRemote();
+		//testSep();
     }
 });
 
@@ -70,7 +70,8 @@ function hideAllView(){
 	hideView(MatchDetailApp.oupeiView);
 	hideView(MatchDetailApp.yapeiView);
 	hideView(MatchDetailApp.overunderView);
-	hideView(MatchDetailApp.lineupView);	
+	hideView(MatchDetailApp.lineupView);
+	hideView(MatchDetailApp.analysisView);		
 }
 
 function setCurrentView(panel){	
@@ -245,13 +246,13 @@ function displayLineup(reload, matchId, lang, data){
 	return true;	
 }
 
-function displayAnalysis(reload, matchId, lang, data) {
+function displayAnalysis(reload, matchId, homeTeam, awayTeam, lang, data) {
 	if (reload) {
 		if (data != undefined) {
-			if (analysisManager.readData(data) == false) {
+			if (analysisManager.readData(data, homeTeam, awayTeam) == false) {
 				return false;
 			}
-		} else if (analysisManager.requestDataFromServer(matchId, lang) == false){
+		} else if (analysisManager.requestDataFromServer(matchId, homeTeam, awayTeam, lang) == false){
 			return false;
 		}
 	}

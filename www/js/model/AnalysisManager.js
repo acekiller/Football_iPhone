@@ -83,9 +83,9 @@ function AnalysisManager(url) {
 AnalysisManager.prototype = {
 	constructor : AnalysisManager,
 	
-	readData: function(inputString){
-		this.hometeam;
-		this.awayteam;
+	readData: function(inputString, home, away){
+		this.hometeam = home;
+		this.awayteam = away;
 		this.homePointsArray = null;
 		this.awayPointsArray = null;
 		this.headtoheadArray = null;
@@ -100,7 +100,7 @@ AnalysisManager.prototype = {
 			return false;
 			
 		if (segmentArray.length < ANALYSIS_SEGMENT_COUNT){
-			console.log("error, readData for analysis, but segment count not enough");
+			console.log("error, readData for analysis, but segment count not enough " + segmentArray.length);
 			return false;
 		}
 
@@ -259,10 +259,6 @@ AnalysisManager.prototype = {
 			}
 		}
 		
-		//主队 客队
-		this.hometeam = getHomeTeam(this.homeNear3GamesArray);
-		this.awayteam = getAwayTeam(this.awayNear3GamesArray);
-		
 		// set data into recommend array
 		var segArray8 = segmentArray[ANALYSIS_SEGMENT_RECOMMEND];
             for (var i = 0; i < segArray8.length; i++) {
@@ -286,12 +282,11 @@ AnalysisManager.prototype = {
 		return this.homePointsArray;
 	},
 	
-	requestDataFromServer : function(matchId, lang){
+	requestDataFromServer : function(matchId, homeTeam, awayTeam, lang){
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
 			return false;
-			
-		this.readData(data);
+		this.readData(data, homeTeam, awayTeam);
 		return true;
 	}
 };
@@ -311,41 +306,42 @@ function testReadAnalysisData(){
 	groupHeadtoHeadByYear(analysisManager.headtoheadArray);
 }
 
-function groupHeadtoHeadByYear(headtoheadArray) {
-	var lastYear = headtoheadArray[0].time.substring(0,4);
-	var lastYearArray = new Array();
-	var allYearArray = new Array();
-	lastYearArray.push(headtoheadArray[0]);
-	for (var i=1;i<headtoheadArray.length;i++) {
-		var year = headtoheadArray[i].time.substring(0,4);
-		if (lastYear == year) {
-			lastYearArray.push(headtoheadArray[i]);
-			if(i == headtoheadArray.length-1) {
-				allYearArray.push(lastYearArray);
-			}
-		} else {
-			allYearArray.push(lastYearArray);
-			lastYearArray = new Array();
-			lastYearArray.push(headtoheadArray[i]);
-			lastYear = year;
-		}
-	}
-	return allYearArray;
-}
-
-function getHomeTeam(homeNear3GamesArray) {
-	var home0 = homeNear3GamesArray[0].home;
-	var home1 = homeNear3GamesArray[1].home;
-	if (home0 == home1)
-		return home0;
-	return homeNear3GamesArray[0].away;
-}
-
-function getAwayTeam(awayNear3GamesArray) {
-	var away0 = awayNear3GamesArray[0].away;
-	var away1 = awayNear3GamesArray[1].away;
-	if (away0 == away1)
-		return away0;
-	return awayNear3GamesArray[0].home;
+//将对赛往绩按年份排列
+function groupHeadtoHeadByYear(headtoheadArray){
+    if (headtoheadArray == null || headtoheadArray.length == 0) {
+        return;
+    }
+    else 
+        if (headtoheadArray.length == 1) {
+            var lastYear = headtoheadArray[0].time.substring(0, 4);
+            var lastYearArray = new Array();
+            var allYearArray = new Array();
+            lastYearArray.push(headtoheadArray[0]);
+            allYearArray.push(lastYearArray);
+            return allYearArray;
+        }
+        else {
+            var lastYear = headtoheadArray[0].time.substring(0, 4);
+            var lastYearArray = new Array();
+            var allYearArray = new Array();
+            lastYearArray.push(headtoheadArray[0]);
+            for (var i = 1; i < headtoheadArray.length; i++) {
+                var year = headtoheadArray[i].time.substring(0, 4);
+                if (lastYear == year) {
+                    lastYearArray.push(headtoheadArray[i]);
+                    if (i == headtoheadArray.length - 1) {
+                        allYearArray.push(lastYearArray);
+                    }
+                }
+                else {
+                    allYearArray.push(lastYearArray);
+                    lastYearArray = new Array();
+                    lastYearArray.push(headtoheadArray[i]);
+                    lastYear = year;
+                }
+            }
+            return allYearArray;
+        }
+    
 }
 
