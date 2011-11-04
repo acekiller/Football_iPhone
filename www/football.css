@@ -216,6 +216,10 @@ ul,li {
 	border-bottom-style: solid;
 	border-bottom-color: #CDD1D3;
 }
+
+.fx_col td {
+	background-color: #F3F3F3
+}
 #ao_c {
 	margin: 0px;
 	padding: 0px;

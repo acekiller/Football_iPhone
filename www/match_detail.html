@@ -265,7 +265,7 @@
 	                    				<td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
 	                				</tr>
 									<tpl for="homePointsArray">
-										<tr>
+										<tr class="fx_col">
 										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
@@ -279,7 +279,7 @@
 	                    				<td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
 	                				</tr>
 									<tpl for="awayPointsArray">
-										<tr>
+										<tr class="fx_col">
 										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
@@ -300,7 +300,7 @@
 										<td>日期</td><td>赛事</td><td>主场</td><td>比分</td><td>客场</td><td>半场</td>
 									</tr>
 									<tpl for=".">
-										<tr>
+										<tr class="fx_col">
 										<td>{[this.getMonthDayFromDate(values.time)]}</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{homeHalfPoints}-{awayHalfPoints}</td>
 										</tr>
 									</tpl>
@@ -318,7 +318,7 @@
 											<td>日期</td><td>赛事&nbsp</td><td>主队&nbsp</td><td>比分&nbsp</td><td>客队&nbsp</td><td>盘路&nbsp</td>
 										</tr>
 										<tpl for="homeRecordArray">
-										<tr>
+										<tr class="fx_col">
 											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{odds}</td>
 										</tr>
 										</tpl>
@@ -330,7 +330,7 @@
 											<td>日期</td><td>赛事&nbsp</td><td>主队&nbsp</td><td>比分&nbsp</td><td>客队&nbsp</td><td>盘路&nbsp</td>
 										</tr>
 										<tpl for="awayRecordArray">
-										<tr>
+										<tr class="fx_col">
 											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{odds}</td>
 										</tr>
 										</tpl>
@@ -347,7 +347,7 @@
 											<td>时间</td><td>赛事</td><td>对阵</td><td>间隔</td>
 										</tr>
 										<tpl for="homeNear3GamesArray">
-										<tr>
+										<tr class="fx_col">
 											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{[values.home==parent.hometeam ? values.away : values.home]}</td><td>{offsetday}</td>
 										</tr>
 										</tpl>
@@ -358,7 +358,7 @@
 											<td>时间</td><td>赛事</td><td>对阵</td><td>间隔</td>
 										</tr>
 										<tpl for="awayNear3GamesArray">
-										<tr>
+										<tr class="fx_col">
 											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{[values.home==parent.awayteam ? values.away : values.home]}</td><td>{offsetday}</td>
 										</tr>
 										</tpl>
@@ -372,13 +372,13 @@
 										<tr class="o_title">
 											<td>球队</td><td>近期走势</td><td>盘路输赢</td>
 										</tr>
-										<tr>
+										<tr class="fx_col">
 											<td>{home}</td><td>{homeTrend}</td><td>{homeOdds}</td>
-										</tr>
-										<tr>
+										</tr class="fx_col">
+										<tr class="fx_col">
 											<td>{away}</td><td>{awayTrend}</td><td>{awayOdds}</td>
 										</tr>
-										<tr>{analysis}</tr>
+										<tr class="fx_col"><td colspan="3">{analysis}</td></tr>
 									</table>
 									
 								</tpl>
