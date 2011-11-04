@@ -24,6 +24,7 @@
 @implementation MatchService
 
 @synthesize realtimeScoreTimer;
+@synthesize realtimeMatchTimer;
 @synthesize matchControllerDelegate;
 @synthesize scoreUpdateControllerDelegate;
 
@@ -56,6 +57,7 @@
 }
 
 #define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
+#define REALTIME_MATCH_TIMER_INTERVAL   30*60      //30 minutes
 
 - (void)startRealtimeScoreUpdate
 {
@@ -68,54 +70,44 @@
     self.realtimeScoreTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_SCORE_TIMER_INTERVAL target:self selector:@selector(getRealtimeScore) userInfo:nil repeats:NO];
 }
 
+- (void)stopRealtimeMatchUpdate
+{
+    NSLog(@"<stopRealtimeMatchUpdate>");
+    [realtimeMatchTimer invalidate];
+    self.realtimeScoreTimer = nil;
+    
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
+    if ([queue operationCount] > 0){
+        [queue cancelAllOperations];        
+    } 
+}
+
+- (void)startRealtimeMatchUpdate
+{
+    NSLog(@"<startRealtimeMatcheUpdate>");
+    
+    // stop timer firstly
+    [self stopRealtimeMatchUpdate];
+    
+    // create new timer
+    self.realtimeMatchTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_MATCH_TIMER_INTERVAL target:self selector:@selector(realtimeMatchUpdateTimerTask) userInfo:nil repeats:YES];
+}
+
+- (void)realtimeMatchUpdateTimerTask
+{
+    [self addRealtimeMatchUpdateToQueue:currentDelegate matchScoreType:currentScoreType];
+}
+
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
-    int lang = [LanguageManager getLanguage]; 
-    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
-
+    currentDelegate = delegate;
+    currentScoreType = matchScoreType;
+    
     // stop timer to avoid incorrect update
     [self stopRealtimeScoreUpdate];
-    
-    [queue addOperationWithBlock:^{
-        
-        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeMatch:lang
-                                                                     scoreType:matchScoreType];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NSDate* serverDate = nil;
-            NSArray* leagueArray = nil;
-            NSArray* updateMatchArray = nil;
-            
-            if (output.resultCode == ERROR_SUCCESS){
-
-                // parse server timestamp and update 
-                serverDate = [self parseSeverDate:
-                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP]];
-                [[MatchManager defaultManager] updateServerDate:serverDate];
-                
-                // parse league data and update                        
-                leagueArray = [LeagueManager fromString:
-                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                    
-                [[LeagueManager defaultManager] updateLeague:leagueArray];
-            
-                // parser result into match array and update
-                updateMatchArray = [MatchManager fromString:
-                                    [output.arrayData objectAtIndex:REALTIME_MATCH_DATA]];
-                [[MatchManager defaultManager] updateAllMatchArray:updateMatchArray];
-            }
-            
-            // step 2 : update UI
-            if (delegate && [delegate respondsToSelector:
-                             @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
-                [delegate getRealtimeMatchFinish:output.resultCode
-                 serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
-            }
-            
-            // no matter what result it is, start the score update timer again
-            [self startRealtimeScoreUpdate];
-        });                        
-    }];
+    [self addRealtimeMatchUpdateToQueue:delegate matchScoreType:matchScoreType];   
+    [self startRealtimeMatchUpdate];
+    [self startRealtimeScoreUpdate];
 }
 
 - (void)getRealtimeScore
@@ -259,11 +251,58 @@
 - (void)stopAllUpdates
 {
     [self stopRealtimeScoreUpdate];
+    [self stopRealtimeMatchUpdate];
 }
 
 - (void)startAllUpdates:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
     [self getRealtimeMatch:delegate matchScoreType:matchScoreType];
+    [self startRealtimeMatchUpdate];
+}
+
+- (void)addRealtimeMatchUpdateToQueue:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
+{
+    int lang = [LanguageManager getLanguage]; 
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeMatch:lang
+                                                                     scoreType:matchScoreType];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSDate* serverDate = nil;
+            NSArray* leagueArray = nil;
+            NSArray* updateMatchArray = nil;
+            
+            if (output.resultCode == ERROR_SUCCESS){
+                
+                // parse server timestamp and update 
+                serverDate = [self parseSeverDate:
+                              [output.arrayData objectAtIndex:REALTIME_MATCH_SERVER_TIMESTAMP]];
+                [[MatchManager defaultManager] updateServerDate:serverDate];
+                
+                // parse league data and update                        
+                leagueArray = [LeagueManager fromString:
+                               [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                    
+                [[LeagueManager defaultManager] updateLeague:leagueArray];
+                
+                // parser result into match array and update
+                updateMatchArray = [MatchManager fromString:
+                                    [output.arrayData objectAtIndex:REALTIME_MATCH_DATA]];
+                [[MatchManager defaultManager] updateAllMatchArray:updateMatchArray];
+            }
+            
+            // step 2 : update UI
+            if (delegate && [delegate respondsToSelector:
+                                    @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
+                [delegate getRealtimeMatchFinish:output.resultCode
+                                             serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
+            }
+            
+        });                        
+    }];
 }
 
 @end
