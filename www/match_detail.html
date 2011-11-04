@@ -53,24 +53,13 @@
 				</tpl>
            	</ul>
         </textarea>
-		<textarea id="event-template1" class="x-hidden-display">
-			<h2>比赛事件</h2>
-			<ul id="eventList">
-				<tpl for=".">
-					<li>
-						<h2>{minutes}' <img src="images/ball.png"></img> {player} {type:this.eventString()} </h2>
-					</li>
-				</tpl>
-			</ul>
-		</textarea>
-
 		<textarea id="stat-template" class="x-hidden-display">
 			<div id="teamdata">
     			<div><img src="images/data_team_1@2x.png" width="305" height="28" /></div>
     			<ul class="ts">    	
     				<tpl for=".">
       				<li class="line">
-      					<div class="p1">{homeValue}</div>
+      					<div class="p1">{[this.displayStat(values.homeValue)]}</div>
       					<div class="p2">{type:this.statString()}</div>
       					<div class="p1">{awayValue}</div>
       				</li>
@@ -166,8 +155,8 @@
 				<tpl for="dataArray">
 				<tr>
 					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
-        			<td>{homeChupei} {chupan} {awayChupei}</td>
-        			<td>{homeJishi} {jishi} {awayJishi}</td>
+        			<td>{homeChupei}&nbsp;&nbsp;<span style="color:#ff0000">{chupan}</span>&nbsp;&nbsp;{awayChupei}</td>
+        			<td>{homeJishi}&nbsp;&nbsp;<span style="color:#ff0000">{jishi}</span>&nbsp;&nbsp;{awayJishi}</td>
         			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
 				</tr>
 				</tpl>
@@ -231,24 +220,6 @@
         		</tpl>
       			</table>
 		    </div>
-        </textarea>
-		<textarea id="overunder-company-template" class="x-hidden-display">
-			<div id="Asiaodds">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr class="o_title">
-                    <td width="19%">公司</td>
-                    <td width="35%">初盘</td>
-                    <td width="37%">即时盘</td>
-                    <td width="9%">变</td>
-                </tr>
-				<tpl for=".">
-				<tr>
-					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
-        			<td>{overChupei} {chupan} {underChupei}</td>
-        			<td>{overJishi} {jishi} {underJishi}</td>
-        			<td><div onclick=""><img src="images/ew.png" width="9" height="14" /></div></td>
-				</tr>
-				</tpl>
         </textarea>
 		
 		<textarea id="analysis-template" class="x-hidden-display">

@@ -21,7 +21,7 @@ function YapeiDetailView(type){
 			var hour = str.substring(8, 10);
 			var minute = str.substring(10, 12);
 			
-			var result = year + "/" + month + "/" + day + " " + hour + ":" + minute;
+			var result =  month + "/" + day + " " + hour + ":" + minute;
 			return result;			
 		},
 		

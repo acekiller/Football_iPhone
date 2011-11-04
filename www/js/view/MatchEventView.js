@@ -97,7 +97,14 @@ function MatchDetailView(){
 	    {
 			console.log("stat string, type = "+type);
 	        return statArray[parseInt(type)];	    
-	    }
+	    },
+		
+		displayStat : function(homeValue) {
+			if (homeValue == "*") {
+				return "<img src=images/dwq.png />";
+			}
+			return homeValue;
+		}
 	
 	};
 
