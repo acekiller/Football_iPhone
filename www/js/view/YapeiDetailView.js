@@ -38,35 +38,59 @@ function YapeiDetailView(type){
     var companyTemplate = Ext.XTemplate.from("odds-detail-company-template", helperFunctions);
 	var oddsTemplate = Ext.XTemplate.from("odds-detail-template", helperFunctions);
 
+
 	this.selectCompanyId = null;
 	this.manager = null;
+
+	this.detailCompanyTitlePanel = new Ext.Panel({
+		html: '<div class="ac_left_title">赔率公司选择</div>',
+		margin: '0 0 0 0',
+		scroll : 'vertical',
+	});
+
 
     this.detailCompanyPanel = new Ext.Panel({            
 //        id : 'detailCompanyPanel' + type.toString(),
         tpl : companyTemplate,
         margin: '0 0 0 0',
+		scroll : 'vertical',
+    });	
+	
+	this.leftPanel = new Ext.Panel({
+		layout: {
+            type: 'vbox',
+			align: 'stretch'
+        },
 		flex: 93/320,
-//        align: 'top',
-        scroll : 'vertical'
-    });	        	       
+        items: [this.detailCompanyTitlePanel, this.detailCompanyPanel]    
+	});        	       
 		
+	this.oddsTitlePanel = new Ext.Panel({
+		html: '<div class="ac_r_title">赔率变化</div>',
+	});
+	
 	this.oddsPanel = new Ext.Panel({
 //        id : 'oddsPanel' + type.toString(),
-        tpl : oddsTemplate,
-        margin: '0 0 0 0',
-		flex: (320-93)/320,
-//        align: 'right',		
-        scroll : 'vertical'
+         tpl : oddsTemplate,
 	});
-
+	
+	this.rightPanel = new Ext.Panel({
+		layout: {
+            type: 'vbox',
+			align: 'stretch',
+        },
+	    scroll : 'vertical',
+		flex: (320-93)/320,
+        items: [this.oddsTitlePanel, this.oddsPanel]     
+	});
+	
     this.mainPanel = new Ext.Panel({
-
         fullscreen: true,
         layout: {
             type: 'hbox',
-            align: 'stretch'
+			align: 'stretch'
         },
-        items: [this.detailCompanyPanel, this.oddsPanel]            
+        items: [this.leftPanel, this.rightPanel]            
     });	
 }
 
@@ -100,10 +124,6 @@ YapeiDetailView.prototype = {
 		this.oddsPanel.update(manager.oddsChangeList);
 		this.detailCompanyPanel.update(manager);		
 	},
-	
-	test : function(){
-		alert("test");
-	}
 	
 };
 
