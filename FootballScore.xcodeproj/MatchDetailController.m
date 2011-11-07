@@ -319,6 +319,23 @@
     return YES;
 }
 
+- (void)updateAnalysisView:(NSString*)dataString needReload:(BOOL)needReload
+{           
+    NSString *jsCode = [NSString stringWithFormat:@"displayAnalysis(true, %@, '%@', '%@', %d);", 
+                        match.matchId, match.homeTeamName, match.awayTeamName, [LanguageManager getLanguage]];      
+    PPDebug(@"<updateAnalysisView> execute java script = %@",jsCode);        
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   
+    
+    [self hideActivity];
+    self.dataWebView.hidden = NO;    
+}
+
+- (BOOL)showAnalysisView:(BOOL)needReload
+{
+    [self updateAnalysisView:nil needReload:needReload];
+    return YES;
+}
+
 #pragma Event
 #pragma mark - 
 
@@ -523,7 +540,9 @@
         case SELECT_LINEUP:
             [self showLineupView:needReload];
             break;
-            
+        case SELECT_ANALYSIS:
+            [self showAnalysisView:needReload];
+            break;
         default:
             break;
     }

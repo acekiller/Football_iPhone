@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
+		C27FD7891467ACF700D7E3A9 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD77A1467ACF600D7E3A9 /* OHAttributedLabel.m */; };
+		C27FD7901467AFE900D7E3A9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27FD78F1467AFE900D7E3A9 /* CoreText.framework */; };
 		C280CAAA1447D6F000EBCD9A /* AlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA51447D6F000EBCD9A /* AlertController.m */; };
 		C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA61447D6F000EBCD9A /* AlertController.xib */; };
 		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
@@ -368,6 +371,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C27FD7771467ACF600D7E3A9 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
+		C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
+		C27FD7791467ACF600D7E3A9 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
+		C27FD77A1467ACF600D7E3A9 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
+		C27FD78F1467AFE900D7E3A9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C280CAA41447D6F000EBCD9A /* AlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertController.h; sourceTree = "<group>"; };
 		C280CAA51447D6F000EBCD9A /* AlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertController.m; sourceTree = "<group>"; };
 		C280CAA61447D6F000EBCD9A /* AlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertController.xib; sourceTree = "<group>"; };
@@ -945,6 +953,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C27FD7901467AFE900D7E3A9 /* CoreText.framework in Frameworks */,
 				CA7F24BC1433727300CC0F05 /* MobileCoreServices.framework in Frameworks */,
 				CA207BE8142EDFE600A4C425 /* libz.1.1.3.dylib in Frameworks */,
 				CA207BC7142ED6F900A4C425 /* SystemConfiguration.framework in Frameworks */,
@@ -978,6 +987,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C27FD7671467ACF600D7E3A9 /* OHAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				C27FD7771467ACF600D7E3A9 /* NSAttributedString+Attributes.h */,
+				C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */,
+				C27FD7791467ACF600D7E3A9 /* OHAttributedLabel.h */,
+				C27FD77A1467ACF600D7E3A9 /* OHAttributedLabel.m */,
+			);
+			name = OHAttributedLabel;
+			path = ../../OHAttributedLabel;
+			sourceTree = "<group>";
+		};
 		C280CAA31447D6F000EBCD9A /* More */ = {
 			isa = PBXGroup;
 			children = (
@@ -1292,6 +1313,7 @@
 		CAF4CC40142ECFCC001D5B4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C27FD78F1467AFE900D7E3A9 /* CoreText.framework */,
 				CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */,
 				CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */,
 				CA207BC6142ED6F900A4C425 /* SystemConfiguration.framework */,
@@ -1315,6 +1337,7 @@
 		CAF4CC47142ECFCC001D5B4A /* FootballScore */ = {
 			isa = PBXGroup;
 			children = (
+				C27FD7671467ACF600D7E3A9 /* OHAttributedLabel */,
 				CA7F23791433723300CC0F05 /* asi-http-request */,
 				CAF4D522142ED086001D5B4A /* tapkulibrary */,
 				CAF4CC88142ED00E001D5B4A /* Common_Iphone */,
@@ -2448,6 +2471,8 @@
 				C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */,
 				C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */,
 				C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */,
+				C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */,
+				C27FD7891467ACF700D7E3A9 /* OHAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewCell.h"
+#import "OHAttributedLabel.h"
+#import "NSAttributedString+Attributes.h"
 
 @class Match;
 
@@ -21,7 +23,7 @@
     
     UILabel *matchTypeLabel;
     UILabel *startTimeLabel;
-    UILabel *matchStatusLabel;
+    OHAttributedLabel *matchStatusLabel;
     UILabel *awayTeamLabel;
     UILabel *homeTeamLabel;
     UILabel *peilvLabel;
@@ -45,7 +47,7 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *matchTypeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *startTimeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *matchStatusLabel;
+@property (nonatomic, retain) IBOutlet OHAttributedLabel *matchStatusLabel;
 @property (nonatomic, retain) IBOutlet UILabel *awayTeamLabel;
 @property (nonatomic, retain) IBOutlet UILabel *homeTeamLabel;
 @property (nonatomic, retain) IBOutlet UILabel *peilvLabel;
