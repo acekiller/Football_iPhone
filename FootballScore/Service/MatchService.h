@@ -38,21 +38,28 @@
 
 @interface MatchService : CommonService {
     
+    int currentScoreType;
+    id<MatchServiceDelegate> currentDelegate;
+    
     NSTimer *realtimeScoreTimer;
+    NSTimer *realtimeMatchTimer;
 
     id<MatchServiceDelegate> matchControllerDelegate;
     id<MatchServiceDelegate> scoreUpdateControllerDelegate;
 }
 
 @property (nonatomic, retain) NSTimer *realtimeScoreTimer;
+@property (nonatomic, retain) NSTimer *realtimeMatchTimer;
 @property (nonatomic, assign) id<MatchServiceDelegate> matchControllerDelegate;
 @property (nonatomic, assign) id<MatchServiceDelegate> scoreUpdateControllerDelegate;
 
 - (void)getRealtimeMatch:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
+- (void)addRealtimeMatchUpdateToQueue:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType;
 - (void)getRealtimeScore;
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 - (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId;
+- (void)updateLatestFollowMatch;
 
 - (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 

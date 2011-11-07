@@ -82,11 +82,14 @@ enum
 	NSMutableArray* controllers = [[NSMutableArray alloc] init];
     
 	ScoreUpdateController* scoreUpdateController = (ScoreUpdateController*)
-        [UIUtils addViewController:[ScoreUpdateController alloc]
+        [UIUtils addViewController:[[ScoreUpdateController alloc]
+                  initWithDelegate:self]
 					 viewTitle:FNS(@"比分动态")
 					 viewImage:@"b_menu_1.png"
 			  hasNavController:YES			
-			   viewControllers:controllers];	
+			   viewControllers:controllers];
+
+    
     
 	self.matchController = (RealtimeScoreController*)
             [UIUtils addViewController:[RealtimeScoreController alloc]
@@ -97,6 +100,7 @@ enum
     
     [matchService setMatchControllerDelegate:self.matchController];    
     [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
+    [matchService updateLatestFollowMatch];
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -291,6 +295,7 @@ enum
     
     int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
     [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+    [self.matchService updateLatestFollowMatch];
 	
     [MobClick appLaunched];
     [self userRegister];
@@ -453,7 +458,11 @@ enum
 	}	
 }
 
-
+-(void) updateScoreMessageCount:(NSInteger)count
+{
+    [self.tabBarController setBadgeValue:[NSString stringWithFormat:@"%d", count] buttonTag:0];
+    
+}
 
 @end
 

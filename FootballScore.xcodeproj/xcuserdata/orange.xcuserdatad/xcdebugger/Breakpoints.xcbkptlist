@@ -84,20 +84,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "20"
          endingLineNumber = "20"
-         landmarkName = "+toChuPanString:language:"
+         landmarkName = "+toChuPanString:"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "FootballScore/Controller/Entry/RealtimeScoreController.m"
-         timestampString = "341378970.983907"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "501"
-         endingLineNumber = "501">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"

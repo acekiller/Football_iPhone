@@ -23,13 +23,6 @@ MatchDetailApp = new Ext.Application({
         // set launched flag
         MatchDetailApp.isLaunched = 1;
         
-//        MatchDetailApp.viewport = new Ext.Panel({
-//    	    fullscreen: true,
-//    	    layout: {
-//    	        type: 'auto'
-//    	    }
-//        });
-        
 //		测试比赛事件
 //		testDisplayMatchEventLocally();
 //        testDisplayMatchEventRemote();
@@ -52,8 +45,11 @@ MatchDetailApp = new Ext.Application({
 //		testDisplayLineup();
 //		testDisplayLineupRemote();
 
+//		测试分析
+		//testDisplayAnalysisLocal();
+		//testDisplayAnalysisRemote();
+		//testSep();
     }
-
 });
 
 function isAppLaunched(){
@@ -74,7 +70,8 @@ function hideAllView(){
 	hideView(MatchDetailApp.oupeiView);
 	hideView(MatchDetailApp.yapeiView);
 	hideView(MatchDetailApp.overunderView);
-	hideView(MatchDetailApp.lineupView);	
+	hideView(MatchDetailApp.lineupView);
+	hideView(MatchDetailApp.analysisView);		
 }
 
 function setCurrentView(panel){	
@@ -135,6 +132,13 @@ function getYapeiDetailView(type) {
 		else
 			return new YapeiDetailView(type);
 	}
+}
+
+function getAnalysisView(){
+	if (MatchDetailApp.analysisView != null)
+		return MatchDetailApp.analysisView;
+	else
+		return new AnalysisView();
 }
 
 function displayMatchEvent(reload, matchId, lang, data){
@@ -240,6 +244,22 @@ function displayLineup(reload, matchId, lang, data){
 	setCurrentView(MatchDetailApp.lineupView.mainPanel);	
 	MatchDetailApp.lineupView.updateView(lineupManager);
 	return true;	
+}
+
+function displayAnalysis(reload, matchId, homeTeam, awayTeam, lang, data) {
+	if (reload) {
+		if (data != undefined) {
+			if (analysisManager.readData(data, homeTeam, awayTeam) == false) {
+				return false;
+			}
+		} else if (analysisManager.requestDataFromServer(matchId, homeTeam, awayTeam, lang) == false){
+			return false;
+		}
+	}
+	MatchDetailApp.analysisView = getAnalysisView();
+	setCurrentView(MatchDetailApp.analysisView.mainPanel);
+	MatchDetailApp.analysisView.updateView(analysisManager);
+	return true;
 }
 
 function getOddsCompanyElementName(index, type){

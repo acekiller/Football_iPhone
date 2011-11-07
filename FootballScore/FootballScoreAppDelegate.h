@@ -10,6 +10,7 @@
 #import "CoreDataUtil.h"
 #import "PPApplication.h"
 #import "MobClick.h"
+#import "ScoreUpdateController.h"
 
 @class PPTabBarController;
 
@@ -25,7 +26,7 @@
 
 #define MAKE_FRIEND_PLACEID @"GroupBuy"
 
-@interface FootballScoreAppDelegate : PPApplication <UIApplicationDelegate, UITabBarControllerDelegate, MobClickDelegate> {
+@interface FootballScoreAppDelegate : PPApplication <UIApplicationDelegate, UITabBarControllerDelegate, MobClickDelegate, ScoreUpdateControllerDelegate> {
     
     UIWindow			*window;
     PPTabBarController	*tabBarController;
