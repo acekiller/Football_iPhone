@@ -23,6 +23,10 @@
     NSDate*         serverDate;
     int             serverDiffSeconds;
     
+    
+    int hidedMatches;
+    
+    
     NSMutableDictionary*   followMatchList;
 }
 
@@ -82,5 +86,11 @@
 
 - (int)getHomeTeamScore:(Match *)match;
 - (int)getAwayTeamScore:(Match *)match;
+
+
+//get hided Matches
+-(void)getTheHidedMatches:(int)hidedMatches;
+-(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
+
 
 @end
