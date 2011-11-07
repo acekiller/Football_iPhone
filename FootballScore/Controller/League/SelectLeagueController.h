@@ -35,6 +35,12 @@
 
 - (BOOL)isLeagueSelected:(NSString*)leagueId;
 
+
+- (void)clickDone:(id)sender;
+- (IBAction)confirmButton:(id)sender;
+
+- (void)updateHiddenMatchInfo;
+
 @property (nonatomic, retain) IBOutlet UILabel *promptLabel;
 @property (nonatomic, retain) IBOutlet UIButton *topLeagueButton;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;

@@ -100,6 +100,7 @@ enum
     
     [matchService setMatchControllerDelegate:self.matchController];    
     [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
+    [matchService updateLatestFollowMatch];
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -294,6 +295,7 @@ enum
     
     int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
     [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+    [self.matchService updateLatestFollowMatch];
 	
     [MobClick appLaunched];
     [self userRegister];
