@@ -70,18 +70,22 @@ function LineupView(){
 LineupView.prototype = {
     constructor: LineupView,
 	updateView : function(manager) {
-		if (manager.data.homeLineup.length > 0 && manager.data.homeReserve.length > 0 
+		if (manager.data != null 
+		 && manager.data.homeLineup.length > 0 && manager.data.homeReserve.length > 0 
 		 && manager.data.awayLineup.length > 0 && manager.data.awayReserve.length > 0 ) {
 			this.homeLineupPanel.update(manager.data.homeLineup);
 			this.homeReservePanel.update(manager.data.homeReserve);
 			this.awayLineupPanel.update(manager.data.awayLineup);
 			this.awayReservePanel.update(manager.data.awayReserve);
 		}
-		 else if (manager.data.homeLineup[0].length == 0){
-			Ext.get('homelist').dom.style.display = 'none'; 
-			Ext.get('homeReservelist').dom.style.display = 'none'; 
-			Ext.get('awaylist').dom.style.display = 'none'; 
-			Ext.get('awayReservelist').dom.style.display = 'none'; 
+		 else if (manager.data == null || manager.data.homeLineup[0].length == 0){
+			//Ext.get('homelist').dom.style.display = 'none'; 
+			//Ext.get('homeReservelist').dom.style.display = 'none'; 
+			//Ext.get('awaylist').dom.style.display = 'none'; 
+			//Ext.get('awayReservelist').dom.style.display = 'none'; 
+			
+			this.subPanel1.hide();
+			this.subPanel2.hide();
 		}
 	}
 };

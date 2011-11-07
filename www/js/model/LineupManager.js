@@ -9,6 +9,7 @@ var LINEUP_FIELD_COUNT = 4;
 //define LineupManager Model
 function LineupManager(url){
 	this.url = url;
+	this.data = null;
 }
 
 LineupManager.prototype = {
@@ -40,13 +41,23 @@ LineupManager.prototype = {
 			recordArray[LINEUP_FIELD_AWAY][0], 
 			recordArray[LINEUP_FIELD_AWAYRESERVE][0]);
 			
-        this.data = obj;
+		if (obj != null) {
+        	this.data = obj;
+		}	
 		console.log(this.data);
 						
 		return this.data;
 	},
 	
+	clearData : function() {
+		console.log("clear data...");
+		this.data = null;
+	},
+	
 	requestDataFromServer : function(matchId, lang){
+		
+		clearData();
+		
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
 			return false;

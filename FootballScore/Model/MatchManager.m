@@ -160,6 +160,22 @@ MatchManager* GlobalGetMatchManager()
     [super dealloc];
 }
 
+- (NSArray*)filterMatchByLeagueIdList:(NSSet*)leagueIdList
+{
+    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
+    for (Match* match in matchArray){
+        
+        if ([leagueIdList containsObject:match.leagueId] == NO){
+            continue;
+        }
+        
+        [retArray addObject:match];
+    }
+            
+    PPDebug(@"filter match by league id array, total %d match return", [retArray count]);
+    return retArray;
+}
+
 - (NSArray*)filterMatch
 {
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
@@ -190,10 +206,25 @@ MatchManager* GlobalGetMatchManager()
         [retArray addObject:match];
     }
         
+    
+    
     PPDebug(@"filter match done, total %d match return", [retArray count]);
+    
+   
+  
+    
     return retArray;
-
 }
+
+
+-(int)getHiddenMatchCount:(NSSet*)leagueIdSet{
+    
+    int totalCount = [matchArray count];
+    int filterCount = [[self filterMatchByLeagueIdList:leagueIdSet] count];
+    return totalCount - filterCount;
+}
+
+
 
 - (void)updateServerDate:(NSDate*)newServerDate
 {

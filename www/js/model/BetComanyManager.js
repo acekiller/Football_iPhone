@@ -68,7 +68,13 @@ BetCompanyManager.prototype = {
 		return this.oddsChangeList;
 	},
 	
+	clearData : function() {
+        this.oddsChangeList = null;
+	},
+	
 	requestOddsChangeFromServer : function(companyBetId){
+		 this.clearData();	
+		
 		  var xhr = new XMLHttpRequest();
 		  xhr.open("get", this.url + companyBetId, false);
 		  // --allow-file-access-from-files

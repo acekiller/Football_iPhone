@@ -123,13 +123,16 @@ const int buttonsPerLine = 4;
     
     [self.navigationItem setTitle:@"赛事筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
-    [self setNavigationRightButton:FNS(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
     
+    
+  //[self setNavigationRightButton:FNS(@"隐藏") imageName:@"ss.png" action:@selector(clickDone:)];
     
     [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
+    [self updateHiddenMatchInfo];
     [self createLeagueButtons];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)viewDidUnload
@@ -156,6 +159,9 @@ const int buttonsPerLine = 4;
 - (void)selectLeague:(NSString*)leagueId
 {
     [selectLeagueIdArray addObject:leagueId];
+    
+   
+       
 
     UIButton* button = (UIButton*)[scrollView viewWithTag:[leagueId intValue]];
     [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
@@ -163,7 +169,12 @@ const int buttonsPerLine = 4;
     // change color to White  , when the Button is  pressed .
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];  
     
+    
+    //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
+
 }
+
 
 - (void)deselectLeague:(NSString*)leagueId
 {
@@ -177,7 +188,9 @@ const int buttonsPerLine = 4;
      [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor ] forState:UIControlStateNormal];
     
     
-          
+    //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
+   
     
     
 }
@@ -193,6 +206,10 @@ const int buttonsPerLine = 4;
     for (League* league in manager.leagueArray){
         [self selectLeague:league.leagueId];
     }
+    
+    //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
+
 }
 
 -(IBAction)selectNone:(id)sender{
@@ -201,6 +218,10 @@ const int buttonsPerLine = 4;
     for (League* league in manager.leagueArray){
         [self deselectLeague:league.leagueId];
     }    
+    
+    //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
+
 }
 
 -(IBAction)selectTopLeague:(id)sender{
@@ -213,7 +234,11 @@ const int buttonsPerLine = 4;
         if ([league isTop]){
             [self selectLeague:league.leagueId];
         }
-    }        
+    }  
+    
+    //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
+
 }
 
 -(void)buttonClicked:(id)sender{
@@ -227,6 +252,10 @@ const int buttonsPerLine = 4;
     else{
         [self selectLeague:leagueId];
     }    
+    
+    
+   //click the button and get the hided matches 
+    [self updateHiddenMatchInfo];
 }
 
 + (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
@@ -237,6 +266,24 @@ const int buttonsPerLine = 4;
     [vc release];
     return vc;
 }
+
+- (void)updateHiddenMatchInfo{
+
+    int count = [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+    NSString *buttonTitle = [NSString stringWithFormat:@"%d",count];
+    [self setNavigationRightButton:buttonTitle imageName:@"ss.png" action:@selector(clickDone:)];
+    
+         
+}
+
+
+
+-(IBAction)confirmButton:(id)sender;
+{
+    [self clickDone:sender];
+  
+}
+//The done button implementations
 
 - (void)clickDone:(id)sender
 {

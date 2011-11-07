@@ -59,7 +59,14 @@ OupeiManager.prototype = {
 		return this.dataArray;
 	},
 	
+	clearData : function() {
+		this.dataArray = null;
+		this.stat = null;
+	},
+	
 	requestDataFromServer : function(matchId, lang){
+		this.clearData();
+		
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
 			return false;
