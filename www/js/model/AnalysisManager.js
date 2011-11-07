@@ -77,7 +77,17 @@ var RECOMMEND_FIELD_COUNT = 7;
 
 
 function AnalysisManager(url) {
-	this.url = url;
+    this.url = url;
+    this.hometeam = "";
+    this.awayteam = "";
+    this.homePointsArray = null;
+    this.awayPointsArray = null;
+    this.headtoheadArray = null;
+    this.homeRecordArray = null;
+    this.awayRecordArray = null;
+    this.homeNear3GamesArray = null;
+    this.awayNear3GamesArray = null;
+    this.recommendArray = null;
 }
 
 AnalysisManager.prototype = {
@@ -282,7 +292,22 @@ AnalysisManager.prototype = {
 		return this.homePointsArray;
 	},
 	
+	clearData : function() {
+        this.hometeam = "";
+        this.awayteam = "";
+        this.homePointsArray = null;
+        this.awayPointsArray = null;
+        this.headtoheadArray = null;
+        this.homeRecordArray = null;
+        this.awayRecordArray = null;
+        this.homeNear3GamesArray = null;
+        this.awayNear3GamesArray = null;
+        this.recommendArray = null;
+	},
+	
 	requestDataFromServer : function(matchId, homeTeam, awayTeam, lang){
+		this.clearData();
+
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
 			return false;

@@ -62,7 +62,13 @@ YapeiManager.prototype = {
 		return this.dataArray;
 	},
 	
+	clearData : function() {
+        this.dataArray = null;
+	},
+ 	
 	requestDataFromServer : function(matchId){
+		this.clearData();
+		
 		var data = sendRequest(this.url + matchId);
 		if (data == null)
 			return false;
