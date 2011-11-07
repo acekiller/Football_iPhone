@@ -14,12 +14,14 @@
 #import "MatchManager.h"
 #import "LanguageManager.h"
 #import "TimeUtils.h"
+#import "LogUtil.h"
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
 #define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
 #define GET_MATCH_EVENT  @"GET_MATCH_EVENT"
 #define GET_MATCH_DETAIL_HEADER @"GET_MATCH_DETAIL_HEADER"
 #define GET_MATCH_OUPEI @"GET_MATCH_OUPEI"
+#define UPDATE_FOLLOW_MATCH @"UPDATE_FOLLOW_MATCH"
 
 @implementation MatchService
 
@@ -303,6 +305,45 @@
             
         });                        
     }];
+}
+
+- (void)updateLatestFollowMatch
+{
+    NSOperationQueue* queue = [self getOperationQueue:UPDATE_FOLLOW_MATCH];
+    MatchManager *manager = [MatchManager defaultManager];
+    for (Match* match in [manager.followMatchList allValues]) {
+        if ([manager getMathById:match.matchId] == nil) { // if match exists at this moment, then no need to update here    
+            PPDebug(@"<updateLatestFollowMatch> request match (%@) detail because it's not found", [match description]);
+            [queue addOperationWithBlock:^{
+                
+                CommonNetworkOutput* output = [FootballNetworkRequest getMatchDetailHeader:match.matchId];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    NSArray *headerInfo = nil;
+                    
+                    if (output.resultCode == ERROR_SUCCESS){                
+                        if ([output.arrayData count] > 0) {
+                            NSArray *headerArray = [output.arrayData objectAtIndex:0];
+                            if ([headerArray count] > 0) {
+                                
+                                headerInfo = [headerArray objectAtIndex:0];
+                                
+                                // update match data by header detail info
+                                [match updateByHeaderInfo:headerInfo];
+                            }
+                        }
+                    }    
+                    
+
+                });                        
+            }];
+        }
+        else{
+            PPDebug(@"<updateLatestFollowMatch> skip request match (%@) detail because it's found", [match description]);
+        }
+    }
+    
 }
 
 @end

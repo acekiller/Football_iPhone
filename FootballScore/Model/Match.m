@@ -10,6 +10,7 @@
 #import "Match.h"
 #import "TimeUtils.h"
 #import "LogUtil.h"
+#import "DetailHeader.h"
 
 @implementation Match
 
@@ -253,6 +254,14 @@
     self.lastScoreTime = match.lastScoreTime;
     self.crownChuPan = match.crownChuPan;
     
+}
+
+- (void)updateByHeaderInfo:(NSArray*)headerInfo
+{
+    DetailHeader* header = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
+    self.status = [NSNumber numberWithInteger:header.matchStatus];
+    self.homeTeamScore = [NSString stringWithFormat:@"%d", header.homeTeamScore];
+    self.awayTeamScore = [NSString stringWithFormat:@"%d", header.awayTeamScore];
 }
 
 - (NSString*)description
