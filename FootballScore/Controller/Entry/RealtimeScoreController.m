@@ -99,6 +99,9 @@
     [self setLeftBarButtons];//等 logo完成之后，这个取消注释
     [self myFollowCountBadgeViewInit];
 
+    
+    [self setScoreButtonTitle: 0];
+    
     self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
                                                 green:(0xf7)/255.0 
                                                  blue:(0xf8)/255.0 
@@ -306,7 +309,7 @@
     [self showActionSheet:sender];
 }
 
-- (void)didSelectLeague:(NSSet*)selectedLeagueArray
+- (void)x:(NSSet*)selectedLeagueArray
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW)
         return;
@@ -404,7 +407,7 @@
     
     
     
-    scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
+    scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [scoreTypeButton setTitle:FNS(@"完整") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -413,7 +416,7 @@
     [rightButtonView addSubview:scoreTypeButton];
     
     
-    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
+    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
