@@ -23,6 +23,7 @@
 #define URL_GET_MATCH_YAPEI_DETAIL  @"http://bf.bet007.com/phone/HandicapDetail.aspx?"
 #define URL_GET_MATCH_DAXIAO        @"http://bf.bet007.com/phone/OverUnder.aspx?"
 #define URL_GET_MATCH_DAXIAO_DETAIL @"http://bf.bet007.com/phone/OverUnderDetail.aspx?"
+#define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
 
 
 
@@ -488,6 +489,27 @@ enum{
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];    
+}
+
++ (CommonNetworkOutput*)getBetCompanyList
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_BET_COMPANY_LIST
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
 }
 
 @end

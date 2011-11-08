@@ -49,6 +49,7 @@ enum{
 + (CommonNetworkOutput*)getMatchYapeiDetail:(NSString*)OddsId;
 + (CommonNetworkOutput*)getMatchDaxiao:(NSString*)matchId;
 + (CommonNetworkOutput*)getMatchDaxiaoDetail:(NSString *)OddsId;
++ (CommonNetworkOutput*)getBetCompanyList;
 
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
