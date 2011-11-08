@@ -80,7 +80,14 @@ MatchDetailManager.prototype = {
 		return this.eventArray;
 	},
 	
+	clearData : function() {
+		this.eventArray = null;
+		this.statArray = null;
+	},
+	
 	requestDataFromServer : function(matchId, lang){
+		this.clearData();
+		
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
 			return false;

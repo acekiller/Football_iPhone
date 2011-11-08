@@ -59,6 +59,7 @@
 
 - (void)getMatchEvent:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 - (void)getMatchDetailHeader:(id<MatchServiceDelegate>)delegate matchId:(NSString*)matchId;
+- (void)updateLatestFollowMatch;
 
 - (void)getMatchOupei:(id<MatchServiceDelegate>)delegate matchId:(NSString *)matchId;
 
