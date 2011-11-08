@@ -309,7 +309,7 @@
     [self showActionSheet:sender];
 }
 
-- (void)x:(NSSet*)selectedLeagueArray
+- (void)didSelectLeague:(NSSet *)selectedLeagueArray
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW)
         return;
@@ -409,7 +409,7 @@
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [scoreTypeButton setTitle:FNS(@"完整") forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
