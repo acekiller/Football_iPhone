@@ -244,32 +244,37 @@ enum cardType{
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
-    CGRect middlePosition = CGRectMake(151, 11, 36, 20);
-    CGRect originalPosition = CGRectMake(151, 6, 36, 14);
+    CGRect middlePosition = CGRectMake(151, 21, 36, 20);
+    CGRect originalPosition = CGRectMake(151, 6, 36, 20);
+    int matchStatus = [match.status intValue];
     
-    switch ([match.status intValue]) {
+    switch (matchStatus) {
         case MATCH_STATUS_FIRST_HALF:
-        {
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:YES];
-            NSString* value = [manager matchMinutesString:match];
-            matchStatusLabel.text = value; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager onGoTimeColor]];
-            [scoreLabel setTextColor:[ColorManager onGoScore]];
-        }
-            break;
         case MATCH_STATUS_SECOND_HALF:
         {
+            if (matchStatus == MATCH_STATUS_SECOND_HALF) {
+                [halfScoreLabel setHidden:NO];
+            }
+            else {
+                [halfScoreLabel setHidden:YES];
+            }  
             [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
+            
+            int currentTime = time(0);
             NSString* value = [manager matchMinutesString:match];
-            matchStatusLabel.text = value;    
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:value];
+            [attrStr setTextColor:[ColorManager onGoTimeColor]];
+            [attrStr setFont:[UIFont systemFontOfSize:13]];
+            if (currentTime%2)
+                [attrStr setTextColor:[UIColor clearColor] range:[value rangeOfString:@"'"]];
+            else
+                [attrStr setTextColor:[ColorManager onGoTimeColor] range:[value rangeOfString:@"'"]];  
+            matchStatusLabel.attributedText = attrStr; 
+            
             [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager onGoTimeColor]];
+            matchStatusLabel.frame = originalPosition;            
             [scoreLabel setTextColor:[ColorManager onGoScore]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
@@ -277,11 +282,13 @@ enum cardType{
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            matchStatusLabel.text = FNS(@"中场");  
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中场")];
+            matchStatusLabel.attributedText = attrStr;   
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
             [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
             [scoreLabel setTextColor:[ColorManager halfScoreColor]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
@@ -289,11 +296,13 @@ enum cardType{
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:YES];
-            matchStatusLabel.text = FNS(@"中断");   
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中断")];
+            matchStatusLabel.attributedText = attrStr;    
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
             [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
             [scoreLabel setTextColor:[ColorManager halfScoreColor]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
@@ -301,11 +310,13 @@ enum cardType{
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            matchStatusLabel.text = FNS(@"完"); 
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完")];
+            matchStatusLabel.attributedText = attrStr; 
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
             [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
             [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
@@ -316,12 +327,14 @@ enum cardType{
         case MATCH_STATUS_CANCEL:
         default:
         {
-            matchStatusLabel.text = FNS(@"未开赛");
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"未开赛")];
+            matchStatusLabel.attributedText = attrStr; 
             [scoreLabel setHidden:YES];
             [halfScoreLabel setHidden:YES];
             matchStatusLabel.frame = middlePosition;
             [matchStatusLabel setTextColor:[UIColor grayColor]];
             [scoreLabel setTextColor:[UIColor grayColor]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
