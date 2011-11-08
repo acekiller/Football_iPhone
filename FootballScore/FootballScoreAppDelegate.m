@@ -489,7 +489,7 @@ enum
 
 -(void) updateScoreMessageCount:(NSInteger)count
 {
-    [self.tabBarController setBadgeValue:[NSString stringWithFormat:@"%d", count] buttonTag:0];
+   // [self.tabBarController setBadgeValue:[NSString stringWithFormat:@"%d", count] buttonTag:0];
     
 }
 

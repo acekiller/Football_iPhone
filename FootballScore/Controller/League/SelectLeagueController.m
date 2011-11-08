@@ -22,6 +22,8 @@
 @synthesize selectNoneButton;
 @synthesize selectAllButton;
 @synthesize hideMatchesUpDateInf;
+@synthesize hideMatchesLabel1;
+@synthesize hideMatchesLabel2;
 
 @synthesize delegate;
 @synthesize selectLeagueIdArray;
@@ -131,6 +133,13 @@ const int buttonsPerLine = 4;
     
     [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
     [self updateHiddenMatchInfo];
+    
+    //set the colors of the hided matches' text color 
+    self.hideMatchesUpDateInf.textColor =[ColorManager HideMatchesInforNumColor];
+    self.hideMatchesLabel1.textColor=[ColorManager HideMatchesInforColor];
+    self.hideMatchesLabel2.textColor=[ColorManager HideMatchesInforColor];
+    
+    
     [self createLeagueButtons];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -146,6 +155,9 @@ const int buttonsPerLine = 4;
     [self setSelectAllButton:nil];
     [self setSelectNoneButton:nil];
     [self setHideMatchesUpDateInf :nil];
+    [self setHideMatchesLabel1:nil];
+    [self setHideMatchesLabel2: nil];
+    
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -276,8 +288,9 @@ const int buttonsPerLine = 4;
     // set the hideMatchUpdate button title     
     [hideMatchesUpDateInf setText:buttonTitle];
     
-    
+  
          
+    
 }
 
 

@@ -174,4 +174,28 @@
 
 }
 
+
+
+//SelectLeagueController
+
++(UIColor*)HideMatchesInforNumColor
+{
+    
+    return [UIColor colorWithRed:0xFF/255.0
+                           green:0x00/255.0
+                            blue:0x00/255.0 
+                           alpha:1];
+   
+
+}
++(UIColor*)HideMatchesInforColor{
+   
+    return [UIColor colorWithRed:0x24/255.0
+                           green:0x52/255.0
+                            blue:0x92/255.0 
+                           alpha:1];
+    
+}
+
+
 @end

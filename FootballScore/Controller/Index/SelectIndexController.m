@@ -49,9 +49,19 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
-{
+{   
+    
+    [self.navigationItem setTitle:@"内容筛选"];
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"  action:@selector(clickBack:)];
+    [self setNavigationRightButton:fns(@"完成") imageName:@"ss.png" action:@selector(clickBack:)];
+       
+    
+    
     [self dataInit];
     [self buttonsInit];
+    
+    [self clickContentTypeButton: buttonAsianBwin];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -77,11 +87,11 @@
 - (void)buttonsInit
 {
     [buttonAsianBwin setTag:11];
-    [buttonAsianBwin setBackgroundImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+    [buttonAsianBwin setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     [buttonEuropeBwin setTag:12];
-    [buttonEuropeBwin setBackgroundImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+    [buttonEuropeBwin setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     [buttonBigandSmall setTag:13];
-    [buttonBigandSmall setBackgroundImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+    [buttonBigandSmall setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     
     
 }
@@ -102,11 +112,11 @@
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         if ( contentType== i) {
             [button setSelected:YES];
-            [button setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
         }
         else {
             [button setSelected:NO];
-            [button setBackgroundImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
         }
 
     }
@@ -133,16 +143,16 @@
 - (void)showButtonsWithArray:(NSArray*)array selectedArray:(NSMutableSet*)selectedArray
 {
     int i = 0;
-    CGSize buttonSize = CGSizeMake(70, 50);
-    UIImage *selectedImage = [UIImage imageNamed:@"selected"];
-    UIImage *unSelectedImage = [UIImage imageNamed:@"unselected"];
+    CGSize buttonSize = CGSizeMake(72,37);
+    UIImage *selectedImage = [UIImage imageNamed:@"set.png"];
+    UIImage *unSelectedImage = [UIImage imageNamed:@"set2.png"];
     [buttonsArray removeAllObjects];
     [selectedBwin removeAllObjects];
 
     
     for (i = 0; i < [array count]; i++) {
         NSString *title = [array objectAtIndex:i];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:title forState:UIControlStateNormal];
         if ([selectedArray containsObject:title]) {
             [button setSelected:YES];
@@ -159,7 +169,7 @@
                                    withButtonArray:buttonsArray 
                                      selectedImage:selectedImage 
                                    unSelectedImage:unSelectedImage 
-                                    buttonsPerLine:4 
+                                    buttonsPerLine:3
                                         buttonSize:buttonSize];
 }
 
@@ -174,13 +184,13 @@
     int rowIndex;
     int rankIndex;
     float buttonSeparatorX = (320-buttonsPerLine*buttonSize.width)/(buttonsPerLine+1);
-    float buttonSeparatorY = buttonSize.height/3;
+    float buttonSeparatorY =2*buttonSize.height/3;
     float buttonLen = buttonSize.width;
     float buttonHigh = buttonSize.height;
     
     for (i = 0; i < [buttonArray count]; i++) {
-        rowIndex = i/4;
-        rankIndex = i%4;
+        rowIndex = i/3;
+        rankIndex = i%3;
         UIButton *button = [buttonArray objectAtIndex:i];
         if ([button isSelected]) {
             [button setBackgroundImage:selectedImage forState:UIControlStateNormal];
@@ -189,7 +199,9 @@
             [button setBackgroundImage:unSelectedImage forState:UIControlStateNormal];
         }
         button.frame = CGRectMake(buttonSeparatorX+rankIndex*(buttonSeparatorX+buttonLen), rowIndex*(buttonHigh+buttonSeparatorY), buttonLen, buttonHigh);
-        [scrollView addSubview:button];
+        //To set the text Color of the Button 
+        button.titleLabel.textColor=[UIColor blackColor];
+                [scrollView addSubview:button];
     }
 }
 
@@ -206,8 +218,11 @@
     
     if ([selectedBwin containsObject:title]) {
         [selectedBwin removeObject:title];
-        [button setBackgroundImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
         [button setSelected:NO];
+        
+       
+
     }
     else {
         if ([selectedBwin count] >= 4) {
@@ -216,11 +231,12 @@
             return;
         }
         [selectedBwin addObject:title];
-        [button setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
         [button setSelected:YES];
     }
 
-    
+   
+
 }
 
 
