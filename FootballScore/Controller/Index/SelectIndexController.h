@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPViewController.h"
 
 enum {
     ASIANBWIN = 11,
@@ -16,7 +17,7 @@ enum {
 
 
 
-@interface SelectIndexController : UIViewController {
+@interface SelectIndexController : PPViewController {
     
     UIScrollView *buttonScrollView;
     UIButton *buttonAsianBwin;

@@ -38,4 +38,15 @@
 +(UIColor*)dateTimeTextColor;
 
 
+
+//SelectLeagueController
+
++(UIColor*)HideMatchesInforNumColor;
++(UIColor*)HideMatchesInforColor;
+
+
+
+
+
+
 @end

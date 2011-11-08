@@ -25,6 +25,8 @@
     UIButton *selectAllButton;
     UILabel  *hideMatchesUpDateInf;
     
+    UILabel *hideMatchesLabel1;
+    UILabel *hideMatchesLabel2;
     
     
     NSMutableSet *selectLeagueIdArray;
@@ -50,6 +52,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *selectNoneButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectAllButton;
 @property (nonatomic ,retain) IBOutlet UILabel *hideMatchesUpDateInf;
+@property (nonatomic ,retain) IBOutlet UILabel *hideMatchesLabel1;
+@property (nonatomic ,retain) IBOutlet UILabel *hideMatchesLabel2;
+
+
 
 @property (nonatomic, retain) id<SelectLeagueControllerDelegate> delegate;
 @property (nonatomic, retain) NSMutableSet *selectLeagueIdArray;
