@@ -21,6 +21,8 @@
 @synthesize scrollView;
 @synthesize selectNoneButton;
 @synthesize selectAllButton;
+@synthesize hideMatchesUpDateInf;
+
 @synthesize delegate;
 @synthesize selectLeagueIdArray;
 
@@ -56,6 +58,7 @@ const int buttonsPerLine = 4;
     [selectLeagueIdArray release];
     [selectAllButton release];
     [selectNoneButton release];
+    [hideMatchesUpDateInf release];
     [super dealloc];
 }
 
@@ -124,8 +127,7 @@ const int buttonsPerLine = 4;
     [self.navigationItem setTitle:@"赛事筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
     
-    
-  //[self setNavigationRightButton:FNS(@"隐藏") imageName:@"ss.png" action:@selector(clickDone:)];
+   [self setNavigationRightButton:FNS(@"确定") imageName:@"ss.png" action:@selector(clickDone:)];
     
     [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
     [self updateHiddenMatchInfo];
@@ -143,6 +145,8 @@ const int buttonsPerLine = 4;
     [self setTopLeagueButton:nil];
     [self setSelectAllButton:nil];
     [self setSelectNoneButton:nil];
+    [self setHideMatchesUpDateInf :nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -160,9 +164,6 @@ const int buttonsPerLine = 4;
 {
     [selectLeagueIdArray addObject:leagueId];
     
-   
-       
-
     UIButton* button = (UIButton*)[scrollView viewWithTag:[leagueId intValue]];
     [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
     
@@ -271,18 +272,19 @@ const int buttonsPerLine = 4;
 
     int count = [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
     NSString *buttonTitle = [NSString stringWithFormat:@"%d",count];
-    [self setNavigationRightButton:buttonTitle imageName:@"ss.png" action:@selector(clickDone:)];
+ 
+    // set the hideMatchUpdate button title     
+    [hideMatchesUpDateInf setText:buttonTitle];
+    
     
          
 }
 
 
 
--(IBAction)confirmButton:(id)sender;
-{
-    [self clickDone:sender];
-  
-}
+
+
+
 //The done button implementations
 
 - (void)clickDone:(id)sender
