@@ -87,7 +87,7 @@
 
 - (void)viewDidLoad
 {
-    int UPDATE_TIME_INTERVAL = 60;
+    int UPDATE_TIME_INTERVAL = 1;
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
                                                              target:self 
                                                            selector:@selector(updateMatchTimeDisplay) 

@@ -15,6 +15,8 @@
 		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
 		C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */; };
 		C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C28529B1144BE49400CA3CE9 /* ColorManager.m */; };
+		C286C27B1468C443008D87F6 /* ScoreIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C2791468C443008D87F6 /* ScoreIndexCell.m */; };
+		C286C27C1468C443008D87F6 /* ScoreIndexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
 		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
@@ -386,6 +388,9 @@
 		C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFeedbackController.xib; sourceTree = "<group>"; };
 		C28529B0144BE49400CA3CE9 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
 		C28529B1144BE49400CA3CE9 /* ColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManager.m; sourceTree = "<group>"; };
+		C286C2781468C443008D87F6 /* ScoreIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreIndexCell.h; sourceTree = "<group>"; };
+		C286C2791468C443008D87F6 /* ScoreIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreIndexCell.m; sourceTree = "<group>"; };
+		C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreIndexCell.xib; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
 		C2D36E8F1460E64100603923 /* PPSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSegmentControl.h; sourceTree = "<group>"; };
@@ -1202,6 +1207,9 @@
 				CA207BD7142EDAC100A4C425 /* RealtimeIndexController.h */,
 				CA207BD8142EDAC100A4C425 /* RealtimeIndexController.m */,
 				CA207BD9142EDAC100A4C425 /* RealtimeIndexController.xib */,
+				C286C2781468C443008D87F6 /* ScoreIndexCell.h */,
+				C286C2791468C443008D87F6 /* ScoreIndexCell.m */,
+				C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */,
 				CA207BDC142EDACE00A4C425 /* MoreController.h */,
 				CA207BDD142EDACE00A4C425 /* MoreController.m */,
 				CA207BDE142EDACE00A4C425 /* MoreController.xib */,
@@ -2244,6 +2252,7 @@
 				CAB858291459418F007F0E64 /* Default@2x.png in Resources */,
 				CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */,
 				CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */,
+				C286C27C1468C443008D87F6 /* ScoreIndexCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2481,6 +2490,7 @@
 				C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */,
 				C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */,
 				C27FD7891467ACF700D7E3A9 /* OHAttributedLabel.m in Sources */,
+				C286C27B1468C443008D87F6 /* ScoreIndexCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

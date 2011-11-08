@@ -9,7 +9,7 @@
 #import "RealtimeIndexController.h"
 #import "SelectIndexController.h"
 #import "StatusView.h"
-
+#import "ScoreIndexCell.h"
 
 @implementation RealtimeIndexController
 
@@ -72,5 +72,49 @@
 {
     [StatusView hideStatusText];
 }
+
+#pragma table view delegate
+#pragma -
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return [ScoreIndexCell getCellHeight];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+// Customize the number of rows in the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [self.dataList count];
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *CellIdentifier = [ScoreIndexCell getCellIdentifier];
+	ScoreIndexCell *cell = (ScoreIndexCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [ScoreIndexCell createCell:self];				
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
+	}		
+    
+    cell.indexPath = indexPath;
+    
+//    Match* match = [self.dataList objectAtIndex:indexPath.row];
+//    [cell setCellInfo:match];
+	
+	return cell;	
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+#pragma remote request delegate
+#pragma -
+
 
 @end
