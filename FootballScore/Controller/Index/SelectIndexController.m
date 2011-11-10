@@ -284,6 +284,7 @@
 {
     //CompanyManager* manager = [CompanyManager defaultCompanyManager];
     //here should use CompanyManager to get Odds
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
