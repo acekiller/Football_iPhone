@@ -10,7 +10,7 @@
 #import "PPViewController.h"
 
 enum {
-    ASIANBWIN = 11,
+    ASIANBWIN = 220111109,
     EUROPEBWIN,
     BIGANDSMALL    
 };
@@ -19,15 +19,14 @@ enum {
 
 @interface SelectIndexController : PPViewController {
     
-    UIScrollView *buttonScrollView;
     UIButton *buttonAsianBwin;
     UIButton *buttonEuropeBwin;
     UIButton *buttonBigandSmall;
     int contentType;
     
-    NSArray *asianBwinArray;
-    NSArray *europeBwinArray;
-    NSArray *bigandSmallArray;
+    NSMutableArray *asianBwinArray;
+    NSMutableArray *europeBwinArray;
+    NSMutableArray *bigandSmallArray;
     
     NSMutableSet *selectedBwin;
     
@@ -35,7 +34,6 @@ enum {
     
 }
 
-@property (nonatomic, retain) IBOutlet UIScrollView *buttonScrollView;
 @property (nonatomic, retain) IBOutlet UIButton *buttonAsianBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonBigandSmall;

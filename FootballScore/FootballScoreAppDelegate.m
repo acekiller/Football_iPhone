@@ -172,28 +172,8 @@ enum
 
 - (void)initBetCompanyList
 {
-    CommonNetworkOutput* output = [FootballNetworkRequest getBetCompanyList];
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    if (output.resultCode == ERROR_SUCCESS) {
-        [manager.allCompany removeAllObjects];
-        NSArray* segment = [output.arrayData objectAtIndex:0];
-        for (NSArray* data in segment) {
-            NSString* companyId = [data objectAtIndex:0];
-            NSString* companyName = [data objectAtIndex:1];
-            NSString* asianOdds = [data objectAtIndex:2];
-            NSString* europeOdds = [data objectAtIndex:3];
-            NSString* daXiao = [data objectAtIndex:4];
-
-            Company* company = [[Company alloc] initWithId:companyId 
-                                               companyName:companyName 
-                                                  asianBet:[asianOdds boolValue] 
-                                                 europeBet:[europeOdds boolValue] 
-                                                    daXiao:[daXiao boolValue]];
-            [manager.allCompany addObject:company];
-            [company release];
-        }
-    }
-    
+    [manager update];
 }
 
 - (void)userRegister

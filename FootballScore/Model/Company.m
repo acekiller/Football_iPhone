@@ -30,7 +30,7 @@
            daXiao:(BOOL)daXiao
 {
     [super init];
-    self.companyId = companyId;
+    self.companyId = idvalue;
     self.companyName = name;
     self.hasAsianOdds = asianBet;
     self.hasEuropeOdds = europeBet;
