@@ -239,14 +239,20 @@ const int buttonsPerLine = 4;
 
 -(IBAction)selectTopLeague:(id)sender{
     
+    //Remove other matches except for the top league
+    [self selectNone:sender];
+    
+    
     LeagueManager* manager = [LeagueManager defaultManager];
 //    for (League* league in manager.leagueArray){
 //        [self deselectLeague:league.leagueId];
 //    }    
+    
+
     for (League* league in manager.leagueArray){
         if ([league isTop]){
-            [self selectLeague:league.leagueId];
-        }
+           [self selectLeague:league.leagueId];
+                 }
     }  
     
     //click the button and get the hided matches 
