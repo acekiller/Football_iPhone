@@ -28,8 +28,7 @@
 #import "MoreController.h"
 #import "UserManager.h"
 #import "MatchManager.h"
-#import "CompanyManager.h"
-#import "Company.h"
+#import "OddsService.h"
 
 #define kDbFileName			@"FootballDB"
 
@@ -170,10 +169,10 @@ enum
     self.matchService = [[MatchService alloc] init];
 }
 
-- (void)initBetCompanyList
+- (void)initOddsSerivce
 {
-    CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    [manager update];
+    OddsService* service = [[OddsService alloc] init];
+    [service updateAllBetCompanyList];
 }
 
 - (void)userRegister
@@ -217,7 +216,7 @@ enum
     // init all service 
     [self initMatchService];
     [self userRegister];
-    [self initBetCompanyList];
+    [self initOddsSerivce];
 
 	[self initMobClick];
     [self initImageCacheManager];    

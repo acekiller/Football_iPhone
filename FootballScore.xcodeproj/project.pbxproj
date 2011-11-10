@@ -15,6 +15,7 @@
 		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
 		C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */; };
 		C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C28529B1144BE49400CA3CE9 /* ColorManager.m */; };
+		C286A11F146B76140016E452 /* OddsService.m in Sources */ = {isa = PBXBuildFile; fileRef = C286A11E146B76140016E452 /* OddsService.m */; };
 		C286C27B1468C443008D87F6 /* ScoreIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C2791468C443008D87F6 /* ScoreIndexCell.m */; };
 		C286C27C1468C443008D87F6 /* ScoreIndexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */; };
 		C286C2801468D75E008D87F6 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C27F1468D75E008D87F6 /* Company.m */; };
@@ -390,6 +391,8 @@
 		C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFeedbackController.xib; sourceTree = "<group>"; };
 		C28529B0144BE49400CA3CE9 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
 		C28529B1144BE49400CA3CE9 /* ColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManager.m; sourceTree = "<group>"; };
+		C286A11D146B76140016E452 /* OddsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OddsService.h; sourceTree = "<group>"; };
+		C286A11E146B76140016E452 /* OddsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OddsService.m; sourceTree = "<group>"; };
 		C286C2781468C443008D87F6 /* ScoreIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreIndexCell.h; sourceTree = "<group>"; };
 		C286C2791468C443008D87F6 /* ScoreIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreIndexCell.m; sourceTree = "<group>"; };
 		C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreIndexCell.xib; sourceTree = "<group>"; };
@@ -1195,6 +1198,8 @@
 				CA207BFE142EF23300A4C425 /* MatchService.m */,
 				CA3FD46D143ABAC500119BD4 /* LanguageManager.h */,
 				CA3FD46E143ABAC600119BD4 /* LanguageManager.m */,
+				C286A11D146B76140016E452 /* OddsService.h */,
+				C286A11E146B76140016E452 /* OddsService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2503,6 +2508,7 @@
 				C286C27B1468C443008D87F6 /* ScoreIndexCell.m in Sources */,
 				C286C2801468D75E008D87F6 /* Company.m in Sources */,
 				C286C2831468DD7F008D87F6 /* CompanyManager.m in Sources */,
+				C286A11F146B76140016E452 /* OddsService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

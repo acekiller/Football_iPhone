@@ -31,7 +31,6 @@ enum {
 
 - (Company*)getCompanyById:(NSString*)companyId;
 - (void )addCompany:(Company*)company;
-- (void)update;
 - (void)selectCompanyById:(NSString*)companyId;
 - (void)unselectCompanyById:(NSString*)companyId;
 

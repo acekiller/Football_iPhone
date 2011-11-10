@@ -23,6 +23,17 @@
     [super dealloc];
 }
 
+- (id)init
+{
+    [super init];
+    self.companyId = [[NSString alloc] init];
+    self.companyName = [[NSString alloc] init];
+    if (self) {
+        //
+    }
+    return self;
+}
+
 - (id) initWithId:(NSString*)idvalue 
       companyName:(NSString*)name 
          asianBet:(BOOL)asianBet 
