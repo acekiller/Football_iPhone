@@ -282,7 +282,7 @@ enum cardType{
         {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中场")];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中")];
             matchStatusLabel.attributedText = attrStr;   
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
@@ -327,7 +327,7 @@ enum cardType{
         case MATCH_STATUS_CANCEL:
         default:
         {
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"未开赛")];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"未开")];
             matchStatusLabel.attributedText = attrStr; 
             [scoreLabel setHidden:YES];
             [halfScoreLabel setHidden:YES];
