@@ -379,7 +379,7 @@
     [self.dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
 
 #ifdef DEBUG    
-    NSLog(@"updateMatchTimeDisplay, update %@", [indexPathes description]);
+   // NSLog(@"updateMatchTimeDisplay, update %@", [indexPathes description]);
 #endif    
     
 }
