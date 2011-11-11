@@ -10,7 +10,8 @@
 #import "LocaleConstants.h"
 #import "AlertController.h"
 #import "UserFeedbackController.h"
-
+#import "ShowRealtimeScoreController.h"
+#import "MatchManager.h"
 
 @implementation MoreController
 @synthesize listData;
@@ -120,6 +121,9 @@
 
     if ([rowValue isEqualToString:FNS(@"信息反馈")])
         [self showFeedback];
+    
+    if ([rowValue isEqualToString:FNS(@"推荐给好友")])
+        [self showRecommendation];
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -151,6 +155,14 @@
     AlertController *vc = [[AlertController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+}
+
+-(void)showRecommendation
+{
+    NSArray* matchArray = [[MatchManager defaultManager] matchArray];
+    int index = rand() % [matchArray count];
+    Match* match = [matchArray objectAtIndex:index];
+    [ShowRealtimeScoreController show:self.view match:match];
 }
 
 @end
