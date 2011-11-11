@@ -774,11 +774,26 @@ MatchManager* GlobalGetMatchManager()
     return 0;
 }
 
-- (NSArray*)getAllFollowMatch
-{
-    return [followMatchList allValues];
-}
 
+
+  - (NSArray*)getAllFollowMatch
+{     
+   
+    NSArray* array = [followMatchList allValues];
+    NSArray* sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) 
+    {
+        Match* match1 = (Match*)obj1;
+        Match* match2 = (Match*)obj2;
+        
+    return [match1.date compare:match2.date];}];
+    
+   return sortedArray;
+                 
+}    
+        
+
+
+            
 - (void)updateFollowMatch:(Match*)match
 {
     Match *matchInFollow = [self.followMatchList objectForKey:match.matchId];
