@@ -26,9 +26,10 @@
 #import "RealtimeScoreController.h"
 #import "RealtimeIndexController.h"
 #import "MoreController.h"
-#import "UserManager.h"
 #import "MatchManager.h"
+#import "UserManager.h"
 #import "OddsService.h"
+#import "UserService.h"
 
 #define kDbFileName			@"FootballDB"
 
@@ -178,14 +179,9 @@ enum
 - (void)userRegister
 {
     if (![UserManager isUserExisted]) {
-        CommonNetworkOutput *output = [FootballNetworkRequest getRegisterUserId:1 token:[self getDeviceToken]];
-        if (output.textData != nil) {
-            [UserManager createUser:output.textData];
-            NSLog(@"Created User <%@>",output.textData);
-        }
-        else {
-            NSLog(@"Get User ID faild");
-        }
+        UserService* registerService = [[UserService alloc] init];
+        [registerService userRegisterByToken:[self getDeviceToken]];
+        [registerService release];
     }
     else {
         NSLog(@"User existed,User ID is <%@>",[UserManager getUserId]);
