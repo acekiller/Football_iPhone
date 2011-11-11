@@ -26,10 +26,10 @@
 #import "RealtimeScoreController.h"
 #import "RealtimeIndexController.h"
 #import "MoreController.h"
-#import "UserManager.h"
 #import "MatchManager.h"
-#import "CompanyManager.h"
-#import "Company.h"
+#import "UserManager.h"
+#import "OddsService.h"
+#import "UserService.h"
 
 #define kDbFileName			@"FootballDB"
 
@@ -170,23 +170,18 @@ enum
     self.matchService = [[MatchService alloc] init];
 }
 
-- (void)initBetCompanyList
+- (void)initOddsSerivce
 {
-    CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    [manager update];
+    OddsService* service = [[OddsService alloc] init];
+    [service updateAllBetCompanyList];
 }
 
 - (void)userRegister
 {
     if (![UserManager isUserExisted]) {
-        CommonNetworkOutput *output = [FootballNetworkRequest getRegisterUserId:1 token:[self getDeviceToken]];
-        if (output.textData != nil) {
-            [UserManager createUser:output.textData];
-            NSLog(@"Created User <%@>",output.textData);
-        }
-        else {
-            NSLog(@"Get User ID faild");
-        }
+        UserService* registerService = [[UserService alloc] init];
+        [registerService userRegisterByToken:[self getDeviceToken]];
+        [registerService release];
     }
     else {
         NSLog(@"User existed,User ID is <%@>",[UserManager getUserId]);
@@ -217,7 +212,7 @@ enum
     // init all service 
     [self initMatchService];
     [self userRegister];
-    [self initBetCompanyList];
+    [self initOddsSerivce];
 
 	[self initMobClick];
     [self initImageCacheManager];    

@@ -52,31 +52,6 @@ CompanyManager* GlobalGetCompanyManager()
     [self.selectedCompany addObject:company];
 }
 
-- (void)update
-{
-    CommonNetworkOutput* output = [FootballNetworkRequest getBetCompanyList];
-    if (output.resultCode == ERROR_SUCCESS) {
-        [self.allCompany removeAllObjects];
-        NSArray* segment = [output.arrayData objectAtIndex:0];
-        for (NSArray* data in segment) {
-            NSString* companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID];
-            NSString* companyName = [data objectAtIndex:INDEX_OF_COMPANY_NAME];
-            NSString* asianOdds = [data objectAtIndex:INDEX_OF_ASIAN_ODDS];
-            NSString* europeOdds = [data objectAtIndex:INDEX_OF_EUROPE_ODDS];
-            NSString* daXiao = [data objectAtIndex:INDEX_OF_DAXIAO];
-            
-            Company* company = [[Company alloc] initWithId:companyId 
-                                               companyName:companyName 
-                                                  asianBet:[asianOdds boolValue] 
-                                                 europeBet:[europeOdds boolValue] 
-                                                    daXiao:[daXiao boolValue]];
-            [self addCompany:company];
-            [company release];
-        }
-    }
-    
-
-}
 
 - (void)selectCompanyById:(NSString *)companyId
 {
