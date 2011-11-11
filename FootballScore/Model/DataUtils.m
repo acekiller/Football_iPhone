@@ -83,18 +83,25 @@
 //        default:
 //            return nil;
             case MATCH_STATUS_FIRST_HALF:
+            return fns(@"上半场");
             case MATCH_STATUS_SECOND_HALF:
+            return fns(@"下半场");
             case MATCH_STATUS_MIDDLE:
-                return FNS(@"进行中");
+                return FNS(@"中场");
             case MATCH_STATUS_FINISH:
-                return FNS(@"已完场");
-//            case MATCH_STATUS_TBD:
-//                 MATCH_STATUS_KILL:
-//                 MATCH_STATUS_PAUSE:
-//                 MATCH_STATUS_POSTPONE:
-//                 MATCH_STATUS_CANCEL:
-//                 MATCH_STATUS_NOT_STARTED:
-//                 return @"未开赛";
+                return FNS(@"完场");
+            case MATCH_STATUS_TBD:
+            return FNS(@"完场");
+                 MATCH_STATUS_KILL:
+            return FNS(@"完场");
+                 MATCH_STATUS_PAUSE:
+            return FNS(@"完场");
+                 MATCH_STATUS_POSTPONE:
+            return FNS(@"完场");
+                 MATCH_STATUS_CANCEL:
+            return FNS(@"完场");
+                 MATCH_STATUS_NOT_STARTED:
+                 return @"未开赛";
             default:
                 return FNS(@"未开赛");
     }
