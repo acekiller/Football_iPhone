@@ -48,5 +48,6 @@
 
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;
 @property (nonatomic, retain) MatchDetailController *matchDetailController;
+@property (nonatomic, retain) UIButton* filterBarButton;
 
 @end

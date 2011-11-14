@@ -127,6 +127,12 @@
     manager.leagueArray = leagues;
     manager.matchArray = matches;
     manager.yapeiArray = oddsList;
+    self.matchOddsArray  = [[NSMutableDictionary alloc] init];
+    for (Odds* odds in manager.yapeiArray) {
+        [self.matchOddsArray setObject:odds forKey:odds.matchId];
+    }
+    self.dataList = [matchOddsArray allKeys];
+    [self.dataTableView reloadData];
     
 }
 
