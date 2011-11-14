@@ -780,12 +780,12 @@ MatchManager* GlobalGetMatchManager()
 {     
    
     NSArray* array = [followMatchList allValues];
-    NSArray* sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) 
-    {
+    NSArray* sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         Match* match1 = (Match*)obj1;
         Match* match2 = (Match*)obj2;
         
-    return [match1.date compare:match2.date];}];
+        return [match2.date compare:match1.date];
+    }];
     
    return sortedArray;
                  
