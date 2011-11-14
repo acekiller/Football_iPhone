@@ -109,6 +109,10 @@
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
 		CAB858291459418F007F0E64 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858271459418F007F0E64 /* Default@2x.png */; };
+		CABA82031470C081008E8AFB /* aboutus.png in Resources */ = {isa = PBXBuildFile; fileRef = CABA81FF1470C081008E8AFB /* aboutus.png */; };
+		CABA82041470C081008E8AFB /* bfsz_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CABA82001470C081008E8AFB /* bfsz_bottom@2x.png */; };
+		CABA82051470C081008E8AFB /* bfsz_midd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CABA82011470C081008E8AFB /* bfsz_midd@2x.png */; };
+		CABA82061470C081008E8AFB /* bfsz_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CABA82021470C081008E8AFB /* bfsz_top@2x.png */; };
 		CAC0DC52144677170024DEB3 /* b_menu_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC32144677170024DEB3 /* b_menu_1@2x.png */; };
 		CAC0DC53144677170024DEB3 /* b_menu_1s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC33144677170024DEB3 /* b_menu_1s@2x.png */; };
 		CAC0DC54144677170024DEB3 /* b_menu_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC0DC34144677170024DEB3 /* b_menu_2@2x.png */; };
@@ -539,6 +543,10 @@
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CAB858271459418F007F0E64 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CABA81FF1470C081008E8AFB /* aboutus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutus.png; sourceTree = "<group>"; };
+		CABA82001470C081008E8AFB /* bfsz_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bfsz_bottom@2x.png"; sourceTree = "<group>"; };
+		CABA82011470C081008E8AFB /* bfsz_midd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bfsz_midd@2x.png"; sourceTree = "<group>"; };
+		CABA82021470C081008E8AFB /* bfsz_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bfsz_top@2x.png"; sourceTree = "<group>"; };
 		CAC0DC32144677170024DEB3 /* b_menu_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b_menu_1@2x.png"; sourceTree = "<group>"; };
 		CAC0DC33144677170024DEB3 /* b_menu_1s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b_menu_1s@2x.png"; sourceTree = "<group>"; };
 		CAC0DC34144677170024DEB3 /* b_menu_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b_menu_2@2x.png"; sourceTree = "<group>"; };
@@ -1076,6 +1084,10 @@
 		C2B41317143199E100084F14 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CABA81FF1470C081008E8AFB /* aboutus.png */,
+				CABA82001470C081008E8AFB /* bfsz_bottom@2x.png */,
+				CABA82011470C081008E8AFB /* bfsz_midd@2x.png */,
+				CABA82021470C081008E8AFB /* bfsz_top@2x.png */,
 				CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */,
 				CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */,
 				CA1F4DBF145802E3001C3F19 /* h_1@2x.png */,
@@ -2307,6 +2319,10 @@
 				CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */,
 				C286C27C1468C443008D87F6 /* ScoreIndexCell.xib in Resources */,
 				A3B9F7DB146CC44200FA3C65 /* ShowRealtimeScoreController.xib in Resources */,
+				CABA82031470C081008E8AFB /* aboutus.png in Resources */,
+				CABA82041470C081008E8AFB /* bfsz_bottom@2x.png in Resources */,
+				CABA82051470C081008E8AFB /* bfsz_midd@2x.png in Resources */,
+				CABA82061470C081008E8AFB /* bfsz_top@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
