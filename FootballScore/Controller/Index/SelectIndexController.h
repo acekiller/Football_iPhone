@@ -43,6 +43,7 @@ enum {
 - (void)showButtonsWithArray:(NSArray*)array selectedArray:(NSMutableSet*)selectedArray;
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
+- (void)createButtonsByArray:(NSArray*)array;
 
 + (void)showButtonsAtScrollView:(UIScrollView*)scrollView 
                 withButtonArray:(NSMutableArray*)buttonArray

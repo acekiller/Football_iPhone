@@ -130,6 +130,23 @@
     return self;
 }
 
+- (id)initWithId:(NSString*)idValue 
+        leagueId:(NSString*)leagueIdValue 
+            date:(NSString*)dateValue 
+    homeTeamName:(NSString*)homeTeamNameValue 
+    awayTeamName:(NSString*)awayTeamNameValue
+{
+    [super init];
+    self.matchId = idValue;
+    self.leagueId = leagueIdValue;
+    self.date = dateFromChineseStringByFormat(dateValue, 
+                                              DEFAULT_DATE_FORMAT);
+    self.homeTeamName = homeTeamNameValue;
+    self.awayTeamName = awayTeamNameValue;
+    return self;
+    
+}
+
 - (void)dealloc
 {
     [matchId release];

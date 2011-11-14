@@ -8,10 +8,23 @@
 
 #import "CommonService.h"
 
+@protocol OddsServiceDelegate <NSObject>
+
+- (void)updateAllBetCompanyListFinish;
+- (void)getOddsListFinish:(NSMutableArray*)leagues matchArray:(NSMutableArray*)matches oddsArray:(NSMutableArray*)oddsList;
+
+@end
+
 @interface OddsService : CommonService {
+    id<OddsServiceDelegate> delegate;
     
 }
 
 - (void)updateAllBetCompanyList;
+- (void)getOddsListByDate:(NSDate*)date 
+           companyIdArray:(NSArray*)companyIdAray 
+                 language:(int)language 
+                matchType:(int)matchType 
+                 oddsType:(int)oddsType;
 
 @end

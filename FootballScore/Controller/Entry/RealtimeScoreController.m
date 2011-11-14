@@ -23,6 +23,7 @@
 @synthesize scoreTypeButton;
 @synthesize matchSecondTimer;
 @synthesize matchDetailController;
+@synthesize filterBarButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

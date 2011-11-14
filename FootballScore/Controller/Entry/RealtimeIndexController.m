@@ -10,8 +10,11 @@
 #import "SelectIndexController.h"
 #import "StatusView.h"
 #import "ScoreIndexCell.h"
+#import "OddsManager.h"
+#import "Odds.h"
 
 @implementation RealtimeIndexController
+@synthesize matchOddsArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +43,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    OddsService* service = [[OddsService alloc] init];
+    NSArray* array = [NSArray arrayWithObjects:@"1", @"2", nil];
+    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:1 oddsType:1];
+    
+    OddsManager* manager = [OddsManager defaultManager];
+    self.matchOddsArray  = [[NSMutableDictionary alloc] init];
+    for (Odds* odds in manager.yapeiArray) {
+        [self.matchOddsArray setObject:odds forKey:odds.matchId];
+    }
+    self.dataList = [matchOddsArray allKeys];
+    [self.dataTableView reloadData];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -61,16 +76,6 @@
     SelectIndexController *vc = [[SelectIndexController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
-}
-
-- (IBAction)showStatus:(id)sender
-{
-    [StatusView showtStatusText:@"test" vibrate:NO duration:5];
-}
-
-- (IBAction)hideStatus:(id)sender
-{
-    [StatusView hideStatusText];
 }
 
 #pragma table view delegate
@@ -116,5 +121,13 @@
 #pragma remote request delegate
 #pragma -
 
+- (void)getOddsListFinish:(NSMutableArray*)leagues matchArray:(NSMutableArray*)matches oddsArray:(NSMutableArray*)oddsList
+{
+    OddsManager* manager = [OddsManager defaultManager];
+    manager.leagueArray = leagues;
+    manager.matchArray = matches;
+    manager.yapeiArray = oddsList;
+    
+}
 
 @end

@@ -6,13 +6,6 @@
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-enum {
-    INDEX_OF_COMPANY_ID = 0,
-    INDEX_OF_COMPANY_NAME,
-    INDEX_OF_ASIAN_ODDS,
-    INDEX_OF_EUROPE_ODDS,
-    INDEX_OF_DAXIAO
-};
 
 #import <Foundation/Foundation.h>
 @class Company;

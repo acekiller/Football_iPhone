@@ -16,6 +16,11 @@
 		C280CAAB1447D6F000EBCD9A /* AlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA61447D6F000EBCD9A /* AlertController.xib */; };
 		C280CAAC1447D6F000EBCD9A /* UserFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */; };
 		C280CAAD1447D6F000EBCD9A /* UserFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */; };
+		C282D65D146E47F700EE435A /* Odds.m in Sources */ = {isa = PBXBuildFile; fileRef = C282D65C146E47F700EE435A /* Odds.m */; };
+		C282D661146E481500EE435A /* OddsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C282D660146E481500EE435A /* OddsManager.m */; };
+		C282D664146E49F000EE435A /* YaPei.m in Sources */ = {isa = PBXBuildFile; fileRef = C282D663146E49F000EE435A /* YaPei.m */; };
+		C282D667146E49FF00EE435A /* OuPei.m in Sources */ = {isa = PBXBuildFile; fileRef = C282D666146E49FE00EE435A /* OuPei.m */; };
+		C282D66A146E4A0A00EE435A /* DaXiao.m in Sources */ = {isa = PBXBuildFile; fileRef = C282D669146E4A0A00EE435A /* DaXiao.m */; };
 		C28529B2144BE49400CA3CE9 /* ColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C28529B1144BE49400CA3CE9 /* ColorManager.m */; };
 		C286A11F146B76140016E452 /* OddsService.m in Sources */ = {isa = PBXBuildFile; fileRef = C286A11E146B76140016E452 /* OddsService.m */; };
 		C286BF2C146BBF55003A0D3D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = C286BF2B146BBF55003A0D3D /* UserService.m */; };
@@ -395,6 +400,16 @@
 		C280CAA71447D6F000EBCD9A /* UserFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedbackController.h; sourceTree = "<group>"; };
 		C280CAA81447D6F000EBCD9A /* UserFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedbackController.m; sourceTree = "<group>"; };
 		C280CAA91447D6F000EBCD9A /* UserFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFeedbackController.xib; sourceTree = "<group>"; };
+		C282D65B146E47F700EE435A /* Odds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Odds.h; sourceTree = "<group>"; };
+		C282D65C146E47F700EE435A /* Odds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Odds.m; sourceTree = "<group>"; };
+		C282D65F146E481500EE435A /* OddsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OddsManager.h; sourceTree = "<group>"; };
+		C282D660146E481500EE435A /* OddsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OddsManager.m; sourceTree = "<group>"; };
+		C282D662146E49F000EE435A /* YaPei.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YaPei.h; sourceTree = "<group>"; };
+		C282D663146E49F000EE435A /* YaPei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YaPei.m; sourceTree = "<group>"; };
+		C282D665146E49FE00EE435A /* OuPei.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OuPei.h; sourceTree = "<group>"; };
+		C282D666146E49FE00EE435A /* OuPei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OuPei.m; sourceTree = "<group>"; };
+		C282D668146E4A0A00EE435A /* DaXiao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaXiao.h; sourceTree = "<group>"; };
+		C282D669146E4A0A00EE435A /* DaXiao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaXiao.m; sourceTree = "<group>"; };
 		C28529B0144BE49400CA3CE9 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
 		C28529B1144BE49400CA3CE9 /* ColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManager.m; sourceTree = "<group>"; };
 		C286A11D146B76140016E452 /* OddsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OddsService.h; sourceTree = "<group>"; };
@@ -1186,6 +1201,16 @@
 				C286C27F1468D75E008D87F6 /* Company.m */,
 				C286C2811468DD7F008D87F6 /* CompanyManager.h */,
 				C286C2821468DD7F008D87F6 /* CompanyManager.m */,
+				C282D65B146E47F700EE435A /* Odds.h */,
+				C282D65C146E47F700EE435A /* Odds.m */,
+				C282D65F146E481500EE435A /* OddsManager.h */,
+				C282D660146E481500EE435A /* OddsManager.m */,
+				C282D662146E49F000EE435A /* YaPei.h */,
+				C282D663146E49F000EE435A /* YaPei.m */,
+				C282D665146E49FE00EE435A /* OuPei.h */,
+				C282D666146E49FE00EE435A /* OuPei.m */,
+				C282D668146E4A0A00EE435A /* DaXiao.h */,
+				C282D669146E4A0A00EE435A /* DaXiao.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2525,6 +2550,11 @@
 				C286A11F146B76140016E452 /* OddsService.m in Sources */,
 				C286BF2C146BBF55003A0D3D /* UserService.m in Sources */,
 				A3B9F7DA146CC44200FA3C65 /* ShowRealtimeScoreController.m in Sources */,
+				C282D65D146E47F700EE435A /* Odds.m in Sources */,
+				C282D661146E481500EE435A /* OddsManager.m in Sources */,
+				C282D664146E49F000EE435A /* YaPei.m in Sources */,
+				C282D667146E49FF00EE435A /* OuPei.m in Sources */,
+				C282D66A146E4A0A00EE435A /* DaXiao.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

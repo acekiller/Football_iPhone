@@ -9,6 +9,7 @@
 #import "ASIHTTPRequest.h"
 #import "FootballNetworkRequest.h"
 #import "StringUtil.h"
+#import "TimeUtils.h"
 
 #define URL_GET_REALTIME_MATCH      @"http://bf.bet007.com/phone/schedule.aspx?"
 #define URL_GET_MATCH_DETAIL        @"http://bf.bet007.com/phone/ResultDetail.aspx?"
@@ -24,7 +25,7 @@
 #define URL_GET_MATCH_DAXIAO        @"http://bf.bet007.com/phone/OverUnder.aspx?"
 #define URL_GET_MATCH_DAXIAO_DETAIL @"http://bf.bet007.com/phone/OverUnderDetail.aspx?"
 #define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
-
+#define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
 
 
   
@@ -507,6 +508,41 @@ enum{
     }; 
     
     return [FootballNetworkRequest sendRequest:URL_GET_BET_COMPANY_LIST
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
+}
+
++ (CommonNetworkOutput*)getOddsListByDate:(NSDate*)date 
+                                companyIdArray:(NSArray*)companyIdAray 
+                                 language:(int)language 
+                                matchType:(int)matchType 
+                                 oddsType:(int)oddsType
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        NSString* companyIdString = [[NSString alloc] init];
+        for (NSString* companyId in companyIdAray) {
+            companyIdString = [companyIdString stringByAppendingFormat:@"%@,%@",companyIdString,companyId];
+        }
+        str = [str stringByAddQueryParameter:@"Date" value:dateToString(date)];
+        str = [str stringByAddQueryParameter:@"companyID" value:companyIdString];
+        str = [str stringByAddQueryParameter:@"lang" intValue:language];
+        str = [str stringByAddQueryParameter:@"type" intValue:matchType];
+        str = [str stringByAddQueryParameter:@"odds" intValue:oddsType];
+
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_ODDS_LIST
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output]; 

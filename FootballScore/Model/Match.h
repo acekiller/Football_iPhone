@@ -178,6 +178,12 @@ enum{
                crownChuPan:(NSString*)crownChuPanValue
                   isFollow:(BOOL)isFollowValue;
 
+- (id)initWithId:(NSString*)idValue 
+        leagueId:(NSString*)leagueIdValue 
+            date:(NSString*)dateValue 
+    homeTeamName:(NSString*)homeTeamName 
+    awayTeamName:(NSString*)awayTeamName;
+
 - (int)matchSelectStatus;
 - (void)updateStartDate:(NSDate*)newStartDate;
 - (void)updateByMatch:(Match*)match;

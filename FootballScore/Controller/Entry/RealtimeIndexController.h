@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
+#import "OddsService.h"
 
-@interface RealtimeIndexController : PPTableViewController {
-    
-    
+@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate>{
+    NSMutableDictionary* matchOddsArray;
+        
 }
+@property (nonatomic, retain) NSMutableDictionary* matchOddsArray;
 
 - (IBAction)clickContentFilterButton:(id)sender;
 

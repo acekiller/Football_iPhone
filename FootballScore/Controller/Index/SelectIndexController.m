@@ -189,6 +189,8 @@
             [button setSelected:NO];
         }
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [button setBackgroundImage:selectedImage forState:UIControlStateSelected];
+        [button setBackgroundImage:unSelectedImage forState:UIControlStateNormal];
         [buttonsArray addObject:button];        
     }
     
@@ -255,7 +257,7 @@
     
     if ([selectedBwin containsObject:title]) {
         [selectedBwin removeObject:title];
-        [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
+        //[button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
         [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] forState:UIControlStateNormal];
         [button setSelected:NO];
         [[CompanyManager defaultCompanyManager] unselectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
@@ -270,7 +272,7 @@
             return;
         }
         [selectedBwin addObject:title];
-        [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
+        //[button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setSelected:YES];
         [[CompanyManager defaultCompanyManager] selectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
@@ -287,5 +289,79 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
++ (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 
+                             buttonsPerLine:(int)buttonsPerLine 
+{
+    float buttonLen;
+    float buttonHeight;
+    int fitButtonsPerLine;
+    int rowIndex;
+    int columnIndex;
+    UIScrollView* scrollView = [[[UIScrollView alloc] init] autorelease];
+    
+    UIButton* button1 = [buttons objectAtIndex:0];
+    buttonLen = button1.frame.size.width;
+    buttonHeight = button1.frame.size.height;
+    fitButtonsPerLine = 320/buttonLen;
+    
+    if (buttonLen*buttonsPerLine <=  320 && buttonsPerLine >= 0) {
+        fitButtonsPerLine = buttonsPerLine;
+    } 
+    
+    float buttonSeparatorX = (320-fitButtonsPerLine*buttonLen)/(fitButtonsPerLine+1);
+    float buttonSeparatorY =2*buttonHeight/fitButtonsPerLine;
+    
+    for (int i=0; i<[buttons count]; i++) {
+        //
+        rowIndex = i/buttonsPerLine;
+        columnIndex = i%buttonsPerLine;
+        UIButton *button = [buttons objectAtIndex:i];
+        button.frame = CGRectMake(buttonSeparatorX+columnIndex*(buttonSeparatorX+buttonLen), rowIndex*(buttonHeight+buttonSeparatorY), buttonLen, buttonHeight);
+        //To set the text Color of the Button 
+        // button.titleLabel.textColor=[UIColor blackColor];
+        [scrollView addSubview:button];
+        }
+    [scrollView setContentSize:CGSizeMake(320, ([buttons count]/fitButtonsPerLine+1)*(buttonHeight+buttonSeparatorY))];
+    return scrollView;   
+}
+
+- (void)createButtonsByArray:(NSArray*)array
+{
+    NSMutableArray* buttonArray = [[NSMutableArray alloc] init];
+    //CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    for (Company* company in array) {
+        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 20)];
+        [button setTitle:company.companyName forState:UIControlStateNormal];
+        [button setTitle:company.companyName forState:UIControlStateSelected];
+        [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateSelected];
+        [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [buttonArray addObject:button];
+    }
+    
+      UIScrollView* buttonScrollView = [SelectIndexController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:3];
+      [buttonArray release];
+      [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
+      buttonScrollView.tag = SCROLL_VIEW_TAG;
+      
+      [buttonScrollView setFrame:CGRectMake(0, 147, 320, 243)];
+      [self.view addSubview:buttonScrollView];
+      [buttonScrollView release];
+    
+//    [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
+//    UIScrollView* buttonScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 147, 320, 243)];
+//    buttonScrollView.tag = SCROLL_VIEW_TAG;
+//    [SelectIndexController showButtonsAtScrollView:buttonScrollView 
+//                                   withButtonArray:buttonArray 
+//                                     selectedImage:[UIImage imageNamed:@"set.png"] 
+//                                   unSelectedImage:[UIImage imageNamed:@"set.png"] 
+//                                    buttonsPerLine:3
+//                                        buttonSize:CGSizeMake(40, 20)];
+//    [self.view addSubview:buttonScrollView];
+//    [buttonScrollView release];
+}
 
 @end
