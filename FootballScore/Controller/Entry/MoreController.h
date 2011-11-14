@@ -24,5 +24,6 @@
 - (void)showScoreAlert;
 - (void)showFeedback;
 - (void)showLanguageSelection;
+-(void)showRecommendation;
 
 @end
