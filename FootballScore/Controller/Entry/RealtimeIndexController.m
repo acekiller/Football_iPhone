@@ -47,7 +47,7 @@
 {
     [super viewDidLoad];
     OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"1",nil];
+    NSArray* array = [NSArray arrayWithObjects:@"14",nil];
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
