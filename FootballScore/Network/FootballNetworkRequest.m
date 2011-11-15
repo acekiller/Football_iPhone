@@ -26,7 +26,7 @@
 #define URL_GET_MATCH_DAXIAO_DETAIL @"http://bf.bet007.com/phone/OverUnderDetail.aspx?"
 #define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
 #define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
-
+#define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
 
   
 #define SEGMENT_SEP             @"$$"
@@ -217,6 +217,28 @@ enum{
                                responseHandler:responseHandler
                                         output:output];    
 }    
+
++ (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL]; 
+        str = [str stringByAddQueryParameter:@"odds" intValue:oddsType];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_REALTIME_ODDS
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+} 
 
 + (CommonNetworkOutput*)getMatchDetail:(int)lang matchId:(NSString *)matchId
 {

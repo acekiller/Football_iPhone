@@ -80,10 +80,16 @@ enum OUPEI_INDEX {
     INDEX_OF_ODDS_HOMEWIN_ODDS,
     INDEX_OF_ODDS_DRAW_ODDS,
     INDEX_OF_ODDS_AWAYWIN_ODDS,
-    
     };
 
-
+enum ODDS_REALTIME_INDEX {
+    INDEX_OF_MATCH_ID_ODDS = 0,
+    INDEX_OF_COMPANY_ID_ODDS,
+    INDEX_OF_PANKOU,
+    INDEX_OF_HOME_ODDS,
+    INDEX_OF_AWAY_ODDS,
+    ODDS_REALTIME_INDEX_COUNT
+};
 
 @implementation OddsService
 @synthesize delegate;
@@ -279,5 +285,60 @@ enum OUPEI_INDEX {
      
  }
 
+
+- (void)getRealtimeOdds:(NSInteger)odds delegate:(id<OddsServiceDelegate>)delegate
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:odds];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            CompanyManager* manager = [CompanyManager defaultCompanyManager];
+            
+            if (output.resultCode == ERROR_SUCCESS){
+                if ([output.arrayData count] > 0) {
+                    [manager.allCompany removeAllObjects];
+                    NSArray* segment = [output.arrayData objectAtIndex:0];
+                    if ([segment count] > 0) {
+                        for (NSArray* data in segment) {
+                            if ([data count] == ODDS_REALTIME_INDEX_COUNT) {
+                                
+                                NSString *matchId = [data objectAtIndex:INDEX_OF_MATCH_ID_ODDS];
+                                NSString *companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID_ODDS];
+                                NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
+                                NSString *homeTeamOdds = nil;
+                                NSString *pankou = nil;
+                                if (odds == 3) {
+                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
+                                    pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
+                                }else{
+                                    
+                                    pankou = [data objectAtIndex:INDEX_OF_PANKOU];
+                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
+                                }
+                                
+                                
+                            } else {
+                                continue;
+                            }
+                            
+                        }
+                    }
+                    else {
+                        NSLog(@"segment format error:%@",[segment description]);
+                    }
+                    
+                }
+                else {
+                    NSLog(@"no odds change list updated");
+                }                
+            }
+            
+        });                        
+    }];
+}
 
 @end

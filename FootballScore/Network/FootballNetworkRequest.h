@@ -50,10 +50,10 @@ enum{
 + (CommonNetworkOutput*)getMatchDaxiao:(NSString*)matchId;
 + (CommonNetworkOutput*)getMatchDaxiaoDetail:(NSString *)OddsId;
 + (CommonNetworkOutput*)getBetCompanyList;
-
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
 + (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
++ (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType;
 + (CommonNetworkOutput*)getOddsListByDate:(NSDate*)date 
                            companyIdArray:(NSArray*)companyIdAray 
                                  language:(int)language 

@@ -11,6 +11,7 @@
 @protocol OddsServiceDelegate <NSObject>
 
 - (void)getOddsListFinish;
+- (void)getRealtimeOddsFinish;
 
 @end
 
@@ -27,5 +28,7 @@
                 matchType:(int)matchType 
                  oddsType:(int)oddsType 
                  delegate:(id<OddsServiceDelegate>)delegate;
+
+- (void)getRealtimeOdds:(NSInteger)odds delegate:(id<OddsServiceDelegate>)delegate;
 
 @end
