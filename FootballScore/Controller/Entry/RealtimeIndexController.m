@@ -81,6 +81,8 @@
     [vc release];
 }
 
+
+
 #pragma table view delegate
 #pragma -
 
@@ -121,8 +123,7 @@
     NSArray* array = [self.matchOddsList objectForKey:key];
     Odds* odds = [array objectAtIndex:[indexPath row]];
     Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:odds.commpanyId];
-    [cell.matchName setText:company.companyName];
-	
+	[cell setCellInfo:odds company:company oddsType:ODDS_TYPE_YAPEI];
 	return cell;	
 }
 
