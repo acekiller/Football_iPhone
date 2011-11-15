@@ -20,3 +20,11 @@
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
 
 @end
+
+
+@interface RealtimeIndexHeaderView : UIView {
+@private
+    
+}
+- (id)initWithMatchId:(NSString *)matchId;
+@end

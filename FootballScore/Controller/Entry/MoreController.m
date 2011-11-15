@@ -200,9 +200,13 @@
     
     if ([rowValue isEqualToString:FNS(@"推荐给好友")])
         [self showRecommendation];
-    
+
     if ([rowValue isEqualToString:FNS(@"关于彩客网")])
         [self showAbout];
+
+    if ([rowValue isEqualToString:FNS(@"退出客户端")]){
+    }
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewCell.h"
+@class Odds;
+@class Company;
 
 @interface ScoreIndexCell : PPTableViewCell
-
 + (ScoreIndexCell*)createCell:(id)delegate;
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
-@property (retain, nonatomic) IBOutlet UILabel *matchName;
+- (void)setCellInfo:(Odds*)odds company:(Company*)company oddsType:(int)type;
+
+@property (retain, nonatomic) IBOutlet UIButton *companyName;
+@property (retain, nonatomic) IBOutlet UIButton *home_homeWin_bigBall_init;
+@property (retain, nonatomic) IBOutlet UIButton *chupan_draw_init;
+@property (retain, nonatomic) IBOutlet UIButton *away_awayWin_smallBall_init;
+@property (retain, nonatomic) IBOutlet UIButton *home_homeWin_bigBall_instant;
+@property (retain, nonatomic) IBOutlet UIButton *pankou_draw_instant;
+@property (retain, nonatomic) IBOutlet UIButton *away_awayWin_smallBall_instant;
 
 @end
