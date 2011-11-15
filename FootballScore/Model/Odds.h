@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-enum ODDS_TYPE {
+typedef enum ODDS_TYPE {
+    ODDS_TYPE_INVALIDE = -1,
     ODDS_TYPE_YAPEI = 1,
     ODDS_TYPE_OUPEI = 2,
-    ODDS_TYPE_DAXIAO
-};
+    ODDS_TYPE_DAXIAO = 3
+}ODDS_TYPE;
 
 
 @interface Odds : NSObject {
@@ -25,5 +26,5 @@ enum ODDS_TYPE {
 @property (nonatomic, retain) NSString* matchId;
 @property (nonatomic, retain) NSString* commpanyId;
 @property (nonatomic, retain) NSString* oddsId;
-
+-(ODDS_TYPE) oddsType;
 @end

@@ -30,5 +30,5 @@
 + (OddsManager*)defaultManager;
 - (NSString*)getMatchTitleByMatchId:(NSString*)matchId;
 + (void)addOdds:(Odds*)odds toDictionary:(NSMutableDictionary*)dict;
-
+- (Odds *)getOddsByMatchId:(NSString *)matchId companyId:(NSString *)companyId oddsType:(NSInteger)oddsType;
 @end
