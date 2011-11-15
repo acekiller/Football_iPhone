@@ -20,3 +20,11 @@
 
 
 @end
+
+
+@interface RealtimeIndexHeaderView : UIView {
+@private
+    
+}
+- (id)initWithMatchId:(NSString *)matchId;
+@end
