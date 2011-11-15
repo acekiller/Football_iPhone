@@ -7,21 +7,37 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PPViewController.h"
 @protocol AlertControllerDelegate <NSObject>
 
 - (void)setSoundSwitch:(int)soundSwitch shakingswitch:(int)shakingSwitch pushType:(int)pushType;
 
 @end
 
-@interface AlertController : UIViewController {
-    UISwitch *soundSwitch;
-    UISwitch *shakingSwitch;
+@interface AlertController : PPViewController<UITableViewDataSource,UITableViewDelegate> {
+   
     int pushType;
+    
+    
+    NSDictionary *  alertTitles;
+    NSArray  * alertGroupsInfor;
+    
+   
+    NSArray  *array;
+    NSDictionary *dictionary;
+    
+    
 }
 
-@property (nonatomic, retain) IBOutlet UISwitch *soundSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *shakingSwitch;
+
+
+@property(nonatomic,retain)    NSDictionary *  alertTitles;
+@property(nonatomic,retain)  NSArray  * alertGroupsInfor;
+
+
+@property(nonatomic,retain)NSArray *array;
+@property(nonatomic,retain)NSDictionary *dictionary;
+
 @property (nonatomic, assign) int pushType;
 
 @end

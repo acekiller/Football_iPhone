@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPViewController.h"
 
 @protocol UserFeedbackControllerDelegate <NSObject>
 
 - (void)sendFeedbackMessage:(NSString*)message witchUserNick:(NSString*)userNick;
 @end
 
-@interface UserFeedbackController : UIViewController
+@interface UserFeedbackController : PPViewController
 {
     UILabel *versionInfo;
     
