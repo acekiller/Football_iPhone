@@ -7,6 +7,7 @@
 //
 
 #import "UserFeedbackController.h"
+#import "LocaleConstants.h"
 
 @implementation UserFeedbackController
 @synthesize versionInfo;
@@ -42,6 +43,10 @@
     [self versionInfoInit];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.navigationItem.title = FNS(@"信息反馈");	
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
+                           action:@selector(clickBack:)];
 }
 
 - (void)viewDidUnload
