@@ -12,6 +12,7 @@
 #import "UserFeedbackController.h"
 #import "ShowRealtimeScoreController.h"
 #import "MatchManager.h"
+#import "UITableViewCellUtil.h"
 
 @implementation MoreController
 @synthesize listData;
@@ -49,6 +50,8 @@
     [self optionListInit];  
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1.0];
 }
 
 - (void)viewDidUnload
@@ -90,6 +93,11 @@
     language = buttonIndex;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 37.0f;	
+}	
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.listData count];
@@ -103,7 +111,69 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"more"] autorelease];
         cell.textLabel.text = [listData objectAtIndex:[indexPath row]];
         
+        UIImage* image = [UIImage imageNamed:@"szicon_a.png"];
+        UIImageView* cellAccessoryView = [[UIImageView alloc] initWithImage:image];
+        cell.accessoryView = cellAccessoryView;
+        [cellAccessoryView release];
     }
+    
+    UIImage *image = nil;
+    switch ([indexPath row]) {
+        case 0:
+            image = [UIImage imageNamed:@"szicon1.png"];
+            break;
+        case 1:
+            image = [UIImage imageNamed:@"szicon2.png"];
+            break;
+        case 2:
+            image = [UIImage imageNamed:@"szicon3.png"];
+            break;
+        case 3:
+            image = [UIImage imageNamed:@"szicon4.png"];
+            break;
+        case 4:
+            image = [UIImage imageNamed:@"szicon5.png"];
+            break;
+        case 5:
+            image = [UIImage imageNamed:@"szicon6.png"];
+            break;
+        case 6:
+            image = [UIImage imageNamed:@"szicon7.png"];
+            break;
+        case 7:
+            image = [UIImage imageNamed:@"szicon8.png"];
+            break;
+        case 8:
+            image = [UIImage imageNamed:@"szicon9.png"];
+            break;
+        default:
+            break;
+    }
+    
+    cell.imageView.image = image;
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];	
+    
+    //cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+    
+    //set backgroudView
+    UIImageView *imageView = nil;
+    
+    if (0 == [indexPath row] )
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_top.png"]];
+    else if (8 == [indexPath row])
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_bottom.png"]];
+    else
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_middle.png"]];
+    
+    cell.backgroundView=imageView;
+    cell.backgroundView.backgroundColor = [UIColor clearColor];
+    
+//    [cell setCellBackgroundForRow:indexPath.row rowCount:[self tableView:tableView numberOfRowsInSection:indexPath.section] singleCellImage:nil firstCellImage:@"helptable_top.png" middleCellImage:@"helptable_middle.png" lastCellImage:@"helptable_bottom.png" cellWidth:300];
+    
+    [imageView release];
+    
+    
     return cell;
     
 }

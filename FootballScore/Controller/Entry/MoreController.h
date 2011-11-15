@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPTableViewController.h"
 
-
-@interface MoreController : UIViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>{
+@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>{
 
     int language;
     NSArray *listData;

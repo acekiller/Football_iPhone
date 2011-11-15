@@ -8,6 +8,7 @@
 
 #import "OddsManager.h"
 #import "match.h"
+#import "TimeUtils.h"
 
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
@@ -56,7 +57,7 @@ OddsManager* GlobleGetOddsManager()
 {
     for (Match* match in self.matchArray) {
         if ([matchId isEqualToString:match.matchId]) {
-            return [NSString stringWithFormat:@"%@ vs %@",match.homeTeamName,match.awayTeamName];
+            return [NSString stringWithFormat:@"(%@)%@ vs %@",dateToString(match.date),match.homeTeamName,match.awayTeamName];
         }
     }
     return nil;

@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+enum ODDS_TYPE {
+    ODDS_TYPE_YAPEI = 1,
+    ODDS_TYPE_OUPEI = 2,
+    ODDS_TYPE_DAXIAO
+};
+
+
 @interface Odds : NSObject {
     NSString* matchId;
     NSString* commpanyId;
