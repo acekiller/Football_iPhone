@@ -11,11 +11,12 @@
 #import "OddsService.h"
 
 @interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate>{
-    NSMutableDictionary* matchOddsArray;
+    NSMutableDictionary* matchOddsList;
         
 }
-@property (nonatomic, retain) NSMutableDictionary* matchOddsArray;
+@property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 
 - (IBAction)clickContentFilterButton:(id)sender;
+
 
 @end

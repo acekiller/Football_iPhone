@@ -528,7 +528,7 @@ enum{
         NSString* str = [NSString stringWithString:baseURL];
         NSString* companyIdString = [[NSString alloc] init];
         for (NSString* companyId in companyIdAray) {
-            companyIdString = [companyIdString stringByAppendingFormat:@"%@,%@",companyIdString,companyId];
+            companyIdString = [companyIdString stringByAppendingFormat:@"%@,",companyId];
         }
         str = [str stringByAddQueryParameter:@"Date" value:dateToString(date)];
         str = [str stringByAddQueryParameter:@"companyID" value:companyIdString];
