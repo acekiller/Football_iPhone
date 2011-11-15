@@ -46,6 +46,13 @@
 
 
 
+//AlertController 
+
++(UIColor*)scoreAlertColor;
++(UIColor*)soundsAlertColor;
++(UIColor*)soundSubtitlesColor;
++(UIColor*)blackGroundColor;
+
 
 
 
