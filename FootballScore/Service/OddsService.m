@@ -46,8 +46,8 @@ enum LEAGUE_INDEX {
     };
 
 enum MATCH_INDEX {
-    INDEX_OF_MATCH_LEAGUE_ID = 0,
-    INDEX_OF_MATCH_MATCH_ID,
+    INDEX_OF_MATCH_MATCH_ID = 0,
+    INDEX_OF_MATCH_LEAGUE_ID,
     INDEX_OF_MATCH_TIME,
     INDEX_OF_HOME_TEAM_NAME,
     INDEX_OF_AWAY_TEAM_NAME,
@@ -86,6 +86,7 @@ enum OUPEI_INDEX {
 
 
 @implementation OddsService
+@synthesize delegate;
 
 - (void)updateAllBetCompanyList
 {
@@ -144,7 +145,8 @@ enum OUPEI_INDEX {
             companyIdArray:(NSArray*)companyIdAray 
                   language:(int)language 
                  matchType:(int)matchType 
-                  oddsType:(int)oddsType
+                 oddsType:(int)oddsType 
+                 delegate:(id<OddsServiceDelegate>)delegate
  {
      NSOperationQueue* queue = [self getOperationQueue:GET_ODDS_LIST];
      [queue addOperationWithBlock:^{
@@ -159,9 +161,9 @@ enum OUPEI_INDEX {
                  if ([output.arrayData count] > 0) {
                      //[manager.allCompany removeAllObjects];
                      //OddsManager* manager = [OddsManager defaultManager];
-                     NSArray* leagueArray = [output.arrayData objectAtIndex:INDEX_OF_LEAGUE];
-                     NSArray* matchArray = [output.arrayData objectAtIndex:INDEX_OF_MATCH];
-                     NSArray* oddsArray = [output.arrayData objectAtIndex:INDEX_OF_PEILV];
+                     NSMutableArray* leagueArray = [output.arrayData objectAtIndex:INDEX_OF_LEAGUE];
+                     NSMutableArray* matchArray = [output.arrayData objectAtIndex:INDEX_OF_MATCH];
+                     NSMutableArray* oddsArray = [output.arrayData objectAtIndex:INDEX_OF_PEILV];
                      
                      if ([leagueArray count] > 0) {
                          for (NSArray* data in leagueArray) {
@@ -259,16 +261,16 @@ enum OUPEI_INDEX {
                          }
                      }
                      else {
-                         NSLog(@"segment format error:%@",[oddsArray description]);
+                         NSLog(@"look,no odds data:%@",[oddsArray description]);
                      }
                      
-                     if (delegate && [delegate respondsToSelector:@selector(getOddsListFinish:matchArray:oddsArray:)]) {
-                         [delegate getOddsListFinish:leagueArray matchArray:matchArray oddsArray:oddsArray];
+                     if (delegate && [delegate respondsToSelector:@selector(getOddsListFinish)]) {
+                         [delegate getOddsListFinish];
                      }
                      
                  }
                  else {
-                     NSLog(@"no odds list got");
+                     NSLog(@"no odds, leagues, matches got");
                  }                
              }
              
@@ -276,5 +278,6 @@ enum OUPEI_INDEX {
      }];
      
  }
+
 
 @end

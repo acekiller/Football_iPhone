@@ -11,10 +11,13 @@
 #import "StatusView.h"
 #import "ScoreIndexCell.h"
 #import "OddsManager.h"
+#import "CompanyManager.h"
+#import "Company.h"
 #import "Odds.h"
+#import "YaPei.h"
 
 @implementation RealtimeIndexController
-@synthesize matchOddsArray;
+@synthesize matchOddsList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,15 +47,15 @@
 {
     [super viewDidLoad];
     OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"1", @"2", nil];
-    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:1 oddsType:1];
+    NSArray* array = [NSArray arrayWithObjects:@"1",nil];
+    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
-    self.matchOddsArray  = [[NSMutableDictionary alloc] init];
+    self.matchOddsList  = [[NSMutableDictionary alloc] init];
     for (Odds* odds in manager.yapeiArray) {
-        [self.matchOddsArray setObject:odds forKey:odds.matchId];
+        [self.matchOddsList setObject:odds forKey:odds.matchId];
     }
-    self.dataList = [matchOddsArray allKeys];
+    self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
     
     // Do any additional setup after loading the view from its nib.
@@ -78,6 +81,8 @@
     [vc release];
 }
 
+
+
 #pragma table view delegate
 #pragma -
 
@@ -87,12 +92,14 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self.dataList count];
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [self.dataList count];
+    NSString* key = [self.dataList objectAtIndex:section];
+    NSArray* array = [self.matchOddsList valueForKey:key];
+	return [array count];
 }
 
 
@@ -110,8 +117,23 @@
     
 //    Match* match = [self.dataList objectAtIndex:indexPath.row];
 //    [cell setCellInfo:match];
-	
+    //NSString* str = [self.dataList objectAtIndex:indexPath.row];
+    //[cell.matchName setText:str];
+    NSString* key = [self.dataList objectAtIndex:[indexPath section]];
+    NSArray* array = [self.matchOddsList objectForKey:key];
+    Odds* odds = [array objectAtIndex:[indexPath row]];
+    Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:odds.commpanyId];
+	[cell setCellInfo:odds company:company oddsType:ODDS_TYPE_YAPEI];
 	return cell;	
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString* matchId = [self.dataList objectAtIndex:section];
+    NSString* title = [[OddsManager defaultManager] getMatchTitleByMatchId:matchId];
+    if (title != nil) {
+        return title;
+    }
+    return matchId;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,17 +143,14 @@
 #pragma remote request delegate
 #pragma -
 
-- (void)getOddsListFinish:(NSMutableArray*)leagues matchArray:(NSMutableArray*)matches oddsArray:(NSMutableArray*)oddsList
+- (void)getOddsListFinish
 {
     OddsManager* manager = [OddsManager defaultManager];
-    manager.leagueArray = leagues;
-    manager.matchArray = matches;
-    manager.yapeiArray = oddsList;
-    self.matchOddsArray  = [[NSMutableDictionary alloc] init];
-    for (Odds* odds in manager.yapeiArray) {
-        [self.matchOddsArray setObject:odds forKey:odds.matchId];
-    }
-    self.dataList = [matchOddsArray allKeys];
+    self.matchOddsList  = [[NSMutableDictionary alloc] init];
+     for (Odds* odds in manager.yapeiArray) {
+         [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+     }
+    self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
     
 }

@@ -10,8 +10,7 @@
 
 @protocol OddsServiceDelegate <NSObject>
 
-- (void)updateAllBetCompanyListFinish;
-- (void)getOddsListFinish:(NSMutableArray*)leagues matchArray:(NSMutableArray*)matches oddsArray:(NSMutableArray*)oddsList;
+- (void)getOddsListFinish;
 
 @end
 
@@ -19,12 +18,14 @@
     id<OddsServiceDelegate> delegate;
     
 }
+@property (nonatomic, assign) id<OddsServiceDelegate> delegate;
 
 - (void)updateAllBetCompanyList;
 - (void)getOddsListByDate:(NSDate*)date 
            companyIdArray:(NSArray*)companyIdAray 
                  language:(int)language 
                 matchType:(int)matchType 
-                 oddsType:(int)oddsType;
+                 oddsType:(int)oddsType 
+                 delegate:(id<OddsServiceDelegate>)delegate;
 
 @end

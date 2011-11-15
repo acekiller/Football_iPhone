@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Odds.h"
 @class YaPei;
 @class OuPei;
 @class DaXiao;
@@ -27,5 +28,7 @@
 @property (nonatomic, retain) NSMutableArray* daxiaoArray;
 
 + (OddsManager*)defaultManager;
+- (NSString*)getMatchTitleByMatchId:(NSString*)matchId;
++ (void)addOdds:(Odds*)odds toDictionary:(NSMutableDictionary*)dict;
 
 @end
