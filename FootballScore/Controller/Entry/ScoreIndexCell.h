@@ -14,5 +14,6 @@
 + (ScoreIndexCell*)createCell:(id)delegate;
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
+@property (retain, nonatomic) IBOutlet UILabel *matchName;
 
 @end

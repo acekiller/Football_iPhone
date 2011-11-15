@@ -7,6 +7,7 @@
 //
 
 #import "OddsManager.h"
+#import "match.h"
 
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
@@ -49,6 +50,31 @@ OddsManager* GlobleGetOddsManager()
     [self.oupeiArray release];
     [self.daxiaoArray release];
     [super dealloc];
+}
+
+- (NSString*)getMatchTitleByMatchId:(NSString*)matchId
+{
+    for (Match* match in self.matchArray) {
+        if ([matchId isEqualToString:match.matchId]) {
+            return [NSString stringWithFormat:@"%@ vs %@",match.homeTeamName,match.awayTeamName];
+        }
+    }
+    return nil;
+}
+
++ (void)addOdds:(Odds*)odds toDictionary:(NSMutableDictionary*)dict
+{
+    NSMutableArray * array;
+    if ([dict objectForKey:odds.matchId] == nil) {
+        array = [[NSMutableArray alloc] init];
+        [array addObject:odds];
+        [dict setObject:array forKey:odds.matchId];
+        [array release];
+    } else {
+        array = [dict objectForKey:odds.matchId];
+        [array addObject:odds];
+        [dict setObject:array forKey:odds.matchId];
+    }
 }
 
 @end
