@@ -127,13 +127,19 @@
 	return cell;	
 }
 
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    NSString* matchId = [self.dataList objectAtIndex:section];
+//    NSString* title = [[OddsManager defaultManager] getMatchTitleByMatchId:matchId];
+//    if (title != nil) {
+//        return title;
+//    }
+//    return matchId;
+//}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     NSString* matchId = [self.dataList objectAtIndex:section];
-    NSString* title = [[OddsManager defaultManager] getMatchTitleByMatchId:matchId];
-    if (title != nil) {
-        return title;
-    }
-    return matchId;
+    return [[[RealtimeIndexHeaderView alloc]initWithMatchId:matchId]autorelease];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -153,6 +159,52 @@
     self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
     
+}
+
+@end
+
+
+#import "MatchManager.h"
+#import "Match.h"
+#import "TimeUtils.h"
+#import "OHAttributedLabel.h"
+#import "NSAttributedString+Attributes.h"
+
+@implementation RealtimeIndexHeaderView
+
+#define HEADER_HEIGHT 33.5
+- (id)initWithMatchId:(NSString *)matchId
+{
+
+    self = [super initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT)];
+    Match *match = [[MatchManager defaultManager]getMathById:matchId];
+    if (self && match) {
+        NSString *leagueName = [[MatchManager defaultManager] getLeagueNameByMatch:match];
+        NSString *dateString = dateToStringByFormat(match.date, @"MM/dd");
+        NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
+        NSString *leagueDate = [NSString stringWithFormat:@"   %@ %@",leagueName,dateString];
+        NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
+        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(0, 10, 320, 23.5)];
+        NSMutableAttributedString *aString = [NSMutableAttributedString attributedStringWithString:title];
+
+        NSRange range1 = [title rangeOfString:leagueDate];
+        NSRange range2 = [title rangeOfString:teamString];
+        
+        [aString setFont:[UIFont systemFontOfSize:14.0] range:range1];
+        [aString setFont:[UIFont systemFontOfSize:19.0] range:range2];
+        [aString setTextColor:[UIColor grayColor] range:range1];
+        [aString setTextColor:[UIColor blackColor] range:range2];
+        
+        aLabel.attributedText = aString;
+
+        [self.layer setContents:(id)[UIImage imageNamed:@"odds_se_bg.png"].CGImage];
+        
+        [aLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:aLabel];
+
+        [aLabel release];
+    }
+    return self;
 }
 
 @end
