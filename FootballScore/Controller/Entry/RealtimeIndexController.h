@@ -10,14 +10,14 @@
 #import "PPTableViewController.h"
 #import "OddsService.h"
 
-@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate>{
+@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate,UIActionSheetDelegate>{
     NSMutableDictionary* matchOddsList;
         
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 
 - (IBAction)clickContentFilterButton:(id)sender;
-
+- (IBAction)clickSearcHistoryBackButton:(id)sender;
 
 @end
 

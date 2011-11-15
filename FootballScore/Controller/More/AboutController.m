@@ -7,6 +7,7 @@
 //
 
 #import "AboutController.h"
+#import "LocaleConstants.h"
 
 @implementation AboutController
 
@@ -33,6 +34,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.navigationItem.title = FNS(@"关于");	
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
+                           action:@selector(clickBack:)];
 }
 
 - (void)viewDidUnload

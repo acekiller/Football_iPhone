@@ -16,6 +16,7 @@
 #import "Company.h"
 #import "Odds.h"
 #import "YaPei.h"
+#import "LocaleConstants.h"
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -48,7 +49,7 @@
 {
     [super viewDidLoad];
     OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"1",nil];
+    NSArray* array = [NSArray arrayWithObjects:@"14",nil];
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
@@ -80,6 +81,37 @@
     SelectIndexController *vc = [[SelectIndexController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+}
+
+- (IBAction)clickSearcHistoryBackButton:(id)sender
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    
+    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"历史回查") 
+                                                              delegate:self 
+                                                     cancelButtonTitle:FNS(@"返回")
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+    
+    int i;
+    NSTimeInterval interval;
+    NSString *dateString = nil;
+    
+    for (i = 0 ; i<7 ;i++)
+    {
+        interval = 24*60*60*i;
+        date = [date initWithTimeIntervalSinceNow:-interval];
+        dateString = [df stringFromDate:date];
+        [dateActionSheet addButtonWithTitle: dateString];
+    }
+    
+    
+    [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
+    
+    
+    [dateActionSheet release];
 }
 
 
@@ -161,6 +193,42 @@
     [self.dataTableView reloadData];
     
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            //next action
+            break;
+        case 1:
+            //next action
+            break;
+        case 2:
+            //next action
+            break;
+        case 3:
+            //next action
+            break;
+        case 4:
+            //next action
+            break;
+        case 5:
+            //next action
+            break;
+        case 6:
+            //next action
+            break;
+        default:
+            break;
+    }
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+}
+
 
 @end
 
