@@ -15,6 +15,7 @@
 #import "Company.h"
 #import "Odds.h"
 #import "YaPei.h"
+#import "LocaleConstants.h"
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -80,6 +81,38 @@
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
+
+- (IBAction)clickSearcHistoryBackButton:(id)sender
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    
+    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"历史回查") 
+                                                              delegate:self 
+                                                     cancelButtonTitle:FNS(@"返回")
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+    
+    int i;
+    NSTimeInterval interval;
+    NSString *dateString = nil;
+    
+    for (i = 0 ; i<7 ;i++)
+    {
+        interval = 24*60*60*i;
+        date = [date initWithTimeIntervalSinceNow:-interval];
+        dateString = [df stringFromDate:date];
+        [dateActionSheet addButtonWithTitle: dateString];
+    }
+    
+    
+    [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
+    
+    
+    [dateActionSheet release];
+}
+
 
 #pragma table view delegate
 #pragma -
@@ -153,5 +186,41 @@
     [self.dataTableView reloadData];
     
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            //next action
+            break;
+        case 1:
+            //next action
+            break;
+        case 2:
+            //next action
+            break;
+        case 3:
+            //next action
+            break;
+        case 4:
+            //next action
+            break;
+        case 5:
+            //next action
+            break;
+        case 6:
+            //next action
+            break;
+        default:
+            break;
+    }
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+}
+
 
 @end

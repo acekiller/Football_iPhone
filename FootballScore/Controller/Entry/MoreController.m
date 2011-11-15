@@ -13,6 +13,7 @@
 #import "ShowRealtimeScoreController.h"
 #import "MatchManager.h"
 #import "UITableViewCellUtil.h"
+#import "AboutController.h"
 
 @implementation MoreController
 @synthesize listData;
@@ -110,11 +111,18 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"more"] autorelease];
         cell.textLabel.text = [listData objectAtIndex:[indexPath row]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+        cell.textLabel.textColor=[UIColor colorWithRed:0x46/255.0 green:0x46/255.0 blue:0x46/255.0 alpha:1.0];
         
         UIImage* image = [UIImage imageNamed:@"szicon_a.png"];
         UIImageView* cellAccessoryView = [[UIImageView alloc] initWithImage:image];
         cell.accessoryView = cellAccessoryView;
         [cellAccessoryView release];
+        
+        cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+        cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0x2F/255.0 green:0x76/255.0 blue:0xB9/255.0 alpha:1.0];
+        
+        
     }
     
     UIImage *image = nil;
@@ -154,7 +162,6 @@
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = [UIColor clearColor];	
     
-    //cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     
     //set backgroudView
     UIImageView *imageView = nil;
@@ -172,7 +179,6 @@
 //    [cell setCellBackgroundForRow:indexPath.row rowCount:[self tableView:tableView numberOfRowsInSection:indexPath.section] singleCellImage:nil firstCellImage:@"helptable_top.png" middleCellImage:@"helptable_middle.png" lastCellImage:@"helptable_bottom.png" cellWidth:300];
     
     [imageView release];
-    
     
     return cell;
     
@@ -194,7 +200,10 @@
     
     if ([rowValue isEqualToString:FNS(@"推荐给好友")])
         [self showRecommendation];
-
+    
+    if ([rowValue isEqualToString:FNS(@"关于彩客网")])
+        [self showAbout];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -227,12 +236,19 @@
     [vc release];
 }
 
--(void)showRecommendation
+- (void)showRecommendation
 {
     NSArray* matchArray = [[MatchManager defaultManager] matchArray];
     int index = rand() % [matchArray count];
     Match* match = [matchArray objectAtIndex:index];
     [ShowRealtimeScoreController show:self.view match:match];
+}
+
+- (void)showAbout
+{
+    AboutController *ac = [[AboutController alloc] init];
+    [self.navigationController pushViewController:ac animated:YES];
+    [ac release];
 }
 
 @end
