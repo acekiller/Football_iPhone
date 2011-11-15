@@ -194,7 +194,24 @@
     
     if ([rowValue isEqualToString:FNS(@"推荐给好友")])
         [self showRecommendation];
+    
+    
+    if ([rowValue isEqualToString:FNS(@"退出客户端")]){
+        
+        
+        
+       
+    }
+    if ([rowValue isEqualToString:FNS(@"推荐给好友")])
+        [self showRecommendation];
 
+    if ([rowValue isEqualToString:FNS(@"推荐给好友")])
+        [self showRecommendation];
+
+    
+    
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
