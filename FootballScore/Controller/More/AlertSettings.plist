@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>2</key>
+	<array>
+		<string>比分动态推送:</string>
+		<string>不推送比分</string>
+		<string>推送所有比赛的比分</string>
+		<string>仅仅推送我关注的比赛的比分</string>
+	</array>
+	<key>1</key>
+	<array>
+		<string>进球提示:</string>
+		<string>声音提示</string>
+		<string>震动提示</string>
+	</array>
+</dict>
+</plist>

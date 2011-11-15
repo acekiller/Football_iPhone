@@ -198,4 +198,44 @@
 }
 
 
+//AlertController 
++(UIColor*)scoreAlertColor{
+    
+   return [UIColor colorWithRed:0x30/255.0
+                          green:0x62/255.0 
+                           blue:0x8f/255.0
+                          alpha:1];
+    
+}
+
++(UIColor*)soundsAlertColor{
+
+
+    return [UIColor colorWithRed:0x33/255.0 
+                           green:0x33/255.0 
+                            blue:0x33/255.0
+                           alpha:1]; 
+}
+
++(UIColor*)soundSubtitlesColor{
+
+    return  [UIColor colorWithRed:0x99/255.0
+                            green:0x99/255.0 
+                             blue:0x99/255.0 
+                            alpha:1];
+}
+
+
+
++(UIColor*)blackGroundColor{
+    
+    
+    return  [UIColor colorWithRed:0xE3/255.0
+                            green:0xE8/255.0 
+                             blue:0xEA/255.0 
+                            alpha:1];
+
+
+}
+
 @end

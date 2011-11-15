@@ -9,6 +9,7 @@
 #import "ScoreIndexCell.h"
 
 @implementation ScoreIndexCell
+@synthesize matchName;
 
 + (ScoreIndexCell*)createCell:(id)delegate
 {
@@ -34,4 +35,8 @@
     return 48.0f;
 }
 
+- (void)dealloc {
+    [matchName release];
+    [super dealloc];
+}
 @end
