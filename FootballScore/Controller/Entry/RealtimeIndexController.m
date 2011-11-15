@@ -194,6 +194,11 @@
     
 }
 
+- (void)getRealtimeOddsFinish
+{
+    
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {

@@ -205,7 +205,7 @@ enum ODDS_REALTIME_INDEX {
                      
                      if ([oddsArray count] > 0) {
                          switch (oddsType) {
-                             case 1:
+                             case ODDS_TYPE_YAPEI:
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -224,7 +224,7 @@ enum ODDS_REALTIME_INDEX {
                                      
                                  }
                                  break;
-                             case 2:
+                             case ODDS_TYPE_OUPEI:
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -243,7 +243,7 @@ enum ODDS_REALTIME_INDEX {
                                      
                                  }
                                  break;
-                             case 3:
+                             case ODDS_TYPE_DAXIAO:
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];

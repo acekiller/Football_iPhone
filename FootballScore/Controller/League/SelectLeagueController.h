@@ -42,7 +42,7 @@
 
 
 - (void)clickDone:(id)sender;
-- (IBAction)confirmButton:(id)sender;
+//- (IBAction)confirmButton:(id)sender;
 
 - (void)updateHiddenMatchInfo;
 

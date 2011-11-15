@@ -89,7 +89,7 @@
 
 
 //get hided Matches
--(void)getTheHidedMatches:(int)hidedMatches;
+//-(void)getTheHidedMatches:(int)hidedMatches;
 -(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
 
 

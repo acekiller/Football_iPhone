@@ -326,8 +326,10 @@
 {
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
+    [self.filterBarButton setHidden:NO];
+    [self.scoreTypeButton setHidden:NO];
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
-    
+
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
     
@@ -340,6 +342,8 @@
 { 
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
+    [self.filterBarButton setHidden:YES];
+    [self.scoreTypeButton setHidden:YES];
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
     [self reloadMyFollowList];
 //    MatchManager *manager = [MatchManager defaultManager];
@@ -417,15 +421,15 @@
     [rightButtonView addSubview:scoreTypeButton];
     
     
-    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
-    [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [filterButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
-    [filterButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [filterButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
-    [filterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [filterButton.titleLabel setFont:font];
-    [rightButtonView addSubview:filterButton];
-    [filterButton release];
+    filterBarButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
+    [filterBarButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [filterBarButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
+    [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [filterBarButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
+    [filterBarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [filterBarButton.titleLabel setFont:font];
+    [rightButtonView addSubview:filterBarButton];
+    [filterBarButton release];
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
     [rightButtonView release];
