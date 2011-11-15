@@ -78,4 +78,23 @@ OddsManager* GlobleGetOddsManager()
     }
 }
 
+- (Odds *)getOddsByMatchId:(NSString *)matchId companyId:(NSString *)companyId oddsType:(NSInteger)oddsType
+{
+    NSArray *oddsArray = nil;
+    if (oddsType == ODDS_TYPE_YAPEI) {
+        oddsArray = yapeiArray;
+    }else if(oddsType == ODDS_TYPE_OUPEI)
+    {
+        oddsArray = oupeiArray;
+    }else if(oddsType == ODDS_TYPE_DAXIAO){
+        oddsArray = daxiaoArray;
+    }
+    for (Odds *odds in oddsArray){
+        if ([odds.matchId isEqualToString:matchId] && [odds.commpanyId isEqualToString:companyId]) {
+            return odds;
+        }
+    }
+    return nil;
+}
+
 @end

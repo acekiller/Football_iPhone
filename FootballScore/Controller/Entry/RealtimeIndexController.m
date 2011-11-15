@@ -258,7 +258,7 @@
         NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
         NSString *leagueDate = [NSString stringWithFormat:@"   %@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
-        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(0, 8, 320, 23.5)];
+        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(0, 0, 320, 23.5)];
         NSMutableAttributedString *aString = [NSMutableAttributedString attributedStringWithString:title];
 
         NSRange range1 = [title rangeOfString:leagueDate];
@@ -275,7 +275,6 @@
         
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
-        [aLabel setCenter:self.center];
         [aLabel release];
     }
     return self;

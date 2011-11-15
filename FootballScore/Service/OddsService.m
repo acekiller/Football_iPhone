@@ -315,11 +315,11 @@ enum ODDS_REALTIME_INDEX {
                                     homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
                                     pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
                                 }else{
-                                    
                                     pankou = [data objectAtIndex:INDEX_OF_PANKOU];
                                     homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
                                 }
-                                
+                                //judge the change and call delegate method to update the interface
+                                Odds *odd = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:odds];
                                 
                             } else {
                                 continue;
