@@ -10,6 +10,7 @@
 #import "SelectIndexController.h"
 #import "StatusView.h"
 #import "ScoreIndexCell.h"
+#import "ScoreIndexTitleCell.h"
 #import "OddsManager.h"
 #import "CompanyManager.h"
 #import "Company.h"
@@ -88,7 +89,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [ScoreIndexCell getCellHeight];
+    if (indexPath.row == 0) {
+        return [ScoreIndexTitleCell getCellHeight];    
+    }
+    return [ScoreIndexCell getCellHeight];
+	
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -99,12 +104,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSString* key = [self.dataList objectAtIndex:section];
     NSArray* array = [self.matchOddsList valueForKey:key];
-	return [array count];
+	return [array count] + 1;
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        NSString *CellIdentifier = [ScoreIndexTitleCell getCellIdentifier];
+        ScoreIndexTitleCell *cell = (ScoreIndexTitleCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [ScoreIndexTitleCell createCell:self];
+        }
+        return cell;
+    }
     
     NSString *CellIdentifier = [ScoreIndexCell getCellIdentifier];
 	ScoreIndexCell *cell = (ScoreIndexCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -114,27 +128,14 @@
 	}		
     
     cell.indexPath = indexPath;
-    
-//    Match* match = [self.dataList objectAtIndex:indexPath.row];
-//    [cell setCellInfo:match];
-    //NSString* str = [self.dataList objectAtIndex:indexPath.row];
-    //[cell.matchName setText:str];
     NSString* key = [self.dataList objectAtIndex:[indexPath section]];
     NSArray* array = [self.matchOddsList objectForKey:key];
-    Odds* odds = [array objectAtIndex:[indexPath row]];
+    Odds* odds = [array objectAtIndex:[indexPath row] - 1];
     Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:odds.commpanyId];
 	[cell setCellInfo:odds company:company oddsType:ODDS_TYPE_YAPEI];
 	return cell;	
 }
 
-//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSString* matchId = [self.dataList objectAtIndex:section];
-//    NSString* title = [[OddsManager defaultManager] getMatchTitleByMatchId:matchId];
-//    if (title != nil) {
-//        return title;
-//    }
-//    return matchId;
-//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
