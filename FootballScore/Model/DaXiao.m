@@ -39,5 +39,9 @@
     self.smallBallOdds = [NSNumber numberWithFloat:[smallBallOddsValue floatValue]];
     return self;
 }
+-(ODDS_TYPE) oddsType
+{
+    return ODDS_TYPE_DAXIAO;
+}
 
 @end

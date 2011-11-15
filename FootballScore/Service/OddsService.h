@@ -11,7 +11,9 @@
 @protocol OddsServiceDelegate <NSObject>
 
 - (void)getOddsListFinish;
+@required
 - (void)getRealtimeOddsFinish;
+
 
 @end
 

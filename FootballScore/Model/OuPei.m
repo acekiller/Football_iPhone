@@ -40,4 +40,9 @@
     return self;
 }
 
+-(ODDS_TYPE) oddsType
+{
+    return ODDS_TYPE_OUPEI;
+}
+
 @end

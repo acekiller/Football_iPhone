@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef enum ODDS_TYPE {
+    
     ODDS_TYPE_INVALIDE = -1,
+    ODDS_TYPE_ODDS = 0,
     ODDS_TYPE_YAPEI = 1,
     ODDS_TYPE_OUPEI = 2,
     ODDS_TYPE_DAXIAO = 3

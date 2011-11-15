@@ -38,4 +38,9 @@
     self.awayTeamOdds = [NSNumber numberWithFloat:[awayTeamOddsValue floatValue]];
     return self;
 }
+-(ODDS_TYPE) oddsType
+{
+    return ODDS_TYPE_YAPEI;
+}
+
 @end

@@ -35,14 +35,14 @@
 
 -(ODDS_TYPE) oddsType
 {
-    if ([self isMemberOfClass:[YaPei class]]) {
-        return ODDS_TYPE_YAPEI;
-    }else if([self isMemberOfClass:[OuPei class]]){
-        return ODDS_TYPE_OUPEI;
-    }else if([self isMemberOfClass:[DaXiao class]]){
-        return ODDS_TYPE_DAXIAO;
-    }
-    return ODDS_TYPE_INVALIDE;
+//    if ([self isMemberOfClass:[YaPei class]]) {
+//        return ODDS_TYPE_YAPEI;
+//    }else if([self isMemberOfClass:[OuPei class]]){
+//        return ODDS_TYPE_OUPEI;
+//    }else if([self isMemberOfClass:[DaXiao class]]){
+//        return ODDS_TYPE_DAXIAO;
+//    }
+    return ODDS_TYPE_ODDS;
 }
 
 @end
