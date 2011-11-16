@@ -98,18 +98,17 @@
     int i;
     NSTimeInterval interval;
     NSString *dateString = nil;
+    NSDate *beforeDate=[NSDate date];
     
     for (i = 0 ; i<7 ;i++)
     {
         interval = 24*60*60*i;
-        date = [date initWithTimeIntervalSinceNow:-interval];
-        dateString = [df stringFromDate:date];
+        beforeDate = [date dateByAddingTimeInterval:-interval];
+        dateString = [df stringFromDate:beforeDate];
         [dateActionSheet addButtonWithTitle: dateString];
     }
     
-    
     [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
-    
     
     [dateActionSheet release];
 }
