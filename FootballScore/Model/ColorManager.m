@@ -254,6 +254,26 @@
                             alpha:1];
 }
 
++(UIColor *)oddsIncreaseColor
+{
+    //绿色背景:#EAFDAE  淡红色背景:#FEE4CB
+    return [UIColor colorWithRed:0xFE/255.0 
+                           green:0xE4/255.0 
+                            blue:0xCB/255.0 
+                           alpha:1];
+}
 
++(UIColor *)oddsDecreaseColor
+{
+    return [UIColor colorWithRed:0xEA/255.0 
+                           green:0xFD/255.0 
+                            blue:0xAE/255.0 
+                           alpha:1];
+}
+
++(UIColor *)oddsUnchangeColor
+{
+    return [UIColor whiteColor];
+}
 
 @end

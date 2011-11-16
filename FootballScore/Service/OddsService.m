@@ -19,7 +19,7 @@
 
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
-
+#define GET_REALTIME_ODDS @"GET_REALTIME_ODDS"
 @class YaPei;
 @class OuPei;
 @class DaXiao;
@@ -82,18 +82,11 @@ enum OUPEI_INDEX {
     INDEX_OF_ODDS_AWAYWIN_ODDS,
     };
 
-enum ODDS_REALTIME_INDEX {
-    INDEX_OF_MATCH_ID_ODDS = 0,
-    INDEX_OF_COMPANY_ID_ODDS,
-    INDEX_OF_PANKOU,
-    INDEX_OF_HOME_ODDS,
-    INDEX_OF_AWAY_ODDS,
-    ODDS_REALTIME_INDEX_COUNT
-};
 
 @implementation OddsService
 @synthesize delegate;
-
+@synthesize realTimeOddsType;
+@synthesize realTimeOddsTimer;
 - (void)updateAllBetCompanyList
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
@@ -291,77 +284,83 @@ enum ODDS_REALTIME_INDEX {
  }
 
 
-- (void)getRealtimeOdds:(NSInteger)oddsType delegate:(id<OddsServiceDelegate>)delegate
+- (void)getRealtimeOdds
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
     
     [queue addOperationWithBlock:^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:oddsType];
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:realTimeOddsType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             CompanyManager* manager = [CompanyManager defaultCompanyManager];
             
             if (output.resultCode == ERROR_SUCCESS){
+                NSSet* oddsUpdateSet = nil;
                 if ([output.arrayData count] > 0) {
-                    [manager.allCompany removeAllObjects];
                     NSArray* segment = [output.arrayData objectAtIndex:0];
+                    
                     if ([segment count] > 0) {
-                        for (NSArray* data in segment) {
-                            if ([data count] == ODDS_REALTIME_INDEX_COUNT) {
-                                
-                                NSString *matchId = [data objectAtIndex:INDEX_OF_MATCH_ID_ODDS];
-                                NSString *companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID_ODDS];
-                                NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
-                                NSString *homeTeamOdds = nil;
-                                NSString *pankou = nil;
-                                
-                                if (oddsType == ODDS_TYPE_DAXIAO) {
-                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
-                                    pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
-                                }else{
-                                    pankou = [data objectAtIndex:INDEX_OF_PANKOU];
-                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
-                                }
-                                
-                                //judge the change and call delegate method to update the interface
-                                Odds *odds = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:oddsType];
-                                
-                                if (odds) {
-                                    switch ([odds oddsType]) {
-                                        case ODDS_TYPE_YAPEI:
-                                            [(YaPei *)odds updateHomeTeamOdds:homeTeamOdds awayTeamOdds:awayTeamOdds instantOdds:pankou];
-                                            break;
-                                        case ODDS_TYPE_OUPEI:
-                                            break;
-                                            
-                                        case ODDS_TYPE_DAXIAO:
-                                            break;
-                                            
-                                        default:
-                                            break;
-                                    }
-                                }
-                                
-                            } else {
-                                continue;
-                            }
-                            
-                        }
+                        oddsUpdateSet = [[OddsManager defaultManager] getOddsUpdateSet:segment oddsType:realTimeOddsType];
                     }
                     else {
                         NSLog(@"segment format error:%@",[segment description]);
                     }
                     
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(getRealtimeOddsFinish::)]) {
+                        [self.delegate getRealtimeOddsFinish:oddsUpdateSet oddsType:realTimeOddsType];
+                    }   
+                    
                 }
                 else {
                     NSLog(@"no odds change list updated");
-                }                
+                }   
+           
             }
-            
+
+            [self startGetRealtimOddsTimer:realTimeOddsType delegate:self.delegate];
         });                        
     }];
+}
+
+#ifndef REALTIME_ODDS_TIMER_INTERVAL 
+    #define REALTIME_ODDS_TIMER_INTERVAL 10
+#endif
+
+- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate
+{
+    self.delegate = delegate;
+    self.realTimeOddsType = oddsType;
+    
+    NSLog(@"<startGetRealtimOddsTimerUpdate>");
+    
+    
+    if (oddsType >= ODDS_TYPE_YAPEI && oddsType <=ODDS_TYPE_OUPEI) {
+        // stop timer firstly
+        [self stopGetRealtimOddsTimer];
+        
+        // create new timer
+        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_ODDS_TIMER_INTERVAL target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:NO];
+    }
+
+}
+- (void)stopGetRealtimOddsTimer
+{
+    NSLog(@"<stopRealtimeOddsUpdate>");
+    [self.realTimeOddsTimer invalidate];
+    self.realTimeOddsTimer = nil;
+    
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_ODDS];
+    if ([queue operationCount] > 0){
+        [queue cancelAllOperations];        
+    } 
+}
+
+-(void)dealloc
+{
+    [realTimeOddsTimer release];
+    [super dealloc];
 }
 
 @end

@@ -51,10 +51,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    OddsService* service = [[OddsService alloc] init];
+    OddsService* service = GlobalGetOddsService();
     NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
+    
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
-    [service release];
+    
+    [service startGetRealtimOddsTimer:1 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
     self.matchOddsList  = [[NSMutableDictionary alloc] init];
@@ -196,9 +198,9 @@
     
 }
 
-- (void)getRealtimeOddsFinish
+- (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
 {
-    
+    [self.dataTableView reloadData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

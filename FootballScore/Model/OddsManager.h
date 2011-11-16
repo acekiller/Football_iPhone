@@ -12,6 +12,16 @@
 @class OuPei;
 @class DaXiao;
 
+enum ODDS_REALTIME_INDEX {
+    INDEX_OF_MATCH_ID_ODDS = 0,
+    INDEX_OF_COMPANY_ID_ODDS,
+    INDEX_OF_PANKOU,
+    INDEX_OF_HOME_ODDS,
+    INDEX_OF_AWAY_ODDS,
+    ODDS_REALTIME_INDEX_COUNT
+};
+
+
 @interface OddsManager : NSObject {
     NSMutableArray *leagueArray;
     NSMutableArray *matchArray;
@@ -31,4 +41,5 @@
 - (NSString*)getMatchTitleByMatchId:(NSString*)matchId;
 + (void)addOdds:(Odds*)odds toDictionary:(NSMutableDictionary*)dict;
 - (Odds *)getOddsByMatchId:(NSString *)matchId companyId:(NSString *)companyId oddsType:(NSInteger)oddsType;
+- (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType;
 @end
