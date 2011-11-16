@@ -172,6 +172,7 @@ enum ODDS_REALTIME_INDEX {
                      NSMutableArray* oddsArray = [output.arrayData objectAtIndex:INDEX_OF_PEILV];
                      
                      if ([leagueArray count] > 0) {
+                         [manager.leagueArray removeAllObjects];
                          for (NSArray* data in leagueArray) {
                              NSString* leagueId = [data objectAtIndex:INDEX_OF_LEAGUE_ID];
                              NSString* leagueName = [data objectAtIndex:INDEX_OF_LEAGUE_NAME];
@@ -187,6 +188,7 @@ enum ODDS_REALTIME_INDEX {
                      }
                      
                      if ([matchArray count] > 0) {
+                         [manager.matchArray removeAllObjects];
                          for (NSArray* data in matchArray) {
                              NSString* matchId = [data objectAtIndex:INDEX_OF_MATCH_MATCH_ID];
                              NSString* leagueId = [data objectAtIndex:INDEX_OF_MATCH_LEAGUE_ID];
@@ -206,6 +208,7 @@ enum ODDS_REALTIME_INDEX {
                      if ([oddsArray count] > 0) {
                          switch (oddsType) {
                              case ODDS_TYPE_YAPEI:
+                                 [manager.yapeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -225,6 +228,7 @@ enum ODDS_REALTIME_INDEX {
                                  }
                                  break;
                              case ODDS_TYPE_OUPEI:
+                                 [manager.oupeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -244,6 +248,7 @@ enum ODDS_REALTIME_INDEX {
                                  }
                                  break;
                              case ODDS_TYPE_DAXIAO:
+                                 [manager.daxiaoArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];

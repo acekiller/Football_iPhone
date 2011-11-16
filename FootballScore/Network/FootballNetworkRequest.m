@@ -552,8 +552,9 @@ enum{
         for (NSString* companyId in companyIdAray) {
             companyIdString = [companyIdString stringByAppendingFormat:@"%@,",companyId];
         }
-        int lenght = [companyIdString length]-1;
-        companyIdString = [companyIdString substringToIndex:lenght];
+//        int lenght = [companyIdString length]-1;
+//        companyIdString = [companyIdString substringToIndex:lenght];
+        companyIdString = [companyIdString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
         str = [str stringByAddQueryParameter:@"Date" value:dateToString(date)];
         str = [str stringByAddQueryParameter:@"companyID" value:companyIdString];
         str = [str stringByAddQueryParameter:@"lang" intValue:language];

@@ -21,6 +21,8 @@
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
+@synthesize companyIdArray;
+@synthesize oddsTimeString;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +54,7 @@
     OddsService* service = [[OddsService alloc] init];
     NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
+    [service release];
     
     OddsManager* manager = [OddsManager defaultManager];
     self.matchOddsList  = [[NSMutableDictionary alloc] init];
@@ -79,9 +82,7 @@
 
 - (IBAction)clickContentFilterButton:(id)sender
 {
-    SelectIndexController *vc = [[SelectIndexController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    [SelectIndexController show:self];
 }
 
 - (IBAction)clickSearcHistoryBackButton:(id)sender
@@ -235,6 +236,30 @@
     
 }
 
+#pragma mark -
+#pragma delegate
+
+- (void) SelectCompanyFinish
+{
+    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
+    NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
+    for (Company* company in selectedCompanyArray) {
+        [selectedCompanyIdArray addObject:company.companyId];
+    }
+    OddsService* service = [[OddsService alloc] init];
+    NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
+    [service getOddsListByDate:nil companyIdArray:selectedCompanyIdArray language:0 matchType:0 oddsType:1 delegate:self];
+    [service release];
+    
+    OddsManager* manager = [OddsManager defaultManager];
+    self.matchOddsList  = nil;
+    for (Odds* odds in manager.yapeiArray) {
+        [self.matchOddsList setObject:odds forKey:odds.matchId];
+    }
+    self.dataList = [matchOddsList allKeys];
+    [self.dataTableView reloadData];
+}
+
 
 @end
 
@@ -280,5 +305,8 @@
     }
     return self;
 }
+
+
+
 
 @end
