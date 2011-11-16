@@ -252,14 +252,23 @@
     [service release];
     
     OddsManager* manager = [OddsManager defaultManager];
-    self.matchOddsList  = nil;
+    [self.matchOddsList removeAllObjects];
     for (Odds* odds in manager.yapeiArray) {
-        [self.matchOddsList setObject:odds forKey:odds.matchId];
+        [OddsManager addOdds:odds toDictionary:self.matchOddsList];
     }
     self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
 }
 
+- (void)refleshData
+{
+    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
+    NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
+    for (Company* company in selectedCompanyArray) {
+        [selectedCompanyIdArray addObject:company.companyId];
+    }
+    [self.dataTableView reloadData];
+}
 
 @end
 

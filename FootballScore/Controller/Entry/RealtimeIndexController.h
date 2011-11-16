@@ -24,6 +24,7 @@
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
+- (void)refleshData;
 
 @end
 
