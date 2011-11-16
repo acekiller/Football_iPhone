@@ -15,7 +15,11 @@ enum {
     BIGANDSMALL    
 };
 
+@protocol SeclectIndexControllerDelegate <NSObject>
 
+- (void)SelectCompanyFinish;
+
+@end
 
 @interface SelectIndexController : PPViewController {
     
@@ -31,12 +35,14 @@ enum {
     NSMutableSet *selectedBwin;
     
     NSMutableArray *buttonsArray;
+    id<SeclectIndexControllerDelegate> delegate;
     
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *buttonAsianBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonBigandSmall;
+@property (nonatomic, assign) id<SeclectIndexControllerDelegate> delegate;
 
 - (void)buttonsInit;
 - (void)dataInit;
@@ -45,6 +51,7 @@ enum {
 - (void)buttonClicked:(id)sender;
 - (void)createButtonsByArray:(NSArray*)array;
 
++ (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
 + (void)showButtonsAtScrollView:(UIScrollView*)scrollView 
                 withButtonArray:(NSMutableArray*)buttonArray
                   selectedImage:(UIImage*)selectedImage 

@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
 #import "OddsService.h"
+#import "SelectIndexController.h"
 
-@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate,UIActionSheetDelegate>{
+@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate, UIActionSheetDelegate, SeclectIndexControllerDelegate>{
     NSMutableDictionary* matchOddsList;
+    NSMutableArray* companyIdArray;
+    NSString* oddsTimeString;
+    int oddsType;
         
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
+@property (nonatomic, retain) NSMutableArray* companyIdArray;
+@property (nonatomic, retain) NSString* oddsTimeString;
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
