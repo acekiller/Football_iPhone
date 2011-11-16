@@ -32,7 +32,7 @@
 #import "UserService.h"
 
 #define kDbFileName			@"FootballDB"
-
+#define MATCH_SELECT_STATUS_MYFOLLOW 15
 
 
 NSString* GlobalGetServerURL()
@@ -296,11 +296,13 @@ enum
      */
 	
 	NSLog(@"applicationWillEnterForeground");	
-    
+    int matchFilterStatus = [[MatchManager defaultManager] filterMatchStatus];
     int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
-    [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
-    [self.matchService updateLatestFollowMatch];
-	
+    if (matchFilterStatus != MATCH_SELECT_STATUS_MYFOLLOW) {
+        [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+        [self.matchService updateLatestFollowMatch];
+	}
+    
     [MobClick appLaunched];
     [self userRegister];
 //    [appService startAppUpdate];

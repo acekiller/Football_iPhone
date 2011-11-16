@@ -345,6 +345,7 @@
     [self.filterBarButton setHidden:YES];
     [self.scoreTypeButton setHidden:YES];
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
+    [[MatchManager defaultManager] updateFilterMatchStatus:matchSelectStatus];
     [self reloadMyFollowList];
 //    MatchManager *manager = [MatchManager defaultManager];
 //    self.dataList = [manager getAllFollowMatch];
