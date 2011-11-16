@@ -18,10 +18,12 @@
 
 - (id)init
 {
-    [super init];
-    self.matchId = [[NSString alloc] init];
-    self.commpanyId = [[NSString alloc] init];
-    self.oddsId = [[NSString alloc] init];
+    self = [super init];
+    if (self) {
+        self.matchId = [[NSString alloc] init];
+        self.commpanyId = [[NSString alloc] init];
+        self.oddsId = [[NSString alloc] init];
+    }
     return self;
 }
 

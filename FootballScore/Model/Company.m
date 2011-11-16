@@ -25,11 +25,10 @@
 
 - (id)init
 {
-    [super init];
-    self.companyId = [[NSString alloc] init];
-    self.companyName = [[NSString alloc] init];
+    self = [super init]; 
     if (self) {
-        //
+        self.companyId = [[NSString alloc] init];
+        self.companyName = [[NSString alloc] init];
     }
     return self;
 }

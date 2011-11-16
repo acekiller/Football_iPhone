@@ -27,16 +27,18 @@
       drawInstantOdds:(NSString*)drawInstantOddsValue
   awayWinInstantsOdds:(NSString*)awayWinInstantOddsValue
 {
-    [super init];
-    self.matchId = matchIdValue;
-    self.commpanyId = companyIdValue;
-    self.oddsId = oddsIdValue;
-    self.homeWinInitOdds = [NSNumber numberWithFloat:[homeWinInitOddsValue floatValue]];
-    self.drawInitOdds = [NSNumber numberWithFloat:[drawInitOddsValue floatValue]];
-    self.awayWinInitOdds = [NSNumber numberWithFloat:[awayWinInitOddsValue floatValue]];
-    self.homeWinInstantOdds = [NSNumber numberWithFloat:[homeWinInstantOddsValue floatValue]];
-    self.drawInstantOdds = [NSNumber numberWithFloat:[drawInstantOddsValue floatValue]];
-    self.awayWinInstantsOdds = [NSNumber numberWithFloat:[awayWinInstantOddsValue floatValue]];
+    self = [super init];
+    if (self) {
+        self.matchId = matchIdValue;
+        self.commpanyId = companyIdValue;
+        self.oddsId = oddsIdValue;
+        self.homeWinInitOdds = [NSNumber numberWithFloat:[homeWinInitOddsValue floatValue]];
+        self.drawInitOdds = [NSNumber numberWithFloat:[drawInitOddsValue floatValue]];
+        self.awayWinInitOdds = [NSNumber numberWithFloat:[awayWinInitOddsValue floatValue]];
+        self.homeWinInstantOdds = [NSNumber numberWithFloat:[homeWinInstantOddsValue floatValue]];
+        self.drawInstantOdds = [NSNumber numberWithFloat:[drawInstantOddsValue floatValue]];
+        self.awayWinInstantsOdds = [NSNumber numberWithFloat:[awayWinInstantOddsValue floatValue]];
+    }
     return self;
 }
 

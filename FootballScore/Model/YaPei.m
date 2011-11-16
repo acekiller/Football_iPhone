@@ -26,17 +26,19 @@
         homeTeamOddds:(NSString*)homeTeamOddsValue 
          awayTeamOdds:(NSString*)awayTeamOddsValue
 {
-    [super init];
-    self.matchId = matchIdValue;
-    self.commpanyId = companyIdValue;
-    self.oddsId = oddsIdValue;
-    self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
-    self.homeTeamChupan = [NSNumber numberWithFloat:[homeTeamChupanValue floatValue]];
-    self.awayTeamChupan = [NSNumber numberWithFloat:[awayTeamChupanValue floatValue]];
-    self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
-    self.homeTeamOdds = [NSNumber numberWithFloat:[homeTeamOddsValue floatValue]];
-    self.awayTeamOdds = [NSNumber numberWithFloat:[awayTeamOddsValue floatValue]];
-    return self;
+    self = [super init];
+    if (self) {
+        self.matchId = matchIdValue;
+        self.commpanyId = companyIdValue;
+        self.oddsId = oddsIdValue;
+        self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
+        self.homeTeamChupan = [NSNumber numberWithFloat:[homeTeamChupanValue floatValue]];
+        self.awayTeamChupan = [NSNumber numberWithFloat:[awayTeamChupanValue floatValue]];
+        self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
+        self.homeTeamOdds = [NSNumber numberWithFloat:[homeTeamOddsValue floatValue]];
+        self.awayTeamOdds = [NSNumber numberWithFloat:[awayTeamOddsValue floatValue]];  
+    }
+    return self; 
 }
 -(ODDS_TYPE) oddsType
 {

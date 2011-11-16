@@ -26,17 +26,18 @@
           bigBallOdds:(NSString*)bigBallOddsValue 
         smallBallOdds:(NSString*)smallBallOddsValue
 {
-    [super init];
-    [super init];
-    self.matchId = matchIdValue;
-    self.commpanyId = companyIdValue;
-    self.oddsId = oddsIdValue;
-    self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
-    self.bigBallChupan = [NSNumber numberWithFloat:[bigBallChupanValue floatValue]];
-    self.smallBallChupan = [NSNumber numberWithFloat:[smallBallChupanValue floatValue]];
-    self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
-    self.bigBallOdds = [NSNumber numberWithFloat:[bigBallOddsValue floatValue]];
-    self.smallBallOdds = [NSNumber numberWithFloat:[smallBallOddsValue floatValue]];
+    self = [super init];
+    if (self) {
+        self.matchId = matchIdValue;
+        self.commpanyId = companyIdValue;
+        self.oddsId = oddsIdValue;
+        self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
+        self.bigBallChupan = [NSNumber numberWithFloat:[bigBallChupanValue floatValue]];
+        self.smallBallChupan = [NSNumber numberWithFloat:[smallBallChupanValue floatValue]];
+        self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
+        self.bigBallOdds = [NSNumber numberWithFloat:[bigBallOddsValue floatValue]];
+        self.smallBallOdds = [NSNumber numberWithFloat:[smallBallOddsValue floatValue]];
+    }
     return self;
 }
 -(ODDS_TYPE) oddsType
