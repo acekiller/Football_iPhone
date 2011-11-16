@@ -34,4 +34,6 @@
         homeTeamOddds:(NSString*)homeTeamOddsValue 
          awayTeamOdds:(NSString*)awayTeamOddsValue;
 
+- (void)updateHomeTeamOdds:(NSString *)homeTeamOddsString awayTeamOdds:(NSString *)awayTeamOddsString instantOdds:(NSString *)instantOddsString;
+
 @end

@@ -27,22 +27,54 @@
       drawInstantOdds:(NSString*)drawInstantOddsValue
   awayWinInstantsOdds:(NSString*)awayWinInstantOddsValue
 {
-    [super init];
-    self.matchId = matchIdValue;
-    self.commpanyId = companyIdValue;
-    self.oddsId = oddsIdValue;
-    self.homeWinInitOdds = [NSNumber numberWithFloat:[homeWinInitOddsValue floatValue]];
-    self.drawInitOdds = [NSNumber numberWithFloat:[drawInitOddsValue floatValue]];
-    self.awayWinInitOdds = [NSNumber numberWithFloat:[awayWinInitOddsValue floatValue]];
-    self.homeWinInstantOdds = [NSNumber numberWithFloat:[homeWinInstantOddsValue floatValue]];
-    self.drawInstantOdds = [NSNumber numberWithFloat:[drawInstantOddsValue floatValue]];
-    self.awayWinInstantsOdds = [NSNumber numberWithFloat:[awayWinInstantOddsValue floatValue]];
+    self = [super init];
+    if (self) {
+        self.matchId = matchIdValue;
+        self.commpanyId = companyIdValue;
+        self.oddsId = oddsIdValue;
+        
+        self.homeWinInitOdds = [self getNumber:homeWinInitOddsValue];
+        self.drawInitOdds = [self getNumber:drawInitOddsValue];
+        self.awayWinInitOdds = [self getNumber:awayWinInitOddsValue];
+        self.homeWinInstantOdds = [self getNumber:homeWinInstantOddsValue];
+        self.drawInstantOdds = [self getNumber:drawInstantOddsValue];
+        self.awayWinInstantsOdds = [self getNumber:awayWinInstantOddsValue];
+    }
+
+
     return self;
 }
 
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_OUPEI;
+}
+
+
+- (void)updateHomeWinInstantOdds:(NSString*)homeWinInstantOddsValue 
+                 drawInstantOdds:(NSString*)drawInstantOddsValue
+             awayWinInstantsOdds:(NSString*)awayWinInstantOddsValue
+{
+ 
+    NSNumber *home = [self getNumber:homeWinInstantOddsValue];
+    NSNumber *away = [self getNumber:awayWinInstantOddsValue];
+    NSNumber *instant = [self getNumber:drawInstantOddsValue];
+    
+    NSComparisonResult instantFlag = [self.drawInstantOdds compare:instant];
+    NSComparisonResult homeTeamFlag = [self.homeWinInstantOdds compare:home];
+    NSComparisonResult awayTeamFlag = [self.awayWinInstantsOdds compare:away];
+    
+    [self setDrawInstantOdds:instant];
+    [self setHomeWinInstantOdds:home];
+    [self setAwayWinInstantsOdds:away];
+    
+    [self setPankouFlag:instantFlag];
+    [self setAwayTeamOddsFlag:awayTeamFlag];
+    [self setHomeTeamOddsFlag:homeTeamFlag];
+    
+    if ((instantFlag | homeTeamFlag | awayTeamFlag) != 0) {
+        [self setLastModifyTime:time(0)];
+    }    
 }
 
 @end

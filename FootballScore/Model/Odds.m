@@ -15,13 +15,23 @@
 @synthesize matchId;
 @synthesize commpanyId;
 @synthesize oddsId;
+@synthesize lastModifyTime;
+@synthesize homeTeamOddsFlag;
+@synthesize awayTeamOddsFlag;
+@synthesize pankouFlag;
 
 - (id)init
 {
     [super init];
-    self.matchId = [[NSString alloc] init];
-    self.commpanyId = [[NSString alloc] init];
-    self.oddsId = [[NSString alloc] init];
+    if (self) {
+        self.matchId = [[NSString alloc] init];
+        self.commpanyId = [[NSString alloc] init];
+        self.oddsId = [[NSString alloc] init];
+        self.lastModifyTime = 0;
+        self.homeTeamOddsFlag = ODDS_UNCHANGE;
+        self.awayTeamOddsFlag = ODDS_UNCHANGE;
+        self.pankouFlag = ODDS_UNCHANGE;
+    }
     return self;
 }
 
@@ -35,14 +45,13 @@
 
 -(ODDS_TYPE) oddsType
 {
-//    if ([self isMemberOfClass:[YaPei class]]) {
-//        return ODDS_TYPE_YAPEI;
-//    }else if([self isMemberOfClass:[OuPei class]]){
-//        return ODDS_TYPE_OUPEI;
-//    }else if([self isMemberOfClass:[DaXiao class]]){
-//        return ODDS_TYPE_DAXIAO;
-//    }
     return ODDS_TYPE_ODDS;
 }
+
+-(NSNumber *)getNumber:(NSString *)stringValue
+{
+    return [NSNumber numberWithFloat:[stringValue floatValue]];
+}
+
 
 @end

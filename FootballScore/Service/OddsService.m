@@ -286,13 +286,13 @@ enum ODDS_REALTIME_INDEX {
  }
 
 
-- (void)getRealtimeOdds:(NSInteger)odds delegate:(id<OddsServiceDelegate>)delegate
+- (void)getRealtimeOdds:(NSInteger)oddsType delegate:(id<OddsServiceDelegate>)delegate
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
     
     [queue addOperationWithBlock:^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:odds];
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:oddsType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -311,15 +311,33 @@ enum ODDS_REALTIME_INDEX {
                                 NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
                                 NSString *homeTeamOdds = nil;
                                 NSString *pankou = nil;
-                                if (odds == 3) {
+                                
+                                if (oddsType == ODDS_TYPE_DAXIAO) {
                                     homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
                                     pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
                                 }else{
                                     pankou = [data objectAtIndex:INDEX_OF_PANKOU];
                                     homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
                                 }
+                                
                                 //judge the change and call delegate method to update the interface
-                                Odds *odd = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:odds];
+                                Odds *odds = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:oddsType];
+                                
+                                if (odds) {
+                                    switch ([odds oddsType]) {
+                                        case ODDS_TYPE_YAPEI:
+                                            [(YaPei *)odds updateHomeTeamOdds:homeTeamOdds awayTeamOdds:awayTeamOdds instantOdds:pankou];
+                                            break;
+                                        case ODDS_TYPE_OUPEI:
+                                            break;
+                                            
+                                        case ODDS_TYPE_DAXIAO:
+                                            break;
+                                            
+                                        default:
+                                            break;
+                                    }
+                                }
                                 
                             } else {
                                 continue;

@@ -26,22 +26,47 @@
           bigBallOdds:(NSString*)bigBallOddsValue 
         smallBallOdds:(NSString*)smallBallOddsValue
 {
-    [super init];
-    [super init];
-    self.matchId = matchIdValue;
-    self.commpanyId = companyIdValue;
-    self.oddsId = oddsIdValue;
-    self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
-    self.bigBallChupan = [NSNumber numberWithFloat:[bigBallChupanValue floatValue]];
-    self.smallBallChupan = [NSNumber numberWithFloat:[smallBallChupanValue floatValue]];
-    self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
-    self.bigBallOdds = [NSNumber numberWithFloat:[bigBallOddsValue floatValue]];
-    self.smallBallOdds = [NSNumber numberWithFloat:[smallBallOddsValue floatValue]];
+    self = [super init];
+
+    if (self) {
+        self.matchId = matchIdValue;
+        self.commpanyId = companyIdValue;
+        self.oddsId = oddsIdValue;
+        
+        self.chupan = [self getNumber:chupanValue];
+        self.bigBallChupan = [self getNumber:bigBallChupanValue ] ;
+        self.smallBallChupan = [self getNumber:smallBallChupanValue];
+        self.instantOdds = [self getNumber:instantOddsValue];
+        self.bigBallOdds = [self getNumber:bigBallOddsValue];
+        self.smallBallOdds = [self getNumber:smallBallOddsValue];
+    }
+
     return self;
 }
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_DAXIAO;
+}
+
+- (void)updateInstantOdds:(NSString*)instantOddsValue 
+              bigBallOdds:(NSString*)bigBallOddsValue 
+            smallBallOdds:(NSString*)smallBallOddsValue
+{
+    NSNumber *home = [self getNumber:bigBallOddsValue];
+    NSNumber *away = [self getNumber:smallBallOddsValue];
+    NSNumber *instant = [self getNumber:instantOddsValue];
+    
+    NSComparisonResult instantFlag = [self.instantOdds compare:instant];
+    NSComparisonResult homeTeamFlag = [self.bigBallOdds compare:home];
+    NSComparisonResult awayTeamFlag = [self.smallBallOdds compare:away];
+    
+    [self setInstantOdds:instant];
+    [self setBigBallOdds:home];
+    [self setSmallBallOdds:away];
+    
+    [self setPankouFlag:instantFlag];
+    [self setAwayTeamOddsFlag:awayTeamFlag];
+    [self setHomeTeamOddsFlag:homeTeamFlag];    
 }
 
 @end
