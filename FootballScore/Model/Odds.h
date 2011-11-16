@@ -18,15 +18,29 @@ typedef enum ODDS_TYPE {
 }ODDS_TYPE;
 
 
+typedef enum ODDS_INCREASE_FLAG{
+    ODDS_INCREASE = 1,
+    ODDS_DECREASE = -1,
+    ODDS_UNCHANGE = 0
+    
+}ODDS_INCREASE_FLAG;
+
 @interface Odds : NSObject {
     NSString* matchId;
     NSString* commpanyId;
     NSString* oddsId;
-    
+    time_t lastModifyTime;
 }
 
 @property (nonatomic, retain) NSString* matchId;
 @property (nonatomic, retain) NSString* commpanyId;
 @property (nonatomic, retain) NSString* oddsId;
+@property (nonatomic, assign) time_t lastModifyTime;
+@property (nonatomic, assign) ODDS_INCREASE_FLAG homeTeamOddsFlag;
+@property (nonatomic, assign) ODDS_INCREASE_FLAG pankouFlag;
+@property (nonatomic, assign) ODDS_INCREASE_FLAG awayTeamOddsFlag;
 -(ODDS_TYPE) oddsType;
+-(NSNumber *)getNumber:(NSString *)stringValue;
+
+
 @end

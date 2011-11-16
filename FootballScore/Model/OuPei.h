@@ -32,4 +32,9 @@
    homeWinInstantOdds:(NSString*)homeWinInstantOddsValue 
       drawInstantOdds:(NSString*)drawInstantOddsValue
   awayWinInstantsOdds:(NSString*)awayWinInstantOddsValue;
+
+- (void)updateHomeWinInstantOdds:(NSString*)homeWinInstantOddsValue 
+                 drawInstantOdds:(NSString*)drawInstantOddsValue
+             awayWinInstantsOdds:(NSString*)awayWinInstantOddsValue;
+
 @end

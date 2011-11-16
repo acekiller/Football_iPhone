@@ -26,23 +26,51 @@
         homeTeamOddds:(NSString*)homeTeamOddsValue 
          awayTeamOdds:(NSString*)awayTeamOddsValue
 {
+
     self = [super init];
     if (self) {
         self.matchId = matchIdValue;
         self.commpanyId = companyIdValue;
         self.oddsId = oddsIdValue;
-        self.chupan = [NSNumber numberWithFloat:[chupanValue floatValue]];
-        self.homeTeamChupan = [NSNumber numberWithFloat:[homeTeamChupanValue floatValue]];
-        self.awayTeamChupan = [NSNumber numberWithFloat:[awayTeamChupanValue floatValue]];
-        self.instantOdds = [NSNumber numberWithFloat:[instantOddsValue floatValue]];
-        self.homeTeamOdds = [NSNumber numberWithFloat:[homeTeamOddsValue floatValue]];
-        self.awayTeamOdds = [NSNumber numberWithFloat:[awayTeamOddsValue floatValue]];  
+        self.chupan = [self getNumber:chupanValue]; 
+        self.homeTeamChupan = [self getNumber:homeTeamChupanValue];
+        self.awayTeamChupan = [self getNumber:awayTeamChupanValue];
+        self.instantOdds = [self getNumber:instantOddsValue];
+        self.homeTeamOdds = [self getNumber:homeTeamOddsValue];
+        self.awayTeamOdds = [self getNumber:awayTeamOddsValue];
     }
-    return self; 
+
+    return self;
+
 }
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_YAPEI;
+}
+
+- (void)updateHomeTeamOdds:(NSString *)homeTeamOddsString awayTeamOdds:(NSString *)awayTeamOddsString instantOdds:(NSString *)instantOddsString
+{
+    NSNumber *home = [self getNumber:homeTeamOddsString];
+    NSNumber *away = [self getNumber:awayTeamOddsString];
+    NSNumber *instant = [self getNumber:instantOddsString];
+
+    //instant smaller
+    NSComparisonResult instantFlag = [self.instantOdds compare:instant];
+    NSComparisonResult homeTeamFlag = [self.homeTeamOdds compare:home];
+    NSComparisonResult awayTeamFlag = [self.awayTeamOdds compare:away];
+    
+    [self setInstantOdds:instant];
+    [self setHomeTeamOdds:home];
+    [self setAwayTeamOdds:away];
+    
+    [self setPankouFlag:instantFlag];
+    [self setAwayTeamOddsFlag:awayTeamFlag];
+    [self setHomeTeamOddsFlag:homeTeamFlag];
+    
+    if ((instantFlag | homeTeamFlag | awayTeamFlag) != 0) {
+        [self setLastModifyTime:time(0)];
+    }
+
 }
 
 @end
