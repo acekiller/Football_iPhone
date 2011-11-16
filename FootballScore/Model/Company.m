@@ -39,12 +39,14 @@
         europeBet:(BOOL)europeBet 
            daXiao:(BOOL)daXiao
 {
-    [super init];
-    self.companyId = idvalue;
-    self.companyName = name;
-    self.hasAsianOdds = asianBet;
-    self.hasEuropeOdds = europeBet;
-    self.hasDaXiao = daXiao;
+    self = [super init];
+    if (self) {
+        self.companyId = idvalue;
+        self.companyName = name;
+        self.hasAsianOdds = asianBet;
+        self.hasEuropeOdds = europeBet;
+        self.hasDaXiao = daXiao;
+    }
     return self;
 }
 
