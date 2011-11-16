@@ -275,7 +275,7 @@
 
     }
     else {
-        if ([selectedBwin count] >= 4) {
+        if ([selectedBwin count] > 40000) {
             [alert show];
             [alert release];
             return;
