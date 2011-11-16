@@ -26,7 +26,8 @@
         homeTeamOddds:(NSString*)homeTeamOddsValue 
          awayTeamOdds:(NSString*)awayTeamOddsValue
 {
-    [super init];
+
+    self = [super init];
     if (self) {
         self.matchId = matchIdValue;
         self.commpanyId = companyIdValue;
@@ -40,6 +41,7 @@
     }
 
     return self;
+
 }
 -(ODDS_TYPE) oddsType
 {

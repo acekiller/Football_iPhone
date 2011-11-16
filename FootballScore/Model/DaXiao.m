@@ -27,12 +27,10 @@
         smallBallOdds:(NSString*)smallBallOddsValue
 {
     self = [super init];
-
     if (self) {
         self.matchId = matchIdValue;
         self.commpanyId = companyIdValue;
         self.oddsId = oddsIdValue;
-        
         self.chupan = [self getNumber:chupanValue];
         self.bigBallChupan = [self getNumber:bigBallChupanValue ] ;
         self.smallBallChupan = [self getNumber:smallBallChupanValue];

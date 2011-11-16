@@ -22,11 +22,12 @@
 
 - (id)init
 {
-    [super init];
+    self = [super init];
     if (self) {
         self.matchId = [[NSString alloc] init];
         self.commpanyId = [[NSString alloc] init];
         self.oddsId = [[NSString alloc] init];
+
         self.lastModifyTime = 0;
         self.homeTeamOddsFlag = ODDS_UNCHANGE;
         self.awayTeamOddsFlag = ODDS_UNCHANGE;

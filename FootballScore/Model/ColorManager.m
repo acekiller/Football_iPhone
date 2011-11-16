@@ -238,4 +238,22 @@
 
 }
 
++ (UIColor*)scoreIndexTitleCellBackgroundColor
+{
+    return  [UIColor colorWithRed:0xE8/255.0
+                            green:0xEB/255.0 
+                             blue:0xEC/255.0 
+                            alpha:1];
+}
+
++ (UIColor*)scoreIndexCellBackgroundColor
+{
+    return  [UIColor colorWithRed:0xCC/255.0
+                            green:0xCC/255.0 
+                             blue:0xCC/255.0 
+                            alpha:1];
+}
+
+
+
 @end

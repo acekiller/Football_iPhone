@@ -31,8 +31,7 @@
     if (self) {
         self.matchId = matchIdValue;
         self.commpanyId = companyIdValue;
-        self.oddsId = oddsIdValue;
-        
+        self.oddsId = oddsIdValue;        
         self.homeWinInitOdds = [self getNumber:homeWinInitOddsValue];
         self.drawInitOdds = [self getNumber:drawInitOddsValue];
         self.awayWinInitOdds = [self getNumber:awayWinInitOddsValue];
@@ -40,7 +39,6 @@
         self.drawInstantOdds = [self getNumber:drawInstantOddsValue];
         self.awayWinInstantsOdds = [self getNumber:awayWinInstantOddsValue];
     }
-
 
     return self;
 }

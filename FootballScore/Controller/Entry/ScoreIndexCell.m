@@ -13,6 +13,7 @@
 #import "OuPei.h"
 #import "DaXiao.h"
 #import "StringUtil.h"
+#import "ColorManager.h"
 
 
 @implementation ScoreIndexCell
@@ -50,6 +51,7 @@
 
 - (void)setCellInfo:(Odds*)odds company:(Company*)company oddsType:(int)type
 {
+    [self.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
     [self.companyName setTitle:[NSString stringWithFormat:@"%@", company.companyName] forState:UIControlStateNormal];
     switch (type) {
         case ODDS_TYPE_YAPEI: {

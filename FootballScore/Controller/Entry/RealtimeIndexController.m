@@ -17,6 +17,7 @@
 #import "Odds.h"
 #import "YaPei.h"
 #import "LocaleConstants.h"
+#import "ColorManager.h"
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -49,7 +50,7 @@
 {
     [super viewDidLoad];
     OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"14",nil];
+    NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
@@ -98,18 +99,17 @@
     int i;
     NSTimeInterval interval;
     NSString *dateString = nil;
+    NSDate *beforeDate=[NSDate date];
     
     for (i = 0 ; i<7 ;i++)
     {
         interval = 24*60*60*i;
-        date = [date initWithTimeIntervalSinceNow:-interval];
-        dateString = [df stringFromDate:date];
+        beforeDate = [date dateByAddingTimeInterval:-interval];
+        dateString = [df stringFromDate:beforeDate];
         [dateActionSheet addButtonWithTitle: dateString];
     }
     
-    
     [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
-    
     
     [dateActionSheet release];
 }
@@ -149,6 +149,7 @@
         if (cell == nil) {
             cell = [ScoreIndexTitleCell createCell:self];
         }
+        [cell.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
         return cell;
     }
     

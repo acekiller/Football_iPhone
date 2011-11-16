@@ -53,6 +53,10 @@
 +(UIColor*)soundSubtitlesColor;
 +(UIColor*)blackGroundColor;
 
+//ScoreIndexCellColor
++(UIColor*)scoreIndexTitleCellBackgroundColor;
++(UIColor*)scoreIndexCellBackgroundColor;
+
 
 
 

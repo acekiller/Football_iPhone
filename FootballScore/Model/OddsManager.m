@@ -34,12 +34,14 @@ OddsManager* GlobleGetOddsManager()
 
 - (id)init
 {
-    [super init];
-    self.matchArray = [[NSMutableArray alloc] init];
-    self.leagueArray = [[NSMutableArray alloc] init];
-    self.yapeiArray = [[NSMutableArray alloc] init];
-    self.oupeiArray = [[NSMutableArray alloc] init];
-    self.daxiaoArray = [[NSMutableArray alloc] init];
+    self = [super init];
+    if (self) {
+        self.matchArray = [[NSMutableArray alloc] init];
+        self.leagueArray = [[NSMutableArray alloc] init];
+        self.yapeiArray = [[NSMutableArray alloc] init];
+        self.oupeiArray = [[NSMutableArray alloc] init];
+        self.daxiaoArray = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 

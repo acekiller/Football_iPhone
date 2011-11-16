@@ -32,7 +32,7 @@
 
 - (id)init
 {
-    [super init];
+    self = [super init];
     asianBwinArray = [[NSMutableArray alloc] init];
     europeBwinArray = [[NSMutableArray alloc] init];
     bigandSmallArray = [[NSMutableArray alloc] init];

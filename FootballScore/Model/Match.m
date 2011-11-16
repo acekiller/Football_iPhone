@@ -137,12 +137,14 @@
     awayTeamName:(NSString*)awayTeamNameValue
 {
     [super init];
-    self.matchId = idValue;
-    self.leagueId = leagueIdValue;
-    self.date = dateFromChineseStringByFormat(dateValue, 
-                                              DEFAULT_DATE_FORMAT);
-    self.homeTeamName = homeTeamNameValue;
-    self.awayTeamName = awayTeamNameValue;
+    if (self) {
+        self.matchId = idValue;
+        self.leagueId = leagueIdValue;
+        self.date = dateFromChineseStringByFormat(dateValue, 
+                                                  DEFAULT_DATE_FORMAT);
+        self.homeTeamName = homeTeamNameValue;
+        self.awayTeamName = awayTeamNameValue;
+    }
     return self;
     
 }
