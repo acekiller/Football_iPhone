@@ -26,6 +26,7 @@ OddsManager* GlobleGetOddsManager()
 @synthesize yapeiArray;
 @synthesize oupeiArray;
 @synthesize daxiaoArray;
+@synthesize filterLeagueIdList;
 
 + (OddsManager*)defaultManager
 {
@@ -36,6 +37,8 @@ OddsManager* GlobleGetOddsManager()
 {
     self = [super init];
     if (self) {
+        
+        self.filterLeagueIdList = [[NSMutableSet alloc] init];
         self.matchArray = [[NSMutableArray alloc] init];
         self.leagueArray = [[NSMutableArray alloc] init];
         self.yapeiArray = [[NSMutableArray alloc] init];
@@ -46,7 +49,8 @@ OddsManager* GlobleGetOddsManager()
 }
 
 - (void)dealloc
-{
+
+{   [self.filterLeagueIdList release];
     [self.matchArray release];
     [self.leagueArray release];
     [self.yapeiArray release];
@@ -54,6 +58,17 @@ OddsManager* GlobleGetOddsManager()
     [self.daxiaoArray release];
     [super dealloc];
 }
+
+
+- (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist
+{
+    if (removeExist)
+        [filterLeagueIdList removeAllObjects];
+    
+    [filterLeagueIdList addObjectsFromArray:[updateLeagueArray allObjects]];
+    // [self saveFilterLeagueIdList];
+}
+
 
 - (NSString*)getMatchTitleByMatchId:(NSString*)matchId
 {

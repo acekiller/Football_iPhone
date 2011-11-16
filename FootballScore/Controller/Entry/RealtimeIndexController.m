@@ -6,6 +6,8 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+
+#import "SelectLeagueController.h"
 #import "RealtimeIndexController.h"
 #import "SelectIndexController.h"
 #import "StatusView.h"
@@ -18,7 +20,8 @@
 #import "YaPei.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
-
+#import "LeagueManager.h"
+#import "MatchManager.h"
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
 
@@ -43,6 +46,40 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+
+
+
+
+
+
+-(IBAction)clickSelectLeagueController:(id)sender{
+    
+    
+//    [SelectLeagueController show:self  LeagueManagerleagueIdArray: [[LeagueManager defaultIndexManager] leagueArray] MatchManagerfilterLeagueIdList:  [[OddsManager defaultManager] filterLeagueIdList] ];
+    
+    
+     [SelectLeagueController show:self  LeagueManagerleagueIdArray:  [[LeagueManager defaultIndexManager] leagueArray] MatchManagerfilterLeagueIdList:  [[OddsManager defaultManager] filterLeagueIdList] ];
+}
+
+
+- (void)didSelectLeague:(NSSet *)selectedLeagueArray
+{
+    // filter data list by league data
+    
+    OddsManager* manager = [OddsManager defaultManager];
+    [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
+    
+    
+    
+    //  self.dataList = [manager filterMatch];
+    //    [[self dataTableView] reloadData];
+    
+    
+    
+}
+
+
 
 #pragma mark - View lifecycle
 

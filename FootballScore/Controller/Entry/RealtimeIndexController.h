@@ -10,7 +10,7 @@
 #import "PPTableViewController.h"
 #import "OddsService.h"
 
-@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate,UIActionSheetDelegate>{
+@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate,SelectLeagueControllerDelegate,UIActionSheetDelegate>{
     NSMutableDictionary* matchOddsList;
         
 }
@@ -18,6 +18,9 @@
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
+-(IBAction)clickSelectLeagueController:(id)sender;
+
+
 
 @end
 

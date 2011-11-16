@@ -16,7 +16,7 @@
 #import "DaXiao.h"
 #import "League.h"
 #import "Match.h"
-
+#import "LeagueManager.h"
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
 
@@ -185,6 +185,28 @@ enum ODDS_REALTIME_INDEX {
                      else {
                          NSLog(@"Get league array error:%@",[leagueArray description]);
                      }
+                     
+                     
+                     
+                     
+                     
+                     
+                     //  Tom add this 
+                     
+                     // parse league data and update        
+                     
+                     
+                     NSArray  *indexLeagueArray ;
+                     
+                     indexLeagueArray =  [LeagueManager fromIndexString:[output.arrayData objectAtIndex:INDEX_OF_LEAGUE]];
+                     
+                     [[LeagueManager defaultIndexManager] updateLeague:indexLeagueArray];
+                     
+                     
+
+                     
+                     
+                     
                      
                      if ([matchArray count] > 0) {
                          for (NSArray* data in matchArray) {
