@@ -64,14 +64,6 @@
 
 
 
--(IBAction)clickSelectLeagueController:(id)sender{
-        
-     [SelectLeagueController show:self  
-                    leagueIdArray:[[LeagueManager defaultIndexManager] leagueArray] 
-               filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
-}
-
-
 #pragma Select Leaguge Delegate
 
 - (void)didSelectLeague:(NSSet *)selectedLeagueArray
@@ -97,22 +89,6 @@
 
 #pragma mark - View lifecycle
 
-- (void)setLeftBarLogo
-{
-    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    
-    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
-    [leftTopBarView addSubview:liveIndexLogo];
-    [liveIndexLogo release];
-    
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
-    [leftTopBarView release];
-    
-    self.navigationItem.leftBarButtonItem = leftBarButton;
-    self.navigationItem.title = @"";
-    [leftBarButton release];
-    
-}
 
 - (void)viewDidLoad
 {
@@ -135,9 +111,35 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+- (void)setLeftBarLogo
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
+    [leftTopBarView addSubview:liveIndexLogo];
+    [liveIndexLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
+    [leftBarButton release];
+    
+}
+
 - (IBAction)clickContentFilterButton:(id)sender
 {
     [SelectIndexController show:self];
+}
+
+
+-(IBAction)clickSelectLeagueController:(id)sender{
+    
+    [SelectLeagueController show:self  
+                   leagueIdArray:[[LeagueManager defaultIndexManager] leagueArray] 
+              filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
 
 - (IBAction)clickSearcHistoryBackButton:(id)sender
