@@ -108,8 +108,9 @@
     // stop timer to avoid incorrect update
     [self stopRealtimeScoreUpdate];
     [self addRealtimeMatchUpdateToQueue:delegate matchScoreType:matchScoreType];   
-    [self startRealtimeMatchUpdate];
-    [self startRealtimeScoreUpdate];
+    
+//    [self startRealtimeMatchUpdate];
+//    [self startRealtimeScoreUpdate];
 }
 
 - (void)getRealtimeScore
@@ -302,6 +303,8 @@
                 [delegate getRealtimeMatchFinish:output.resultCode
                                              serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
             }
+            
+            [self startRealtimeScoreUpdate];
             
         });                        
     }];
