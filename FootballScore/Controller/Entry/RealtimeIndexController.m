@@ -245,7 +245,6 @@
 {
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
-    self.dataList = nil;
     switch ([CompanyManager getOddsType]) {
         case ODDS_TYPE_YAPEI: {
             for (Odds* odds in manager.yapeiArray) {
@@ -280,32 +279,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-            //next action
-            break;
-        case 1:
-            //next action
-            break;
-        case 2:
-            //next action
-            break;
-        case 3:
-            //next action
-            break;
-        case 4:
-            //next action
-            break;
-        case 5:
-            //next action
-            break;
-        case 6:
-            //next action
-            break;
-        default:
-            break;
-    }
-    
+    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
+    [self refleshData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
