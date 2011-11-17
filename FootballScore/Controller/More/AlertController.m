@@ -169,7 +169,7 @@
     [self.navigationItem  setTitle:@"提示设置"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AlertSettings" 
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"MyAlertSettings" 
 													 ofType:@"plist"];	
 
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -183,17 +183,6 @@
      self.array = [[self.alertTitles allKeys] 
 					  sortedArrayUsingSelector:@selector(compare:)];
 
-//    
-//
-//    self.array = [self.alertTitles  keysSortedByValueUsingComparator:^(id obj1,id obj2){
-//        
-//        if ([obj1 integerValue] > [obj2 integerValue]) {
-//            return NSOrderedAscending;
-//        } else{
-//            return NSOrderedDescending;
-//        }
-//    }];
-//    
     self.alertGroupsInfor = self.array;
 
     [super viewDidLoad];

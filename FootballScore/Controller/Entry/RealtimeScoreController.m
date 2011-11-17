@@ -15,6 +15,7 @@
 #import "MatchConstants.h"
 #import "SelectLeagueController.h"
 #import "UITableViewCellUtil.h"
+#import "LeagueManager.h"
 
 
 @implementation RealtimeScoreController
@@ -306,9 +307,13 @@
 }
 
 
+
 - (void)clickFilterLeague:(id)sender
-{
-    [SelectLeagueController show:self]; 
+{    
+    [SelectLeagueController show:self  
+                   leagueIdArray:[[LeagueManager defaultManager]  leagueArray]
+              filterLeagueIdList:[[MatchManager defaultManager] filterLeagueIdList]];
+    
 }
 
 - (void)clickSelectMatchType:(id)sender

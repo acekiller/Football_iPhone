@@ -31,6 +31,9 @@ enum ODDS_REALTIME_INDEX {
     
 }
 
+
+@property (nonatomic, retain) NSMutableSet* filterLeagueIdList;
+
 @property (nonatomic, retain) NSMutableArray* matchArray;
 @property (nonatomic, retain) NSMutableArray* leagueArray;
 @property (nonatomic, retain) NSMutableArray* yapeiArray;
@@ -41,5 +44,9 @@ enum ODDS_REALTIME_INDEX {
 - (NSString*)getMatchTitleByMatchId:(NSString*)matchId;
 + (void)addOdds:(Odds*)odds toDictionary:(NSMutableDictionary*)dict;
 - (Odds *)getOddsByMatchId:(NSString *)matchId companyId:(NSString *)companyId oddsType:(NSInteger)oddsType;
+
+- (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
+
 - (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType;
+
 @end

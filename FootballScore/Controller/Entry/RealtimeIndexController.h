@@ -10,8 +10,9 @@
 #import "PPTableViewController.h"
 #import "OddsService.h"
 #import "SelectIndexController.h"
+#import "SelectLeagueController.h"
 
-@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate, UIActionSheetDelegate, SeclectIndexControllerDelegate>{
+@interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate, UIActionSheetDelegate, SeclectIndexControllerDelegate, SelectLeagueControllerDelegate>{
     NSMutableDictionary* matchOddsList;
     NSMutableArray* companyIdArray;
     NSDate* oddsDate;
@@ -25,6 +26,7 @@
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
+-(IBAction)clickSelectLeagueController:(id)sender;
 - (void)refleshData;
 
 @end

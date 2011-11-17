@@ -46,6 +46,15 @@
 
 - (void)updateHiddenMatchInfo;
 
+
+
+
+@property (nonatomic, retain) NSArray *leagueArray;
+@property (nonatomic,retain) NSMutableSet *filterLeagueIdList;
+
+
+
+
 @property (nonatomic, retain) IBOutlet UILabel *promptLabel;
 @property (nonatomic, retain) IBOutlet UIButton *topLeagueButton;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
@@ -60,6 +69,9 @@
 @property (nonatomic, retain) id<SelectLeagueControllerDelegate> delegate;
 @property (nonatomic, retain) NSMutableSet *selectLeagueIdArray;
 
-+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController;
+//+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController;
++(SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
+                leagueIdArray :(NSArray *)LeagueaArray   
+           filterLeagueIdList :(NSMutableSet*)filterLeagueIdList;
 
 @end
