@@ -14,7 +14,7 @@
 #import "DaXiao.h"
 #import "StringUtil.h"
 #import "ColorManager.h"
-
+#import "DataUtils.h"
 
 @implementation ScoreIndexCell
 @synthesize companyName;
@@ -56,14 +56,22 @@
     if (odds == nil) {
         return;
     }
+    
     switch ([odds oddsType]) {
         case ODDS_TYPE_YAPEI: {
             YaPei* yapei = (YaPei*)odds;
             [self.home_homeWin_bigBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.homeTeamChupan floatValue]]] forState:UIControlStateNormal];
-            [self.chupan_draw_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.chupan floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *chupan = [NSNumber numberWithFloat:[yapei.chupan floatValue]];
+            [self.chupan_draw_init setTitle:[DataUtils toChuPanString:chupan] forState:UIControlStateNormal];
+            
+            
             [self.away_awayWin_smallBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.awayTeamChupan floatValue]]] forState:UIControlStateNormal];
             [self.home_homeWin_bigBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.homeTeamOdds floatValue]]] forState:UIControlStateNormal];
-            [self.pankou_draw_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.instantOdds floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *pankou = [NSNumber numberWithFloat:[yapei.instantOdds floatValue]];
+            [self.pankou_draw_instant setTitle:[DataUtils toChuPanString:pankou] forState:UIControlStateNormal];
+
             [self.away_awayWin_smallBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.awayTeamOdds floatValue]]] forState:UIControlStateNormal];
             
         }
@@ -71,10 +79,16 @@
         case ODDS_TYPE_OUPEI: {
             OuPei* oupei = (OuPei*)odds;
             [self.home_homeWin_bigBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.homeWinInitOdds floatValue]]] forState:UIControlStateNormal];
-            [self.chupan_draw_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.drawInitOdds floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *chupan = [NSNumber numberWithFloat:[oupei.drawInitOdds floatValue]];
+            [self.chupan_draw_init setTitle:[DataUtils toChuPanString:chupan] forState:UIControlStateNormal];
+            
             [self.away_awayWin_smallBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.awayWinInitOdds floatValue]]] forState:UIControlStateNormal];
             [self.home_homeWin_bigBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.homeWinInstantOdds floatValue]]] forState:UIControlStateNormal];
-            [self.pankou_draw_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.drawInstantOdds floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *pankou = [NSNumber numberWithFloat:[oupei.drawInstantOdds floatValue]];
+            [self.pankou_draw_instant setTitle:[DataUtils toChuPanString:pankou] forState:UIControlStateNormal];
+
             [self.away_awayWin_smallBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[oupei.awayWinInstantsOdds floatValue]]] forState:UIControlStateNormal];
             
         }
@@ -82,10 +96,16 @@
         case ODDS_TYPE_DAXIAO: {
             DaXiao* daxiao = (DaXiao*)odds;
             [self.home_homeWin_bigBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.bigBallChupan floatValue]]] forState:UIControlStateNormal];
-            [self.chupan_draw_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.chupan floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *chupan = [NSNumber numberWithFloat:[daxiao.chupan floatValue]];
+            [self.chupan_draw_init setTitle:[DataUtils toChuPanString:chupan] forState:UIControlStateNormal];
+            
             [self.away_awayWin_smallBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.smallBallChupan floatValue]]] forState:UIControlStateNormal];
             [self.home_homeWin_bigBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.bigBallOdds floatValue]]] forState:UIControlStateNormal];
-            [self.pankou_draw_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.instantOdds floatValue]]] forState:UIControlStateNormal];
+            
+            NSNumber *pankou = [NSNumber numberWithFloat:[daxiao.instantOdds floatValue]];
+            [self.pankou_draw_instant setTitle:[DataUtils toChuPanString:pankou] forState:UIControlStateNormal];
+
             [self.away_awayWin_smallBall_instant setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[daxiao.smallBallOdds floatValue]]] forState:UIControlStateNormal];
             
         }
