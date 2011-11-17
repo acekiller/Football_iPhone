@@ -242,8 +242,8 @@
 - (void)getOddsListFinish
 {
     OddsManager* manager = [OddsManager defaultManager];
-    self.oddsType = [CompanyManager defaultCompanyManager].selectedOddsType;
     [self.matchOddsList removeAllObjects];
+    self.dataList = nil;
     switch ([CompanyManager getOddsType]) {
         case ODDS_TYPE_YAPEI: {
             for (Odds* odds in manager.yapeiArray) {
@@ -316,6 +316,7 @@
 
 - (void) SelectCompanyFinish
 {
+    self.oddsType = [CompanyManager defaultCompanyManager].selectedOddsType;
     [self refleshData];
 }
 
@@ -324,6 +325,7 @@
     int type = [[CompanyManager defaultCompanyManager] selectedOddsType];
     NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
     NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
+    [self.matchOddsList removeAllObjects];
     for (Company* company in selectedCompanyArray) {
         [selectedCompanyIdArray addObject:company.companyId];
     }
