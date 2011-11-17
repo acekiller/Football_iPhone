@@ -197,6 +197,18 @@
     
 }
 
++(UIColor*)scrollViewBackgroundColor{
+    
+    return [UIColor colorWithRed:0xF8/255.0
+                           green:0xFC/255.0
+                            blue:0xFE/255.0 
+                           alpha:1];
+    
+}
+
+
+
+
 
 //AlertController 
 +(UIColor*)scoreAlertColor{
