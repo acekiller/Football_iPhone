@@ -83,11 +83,9 @@
            cell.detailTextLabel.text = @"进球时手机会发出震动";
            cell.detailTextLabel.textColor = [ColorManager soundSubtitlesColor];
             
-            
         
         }
     }
-    
     
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.backgroundColor =[UIColor clearColor];

@@ -43,8 +43,7 @@
 
 +(UIColor*)HideMatchesInforNumColor;
 +(UIColor*)HideMatchesInforColor;
-
-
++(UIColor*)scrollViewBackgroundColor;
 
 //AlertController 
 

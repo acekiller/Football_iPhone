@@ -12,6 +12,7 @@
 @protocol SelectLeagueControllerDelegate <NSObject>
 
 - (void)didSelectLeague:(NSSet*)selectedLeagueArray;
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray;
 
 @end
 

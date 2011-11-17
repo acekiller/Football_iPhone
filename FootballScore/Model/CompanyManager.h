@@ -21,7 +21,7 @@
 @property (nonatomic, assign) int selectedOddsType;
 
 + (CompanyManager*)defaultCompanyManager;
-
++ (int)getOddsType;
 - (Company*)getCompanyById:(NSString*)companyId;
 - (void )addCompany:(Company*)company;
 - (void)selectCompanyById:(NSString*)companyId;

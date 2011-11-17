@@ -48,5 +48,6 @@ enum ODDS_REALTIME_INDEX {
 - (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist;
 
 - (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType;
-
+-(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
+- (NSString*)getLeagueIdByMatchId:(NSString*)matchId;
 @end

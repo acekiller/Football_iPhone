@@ -46,13 +46,16 @@
 
 + (CGFloat)getCellHeight
 {
-    return 64.0f;
+    return 51.0f;
 }
 
 - (void)setCellInfo:(Odds*)odds company:(Company*)company oddsType:(int)type
 {
     [self.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
     [self.companyName setTitle:[NSString stringWithFormat:@"%@", company.companyName] forState:UIControlStateNormal];
+    if (odds == nil) {
+        return;
+    }
     switch (type) {
         case ODDS_TYPE_YAPEI: {
             YaPei* yapei = (YaPei*)odds;

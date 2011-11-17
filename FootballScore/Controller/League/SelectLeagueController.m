@@ -131,6 +131,13 @@ const int buttonsPerLine = 4;
     }
     scrollView.contentSize = CGSizeMake(320, (leagueNumber/4+1)*(buttonHigh+buttonSepratorY));
     
+    //set the scrollView background Color 
+    [scrollView setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
+    
+    
+    
+       
+    
 }
 
 - (void)viewDidLoad
@@ -339,16 +346,17 @@ const int buttonsPerLine = 4;
 
 
 - (void)updateHiddenMatchInfo{
-//
-//    int count = [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
-//    NSString *buttonTitle = [NSString stringWithFormat:@"%d",count];
-// 
-//    // set the hideMatchUpdate button title     
-//    [hideMatchesUpDateInf setText:buttonTitle];
-//    
-  
-         
     
+    int count = 0;    
+    if ([delegate respondsToSelector:@selector(calculateHiddenMatchCount:)]){
+        count = [delegate calculateHiddenMatchCount:selectLeagueIdArray];
+    }
+    
+    
+    NSString *buttonTitle = [NSString stringWithFormat:@"%d",count];
+ 
+    // set the hideMatchUpdate button title     
+    [hideMatchesUpDateInf setText:buttonTitle];
 }
 
 

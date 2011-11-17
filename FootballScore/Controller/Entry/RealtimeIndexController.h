@@ -17,17 +17,22 @@
     NSMutableArray* companyIdArray;
     NSDate* oddsDate;
     int oddsType;
+    int matchType;
         
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 @property (nonatomic, retain) NSMutableArray* companyIdArray;
 @property (nonatomic, retain) NSDate* oddsDate;
 @property (nonatomic, assign) int matchType;
+@property (nonatomic, assign) int oddsType;
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
 -(IBAction)clickSelectLeagueController:(id)sender;
-- (void)refleshData;
+- (void)updateAllOddsData;
+- (void)refleshOddsType;
+- (void)refleshCompanyIdArray;
+- (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet;
 
 @end
 
