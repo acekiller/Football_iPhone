@@ -43,8 +43,6 @@ enum {
 @property (nonatomic, retain) IBOutlet UIButton *buttonBigandSmall;
 @property (nonatomic, assign) id<SeclectIndexControllerDelegate> delegate;
 
-- (void)buttonsInit;
-- (void)dataInit;
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
 - (void)createButtonsByArray:(NSArray*)array;

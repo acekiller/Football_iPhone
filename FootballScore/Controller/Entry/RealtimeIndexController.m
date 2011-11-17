@@ -37,9 +37,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.matchType = 0;
-        self.oddsDate = nil;
+        self.matchType = 1;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
+        self.companyIdArray = [[NSMutableArray alloc] init ];
     }
     return self;
 }
@@ -57,11 +57,6 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
-
-
-
-
 
 
 #pragma Select Leaguge Delegate
@@ -247,8 +242,7 @@
 {
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
-    self.dataList = nil;
-    switch ([CompanyManager getOddsType]) {
+    switch (oddsType) {
         case ODDS_TYPE_YAPEI: {
             for (Odds* odds in manager.yapeiArray) {
                 [OddsManager addOdds:odds toDictionary:self.matchOddsList];
@@ -282,32 +276,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-            //next action
-            break;
-        case 1:
-            //next action
-            break;
-        case 2:
-            //next action
-            break;
-        case 3:
-            //next action
-            break;
-        case 4:
-            //next action
-            break;
-        case 5:
-            //next action
-            break;
-        case 6:
-            //next action
-            break;
-        default:
-            break;
-    }
-    
+    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
+    [self updateAllOddsData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -320,23 +290,30 @@
 
 - (void) SelectCompanyFinish
 {
-    self.oddsType = [CompanyManager defaultCompanyManager].selectedOddsType;
-    [self refleshData];
+    [self refleshOddsType];
+    [self refleshCompanyIdArray];
+    [self updateAllOddsData];
 }
 
-- (void)refleshData
+- (void)updateAllOddsData
 {
-    int type = [[CompanyManager defaultCompanyManager] selectedOddsType];
-    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
-    NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
-    [self.matchOddsList removeAllObjects];
-    for (Company* company in selectedCompanyArray) {
-        [selectedCompanyIdArray addObject:company.companyId];
-    }
-    
     OddsService* service = GlobalGetOddsService();
-    [service getOddsListByDate:oddsDate companyIdArray:selectedCompanyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:type delegate:self];
+    [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
 
+}
+
+- (void)refleshOddsType
+{
+    self.oddsType = [CompanyManager defaultCompanyManager].selectedOddsType;
+}
+
+- (void)refleshCompanyIdArray
+{
+    [self.companyIdArray removeAllObjects];
+    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
+    for (Company* company in selectedCompanyArray) {
+        [self.companyIdArray addObject:company.companyId];
+    }
 }
 
 @end

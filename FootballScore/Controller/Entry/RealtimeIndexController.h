@@ -29,7 +29,9 @@
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
 -(IBAction)clickSelectLeagueController:(id)sender;
-- (void)refleshData;
+- (void)updateAllOddsData;
+- (void)refleshOddsType;
+- (void)refleshCompanyIdArray;
 
 @end
 
