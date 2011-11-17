@@ -115,6 +115,34 @@
          landmarkName = "@implementation RealtimeScoreCell"
          landmarkType = "3">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "FootballScore/Service/OddsService.m"
+         timestampString = "343132024.050567"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "201"
+         endingLineNumber = "201"
+         landmarkName = "-getOddsListByDate:companyIdArray:language:matchType:oddsType:delegate:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "FootballScore/Controller/Entry/RealtimeIndexController.m"
+         timestampString = "343186306.0223"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
+         landmarkName = "-refleshData"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
    <SymbolicBreakpoints>
       <AddressBreakpoint

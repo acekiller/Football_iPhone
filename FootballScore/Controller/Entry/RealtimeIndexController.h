@@ -14,13 +14,14 @@
 @interface RealtimeIndexController : PPTableViewController <OddsServiceDelegate, UIActionSheetDelegate, SeclectIndexControllerDelegate>{
     NSMutableDictionary* matchOddsList;
     NSMutableArray* companyIdArray;
-    NSString* oddsTimeString;
+    NSDate* oddsDate;
     int oddsType;
         
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 @property (nonatomic, retain) NSMutableArray* companyIdArray;
-@property (nonatomic, retain) NSString* oddsTimeString;
+@property (nonatomic, retain) NSDate* oddsDate;
+@property (nonatomic, assign) int matchType;
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;

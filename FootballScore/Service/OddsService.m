@@ -220,8 +220,8 @@ enum OUPEI_INDEX {
                                      
                                  }
                                  break;
-                             case ODDS_TYPE_OUPEI:
-                                 [manager.oupeiArray removeAllObjects];
+                             case ODDS_TYPE_DAXIAO:
+                                 [manager.daxiaoArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -235,13 +235,14 @@ enum OUPEI_INDEX {
                                      
                                      DaXiao* daxiao = [[DaXiao alloc] initWithMatchId:matchId companyId:companyID oddsId:oddsId chupan:chupan bigBallChupan:bigBallChupan smallBallChupan:smallBallChupan instantOdds:instantOdds bigBallOdds:bigBallOdds smallBallOdds:smallBallOdds];
                                      [manager.daxiaoArray addObject:daxiao];
-                                     [daxiao release];                            
+                                     [daxiao release];
+                                     
                                      
                                      
                                  }
                                  break;
-                             case ODDS_TYPE_DAXIAO:
-                                 [manager.daxiaoArray removeAllObjects];
+                             case ODDS_TYPE_OUPEI:
+                                 [manager.oupeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];

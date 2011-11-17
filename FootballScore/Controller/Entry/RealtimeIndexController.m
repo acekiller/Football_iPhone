@@ -18,17 +18,21 @@
 #import "YaPei.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "LanguageManager.h"
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
 @synthesize companyIdArray;
-@synthesize oddsTimeString;
+@synthesize oddsDate;
+@synthesize matchType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.matchType = 0;
+        self.oddsDate = nil;
     }
     return self;
 }
@@ -54,7 +58,7 @@
     OddsService* service = GlobalGetOddsService();
     NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
     
-    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
+    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:3 delegate:self];
     
     [service startGetRealtimOddsTimer:1 delegate:self];
     
@@ -243,32 +247,47 @@
 
 - (void) SelectCompanyFinish
 {
-    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
-    NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
-    for (Company* company in selectedCompanyArray) {
-        [selectedCompanyIdArray addObject:company.companyId];
-    }
-    OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
-    [service getOddsListByDate:nil companyIdArray:selectedCompanyIdArray language:0 matchType:0 oddsType:1 delegate:self];
-    [service release];
-    
-    OddsManager* manager = [OddsManager defaultManager];
-    [self.matchOddsList removeAllObjects];
-    for (Odds* odds in manager.yapeiArray) {
-        [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-    }
-    self.dataList = [matchOddsList allKeys];
-    [self.dataTableView reloadData];
+    [self refleshData];
 }
 
 - (void)refleshData
 {
+    int type = [[CompanyManager defaultCompanyManager] selectedOddsType];
     NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
     NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
     for (Company* company in selectedCompanyArray) {
         [selectedCompanyIdArray addObject:company.companyId];
     }
+    
+    OddsService* service = GlobalGetOddsService();
+    [service getOddsListByDate:oddsDate companyIdArray:selectedCompanyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:type delegate:self];
+    OddsManager* manager = [OddsManager defaultManager];
+//    self.matchOddsList  = [[NSMutableDictionary alloc] init];
+    [self.matchOddsList removeAllObjects];
+    switch (type) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in manager.yapeiArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in manager.oupeiArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in manager.daxiaoArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
+    self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
 }
 
