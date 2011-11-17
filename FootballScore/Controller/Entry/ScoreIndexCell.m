@@ -49,14 +49,14 @@
     return 51.0f;
 }
 
-- (void)setCellInfo:(Odds*)odds company:(Company*)company oddsType:(int)type
+- (void)setCellInfo:(Odds*)odds company:(Company*)company
 {
     [self.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
     [self.companyName setTitle:[NSString stringWithFormat:@"%@", company.companyName] forState:UIControlStateNormal];
     if (odds == nil) {
         return;
     }
-    switch (type) {
+    switch ([odds oddsType]) {
         case ODDS_TYPE_YAPEI: {
             YaPei* yapei = (YaPei*)odds;
             [self.home_homeWin_bigBall_init setTitle:[NSString stringWithFormat:@"%@",[NSString floatToStringWithoutZeroTail:[yapei.homeTeamChupan floatValue]]] forState:UIControlStateNormal];

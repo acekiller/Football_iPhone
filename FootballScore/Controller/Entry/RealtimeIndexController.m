@@ -37,7 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.matchType = 1;
+        self.matchType = 0;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
         self.companyIdArray = [[NSMutableArray alloc] init ];
     }
@@ -220,7 +220,7 @@
     NSArray* array = [self.matchOddsList objectForKey:key];
     Odds* odds = [array objectAtIndex:[indexPath row] - 1];
     Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:odds.commpanyId];
-	[cell setCellInfo:odds company:company oddsType:self.oddsType];
+	[cell setCellInfo:odds company:company];
 	return cell;	
 }
 
