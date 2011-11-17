@@ -294,9 +294,7 @@ enum OUPEI_INDEX {
         CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:realTimeOddsType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            CompanyManager* manager = [CompanyManager defaultCompanyManager];
-            
+                        
             if (output.resultCode == ERROR_SUCCESS){
                 NSSet* oddsUpdateSet = nil;
                 if ([output.arrayData count] > 0) {

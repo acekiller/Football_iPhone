@@ -60,7 +60,7 @@
     
     [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:3 delegate:self];
     
-    [service startGetRealtimOddsTimer:1 delegate:self];
+    [service startGetRealtimOddsTimer:3 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
     self.matchOddsList  = [[NSMutableDictionary alloc] init];
