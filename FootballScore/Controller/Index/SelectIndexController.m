@@ -146,6 +146,8 @@
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         if ( contentType== i) {
             [button setSelected:YES];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
             [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
         }
         else {
@@ -198,6 +200,7 @@
             [button setSelected:NO];
         }
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
         [button setBackgroundImage:selectedImage forState:UIControlStateSelected];
         [button setBackgroundImage:unSelectedImage forState:UIControlStateNormal];
         [buttonsArray addObject:button];        
