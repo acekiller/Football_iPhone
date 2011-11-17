@@ -64,7 +64,11 @@
     
     [self setPankouFlag:instantFlag];
     [self setAwayTeamOddsFlag:awayTeamFlag];
-    [self setHomeTeamOddsFlag:homeTeamFlag];    
+    [self setHomeTeamOddsFlag:homeTeamFlag];  
+    
+    if (instantFlag != 0 | homeTeamFlag != 0 | awayTeamFlag != 0) {
+        [self setLastModifyTime:time(0)];
+    }    
 }
 
 @end

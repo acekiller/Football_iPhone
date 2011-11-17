@@ -70,7 +70,7 @@
     [self setAwayTeamOddsFlag:awayTeamFlag];
     [self setHomeTeamOddsFlag:homeTeamFlag];
     
-    if ((instantFlag | homeTeamFlag | awayTeamFlag) != 0) {
+    if (instantFlag != 0 | homeTeamFlag != 0 | awayTeamFlag != 0) {
         [self setLastModifyTime:time(0)];
     }    
 }
