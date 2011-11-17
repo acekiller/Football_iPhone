@@ -204,4 +204,14 @@ OddsManager* GlobleGetOddsManager()
     }
     return retSet;
 }
+
+- (NSString*)getLeagueIdByMatchId:(NSString*)matchId
+{
+    for (Match* match in matchArray) {
+        if ([match.matchId isEqualToString:matchId]) {
+            return match.leagueId;
+        }
+    }
+    return nil;
+}
 @end

@@ -67,7 +67,7 @@
     
     OddsManager* manager = [OddsManager defaultManager];
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
-    
+    [self filterOddsByLeague:selectedLeagueArray];
     
     
     //  self.dataList = [manager filterMatch];
@@ -312,6 +312,44 @@
     for (Company* company in selectedCompanyArray) {
         [self.companyIdArray addObject:company.companyId];
     }
+}
+
+
+- (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet
+{
+    [self.matchOddsList removeAllObjects];
+    OddsManager* manager = [OddsManager defaultManager];
+    [self.matchOddsList removeAllObjects];
+    switch (oddsType) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in manager.yapeiArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in manager.oupeiArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in manager.daxiaoArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    self.dataList = [matchOddsList allKeys];
+    [self.dataTableView reloadData];
 }
 
 @end
