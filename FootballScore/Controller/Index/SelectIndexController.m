@@ -34,9 +34,24 @@
 - (id)init
 {
     self = [super init];
-    asianBwinArray = [[NSMutableArray alloc] init];
-    europeBwinArray = [[NSMutableArray alloc] init];
-    bigandSmallArray = [[NSMutableArray alloc] init];
+    if (self) {
+        asianBwinArray = [[NSMutableArray alloc] init];
+        europeBwinArray = [[NSMutableArray alloc] init];
+        bigandSmallArray = [[NSMutableArray alloc] init];
+        selectedBwin = [[NSMutableSet alloc] init];
+        CompanyManager* manager = [CompanyManager defaultCompanyManager];
+        for (Company* company in manager.allCompany) {
+            if (company.hasAsianOdds) {
+                [asianBwinArray addObject:company];
+            }
+            if (company.hasEuropeOdds) {
+                [europeBwinArray addObject:company];
+            }
+            if (company.hasDaXiao) {
+                [bigandSmallArray addObject:company];
+            }
+        }
+    }
     return self;
 }
 
@@ -68,10 +83,10 @@
     [self.navigationItem setTitle:@"内容筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"  action:@selector(clickBack:)];
     [self setNavigationRightButton:fns(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
+    [buttonAsianBwin setTag:ASIANBWIN];
+    [buttonEuropeBwin setTag:EUROPEBWIN];
+    [buttonBigandSmall setTag:BIGANDSMALL];
 
-    [self dataInit];
-    [self buttonsInit];
-    
     [self clickContentTypeButton: buttonAsianBwin];
 
     [super viewDidLoad];
@@ -103,37 +118,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)buttonsInit
-{
-    [buttonAsianBwin setTag:ASIANBWIN];
-    [buttonEuropeBwin setTag:EUROPEBWIN];
-    [buttonBigandSmall setTag:BIGANDSMALL];
-    
-    
-}
-
-- (void)dataInit
-{
-
-    CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    for (Company* company in manager.allCompany) {
-        if (company.hasAsianOdds) {
-            [asianBwinArray addObject:company];
-        }
-        if (company.hasEuropeOdds) {
-            [europeBwinArray addObject:company];
-        }
-        if (company.hasDaXiao) {
-            [bigandSmallArray addObject:company];
-        }
-    }
-    selectedBwin = [[NSMutableSet alloc] init];
-}
 
 - (IBAction)clickContentTypeButton:(id)sender
 {
     contentType = [sender tag];
-    [[CompanyManager defaultCompanyManager] setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
+    CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    [selectedBwin removeAllObjects];
+    [manager.selectedCompany removeAllObjects];
+    [manager setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
     for (int i = ASIANBWIN; i <= BIGANDSMALL; i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         if ( contentType== i) {
@@ -144,8 +136,6 @@
         }
 
     }  
-    [selectedBwin removeAllObjects];
-    [[CompanyManager defaultCompanyManager].selectedCompany removeAllObjects];
     switch (contentType) {
         case ASIANBWIN: {
             [self createButtonsByArray:asianBwinArray];
@@ -196,23 +186,20 @@
 
 - (void)clickBack:(id)sender
 {
-    //CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    //here should use CompanyManager to get Odds
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clickDone:(id)sender
 {
-    CompanyManager* manager = [CompanyManager defaultCompanyManager];
     if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
         [delegate SelectCompanyFinish];
     }
-    //here should use CompanyManager to get Odds
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
-#pragma mark test new static method to build buttons
+#pragma mark these codes used to draw scrollView 
 
 + (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 
                              buttonsPerLine:(int)buttonsPerLine 
