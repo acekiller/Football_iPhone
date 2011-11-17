@@ -11,13 +11,21 @@
 #import "ColorManager.h"
 
 
-
 enum{    
     LEAGUE_NAME,
     LEAGUE_ID,
     IS_TOP,
     LEAGUE_COUNT    
 };
+
+enum{    
+    INDEX_LEAGUE_ID,
+    INDEX_LEAGUE_NAME,
+    INDEX_IS_TOP,
+    INDEX_LEAGUE_COUNT    
+};
+
+
 
 @implementation LeagueManager
 
@@ -39,17 +47,35 @@ enum{
     [super dealloc];
 }
 
+
+
+// for match
 + (LeagueManager*)defaultManager
 {
     return GlobalLeagueManager();
 }
 
+
+
+
+// for match Index
++ (LeagueManager*)defaultIndexManager
+{
+    return GlobalLeagueIndexManager();
+}
+
+
+
+
+
+
+//for match 
 + (NSArray*)fromString:(NSArray*)stringArray
 {    
     int count = [stringArray count];
     if (count == 0)
         return nil;
- 
+    
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<count; i++){
         NSArray* fields = [stringArray objectAtIndex:i];
@@ -64,8 +90,11 @@ enum{
                                              leagueId:[fields objectAtIndex:LEAGUE_ID]
                                                 isTop:isTop];
         
+        
+        
+        
 #ifdef DEBUG
-//        NSLog(@"add league : %@", [league description]);
+        //        NSLog(@"add league : %@", [league description]);
 #endif
         
         [retArray addObject:league];
@@ -73,6 +102,44 @@ enum{
     }
     
     NSLog(@"parse league data, total %d league added", [retArray count]);
+    
+    return retArray;
+}
+
+
+//for index 
++(NSArray*)fromIndexString:(NSArray*)stringArray
+{    
+    int count = [stringArray count];
+    if (count == 0)
+        return nil;
+    
+    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
+    for (int i=0; i<count; i++){
+        NSArray* fields = [stringArray objectAtIndex:i];
+        int fieldCount = [fields count];
+        if (fieldCount != INDEX_LEAGUE_COUNT){
+            NSLog(@"incorrect league field count = %d", fieldCount);
+            continue;
+        }
+        
+        BOOL isTop = ([[fields objectAtIndex:INDEX_IS_TOP] intValue] == 1);
+        League* league = [[League alloc] initWithName:[fields objectAtIndex:INDEX_LEAGUE_NAME]
+                                             leagueId:[fields objectAtIndex:INDEX_LEAGUE_ID]
+                                                isTop:isTop];
+        
+        
+        
+        
+#ifdef DEBUG
+        //        NSLog(@"add league : %@", [league description]);
+#endif
+        
+        [retArray addObject:league];
+        [league release];
+    }
+    
+    NSLog(@"parse index league data, total %d league added", [retArray count]);
     
     return retArray;
 }
@@ -131,6 +198,9 @@ enum{
 
 @end
 
+
+// for match
+
 LeagueManager* leagueManager;
 
 LeagueManager* GlobalLeagueManager()
@@ -141,3 +211,27 @@ LeagueManager* GlobalLeagueManager()
     
     return leagueManager;
 }
+
+
+
+
+// for match Index 
+
+LeagueManager* leagueIndexManager;
+
+LeagueManager* GlobalLeagueIndexManager()
+{
+    if (leagueIndexManager == nil){
+        leagueIndexManager = [[LeagueManager alloc] init];
+    }
+    
+    return leagueIndexManager;
+}
+
+
+
+
+
+
+
+

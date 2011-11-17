@@ -6,6 +6,8 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+
+#import "SelectLeagueController.h"
 #import "RealtimeIndexController.h"
 #import "SelectIndexController.h"
 #import "StatusView.h"
@@ -18,7 +20,10 @@
 #import "YaPei.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "LeagueManager.h"
+#import "MatchManager.h"
 #import "LanguageManager.h"
+
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -53,11 +58,66 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+
+
+
+
+
+-(IBAction)clickSelectLeagueController:(id)sender{
+        
+     [SelectLeagueController show:self  
+                    leagueIdArray:[[LeagueManager defaultIndexManager] leagueArray] 
+               filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
+}
+
+
+#pragma Select Leaguge Delegate
+
+- (void)didSelectLeague:(NSSet *)selectedLeagueArray
+{
+    // filter data list by league data
+    
+    OddsManager* manager = [OddsManager defaultManager];
+    [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
+    
+    
+    
+    //  self.dataList = [manager filterMatch];
+    //    [[self dataTableView] reloadData];
+    
+    
+    
+}
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray
+{
+    return [[OddsManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+}
+
+
 #pragma mark - View lifecycle
+
+- (void)setLeftBarLogo
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
+    [leftTopBarView addSubview:liveIndexLogo];
+    [liveIndexLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
+    [leftBarButton release];
+    
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     // Do any additional setup after loading the view from its nib.
 }

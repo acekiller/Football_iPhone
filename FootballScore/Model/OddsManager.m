@@ -13,7 +13,8 @@
 #import "YaPei.h"
 #import "DaXiao.h"
 #import "OuPei.h"
-
+#import "MatchManager.h"
+#import "LogUtil.h"
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
 {
@@ -30,6 +31,7 @@ OddsManager* GlobleGetOddsManager()
 @synthesize yapeiArray;
 @synthesize oupeiArray;
 @synthesize daxiaoArray;
+@synthesize filterLeagueIdList;
 
 + (OddsManager*)defaultManager
 {
@@ -40,6 +42,8 @@ OddsManager* GlobleGetOddsManager()
 {
     self = [super init];
     if (self) {
+        
+        self.filterLeagueIdList = [[NSMutableSet alloc] init];
         self.matchArray = [[NSMutableArray alloc] init];
         self.leagueArray = [[NSMutableArray alloc] init];
         self.yapeiArray = [[NSMutableArray alloc] init];
@@ -50,7 +54,8 @@ OddsManager* GlobleGetOddsManager()
 }
 
 - (void)dealloc
-{
+
+{   [self.filterLeagueIdList release];
     [self.matchArray release];
     [self.leagueArray release];
     [self.yapeiArray release];
@@ -58,6 +63,49 @@ OddsManager* GlobleGetOddsManager()
     [self.daxiaoArray release];
     [super dealloc];
 }
+
+
+- (void)updateFilterLeague:(NSSet*)updateLeagueArray removeExist:(BOOL)removeExist
+{
+    if (removeExist)
+        [filterLeagueIdList removeAllObjects];
+    
+    [filterLeagueIdList addObjectsFromArray:[updateLeagueArray allObjects]];
+    // [self saveFilterLeagueIdList];
+}
+
+
+
+
+
+
+- (NSArray*)filterMatchByLeagueIdList:(NSSet*)leagueIdList
+{
+    NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
+    for (Match* match in matchArray){
+        
+        if ([leagueIdList containsObject:match.leagueId] == NO){
+            continue;
+        }
+        
+        [retArray addObject:match];
+    }
+    
+    PPDebug(@"filter match by league id array, total %d match return", [retArray count]);
+    return retArray;
+}
+
+-(int)getHiddenMatchCount:(NSSet*)leagueIdSet{
+    // count all matches 
+    int totalCount = [matchArray count];
+    
+    int filterCount = [[self filterMatchByLeagueIdList:leagueIdSet] count];
+    return totalCount - filterCount;
+}
+
+
+
+
 
 - (NSString*)getMatchTitleByMatchId:(NSString*)matchId
 {
@@ -104,6 +152,7 @@ OddsManager* GlobleGetOddsManager()
     }
     return nil;
 }
+
 
 - (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType
 {

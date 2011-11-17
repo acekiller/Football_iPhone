@@ -218,8 +218,9 @@ MatchManager* GlobalGetMatchManager()
 
 
 -(int)getHiddenMatchCount:(NSSet*)leagueIdSet{
-    
+    // count all matches 
     int totalCount = [matchArray count];
+    
     int filterCount = [[self filterMatchByLeagueIdList:leagueIdSet] count];
     return totalCount - filterCount;
 }
