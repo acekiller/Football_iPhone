@@ -108,7 +108,7 @@
 {
     [super viewDidLoad];
 
-    
+    [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -271,7 +271,10 @@
 
 - (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
 {
-    [self.dataTableView reloadData];
+    if ([oddsSet count] != 0) {
+        [self.dataTableView reloadData];    
+    }
+    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -293,6 +296,7 @@
     [self refleshOddsType];
     [self refleshCompanyIdArray];
     [self updateAllOddsData];
+    [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
 }
 
 - (void)updateAllOddsData

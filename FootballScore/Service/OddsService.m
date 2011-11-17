@@ -334,9 +334,9 @@ enum OUPEI_INDEX {
                         NSLog(@"segment format error:%@",[segment description]);
                     }
                     
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(getRealtimeOddsFinish::)]) {
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(getRealtimeOddsFinish:oddsType:)]) {
                         [self.delegate getRealtimeOddsFinish:oddsUpdateSet oddsType:realTimeOddsType];
-                    }   
+                    }
                     
                 }
                 else {
@@ -351,7 +351,7 @@ enum OUPEI_INDEX {
 }
 
 #ifndef REALTIME_ODDS_TIMER_INTERVAL 
-    #define REALTIME_ODDS_TIMER_INTERVAL 3
+    #define REALTIME_ODDS_TIMER_INTERVAL 10
 #endif
 
 - (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate
