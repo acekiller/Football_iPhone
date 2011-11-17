@@ -116,8 +116,7 @@
     [super viewDidLoad];
     
     [self setLeftBarLogo];
-    
-    
+    [self setNavigationRightButton:FNS(nil) imageName:@"refresh.png" action:nil];
     
     OddsService* service = GlobalGetOddsService();
     NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
