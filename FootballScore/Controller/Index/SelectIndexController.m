@@ -88,7 +88,7 @@
     [buttonBigandSmall setTag:BIGANDSMALL];
 
     [self clickContentTypeButton: buttonAsianBwin];
-
+    [self.view setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -232,6 +232,7 @@
         [scrollView addSubview:button];
         }
     [scrollView setContentSize:CGSizeMake(320, ([buttons count]/fitButtonsPerLine+1)*(buttonHeight+buttonSeparatorY))];
+   [scrollView setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
     return scrollView;   
 }
 
