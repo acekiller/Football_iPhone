@@ -84,6 +84,25 @@
 }
 
 
+- (void)setLeftBarLogo
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
+    [leftTopBarView addSubview:liveIndexLogo];
+    [liveIndexLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
+    [leftBarButton release];
+    
+}
+
+
+
 #pragma mark - View lifecycle
 
 
@@ -125,23 +144,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-- (void)setLeftBarLogo
-{
-    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    
-    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
-    [leftTopBarView addSubview:liveIndexLogo];
-    [liveIndexLogo release];
-    
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
-    [leftTopBarView release];
-    
-    self.navigationItem.leftBarButtonItem = leftBarButton;
-    self.navigationItem.title = @"";
-    [leftBarButton release];
-    
-}
 
 - (IBAction)clickContentFilterButton:(id)sender
 {
