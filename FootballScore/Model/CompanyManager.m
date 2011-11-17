@@ -32,6 +32,11 @@ CompanyManager* GlobalGetCompanyManager()
     return GlobalGetCompanyManager();
 }
 
++ (int)getOddsType
+{
+    return GlobalGetCompanyManager().selectedOddsType;
+}
+
 - (Company*)getCompanyById:(NSString *)companyId
 {
     for (Company* company in self.allCompany) {
@@ -62,7 +67,7 @@ CompanyManager* GlobalGetCompanyManager()
 - (void)unselectCompanyById:(NSString *)companyId
 {
     for (Company* company in [selectedCompany allObjects]) {
-        if (company.companyId == companyId) {
+        if ([company.companyId isEqualToString:companyId]) {
             [self.selectedCompany removeObject:company];
         }
     }

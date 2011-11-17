@@ -84,6 +84,8 @@ OddsManager* GlobleGetOddsManager()
     }
 }
 
+
+
 - (Odds *)getOddsByMatchId:(NSString *)matchId companyId:(NSString *)companyId oddsType:(NSInteger)oddsType
 {
     NSArray *oddsArray = nil;
