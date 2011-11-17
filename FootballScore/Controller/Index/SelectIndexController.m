@@ -14,7 +14,7 @@
 
 #define SCROLL_VIEW_TAG 20111109
 #define COMPANY_ID_BUTTON_OFFSET 120111109
-#define CONTENT_TYPE_OFFSET 220111109
+#define CONTENT_TYPE_OFFSET 220111108
 
 @implementation SelectIndexController
 @synthesize buttonAsianBwin;
@@ -48,7 +48,6 @@
     [asianBwinArray release];
     [europeBwinArray release];
     [bigandSmallArray release];
-    [buttonsArray release];
     [selectedBwin release];
     [super dealloc];
 }
@@ -69,9 +68,7 @@
     [self.navigationItem setTitle:@"内容筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"  action:@selector(clickBack:)];
     [self setNavigationRightButton:fns(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
-       
-    
-    
+
     [self dataInit];
     [self buttonsInit];
     
@@ -86,7 +83,6 @@
     [self setButtonAsianBwin:nil];
     [self setButtonEuropeBwin:nil];
     [self setButtonBigandSmall:nil];
-    buttonsArray = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -110,11 +106,8 @@
 - (void)buttonsInit
 {
     [buttonAsianBwin setTag:ASIANBWIN];
-    [buttonAsianBwin setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     [buttonEuropeBwin setTag:EUROPEBWIN];
-    [buttonEuropeBwin setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     [buttonBigandSmall setTag:BIGANDSMALL];
-    [buttonBigandSmall setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
     
     
 }
@@ -134,7 +127,6 @@
             [bigandSmallArray addObject:company];
         }
     }
-    buttonsArray = [[NSMutableArray alloc] init];
     selectedBwin = [[NSMutableSet alloc] init];
 }
 
@@ -146,25 +138,21 @@
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         if ( contentType== i) {
             [button setSelected:YES];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-            [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
         }
         else {
             [button setSelected:NO];
-            [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
-            [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] forState:UIControlStateNormal];
         }
 
-    }
-    
+    }  
+    [selectedBwin removeAllObjects];
+    [[CompanyManager defaultCompanyManager].selectedCompany removeAllObjects];
     switch (contentType) {
         case ASIANBWIN: {
-            [self showButtonsWithArray:asianBwinArray selectedArray:selectedBwin];
+            [self createButtonsByArray:asianBwinArray];
             break;
         }
         case EUROPEBWIN: {
-            [self showButtonsWithArray:europeBwinArray selectedArray:selectedBwin];
+            [self createButtonsByArray:europeBwinArray];
             break;
         }
         case BIGANDSMALL: {
@@ -176,85 +164,6 @@
     }
 }
 
-- (void)showButtonsWithArray:(NSArray*)array selectedArray:(NSMutableSet*)selectedArray
-{
-    [[CompanyManager defaultCompanyManager].selectedCompany removeAllObjects];
-    int i = 0;
-    CGSize buttonSize = CGSizeMake(72,37);
-    UIImage *selectedImage = [UIImage imageNamed:@"set.png"];
-    UIImage *unSelectedImage = [UIImage imageNamed:@"set2.png"];
-    [buttonsArray removeAllObjects];
-    [selectedBwin removeAllObjects];
-
-    
-    for (i = 0; i < [array count]; i++) {
-        Company* company = [array objectAtIndex:i];
-        NSString *title = company.companyName;
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:title forState:UIControlStateNormal];
-        [button setTag:([company.companyId intValue] + COMPANY_ID_BUTTON_OFFSET)];
-        if ([selectedArray containsObject:title]) {
-            [button setSelected:YES];
-        }
-        else {
-            [button setSelected:NO];
-        }
-        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [button setBackgroundImage:selectedImage forState:UIControlStateSelected];
-        [button setBackgroundImage:unSelectedImage forState:UIControlStateNormal];
-        [buttonsArray addObject:button];        
-    }
-    
-    [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
-    UIScrollView* buttonScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 147, 320, 243)];
-    buttonScrollView.tag = SCROLL_VIEW_TAG;
-    [SelectIndexController showButtonsAtScrollView:buttonScrollView 
-                                   withButtonArray:buttonsArray 
-                                     selectedImage:selectedImage 
-                                   unSelectedImage:unSelectedImage 
-                                    buttonsPerLine:3
-                                        buttonSize:buttonSize];
-    [self.view addSubview:buttonScrollView];
-    [buttonScrollView release];
-    
-}
-
-+ (void)showButtonsAtScrollView:(UIScrollView*)scrollView 
-                withButtonArray:(NSMutableArray*)buttonArray
-              selectedImage:(UIImage*)selectedImage 
-                unSelectedImage:(UIImage*)unSelectedImage 
-                 buttonsPerLine:(int)buttonsPerLine 
-                     buttonSize:(CGSize)buttonSize
-{
-    int i = 0;
-    int rowIndex;
-    int rankIndex;
-    float buttonSeparatorX = (320-buttonsPerLine*buttonSize.width)/(buttonsPerLine+1);
-    float buttonSeparatorY =2*buttonSize.height/buttonsPerLine;
-    float buttonLen = buttonSize.width;
-    float buttonHigh = buttonSize.height;
-    
-    for (i = 0; i < [buttonArray count]; i++) {
-        rowIndex = i/buttonsPerLine;
-        rankIndex = i%buttonsPerLine;
-        UIButton *button = [buttonArray objectAtIndex:i];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        if ([button isSelected]) {
-            [button setBackgroundImage:selectedImage forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        }
-        else {
-            [button setBackgroundImage:unSelectedImage forState:UIControlStateNormal];
-            [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] forState:UIControlStateNormal];
-        }
-        button.frame = CGRectMake(buttonSeparatorX+rankIndex*(buttonSeparatorX+buttonLen), rowIndex*(buttonHigh+buttonSeparatorY), buttonLen, buttonHigh);
-        //To set the text Color of the Button 
-       // button.titleLabel.textColor=[UIColor blackColor];
-                [scrollView addSubview:button];
-    }
-    [scrollView setContentSize:CGSizeMake(320, ([buttonArray count]/buttonsPerLine+1)*(buttonHigh+buttonSeparatorY))];  
-}
 
 - (IBAction)buttonClicked:(id)sender 
 {
@@ -269,12 +178,8 @@
     
     if ([selectedBwin containsObject:title]) {
         [selectedBwin removeObject:title];
-        //[button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
-        [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] forState:UIControlStateNormal];
         [button setSelected:NO];
         [[CompanyManager defaultCompanyManager] unselectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
-        
-       
 
     }
     else {
@@ -284,8 +189,6 @@
             return;
         }
         [selectedBwin addObject:title];
-        //[button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setSelected:YES];
         [[CompanyManager defaultCompanyManager] selectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
     }
@@ -358,6 +261,12 @@
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [button setTag:([company.companyId intValue] + COMPANY_ID_BUTTON_OFFSET)];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        if ([[CompanyManager defaultCompanyManager].selectedCompany containsObject:company]) {
+            [button setSelected:YES];
+        }
+        else {
+            [button setSelected:NO];
+        }
         [buttonArray addObject:button];
         [button release];
     }

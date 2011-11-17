@@ -33,8 +33,7 @@ enum {
     NSMutableArray *bigandSmallArray;
     
     NSMutableSet *selectedBwin;
-    
-    NSMutableArray *buttonsArray;
+
     id<SeclectIndexControllerDelegate> delegate;
     
 }
@@ -46,18 +45,13 @@ enum {
 
 - (void)buttonsInit;
 - (void)dataInit;
-- (void)showButtonsWithArray:(NSArray*)array selectedArray:(NSMutableSet*)selectedArray;
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
 - (void)createButtonsByArray:(NSArray*)array;
 
 + (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
-+ (void)showButtonsAtScrollView:(UIScrollView*)scrollView 
-                withButtonArray:(NSMutableArray*)buttonArray
-                  selectedImage:(UIImage*)selectedImage 
-                unSelectedImage:(UIImage*)unSelectedImage 
-                 buttonsPerLine:(int)buttonsPerLine 
-                     buttonSize:(CGSize)buttonSize;
++ (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 
+                                      buttonsPerLine:(int)buttonsPerLine; 
 
 
 @end

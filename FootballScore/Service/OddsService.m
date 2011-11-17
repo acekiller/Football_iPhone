@@ -297,6 +297,11 @@ enum OUPEI_INDEX {
                      
                  }
                  else {
+                     [manager.leagueArray removeAllObjects];
+                     [manager.matchArray removeAllObjects];
+                     [manager.oupeiArray removeAllObjects];
+                     [manager.yapeiArray removeAllObjects];
+                     [manager.daxiaoArray removeAllObjects];
                      NSLog(@"no odds, leagues, matches got");
                  }                
              }

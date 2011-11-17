@@ -53,6 +53,9 @@
 {
     [self.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
     [self.companyName setTitle:[NSString stringWithFormat:@"%@", company.companyName] forState:UIControlStateNormal];
+    if (odds == nil) {
+        return;
+    }
     switch (type) {
         case ODDS_TYPE_YAPEI: {
             YaPei* yapei = (YaPei*)odds;
