@@ -239,7 +239,7 @@
 {
     NSMutableArray* buttonArray = [[NSMutableArray alloc] init];
     for (Company* company in array) {
-        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(160, 160, 72, 37)];
+        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(160, 160, 72, 32)];
         [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [button setTitle:company.companyName forState:UIControlStateNormal];
         [button setTitle:company.companyName forState:UIControlStateSelected];
@@ -262,7 +262,7 @@
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
-    [buttonScrollView setFrame:CGRectMake(0, 147, 320, 243)];
+    [buttonScrollView setFrame:CGRectMake(0, 143, 320, 243)];
     [self.view addSubview:buttonScrollView];
 
 }
