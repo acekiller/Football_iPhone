@@ -303,12 +303,10 @@
 
 
 - (void)clickFilterLeague:(id)sender
-{
-    
-    //   [[MatchManager defaultManager] filterLeagueIdList]
-    // [[LeagueManager defaultManager]  leagueArray]
-    
-    [SelectLeagueController show:self  LeagueManagerleagueIdArray:nil  MatchManagerfilterLeagueIdList:   nil];
+{    
+    [SelectLeagueController show:self  
+                   leagueIdArray:[[LeagueManager defaultManager]  leagueArray]
+              filterLeagueIdList:[[MatchManager defaultManager] filterLeagueIdList]];
     
 }
 
@@ -468,7 +466,8 @@
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
         return;
-        [self loadMatch:matchScoreType];
+    
+    [self loadMatch:matchScoreType];
     
 }
 

@@ -71,7 +71,7 @@
 
 //+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController;
 +(SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
-
-   LeagueManagerleagueIdArray :(NSArray *)LeagueaArray   MatchManagerfilterLeagueIdList :(NSMutableSet*)filterLeagueIdList;
+                leagueIdArray :(NSArray *)LeagueaArray   
+           filterLeagueIdList :(NSMutableSet*)filterLeagueIdList;
 
 @end

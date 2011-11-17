@@ -318,15 +318,9 @@ const int buttonsPerLine = 4;
     [self updateHiddenMatchInfo];
 }
 
-
-//+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
-//
-//leagueIdArray :(NSArray *)LeagueaArray
-
-
-+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
-
-    LeagueManagerleagueIdArray :(NSArray *)LeagueaArray   MatchManagerfilterLeagueIdList :(NSMutableSet*)filterLeagueIdList
++(SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
+                leagueIdArray :(NSArray *)LeagueaArray   
+           filterLeagueIdList :(NSMutableSet*)filterLeagueIdList
 
 {
     SelectLeagueController* vc = [[SelectLeagueController alloc] init];
