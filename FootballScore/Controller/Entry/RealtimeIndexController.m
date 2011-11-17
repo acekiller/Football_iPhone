@@ -6,6 +6,8 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+
+#import "SelectLeagueController.h"
 #import "RealtimeIndexController.h"
 #import "SelectIndexController.h"
 #import "StatusView.h"
@@ -18,21 +20,33 @@
 #import "YaPei.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "LeagueManager.h"
+#import "MatchManager.h"
+#import "LanguageManager.h"
+
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
+@synthesize companyIdArray;
+@synthesize oddsDate;
+@synthesize matchType;
+@synthesize oddsType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.matchType = 0;
+        self.matchOddsList = [[NSMutableDictionary alloc] init ];
+        self.companyIdArray = [[NSMutableArray alloc] init ];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [matchOddsList release];
     [super dealloc];
 }
 
@@ -44,23 +58,57 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+#pragma Select Leaguge Delegate
+
+- (void)didSelectLeague:(NSSet *)selectedLeagueArray
+{
+    // filter data list by league data
+    
+    OddsManager* manager = [OddsManager defaultManager];
+    [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
+    [self filterOddsByLeague:selectedLeagueArray];
+    
+    
+    //  self.dataList = [manager filterMatch];
+    //    [[self dataTableView] reloadData];
+    
+    
+    
+}
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray
+{
+    return [[OddsManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+}
+
+
+- (void)setLeftBarLogo
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
+    [leftTopBarView addSubview:liveIndexLogo];
+    [liveIndexLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
+    [leftBarButton release];
+    
+}
+
+
+
 #pragma mark - View lifecycle
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    OddsService* service = [[OddsService alloc] init];
-    NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
-    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
-    
-    OddsManager* manager = [OddsManager defaultManager];
-    self.matchOddsList  = [[NSMutableDictionary alloc] init];
-    for (Odds* odds in manager.yapeiArray) {
-        [self.matchOddsList setObject:odds forKey:odds.matchId];
-    }
-    self.dataList = [matchOddsList allKeys];
-    [self.dataTableView reloadData];
-    
+
+    [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -77,11 +125,18 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (IBAction)clickContentFilterButton:(id)sender
 {
-    SelectIndexController *vc = [[SelectIndexController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    [SelectIndexController show:self];
+}
+
+
+-(IBAction)clickSelectLeagueController:(id)sender{
+    
+    [SelectLeagueController show:self  
+                   leagueIdArray:[[OddsManager defaultManager] leagueArray] 
+              filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
 
 - (IBAction)clickSearcHistoryBackButton:(id)sender
@@ -165,7 +220,7 @@
     NSArray* array = [self.matchOddsList objectForKey:key];
     Odds* odds = [array objectAtIndex:[indexPath row] - 1];
     Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:odds.commpanyId];
-	[cell setCellInfo:odds company:company oddsType:ODDS_TYPE_YAPEI];
+	[cell setCellInfo:odds company:company];
 	return cell;	
 }
 
@@ -186,48 +241,46 @@
 - (void)getOddsListFinish
 {
     OddsManager* manager = [OddsManager defaultManager];
-    self.matchOddsList  = [[NSMutableDictionary alloc] init];
-     for (Odds* odds in manager.yapeiArray) {
-         [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-     }
+    [self.matchOddsList removeAllObjects];
+    switch (oddsType) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in manager.yapeiArray) {
+                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in manager.oupeiArray) {
+                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in manager.daxiaoArray) {
+                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+            }
+        }
+            break;
+        default:
+            break;
+    }
     self.dataList = [matchOddsList allKeys];
     [self.dataTableView reloadData];
     
 }
 
-- (void)getRealtimeOddsFinish
+- (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
 {
+    if ([oddsSet count] != 0) {
+        [self.dataTableView reloadData];    
+    }
     
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-            //next action
-            break;
-        case 1:
-            //next action
-            break;
-        case 2:
-            //next action
-            break;
-        case 3:
-            //next action
-            break;
-        case 4:
-            //next action
-            break;
-        case 5:
-            //next action
-            break;
-        case 6:
-            //next action
-            break;
-        default:
-            break;
-    }
-    
+    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
+    [self updateAllOddsData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -235,6 +288,75 @@
     
 }
 
+#pragma mark -
+#pragma delegate
+
+- (void) SelectCompanyFinish
+{
+    [self refleshOddsType];
+    [self refleshCompanyIdArray];
+    [self updateAllOddsData];
+    [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
+}
+
+- (void)updateAllOddsData
+{
+    OddsService* service = GlobalGetOddsService();
+    [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
+
+}
+
+- (void)refleshOddsType
+{
+    self.oddsType = [CompanyManager defaultCompanyManager].selectedOddsType;
+}
+
+- (void)refleshCompanyIdArray
+{
+    [self.companyIdArray removeAllObjects];
+    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
+    for (Company* company in selectedCompanyArray) {
+        [self.companyIdArray addObject:company.companyId];
+    }
+}
+
+
+- (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet
+{
+    [self.matchOddsList removeAllObjects];
+    OddsManager* manager = [OddsManager defaultManager];
+    [self.matchOddsList removeAllObjects];
+    switch (oddsType) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in manager.yapeiArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in manager.oupeiArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in manager.daxiaoArray) {
+                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    self.dataList = [matchOddsList allKeys];
+    [self.dataTableView reloadData];
+}
 
 @end
 
@@ -280,5 +402,8 @@
     }
     return self;
 }
+
+
+
 
 @end

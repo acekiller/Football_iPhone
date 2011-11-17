@@ -19,6 +19,7 @@
 @class ReviewRequest;
 @class MatchService;
 @class RealtimeScoreController;
+@class OddsService;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -45,6 +46,7 @@
 @property (nonatomic, retain) ReviewRequest                 *reviewRequest;
 @property (nonatomic, retain) MatchService                  *matchService;
 @property (nonatomic, retain) RealtimeScoreController       *matchController;
+@property (nonatomic, retain) OddsService                   *oddsService;
 @end
 
 

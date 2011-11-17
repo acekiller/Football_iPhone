@@ -8,8 +8,8 @@
 
 #import "SelectLeagueController.h"
 #import "League.h"
-#import "LeagueManager.h"
-#import "MatchManager.h"
+//#import "LeagueManager.h"
+//#import "MatchManager.h"
 #import "StringUtil.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
@@ -27,6 +27,16 @@
 
 @synthesize delegate;
 @synthesize selectLeagueIdArray;
+
+
+
+
+
+@synthesize leagueArray;
+@synthesize filterLeagueIdList;
+
+
+
 
 
 const float buttonLen = 72;
@@ -76,13 +86,18 @@ const int buttonsPerLine = 4;
 
 - (void)createLeagueButtons
 {
-    LeagueManager* manager = [LeagueManager defaultManager];
-    int leagueNumber = [manager.leagueArray count];
+//    LeagueManager* manager = [LeagueManager defaultManager];
+//    int leagueNumber = [manager.leagueArray count];
+    
+       int leagueNumber = [leagueArray count];
     
     int i=0;
     int rowIndex;
     int rankIndex;
-    for (League* league in manager.leagueArray){
+//    for (League* league in manager.leagueArray){
+       for (League* league in leagueArray){
+
+    
         NSString *title = league.name;
         UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [button setTitle:title forState:UIControlStateNormal];
@@ -116,6 +131,13 @@ const int buttonsPerLine = 4;
     }
     scrollView.contentSize = CGSizeMake(320, (leagueNumber/4+1)*(buttonHigh+buttonSepratorY));
     
+    //set the scrollView background Color 
+    [scrollView setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
+    
+    
+    
+       
+    
 }
 
 - (void)viewDidLoad
@@ -131,7 +153,17 @@ const int buttonsPerLine = 4;
     
    [self setNavigationRightButton:FNS(@"确定") imageName:@"ss.png" action:@selector(clickDone:)];
     
-    [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
+    
+    
+//    [selectLeagueIdArray addObjectsFromArray:[[[MatchManager defaultManager] filterLeagueIdList] allObjects]];
+    
+      [selectLeagueIdArray addObjectsFromArray: [filterLeagueIdList allObjects]];
+
+    
+    
+    
+    
+    
     [self updateHiddenMatchInfo];
     
     //set the colors of the hided matches' text color 
@@ -215,9 +247,18 @@ const int buttonsPerLine = 4;
 
 -(IBAction)selectAll:(id)sender{
     
-    LeagueManager* manager = [LeagueManager defaultManager];
-    for (League* league in manager.leagueArray){
+//    LeagueManager* manager = [LeagueManager defaultManager];
+//    for (League* league in manager.leagueArray){
+//        [self selectLeague:league.leagueId];
+//        
+        
+    for (League* league in leagueArray){
         [self selectLeague:league.leagueId];
+        
+      
+        
+        
+        
     }
     
     //click the button and get the hided matches 
@@ -227,10 +268,15 @@ const int buttonsPerLine = 4;
 
 -(IBAction)selectNone:(id)sender{
     
-    LeagueManager* manager = [LeagueManager defaultManager];
-    for (League* league in manager.leagueArray){
+//    LeagueManager* manager = [LeagueManager defaultManager];
+//    for (League* league in manager.leagueArray){
+//        [self deselectLeague:league.leagueId];
+//    }    
+    
+    for (League* league in leagueArray){
         [self deselectLeague:league.leagueId];
     }    
+
     
     //click the button and get the hided matches 
     [self updateHiddenMatchInfo];
@@ -243,13 +289,15 @@ const int buttonsPerLine = 4;
     [self selectNone:sender];
     
     
-    LeagueManager* manager = [LeagueManager defaultManager];
 //    for (League* league in manager.leagueArray){
 //        [self deselectLeague:league.leagueId];
 //    }    
     
-
-    for (League* league in manager.leagueArray){
+//    LeagueManager* manager = [LeagueManager defaultManager];
+//    for (League* league in manager.leagueArray){
+    
+    
+    for (League* league in leagueArray){
         if ([league isTop]){
            [self selectLeague:league.leagueId];
                  }
@@ -277,26 +325,38 @@ const int buttonsPerLine = 4;
     [self updateHiddenMatchInfo];
 }
 
-+ (SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
++(SelectLeagueController*)show:(UIViewController<SelectLeagueControllerDelegate>*)superController
+                leagueIdArray :(NSArray *)LeagueaArray   
+           filterLeagueIdList :(NSMutableSet*)filterLeagueIdList
+
 {
     SelectLeagueController* vc = [[SelectLeagueController alloc] init];
     vc.delegate = superController;
+    
+    vc.leagueArray = LeagueaArray;
+    vc.filterLeagueIdList = filterLeagueIdList;
+    
+    
     [superController.navigationController pushViewController:vc animated:YES];
     [vc release];
     return vc;
 }
 
-- (void)updateHiddenMatchInfo{
 
-    int count = [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+
+
+- (void)updateHiddenMatchInfo{
+    
+    int count = 0;    
+    if ([delegate respondsToSelector:@selector(calculateHiddenMatchCount:)]){
+        count = [delegate calculateHiddenMatchCount:selectLeagueIdArray];
+    }
+    
+    
     NSString *buttonTitle = [NSString stringWithFormat:@"%d",count];
  
     // set the hideMatchUpdate button title     
     [hideMatchesUpDateInf setText:buttonTitle];
-    
-  
-         
-    
 }
 
 

@@ -16,10 +16,10 @@
 #import "DaXiao.h"
 #import "League.h"
 #import "Match.h"
-
+#import "LeagueManager.h"
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
-
+#define GET_REALTIME_ODDS @"GET_REALTIME_ODDS"
 @class YaPei;
 @class OuPei;
 @class DaXiao;
@@ -82,18 +82,11 @@ enum OUPEI_INDEX {
     INDEX_OF_ODDS_AWAYWIN_ODDS,
     };
 
-enum ODDS_REALTIME_INDEX {
-    INDEX_OF_MATCH_ID_ODDS = 0,
-    INDEX_OF_COMPANY_ID_ODDS,
-    INDEX_OF_PANKOU,
-    INDEX_OF_HOME_ODDS,
-    INDEX_OF_AWAY_ODDS,
-    ODDS_REALTIME_INDEX_COUNT
-};
 
 @implementation OddsService
 @synthesize delegate;
-
+@synthesize realTimeOddsType;
+@synthesize realTimeOddsTimer;
 - (void)updateAllBetCompanyList
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
@@ -172,6 +165,7 @@ enum ODDS_REALTIME_INDEX {
                      NSMutableArray* oddsArray = [output.arrayData objectAtIndex:INDEX_OF_PEILV];
                      
                      if ([leagueArray count] > 0) {
+                         [manager.leagueArray removeAllObjects];
                          for (NSArray* data in leagueArray) {
                              NSString* leagueId = [data objectAtIndex:INDEX_OF_LEAGUE_ID];
                              NSString* leagueName = [data objectAtIndex:INDEX_OF_LEAGUE_NAME];
@@ -186,7 +180,30 @@ enum ODDS_REALTIME_INDEX {
                          NSLog(@"Get league array error:%@",[leagueArray description]);
                      }
                      
+                     
+                     
+                     
+                     
+                     
+                     //  Tom add this 
+                     
+                     // parse league data and update        
+                     
+                     
+                     NSArray  *indexLeagueArray ;
+                     
+                     indexLeagueArray =  [LeagueManager fromIndexString:[output.arrayData objectAtIndex:INDEX_OF_LEAGUE]];
+                     
+                     [[LeagueManager defaultIndexManager] updateLeague:indexLeagueArray];
+                     
+                     
+
+                     
+                     
+                     
+                     
                      if ([matchArray count] > 0) {
+                         [manager.matchArray removeAllObjects];
                          for (NSArray* data in matchArray) {
                              NSString* matchId = [data objectAtIndex:INDEX_OF_MATCH_MATCH_ID];
                              NSString* leagueId = [data objectAtIndex:INDEX_OF_MATCH_LEAGUE_ID];
@@ -206,6 +223,7 @@ enum ODDS_REALTIME_INDEX {
                      if ([oddsArray count] > 0) {
                          switch (oddsType) {
                              case ODDS_TYPE_YAPEI:
+                                 [manager.yapeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -224,7 +242,8 @@ enum ODDS_REALTIME_INDEX {
                                      
                                  }
                                  break;
-                             case ODDS_TYPE_OUPEI:
+                             case ODDS_TYPE_DAXIAO:
+                                 [manager.daxiaoArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -238,12 +257,14 @@ enum ODDS_REALTIME_INDEX {
                                      
                                      DaXiao* daxiao = [[DaXiao alloc] initWithMatchId:matchId companyId:companyID oddsId:oddsId chupan:chupan bigBallChupan:bigBallChupan smallBallChupan:smallBallChupan instantOdds:instantOdds bigBallOdds:bigBallOdds smallBallOdds:smallBallOdds];
                                      [manager.daxiaoArray addObject:daxiao];
-                                     [daxiao release];                            
+                                     [daxiao release];
+                                     
                                      
                                      
                                  }
                                  break;
-                             case ODDS_TYPE_DAXIAO:
+                             case ODDS_TYPE_OUPEI:
+                                 [manager.oupeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
                                      NSString* companyID = [data objectAtIndex:INDEX_OF_ODDS_COMPANY_ID];
@@ -276,6 +297,11 @@ enum ODDS_REALTIME_INDEX {
                      
                  }
                  else {
+                     [manager.leagueArray removeAllObjects];
+                     [manager.matchArray removeAllObjects];
+                     [manager.oupeiArray removeAllObjects];
+                     [manager.yapeiArray removeAllObjects];
+                     [manager.daxiaoArray removeAllObjects];
                      NSLog(@"no odds, leagues, matches got");
                  }                
              }
@@ -286,59 +312,81 @@ enum ODDS_REALTIME_INDEX {
  }
 
 
-- (void)getRealtimeOdds:(NSInteger)odds delegate:(id<OddsServiceDelegate>)delegate
+- (void)getRealtimeOdds
 {
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
     
     [queue addOperationWithBlock:^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:odds];
+        CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:realTimeOddsType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            CompanyManager* manager = [CompanyManager defaultCompanyManager];
-            
+                        
             if (output.resultCode == ERROR_SUCCESS){
+                NSSet* oddsUpdateSet = nil;
                 if ([output.arrayData count] > 0) {
-                    [manager.allCompany removeAllObjects];
                     NSArray* segment = [output.arrayData objectAtIndex:0];
+                    
                     if ([segment count] > 0) {
-                        for (NSArray* data in segment) {
-                            if ([data count] == ODDS_REALTIME_INDEX_COUNT) {
-                                
-                                NSString *matchId = [data objectAtIndex:INDEX_OF_MATCH_ID_ODDS];
-                                NSString *companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID_ODDS];
-                                NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
-                                NSString *homeTeamOdds = nil;
-                                NSString *pankou = nil;
-                                if (odds == 3) {
-                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
-                                    pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
-                                }else{
-                                    pankou = [data objectAtIndex:INDEX_OF_PANKOU];
-                                    homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
-                                }
-                                //judge the change and call delegate method to update the interface
-                                Odds *odd = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:odds];
-                                
-                            } else {
-                                continue;
-                            }
-                            
-                        }
+                        oddsUpdateSet = [[OddsManager defaultManager] getOddsUpdateSet:segment oddsType:realTimeOddsType];
                     }
                     else {
                         NSLog(@"segment format error:%@",[segment description]);
                     }
                     
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(getRealtimeOddsFinish:oddsType:)]) {
+                        [self.delegate getRealtimeOddsFinish:oddsUpdateSet oddsType:realTimeOddsType];
+                    }
+                    
                 }
                 else {
                     NSLog(@"no odds change list updated");
-                }                
+                }   
+           
             }
-            
+
+            [self startGetRealtimOddsTimer:realTimeOddsType delegate:self.delegate];
         });                        
     }];
+}
+
+#ifndef REALTIME_ODDS_TIMER_INTERVAL 
+    #define REALTIME_ODDS_TIMER_INTERVAL 10
+#endif
+
+- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate
+{
+    self.delegate = delegate;
+    self.realTimeOddsType = oddsType;
+    
+    NSLog(@"<startGetRealtimOddsTimerUpdate>");
+    
+    
+    if (oddsType >= ODDS_TYPE_YAPEI && oddsType <=ODDS_TYPE_OUPEI) {
+        // stop timer firstly
+        [self stopGetRealtimOddsTimer];
+        
+        // create new timer
+        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_ODDS_TIMER_INTERVAL target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:NO];
+    }
+
+}
+- (void)stopGetRealtimOddsTimer
+{
+    NSLog(@"<stopRealtimeOddsUpdate>");
+    [self.realTimeOddsTimer invalidate];
+    self.realTimeOddsTimer = nil;
+    
+    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_ODDS];
+    if ([queue operationCount] > 0){
+        [queue cancelAllOperations];        
+    } 
+}
+
+-(void)dealloc
+{
+    [realTimeOddsTimer release];
+    [super dealloc];
 }
 
 @end

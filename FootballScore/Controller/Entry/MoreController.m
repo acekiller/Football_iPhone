@@ -238,6 +238,7 @@
     AlertController *vc = [[AlertController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+    
 }
 
 - (void)showRecommendation

@@ -7,21 +7,25 @@
 //
 
 #import "CommonService.h"
+#import "Odds.h"
 
 @protocol OddsServiceDelegate <NSObject>
 
 - (void)getOddsListFinish;
-@required
-- (void)getRealtimeOddsFinish;
+@optional
+- (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType;
 
 
 @end
 
 @interface OddsService : CommonService {
     id<OddsServiceDelegate> delegate;
-    
+    ODDS_TYPE realTimeOddsType;
+    NSTimer *realTimeOddsTimer;
 }
 @property (nonatomic, assign) id<OddsServiceDelegate> delegate;
+@property (nonatomic, assign) ODDS_TYPE realTimeOddsType;
+@property (nonatomic, retain) NSTimer *realTimeOddsTimer;
 
 - (void)updateAllBetCompanyList;
 - (void)getOddsListByDate:(NSDate*)date 
@@ -31,6 +35,9 @@
                  oddsType:(int)oddsType 
                  delegate:(id<OddsServiceDelegate>)delegate;
 
-- (void)getRealtimeOdds:(NSInteger)odds delegate:(id<OddsServiceDelegate>)delegate;
-
+- (void)getRealtimeOdds;
+- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate;
+- (void)stopGetRealtimOddsTimer;
 @end
+
+extern OddsService *GlobalGetOddsService();

@@ -15,6 +15,7 @@
 #import "MatchConstants.h"
 #import "SelectLeagueController.h"
 #import "UITableViewCellUtil.h"
+#import "LeagueManager.h"
 
 
 @implementation RealtimeScoreController
@@ -89,6 +90,8 @@
 - (void)viewDidLoad
 {
     int UPDATE_TIME_INTERVAL = 1;
+    self.supportRefreshHeader = YES;
+    
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
                                                              target:self 
                                                            selector:@selector(updateMatchTimeDisplay) 
@@ -109,6 +112,9 @@
                                                 alpha:1.0];
     
     [super viewDidLoad];
+    
+    [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
+
     
     [self loadMatch:0];
     // Do any additional setup after loading the view from its nib.
@@ -186,10 +192,11 @@
                    leagueArray:(NSArray*)leagueArray
               updateMatchArray:(NSArray*)updateMatchArray
 {
-    self.dataList = [[MatchManager defaultManager] filterMatch];
-    [[self dataTableView] reloadData];
     [self hideActivity];
-    
+    [self dataSourceDidFinishLoadingNewData];
+
+    self.dataList = [[MatchManager defaultManager] filterMatch];
+    [[self dataTableView] reloadData];    
     if (result == 0 && updateMatchArray == nil) {
         [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
     }
@@ -300,15 +307,21 @@
 }
 
 
+
 - (void)clickFilterLeague:(id)sender
-{
-    [SelectLeagueController show:self]; 
+{    
+    [SelectLeagueController show:self  
+                   leagueIdArray:[[LeagueManager defaultManager]  leagueArray]
+              filterLeagueIdList:[[MatchManager defaultManager] filterLeagueIdList]];
+    
 }
 
 - (void)clickSelectMatchType:(id)sender
 {
     [self showActionSheet:sender];
 }
+
+#pragma Select Leaguge Delegate
 
 - (void)didSelectLeague:(NSSet *)selectedLeagueArray
 {
@@ -322,8 +335,14 @@
     
 }
 
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray
+{
+    return [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+}
+
 - (IBAction)clickSelectMatchStatus:(id)sender
 {
+    [self setRefreshHeaderViewEnable:YES];
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
     [self.filterBarButton setHidden:NO];
@@ -340,6 +359,7 @@
 
 - (IBAction)clickMyFollow:(id)sender
 { 
+    [self setRefreshHeaderViewEnable:NO];
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
     [self.filterBarButton setHidden:YES];
@@ -461,7 +481,8 @@
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
         return;
-        [self loadMatch:matchScoreType];
+    
+    [self loadMatch:matchScoreType];
     
 }
 
@@ -497,4 +518,23 @@
     [[self dataTableView] reloadData];
 }
 
+
+#pragma refreshHeaderView callback method.
+
+- (void) reloadTableViewDataSource
+{
+//	NSLog(@"Please override reloadTableViewDataSource");    
+//    [self clickRefleshButton];
+    
+    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) {
+        return;
+    }
+    [self loadMatch:matchScoreType];
+    
+    
+    // after finish loading data, please call the following codes
+    // [refreshHeaderView setCurrentDate];  	
+	// [self dataSourceDidFinishLoadingNewData];
+    
+}
 @end

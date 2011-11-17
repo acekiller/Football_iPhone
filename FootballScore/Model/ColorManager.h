@@ -43,8 +43,7 @@
 
 +(UIColor*)HideMatchesInforNumColor;
 +(UIColor*)HideMatchesInforColor;
-
-
++(UIColor*)scrollViewBackgroundColor;
 
 //AlertController 
 
@@ -57,7 +56,9 @@
 +(UIColor*)scoreIndexTitleCellBackgroundColor;
 +(UIColor*)scoreIndexCellBackgroundColor;
 
-
-
+//OddsRealTimeColor
++(UIColor *)oddsIncreaseColor;
++(UIColor *)oddsDecreaseColor;
++(UIColor *)oddsUnchangeColor;
 
 @end

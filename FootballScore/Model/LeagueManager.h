@@ -18,10 +18,24 @@
 @property (nonatomic, retain) NSMutableArray* leagueArray;
 @property (nonatomic, retain) NSMutableDictionary* leagueData;
 
-+ (LeagueManager*)defaultManager;
+
+
++ (LeagueManager*)defaultManager; // for match
+
++ (LeagueManager*)defaultIndexManager;  //for match index 
+
+
+
+
 
 // parse league from request string
 + (NSArray*)fromString:(NSArray*)stringArray;
+
+// parse index league from request string
++ (NSArray*)fromIndexString:(NSArray*)stringArray;
+
+
+
 
 // update league data (array/dict)
 - (void)updateLeague:(NSArray*)updateArray;
@@ -33,4 +47,6 @@
 
 @end
 
-extern LeagueManager* GlobalLeagueManager();
+
+extern LeagueManager* GlobalLeagueManager(); //for  match 
+extern LeagueManager* GlobalLeagueIndexManager(); // for match index 

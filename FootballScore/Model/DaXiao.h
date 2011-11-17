@@ -34,4 +34,8 @@
           bigBallOdds:(NSString*)bigBallOddsValue 
         smallBallOdds:(NSString*)smallBallOddsValue;
 
+- (void)updateInstantOdds:(NSString*)instantOddsValue 
+              bigBallOdds:(NSString*)bigBallOddsValue 
+            smallBallOdds:(NSString*)smallBallOddsValue;
+
 @end
