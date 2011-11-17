@@ -57,7 +57,9 @@
 +(UIColor*)scoreIndexTitleCellBackgroundColor;
 +(UIColor*)scoreIndexCellBackgroundColor;
 
-
-
+//OddsRealTimeColor
++(UIColor *)oddsIncreaseColor;
++(UIColor *)oddsDecreaseColor;
++(UIColor *)oddsUnchangeColor;
 
 @end

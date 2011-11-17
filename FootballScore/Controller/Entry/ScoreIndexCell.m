@@ -90,6 +90,37 @@
         default:
             break;
     }
+    
+    if (odds && (time(0) - odds.lastModifyTime < 10)) {
+        //home odds
+        if ([odds homeTeamOddsFlag] == ODDS_INCREASE) {
+            [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
+        }else if([odds homeTeamOddsFlag] == ODDS_DECREASE){
+            [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
+        }else{
+            [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
+        }
+        
+        //away odds
+        if ([odds awayTeamOddsFlag] == ODDS_INCREASE) {
+            [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
+        }else if([odds awayTeamOddsFlag] == ODDS_DECREASE){
+            [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
+        }else{
+            [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
+        }
+        
+        //pankou
+        if ([odds pankouFlag] == ODDS_INCREASE) {
+            [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
+        }else if([odds homeTeamOddsFlag] == ODDS_DECREASE){
+            [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
+        }else{
+            [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
+        }
+        
+    }
+    
 }
 
 - (void)dealloc {

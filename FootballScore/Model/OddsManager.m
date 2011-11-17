@@ -9,6 +9,10 @@
 #import "OddsManager.h"
 #import "match.h"
 #import "TimeUtils.h"
+#import "Odds.h"
+#import "YaPei.h"
+#import "DaXiao.h"
+#import "OuPei.h"
 
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
@@ -114,4 +118,54 @@ OddsManager* GlobleGetOddsManager()
     return nil;
 }
 
+- (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType
+{
+    if (realtimeOddsArray == nil || [realtimeOddsArray count] == 0) {
+        return nil;
+    }
+    
+    NSMutableSet *retSet = [[[NSMutableSet alloc] init] autorelease];
+    
+    for (NSArray * data in realtimeOddsArray) {
+        if (data && [data count] == ODDS_REALTIME_INDEX_COUNT) {
+            NSString *matchId = [data objectAtIndex:INDEX_OF_MATCH_ID_ODDS];
+            NSString *companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID_ODDS];
+            NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
+            NSString *homeTeamOdds = nil;
+            NSString *pankou = nil;
+            
+            if (oddsType == ODDS_TYPE_OUPEI) {
+                homeTeamOdds = [data objectAtIndex:INDEX_OF_PANKOU];
+                pankou = [data objectAtIndex:INDEX_OF_HOME_ODDS];
+            }else{
+                pankou = [data objectAtIndex:INDEX_OF_PANKOU];
+                homeTeamOdds = [data objectAtIndex:INDEX_OF_HOME_ODDS];
+            }
+            
+            //judge the change and call delegate method to update the interface
+            Odds *odds = [[OddsManager defaultManager]getOddsByMatchId:matchId companyId:companyId oddsType:oddsType];
+            
+            if (odds) {
+                switch ([odds oddsType]) {
+                    case ODDS_TYPE_YAPEI:
+                        [(YaPei *)odds updateHomeTeamOdds:homeTeamOdds awayTeamOdds:awayTeamOdds instantOdds:pankou];
+                        break;
+                    case ODDS_TYPE_OUPEI:
+                        [(OuPei *)odds updateHomeWinInstantOdds:homeTeamOdds drawInstantOdds:pankou awayWinInstantsOdds:awayTeamOdds];
+                        break;
+                        
+                    case ODDS_TYPE_DAXIAO:
+                        [(DaXiao *)odds updateInstantOdds:pankou bigBallOdds:homeTeamOdds smallBallOdds:awayTeamOdds];
+                        break;
+                        
+                    default:
+                        break;
+                }
+                [retSet addObject:odds];
+            }
+            
+        }
+    }
+    return retSet;
+}
 @end

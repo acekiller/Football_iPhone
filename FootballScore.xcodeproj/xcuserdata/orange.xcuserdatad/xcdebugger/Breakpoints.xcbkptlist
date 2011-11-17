@@ -120,13 +120,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "FootballScore/Controller/Index/SelectIndexController.m"
-         timestampString = "342694251.221038"
+         filePath = "FootballScore/Service/OddsService.m"
+         timestampString = "343132024.050567"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "330"
-         endingLineNumber = "330"
-         landmarkName = "-createButtonsByArray:"
+         startingLineNumber = "201"
+         endingLineNumber = "201"
+         landmarkName = "-getOddsListByDate:companyIdArray:language:matchType:oddsType:delegate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -134,27 +134,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "FootballScore/Controller/Index/SelectIndexController.m"
-         timestampString = "342694251.221038"
+         filePath = "FootballScore/Controller/Entry/RealtimeIndexController.m"
+         timestampString = "343186306.0223"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "295"
-         endingLineNumber = "295"
-         landmarkName = "+createButtonScrollViewByButtonArray:buttonsPerLine:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "FootballScore/Controller/Index/SelectIndexController.m"
-         timestampString = "342694251.221038"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "325"
-         endingLineNumber = "325"
-         landmarkName = "+createButtonScrollViewByButtonArray:buttonsPerLine:"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
+         landmarkName = "-refleshData"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -22,14 +22,21 @@
 #import "ColorManager.h"
 #import "LeagueManager.h"
 #import "MatchManager.h"
+#import "LanguageManager.h"
+
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
+@synthesize companyIdArray;
+@synthesize oddsDate;
+@synthesize matchType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.matchType = 0;
+        self.oddsDate = nil;
     }
     return self;
 }
@@ -54,14 +61,11 @@
 
 
 -(IBAction)clickSelectLeagueController:(id)sender{
-    
-    
-//    [SelectLeagueController show:self  LeagueManagerleagueIdArray: [[LeagueManager defaultIndexManager] leagueArray] MatchManagerfilterLeagueIdList:  [[OddsManager defaultManager] filterLeagueIdList] ];
-    
-    
-     [SelectLeagueController show:self  LeagueManagerleagueIdArray:  [[LeagueManager defaultIndexManager] leagueArray] MatchManagerfilterLeagueIdList:  [[OddsManager defaultManager] filterLeagueIdList] ];
+        
+     [SelectLeagueController show:self  
+                    leagueIdArray:[[LeagueManager defaultIndexManager] leagueArray] 
+               filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
-
 
 - (void)didSelectLeague:(NSSet *)selectedLeagueArray
 {
@@ -86,9 +90,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    OddsService* service = [[OddsService alloc] init];
+    OddsService* service = GlobalGetOddsService();
     NSArray* array = [NSArray arrayWithObjects:@"14",@"1",nil];
-    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:1 delegate:self];
+    
+    [service getOddsListByDate:nil companyIdArray:array language:0 matchType:0 oddsType:3 delegate:self];
+    
+    [service startGetRealtimOddsTimer:3 delegate:self];
     
     OddsManager* manager = [OddsManager defaultManager];
     self.matchOddsList  = [[NSMutableDictionary alloc] init];
@@ -116,9 +123,7 @@
 
 - (IBAction)clickContentFilterButton:(id)sender
 {
-    SelectIndexController *vc = [[SelectIndexController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    [SelectIndexController show:self];
 }
 
 - (IBAction)clickSearcHistoryBackButton:(id)sender
@@ -232,9 +237,9 @@
     
 }
 
-- (void)getRealtimeOddsFinish
+- (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
 {
-    
+    [self.dataTableView reloadData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -272,6 +277,54 @@
     
 }
 
+#pragma mark -
+#pragma delegate
+
+- (void) SelectCompanyFinish
+{
+    [self refleshData];
+}
+
+- (void)refleshData
+{
+    int type = [[CompanyManager defaultCompanyManager] selectedOddsType];
+    NSArray* selectedCompanyArray = [[CompanyManager defaultCompanyManager].selectedCompany allObjects];
+    NSMutableArray* selectedCompanyIdArray = [[NSMutableArray alloc] init ];
+    for (Company* company in selectedCompanyArray) {
+        [selectedCompanyIdArray addObject:company.companyId];
+    }
+    
+    OddsService* service = GlobalGetOddsService();
+    [service getOddsListByDate:oddsDate companyIdArray:selectedCompanyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:type delegate:self];
+    OddsManager* manager = [OddsManager defaultManager];
+//    self.matchOddsList  = [[NSMutableDictionary alloc] init];
+    [self.matchOddsList removeAllObjects];
+    switch (type) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in manager.yapeiArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in manager.oupeiArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in manager.daxiaoArray) {
+                [self.matchOddsList setObject:odds forKey:odds.matchId];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
+    self.dataList = [matchOddsList allKeys];
+    [self.dataTableView reloadData];
+}
 
 @end
 
@@ -317,5 +370,8 @@
     }
     return self;
 }
+
+
+
 
 @end

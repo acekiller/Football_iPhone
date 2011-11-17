@@ -59,6 +59,11 @@ MatchService *GlobalGetMatchService()
     FootballScoreAppDelegate* delegate = (FootballScoreAppDelegate*)[[UIApplication sharedApplication] delegate];    
     return [delegate matchService];                
 }
+OddsService *GlobalGetOddsService()
+{
+    FootballScoreAppDelegate* delegate = (FootballScoreAppDelegate*)[[UIApplication sharedApplication] delegate];    
+    return [delegate oddsService];                
+}
 
 @implementation FootballScoreAppDelegate
 
@@ -68,6 +73,7 @@ MatchService *GlobalGetMatchService()
 @synthesize reviewRequest;
 @synthesize matchService;
 @synthesize matchController;
+@synthesize oddsService;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -172,8 +178,8 @@ enum
 
 - (void)initOddsSerivce
 {
-    OddsService* service = [[OddsService alloc] init];
-    [service updateAllBetCompanyList];
+    self.oddsService = [[OddsService alloc] init];
+    [self.oddsService updateAllBetCompanyList];
 }
 
 - (void)userRegister
@@ -385,6 +391,8 @@ enum
     [reviewRequest release];
     [matchService release];
 	[matchController release];
+    [oddsService release];
+
     [super dealloc];
 }
 
