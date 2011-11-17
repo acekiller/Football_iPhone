@@ -135,7 +135,7 @@
 -(IBAction)clickSelectLeagueController:(id)sender{
     
     [SelectLeagueController show:self  
-                   leagueIdArray:[[LeagueManager defaultIndexManager] leagueArray] 
+                   leagueIdArray:[[OddsManager defaultManager] leagueArray] 
               filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
 

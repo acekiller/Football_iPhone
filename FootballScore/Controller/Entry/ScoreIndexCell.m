@@ -46,7 +46,7 @@
 
 + (CGFloat)getCellHeight
 {
-    return 64.0f;
+    return 51.0f;
 }
 
 - (void)setCellInfo:(Odds*)odds company:(Company*)company oddsType:(int)type
