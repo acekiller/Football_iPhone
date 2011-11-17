@@ -239,8 +239,6 @@
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
     
-    
-    NSLog(@"showScoreAlert yes yeah hhheheh h :");
 }
 
 - (void)showRecommendation

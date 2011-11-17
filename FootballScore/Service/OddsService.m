@@ -351,7 +351,7 @@ enum OUPEI_INDEX {
 }
 
 #ifndef REALTIME_ODDS_TIMER_INTERVAL 
-    #define REALTIME_ODDS_TIMER_INTERVAL 10
+    #define REALTIME_ODDS_TIMER_INTERVAL 3
 #endif
 
 - (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate

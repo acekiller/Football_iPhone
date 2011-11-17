@@ -131,6 +131,13 @@ const int buttonsPerLine = 4;
     }
     scrollView.contentSize = CGSizeMake(320, (leagueNumber/4+1)*(buttonHigh+buttonSepratorY));
     
+    //set the scrollView background Color 
+    [scrollView setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
+    
+    
+    
+       
+    
 }
 
 - (void)viewDidLoad

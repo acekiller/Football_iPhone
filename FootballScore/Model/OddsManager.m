@@ -197,7 +197,10 @@ OddsManager* GlobleGetOddsManager()
                     default:
                         break;
                 }
-                [retSet addObject:odds];
+ 
+                if (odds.homeTeamOddsFlag != 0 | odds.awayTeamOddsFlag != 0 | odds.pankouFlag != 0) {
+                    [retSet addObject:odds];
+                }
             }
             
         }
