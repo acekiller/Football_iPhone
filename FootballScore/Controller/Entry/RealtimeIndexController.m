@@ -24,6 +24,7 @@
 #import "MatchManager.h"
 #import "LanguageManager.h"
 
+
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
 @synthesize companyIdArray;
@@ -67,6 +68,9 @@
                filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
 
+
+#pragma Select Leaguge Delegate
+
 - (void)didSelectLeague:(NSSet *)selectedLeagueArray
 {
     // filter data list by league data
@@ -82,7 +86,10 @@
     
     
 }
-
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray
+{
+    return [[OddsManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
+}
 
 
 #pragma mark - View lifecycle

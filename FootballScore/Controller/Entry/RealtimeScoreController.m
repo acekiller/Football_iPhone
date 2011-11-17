@@ -315,6 +315,8 @@
     [self showActionSheet:sender];
 }
 
+#pragma Select Leaguge Delegate
+
 - (void)didSelectLeague:(NSSet *)selectedLeagueArray
 {
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW)
@@ -325,6 +327,11 @@
     self.dataList = [manager filterMatch];
     [[self dataTableView] reloadData];
     
+}
+
+- (int)calculateHiddenMatchCount:(NSMutableSet*)selectLeagueIdArray
+{
+    return [[MatchManager defaultManager] getHiddenMatchCount:selectLeagueIdArray];
 }
 
 - (IBAction)clickSelectMatchStatus:(id)sender
