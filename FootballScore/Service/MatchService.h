@@ -66,6 +66,8 @@
 - (void)stopAllUpdates;
 - (void)startAllUpdates:(id<MatchServiceDelegate>)delegate 
          matchScoreType:(int)matchScoreType;
+- (void)stopRealtimeMatchUpdate;
+- (void)startRealtimeMatchUpdate;
 
 
 @end

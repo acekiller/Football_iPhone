@@ -109,6 +109,7 @@ enum
     [matchService setMatchControllerDelegate:self.matchController];    
     [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
     [matchService updateLatestFollowMatch];
+    [matchService startRealtimeMatchUpdate];
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -275,6 +276,7 @@ enum
 	
     NSLog(@"application stop update data");
     [self.matchService stopAllUpdates];
+    [self.matchService stopRealtimeMatchUpdate];
     
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[self releaseResourceForAllViewControllers];	
@@ -311,6 +313,7 @@ enum
     
     [MobClick appLaunched];
     [self userRegister];
+    [self.matchService startRealtimeMatchUpdate];
 //    [appService startAppUpdate];
     
 }

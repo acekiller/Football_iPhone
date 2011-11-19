@@ -78,14 +78,15 @@
     [realtimeMatchTimer invalidate];
     self.realtimeScoreTimer = nil;
     
-    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
-    if ([queue operationCount] > 0){
-        [queue cancelAllOperations];        
-    } 
+//    NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
+//    if ([queue operationCount] > 0){
+//        [queue cancelAllOperations];        
+//    } 
 }
 
 - (void)startRealtimeMatchUpdate
 {
+    //it used to update realtime match info every half an hour,for the match info may change during this time
     NSLog(@"<startRealtimeMatcheUpdate>");
     
     // stop timer firstly
@@ -260,7 +261,7 @@
 - (void)startAllUpdates:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
 {
     [self getRealtimeMatch:delegate matchScoreType:matchScoreType];
-    [self startRealtimeMatchUpdate];
+    //[self startRealtimeMatchUpdate];
 }
 
 - (void)addRealtimeMatchUpdateToQueue:(id<MatchServiceDelegate>)delegate matchScoreType:(int)matchScoreType
