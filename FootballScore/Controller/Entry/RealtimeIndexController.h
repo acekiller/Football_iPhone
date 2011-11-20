@@ -18,13 +18,14 @@
     NSDate* oddsDate;
     int oddsType;
     int matchType;
-        
+    NSMutableSet *hideSectionSet;
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 @property (nonatomic, retain) NSMutableArray* companyIdArray;
 @property (nonatomic, retain) NSDate* oddsDate;
 @property (nonatomic, assign) int matchType;
 @property (nonatomic, assign) int oddsType;
+@property (nonatomic, retain) NSMutableSet *hideSectionSet;
 
 - (IBAction)clickContentFilterButton:(id)sender;
 - (IBAction)clickSearcHistoryBackButton:(id)sender;
@@ -33,7 +34,9 @@
 - (void)refleshOddsType;
 - (void)refleshCompanyIdArray;
 - (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet;
-
+- (BOOL)isSectionHide:(NSInteger)section;
+- (void)addSectionToHideSet:(NSInteger)section;
+- (void)removeSectionFromHideSet:(NSInteger)section;
 @end
 
 

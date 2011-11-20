@@ -31,6 +31,7 @@
 @synthesize oddsDate;
 @synthesize matchType;
 @synthesize oddsType;
+@synthesize hideSectionSet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +41,7 @@
         self.matchType = 0;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
         self.companyIdArray = [[NSMutableArray alloc] init ];
+        self.hideSectionSet = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -47,6 +49,9 @@
 - (void)dealloc
 {
     [matchOddsList release];
+    [hideSectionSet release];
+    [companyIdArray release];
+    [oddsDate release];
     [super dealloc];
 }
 
@@ -189,11 +194,14 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSNumber *number = [NSNumber numberWithInt:section];
+    if ([self.hideSectionSet containsObject:number]) {
+        return 0;
+    }
     NSString* key = [self.dataList objectAtIndex:section];
     NSArray* array = [self.matchOddsList valueForKey:key];
 	return [array count] + 1;
 }
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,15 +235,66 @@
 }
 
 
+#pragma headerView action 
+-(void)headerViewAction:(id)sender
+{
+    NSInteger section = [(UIButton *)sender tag];
+    BOOL hideFlag = [self isSectionHide:section];
+    if (hideFlag) {
+        [self removeSectionFromHideSet:section];
+    }else{
+        [self addSectionToHideSet:section];
+    }
+    
+    NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:section];
+    [self.dataTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+    [indexSet release];
+    
+    NSIndexPath *lastVisibleIndexpath = [[self.dataTableView indexPathsForVisibleRows] lastObject];
+    if (section == lastVisibleIndexpath.section) {
+        NSInteger index = [self tableView:self.dataTableView numberOfRowsInSection:section];
+        if (index > 0) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:index - 1 inSection:section];
+            [self.dataTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString* matchId = [self.dataList objectAtIndex:section];
-    return [[[RealtimeIndexHeaderView alloc]initWithMatchId:matchId]autorelease];
+    RealtimeIndexHeaderView* header = [[[RealtimeIndexHeaderView alloc]initWithMatchId:matchId]autorelease];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:header.bounds];
+    [button setTag:section];
+    [button addTarget:self action:@selector(headerViewAction:) forControlEvents:UIControlEventTouchUpInside];
+    [header addSubview:button];
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
+
+
+
+- (BOOL)isSectionHide:(NSInteger)section
+{
+    NSNumber *number = [NSNumber numberWithInt:section];
+    return [self.hideSectionSet containsObject:number];
+}
+- (void)addSectionToHideSet:(NSInteger)section
+{
+    NSNumber *number = [NSNumber numberWithInt:section];
+    [self.hideSectionSet addObject:number];
+}
+- (void)removeSectionFromHideSet:(NSInteger)section
+{
+    NSNumber *number = [NSNumber numberWithInt:section];
+    [self.hideSectionSet removeObject:number];
+}
+
 
 #pragma remote request delegate
 #pragma -
@@ -267,6 +326,7 @@
             break;
     }
     self.dataList = [matchOddsList allKeys];
+    [self.hideSectionSet removeAllObjects];
     [self.dataTableView reloadData];
     
 }
@@ -357,6 +417,7 @@
             break;
     }
     self.dataList = [matchOddsList allKeys];
+    [self.hideSectionSet removeAllObjects];
     [self.dataTableView reloadData];
 }
 
@@ -371,6 +432,7 @@
 @implementation RealtimeIndexHeaderView
 
 #define HEADER_HEIGHT 30
+#define BUTTON_TAG 1223
 - (id)initWithMatchId:(NSString *)matchId
 {
 
@@ -402,8 +464,6 @@
     }
     return self;
 }
-
-
 
 
 @end
