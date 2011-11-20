@@ -316,9 +316,8 @@ enum OUPEI_INDEX {
         CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeOdds:realTimeOddsType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-                        
+            NSSet* oddsUpdateSet = nil;
             if (output.resultCode == ERROR_SUCCESS){
-                NSSet* oddsUpdateSet = nil;
                 if ([output.arrayData count] > 0) {
                     NSArray* segment = [output.arrayData objectAtIndex:0];
                     
@@ -329,17 +328,17 @@ enum OUPEI_INDEX {
                         NSLog(@"segment format error:%@",[segment description]);
                     }
                     
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(getRealtimeOddsFinish:oddsType:)]) {
-                        [self.delegate getRealtimeOddsFinish:oddsUpdateSet oddsType:realTimeOddsType];
-                    }
-                    
                 }
                 else {
                     NSLog(@"no odds change list updated");
                 }   
            
             }
-
+            if (self.delegate && [self.delegate respondsToSelector:
+                                  @selector(getRealtimeOddsFinish:oddsType:)]) {
+                [self.delegate getRealtimeOddsFinish:oddsUpdateSet 
+                                            oddsType:realTimeOddsType];
+            }
             [self startGetRealtimOddsTimer:realTimeOddsType delegate:self.delegate];
         });                        
     }];

@@ -88,13 +88,15 @@
 }
 
 
+
+
 - (void)setLeftBarLogo
 {
     UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     
-    UIImageView *liveIndexLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
-    [leftTopBarView addSubview:liveIndexLogo];
-    [liveIndexLogo release];
+    UIImageView *liveLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"odds_logo.png"]];
+    [leftTopBarView addSubview:liveLogo];
+    [liveLogo release];
     
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
     [leftTopBarView release];
@@ -105,15 +107,45 @@
     
 }
 
+- (void)clickRefleshButton
+{
+    if (self.oddsType < 1 || self.oddsType > 3) {
+        return;
+    }
+    [self showActivityWithText:@"加载数据中..."];
+    [GlobalGetOddsService() getRealtimeOdds];
 
+}
+- (void)setRightBarButton
+{
+    float buttonHigh = 27.5;
+    float buttonLen = 47.5;
+    float refeshButtonLen = 32.5;
+    float seporator = 5;
+    float leftOffest = 20;
+    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
+    
+    UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refeshButtonLen, buttonHigh)];
+    [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    [refleshButton setTitle:@"" forState:UIControlStateNormal];
+    [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [refleshButton addTarget:self action:@selector(clickRefleshButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:refleshButton];
+    [refleshButton release];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    [rightButtonView release];
+    
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    [rightBarButton release];
+}
 
 #pragma mark - View lifecycle
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [self setLeftBarLogo];
+    [self setRightBarButton];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
@@ -302,7 +334,6 @@
 
 - (void)getOddsListFinish
 {
-    [self hideActivity];
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
     switch (oddsType) {
@@ -331,15 +362,16 @@
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
     [self.dataTableView reloadData];
+    [self hideActivity];
     
 }
 
 - (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
 {
+    [self hideActivity];
     if ([oddsSet count] != 0) {
         [self.dataTableView reloadData];    
     }
-    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
