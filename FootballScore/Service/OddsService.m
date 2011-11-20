@@ -17,6 +17,7 @@
 #import "League.h"
 #import "Match.h"
 #import "LeagueManager.h"
+#import "MatchManager.h"
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
 #define GET_REALTIME_ODDS @"GET_REALTIME_ODDS"
@@ -180,11 +181,6 @@ enum OUPEI_INDEX {
                          NSLog(@"Get league array error:%@",[leagueArray description]);
                      }
                      
-                     
-                     
-                     
-                     
-                     
                      //  Tom add this 
                      
                      // parse league data and update        
@@ -196,11 +192,7 @@ enum OUPEI_INDEX {
                      
                      [[LeagueManager defaultIndexManager] updateLeague:indexLeagueArray];
                      
-                     
-
-                     
-                     
-                     
+                     NSMutableArray *matchIndexArray = [[NSMutableArray alloc]init];
                      
                      if ([matchArray count] > 0) {
                          [manager.matchArray removeAllObjects];
@@ -213,13 +205,16 @@ enum OUPEI_INDEX {
                              
                              Match* match = [[Match alloc] initWithId:matchId leagueId:leagueId date:matchTime homeTeamName:homeTeamName awayTeamName:awayTeamName];
                              [manager.matchArray addObject:match];
+                             [matchIndexArray addObject:match];
                              [match release];
                          }
                      }
                      else {
                          NSLog(@"Get match error:%@",[matchArray description]);
                      }
-                     
+                     [[MatchManager defaultMatchIndexManger]updateAllMatchArray:matchIndexArray];
+                     [matchIndexArray release];
+                      
                      if ([oddsArray count] > 0) {
                          switch (oddsType) {
                              case ODDS_TYPE_YAPEI:

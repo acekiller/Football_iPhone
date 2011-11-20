@@ -361,7 +361,6 @@
 @end
 
 
-#import "MatchManager.h"
 #import "Match.h"
 #import "TimeUtils.h"
 #import "OHAttributedLabel.h"
@@ -374,9 +373,9 @@
 {
 
     self = [super initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT)];
-    Match *match = [[MatchManager defaultManager]getMathById:matchId];
+    Match *match = [[MatchManager defaultMatchIndexManger]getMathById:matchId];
     if (self && match) {
-        NSString *leagueName = [[MatchManager defaultManager] getLeagueNameByMatch:match];
+        NSString *leagueName = [[LeagueManager defaultIndexManager]getNameById:match.leagueId];
         NSString *dateString = dateToStringByFormat(match.date, @"MM/dd");
         NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
         NSString *leagueDate = [NSString stringWithFormat:@"   %@ %@",leagueName,dateString];

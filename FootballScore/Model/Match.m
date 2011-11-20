@@ -136,7 +136,7 @@
     homeTeamName:(NSString*)homeTeamNameValue 
     awayTeamName:(NSString*)awayTeamNameValue
 {
-    [super init];
+    self = [super init];
     if (self) {
         self.matchId = idValue;
         self.leagueId = leagueIdValue;

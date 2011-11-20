@@ -39,7 +39,8 @@
 @property (nonatomic, retain) NSMutableArray*   followMatchArray;
 
 
-+ (MatchManager*)defaultManager;
++ (MatchManager *)defaultManager;
++ (MatchManager *)defaultMatchIndexManger;
 + (NSArray*)fromString:(NSArray*)stringArray;
 
 - (void)updateServerDate:(NSDate*)newServerDate;

@@ -21,6 +21,7 @@
 #define FOLLOW_MATCH_LIST        @"FOLLOW_MATCH_LIST"
 
 MatchManager* matchManager;
+MatchManager* matchIndexManager;
 
 MatchManager* GlobalGetMatchManager()
 {
@@ -29,6 +30,15 @@ MatchManager* GlobalGetMatchManager()
     }
     
     return matchManager;
+}
+
+MatchManager* GlobalGetMatchIndexManager()
+{
+    if (matchIndexManager == nil){
+        matchIndexManager = [[MatchManager alloc] init];
+    }
+    
+    return matchIndexManager;
 }
 
 @implementation MatchManager
@@ -45,6 +55,13 @@ MatchManager* GlobalGetMatchManager()
 {
     return GlobalGetMatchManager();
 }
+
+
++ (MatchManager *)defaultMatchIndexManger
+{
+    return GlobalGetMatchIndexManager();
+}
+
 
 #pragma LOAD/SAVE FILTER LEAGUE
 #pragma mark
@@ -136,16 +153,19 @@ MatchManager* GlobalGetMatchManager()
 - (id)init
 {
     self = [super init];    
-    filterLeagueIdList = [[NSMutableSet alloc] init];
-    [self loadFilterLeagueIdList];
-    
-    followMatchList = [[NSMutableDictionary alloc] init];
-    [self loadFollowMatchList];
-    
-    serverDate = [[NSDate date] retain];
-    
-    filterMatchStatus = MATCH_SELECT_STATUS_ALL;
-    filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
+    if (self) {
+        filterLeagueIdList = [[NSMutableSet alloc] init];
+        [self loadFilterLeagueIdList];
+        
+        followMatchList = [[NSMutableDictionary alloc] init];
+        [self loadFollowMatchList];
+        
+        serverDate = [[NSDate date] retain];
+        
+        filterMatchStatus = MATCH_SELECT_STATUS_ALL;
+        filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
+    }
+
     
     return self;
 }
