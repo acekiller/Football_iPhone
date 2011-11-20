@@ -243,6 +243,7 @@
 
 - (void)getOddsListFinish
 {
+    [self hideActivity];
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
     switch (oddsType) {
@@ -306,6 +307,7 @@
 {
     OddsService* service = GlobalGetOddsService();
     [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
+    [self showActivityWithText:FNS(@"加载中...")];
 
 }
 
@@ -366,7 +368,7 @@
     self.dataList = [[self.matchOddsList allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         Match* match1 = [[MatchManager defaultMatchIndexManger]getMathById:obj1];
         Match* match2 = [[MatchManager defaultMatchIndexManger]getMathById:obj2];
-        return [match2.date compare:match1.date];
+        return [match1.date compare:match2.date];
     }];
                 
 }
