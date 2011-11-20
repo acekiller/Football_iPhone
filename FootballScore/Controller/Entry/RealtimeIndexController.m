@@ -381,7 +381,7 @@
 
 @implementation RealtimeIndexHeaderView
 
-#define HEADER_HEIGHT 33.5
+#define HEADER_HEIGHT 30
 - (id)initWithMatchId:(NSString *)matchId
 {
 
@@ -400,14 +400,13 @@
         NSRange range2 = [title rangeOfString:teamString];
         
         [aString setFont:[UIFont systemFontOfSize:12.0] range:range1];
-        [aString setFont:[UIFont systemFontOfSize:16.0] range:range2];
-        [aString setTextColor:[UIColor grayColor] range:range1];
-        [aString setTextColor:[UIColor blackColor] range:range2];
+        [aString setFont:[UIFont systemFontOfSize:14.0] range:range2];
+        [aString setTextColor:[UIColor whiteColor] range:range1];
+        [aString setTextColor:[UIColor whiteColor] range:range2];
         
         aLabel.attributedText = aString;
-
-        [self.layer setContents:(id)[UIImage imageNamed:@"odds_se_bg.png"].CGImage];
-        
+        [self setCenter:aLabel.center];
+        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.jpg"].CGImage];
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
         [aLabel release];
