@@ -15,17 +15,10 @@
 @end
 
 @interface UserFeedbackController : PPViewController
-{
-    UILabel *versionInfo;
-    
+{    
     id<UserFeedbackControllerDelegate> delegate;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *versionInfo;
-
-
-
-- (void)versionInfoInit;
 - (IBAction)clickOnSendButton:(id)sender;
 
 @end

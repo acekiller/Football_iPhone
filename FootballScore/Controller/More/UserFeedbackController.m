@@ -10,7 +10,6 @@
 #import "LocaleConstants.h"
 
 @implementation UserFeedbackController
-@synthesize versionInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,10 +39,9 @@
 
 - (void)viewDidLoad
 {
-    [self versionInfoInit];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [self.view setBackgroundColor:[UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1]];
     self.navigationItem.title = FNS(@"信息反馈");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];
@@ -51,7 +49,6 @@
 
 - (void)viewDidUnload
 {
-    [self setVersionInfo:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -64,14 +61,9 @@
 }
 
 - (void)dealloc {
-    [versionInfo release];
     [super dealloc];
 }
 
-- (void)versionInfoInit
-{
-    versionInfo.text = [NSString stringWithFormat:@"比分客户端\n版本号\n版本信息\n"];
-}
 
 - (IBAction)clickOnSendButton:(id)sender
 {
