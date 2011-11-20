@@ -23,6 +23,7 @@
 #import "LeagueManager.h"
 #import "MatchManager.h"
 #import "LanguageManager.h"
+#import "Match.h"
 
 
 @implementation RealtimeIndexController
@@ -327,6 +328,7 @@
     }
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
+    [self updateHeaderMatch];
     [self.dataTableView reloadData];
     
 }
@@ -416,9 +418,20 @@
         default:
             break;
     }
-    self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
+    self.dataList = [matchOddsList allKeys];
+    [self updateHeaderMatch];
     [self.dataTableView reloadData];
+}
+
+- (void)updateHeaderMatch
+{
+    self.dataList = [[self.matchOddsList allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Match* match1 = [[MatchManager defaultMatchIndexManger]getMathById:obj1];
+        Match* match2 = [[MatchManager defaultMatchIndexManger]getMathById:obj2];
+        return [match2.date compare:match1.date];
+    }];
+                
 }
 
 @end

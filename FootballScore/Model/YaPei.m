@@ -43,6 +43,18 @@
     return self;
 
 }
+
+- (void)dealloc
+{
+    [chupan release];
+    [homeTeamChupan release];
+    [awayTeamChupan release];
+    [instantOdds release];
+    [homeTeamOdds release];
+    [awayTeamOdds release];
+    [super dealloc];
+}
+
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_YAPEI;

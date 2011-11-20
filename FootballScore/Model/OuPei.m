@@ -43,6 +43,17 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [homeWinInitOdds release];
+    [drawInitOdds release];
+    [awayWinInitOdds release];
+    [homeWinInstantOdds release];
+    [drawInstantOdds release];
+    [awayWinInstantsOdds release];
+    [super dealloc];
+}
+
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_OUPEI;

@@ -41,6 +41,18 @@
 
     return self;
 }
+
+- (void)dealloc
+{
+    [chupan release];
+    [bigBallChupan release];
+    [smallBallChupan release];
+    [instantOdds release];
+    [bigBallOdds release];
+    [smallBallOdds release];
+    [super dealloc];
+}
+
 -(ODDS_TYPE) oddsType
 {
     return ODDS_TYPE_DAXIAO;

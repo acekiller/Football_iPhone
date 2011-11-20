@@ -37,6 +37,8 @@
 - (BOOL)isSectionHide:(NSInteger)section;
 - (void)addSectionToHideSet:(NSInteger)section;
 - (void)removeSectionFromHideSet:(NSInteger)section;
+- (void)updateHeaderMatch;
+
 @end
 
 

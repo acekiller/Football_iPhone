@@ -71,6 +71,10 @@ const int buttonsPerLine = 4;
     [selectAllButton release];
     [selectNoneButton release];
     [hideMatchesUpDateInf release];
+    [hideMatchesLabel1 release];
+    [hideMatchesLabel2 release];
+    [leagueArray release];
+    [filterLeagueIdList release];
     [super dealloc];
 }
 
