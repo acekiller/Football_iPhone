@@ -198,6 +198,7 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
     if (indexPath.row == 0) {
         NSString *CellIdentifier = [ScoreIndexTitleCell getCellIdentifier];
         ScoreIndexTitleCell *cell = (ScoreIndexTitleCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -205,6 +206,7 @@
             cell = [ScoreIndexTitleCell createCell:self];
         }
         [cell.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
+        [cell setCellInfo:self.oddsType];
         return cell;
     }
     
