@@ -33,6 +33,7 @@
 - (void)refleshOddsType;
 - (void)refleshCompanyIdArray;
 - (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet;
+- (void)updateHeaderMatch;
 
 @end
 
