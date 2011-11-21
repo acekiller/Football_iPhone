@@ -75,11 +75,10 @@
 }
 
 
-- (void)setCellInfo:(ScoreUpdate *)scoreUpdate 
+- (void)setCellInfo:(ScoreUpdate *)scoreUpdate deleteFlag:(BOOL)deleteFlag 
 { 
-
     
-    //更新时间 ，颜色
+  //更新时间 ，颜色
     self.matchState.text =  scoreUpdate.updateMinute;
     self.matchState.textColor= [ColorManager matchStateTextColor];
     
@@ -141,6 +140,22 @@
     }
 
         [self.eventStateImage setImage:eventImage];
+    
+    if (deleteFlag) {
+        [self.eventStateImage setFrame:CGRectMake(40, 8, 23, 32)]; 
+        [self.leagueName setFrame:CGRectMake(78, 8, 42, 20)];
+        [self.startTime setFrame:CGRectMake(75, 26, 29, 15)];
+        [self.matchState setFrame:CGRectMake(104, 13, 31, 21)];
+        [self.homeTeam setFrame:CGRectMake(136, 0, 98, 28)];
+        [self.awayTeam setFrame:CGRectMake(136, 20, 98, 28)];
+    } else {
+        [self.eventStateImage setFrame:CGRectMake(10, 8, 23, 32)]; 
+        [self.leagueName setFrame:CGRectMake(38, 8, 42, 20)];
+        [self.startTime setFrame:CGRectMake(45, 26, 29, 15)];
+        [self.matchState setFrame:CGRectMake(74, 13, 31, 21)];
+        [self.homeTeam setFrame:CGRectMake(106, 0, 128, 28)];
+        [self.awayTeam setFrame:CGRectMake(106, 20, 128, 28)];
+    }
     
 }
 
