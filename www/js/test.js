@@ -6,7 +6,7 @@ function testDisplayMatchEventLocally(){
 
 //测试比赛事件（传matchId)
 function testDisplayMatchEventRemote(){
-	displayMatchEvent(true, "587978", 0); // TODO change match Id
+	displayMatchEvent(true, "561270", 0); // TODO change match Id
 }
 
 //测试欧赔
