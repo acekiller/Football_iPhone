@@ -16,6 +16,17 @@
 #import "Match.h"
 #import "ColorManager.h"
 
+#define HORIZONTAL_OFFSET 30
+
+const CGRect eventStateImageRect = {{10, 8}, {23, 32}};
+const CGRect leagueNameRect = {{38, 8}, {42, 20}};
+const CGRect startTimeRect = {{45, 26}, {29, 15}};
+const CGRect matchStateRect = {{74, 13}, {31, 21}};
+const CGRect homeTeamRect = {{106, 0}, {128, 28}};
+const CGRect awayTeamRect = {{106, 20}, {128, 28}};
+const CGRect homeTeamRectWithOffset = {{136, 0}, {98, 28}};
+const CGRect awayTeamRectWithOffset = {{136, 20}, {98, 28}};
+
 @implementation ScoreUpdateCell
 @synthesize leagueName;
 @synthesize startTime;
@@ -142,19 +153,19 @@
         [self.eventStateImage setImage:eventImage];
     
     if (deleteFlag) {
-        [self.eventStateImage setFrame:CGRectMake(40, 8, 23, 32)]; 
-        [self.leagueName setFrame:CGRectMake(78, 8, 42, 20)];
-        [self.startTime setFrame:CGRectMake(75, 26, 29, 15)];
-        [self.matchState setFrame:CGRectMake(104, 13, 31, 21)];
-        [self.homeTeam setFrame:CGRectMake(136, 0, 98, 28)];
-        [self.awayTeam setFrame:CGRectMake(136, 20, 98, 28)];
+        [self.eventStateImage setFrame:CGRectOffset(eventStateImageRect, HORIZONTAL_OFFSET, 0)]; 
+        [self.leagueName setFrame:CGRectOffset(leagueNameRect, HORIZONTAL_OFFSET, 0)];
+        [self.startTime setFrame:CGRectOffset(startTimeRect, HORIZONTAL_OFFSET, 0)];
+        [self.matchState setFrame:CGRectOffset(matchStateRect, HORIZONTAL_OFFSET, 0)];
+        [self.homeTeam setFrame:homeTeamRectWithOffset];
+        [self.awayTeam setFrame:awayTeamRectWithOffset];
     } else {
-        [self.eventStateImage setFrame:CGRectMake(10, 8, 23, 32)]; 
-        [self.leagueName setFrame:CGRectMake(38, 8, 42, 20)];
-        [self.startTime setFrame:CGRectMake(45, 26, 29, 15)];
-        [self.matchState setFrame:CGRectMake(74, 13, 31, 21)];
-        [self.homeTeam setFrame:CGRectMake(106, 0, 128, 28)];
-        [self.awayTeam setFrame:CGRectMake(106, 20, 128, 28)];
+        [self.eventStateImage setFrame:eventStateImageRect]; 
+        [self.leagueName setFrame:leagueNameRect];
+        [self.startTime setFrame:startTimeRect];
+        [self.matchState setFrame:matchStateRect];
+        [self.homeTeam setFrame:homeTeamRect];
+        [self.awayTeam setFrame:awayTeamRect];
     }
     
 }
