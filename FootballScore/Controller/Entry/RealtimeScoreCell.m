@@ -259,8 +259,8 @@ enum cardType{
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
-    CGRect middlePosition = CGRectMake(151, 21, 36, 20);
-    CGRect originalPosition = CGRectMake(151, 6, 36, 20);
+//    CGRect middlePosition = CGRectMake(151, 21, 36, 20);
+//    CGRect originalPosition = CGRectMake(151, 6, 36, 20);
     int matchStatus = [match.status intValue];
     
     switch (matchStatus) {
