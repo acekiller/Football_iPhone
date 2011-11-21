@@ -17,10 +17,10 @@ function getEventString(type){
 }
 
 var statArray = [
-    "先开球", "第一个角球", "第一张黄牌", "射门次数", "射正次数", "犯规次数", "角球次数", "角球次数(加时)", 
-    "任意球次数", "越位次数", "乌龙球数", "黄牌数", "黄牌数(加时)", "红牌数", "控球时间", "头球", "救球", 
-    "守门员出击", "丟球", "成功抢断", "阻截", "长传", "短传", "助攻", "成功传中", "第一个换人", "最后换人", 
-    "第一个越位", "最后越位", "换人数", "最后角球", "最后黄牌", "换人数(加时)", "越位次数(加时)", "红牌数(加时)"
+    "先开球", 	"第一个角球", "第一张黄牌", "射门次数", "射正次数", 	"犯规次数", "角球次数", "角球次数(加时)", "任意球次数", "越位次数", 	
+	"乌龙球数", 	"黄牌数",  	"黄牌数(加时)", "红牌数", "控球时间", 	"头球",    "救球",	 "守门员出击", 	"丟球", 		"成功抢断", 
+	"阻截", 		"长传", 		"短传", 		  "助攻",   "成功传中", 	"第一个换人","最后换人", "第一个越位", 	"最后越位", 	"换人数", 
+	"最后角球", 	"最后黄牌", 	"换人数(加时)", "越位次数(加时)", "红牌数(加时)"
     ];
 
 function MatchDetailView(){
@@ -100,10 +100,20 @@ function MatchDetailView(){
 	    },
 		
 		displayStat : function(type, value) {
+//			console.log("display event stat: type = "+type+", value="+value);
 			if (type == "0" && value == "*") {  	//先开球					
 				return "<img src=images/dwq.png />";
 			}
-			if (value == 1) {
+			else if (type == "2" && value == "*") { //第一张黄牌
+//				console.log("return <img src=images/yellowcard@2x.png />");
+				return "<img src=images/yellowcard.png />";
+			}
+			else if (type == "25" && value == "*") { //第一个换人
+				return "<img src=images/2.png />";
+			}
+			else if (value == "*") {         
+				return "<img src=images/dwq.png />";
+				/*       
 				if (type == "3" || type == "4" || type == "5" || type == "6" 
 				 || type == "7" || type == "8" || type == "9" || type == "10"
 				 || type == "11"|| type == "12"|| type == "13"|| type == "14"
@@ -115,12 +125,7 @@ function MatchDetailView(){
 				 } else {
 				 	return value;
 				 }
-			}
-			if (type == "2" && value == "1") { //第一张黄牌
-				return "<img src=images/yellowcard@2x.png />";
-			}
-			if (type == "25" && value == "1") { //第一个换人
-				return "<img src=images/2.png />";
+				 */
 			}
 			return value;
 		}
