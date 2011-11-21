@@ -49,7 +49,7 @@
 + (ScoreUpdateCell*)createCell:(id)delegate;
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
-- (void)setCellInfo:(ScoreUpdate *)scoreUpdate;
+- (void)setCellInfo:(ScoreUpdate *)scoreUpdate deleteFlag:(BOOL)deleteFlag;
 
 
 @end
