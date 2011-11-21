@@ -173,7 +173,7 @@
 
     }
     else {
-        if ([selectedBwin count] > 40000) {
+        if ([selectedBwin count] >= 4) {
             [alert show];
             [alert release];
             return;
@@ -195,8 +195,38 @@
     if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
         [delegate SelectCompanyFinish];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    UIButton *button = (UIButton*)sender;
+    UILabel *label = [button titleLabel];
+    NSString *title = label.text;
+    
+    if ([selectedBwin containsObject:title]) {
+        [selectedBwin removeObject:title];
+        [button setSelected:NO];
+
+    }
+
+    else {
+        if ([selectedBwin count] <= 0) {
+            
+        [self popupMessage:@"至少选择一间赔率公司" title:nil];
+            
+           return;
+        }
+        
+        
+        [selectedBwin addObject:title];
+        [button setSelected:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+
 }
+  
+    
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark these codes used to draw scrollView 
