@@ -426,9 +426,14 @@
 {
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
-
-    if (header.matchStatus == MATCH_STATUS_FIRST_HALF || header.matchStatus == MATCH_STATUS_SECOND_HALF || header.matchStatus == MATCH_STATUS_MIDDLE || 
-        header.matchStatus == MATCH_STATUS_FINISH) {
+    NSInteger status = header.matchStatus;
+    
+    if (status == MATCH_STATUS_FIRST_HALF 
+        || status == MATCH_STATUS_SECOND_HALF 
+        || status == MATCH_STATUS_MIDDLE 
+        || status == MATCH_STATUS_FINISH 
+        || status == MATCH_STATUS_PAUSE) 
+    {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
         [self.scoreButton setTitle:title forState:UIControlStateNormal];

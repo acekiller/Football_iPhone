@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class Match;
-
+@class ScoreUpdate;
 @interface ShowRealtimeScoreController : UIViewController
 {
     UILabel *leagueNameLabel;
@@ -32,7 +32,10 @@
 @property(nonatomic,retain) NSTimer *showTimer;
 
 
-+ (void)show:(UIView*)superView match:(Match*)match;
+//+ (void)show:(UIView*)superView match:(Match*)match;
+//+ (void)show:(Match *)match;
++ (void)show:(ScoreUpdate *)scoreUpdate;
++ (void)show:(UIView*)superView scoreUpdate:(ScoreUpdate *)scoreUpdate;
 - (void)updateViewByMatch:(Match*)newMatch;
 - (void)cancelDisplay;
 - (void)createHideTimer;

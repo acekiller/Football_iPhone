@@ -159,14 +159,12 @@
 	RealtimeScoreCell *cell = (RealtimeScoreCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
 	}		
     
     cell.indexPath = indexPath;
 
     Match* match = [self.dataList objectAtIndex:indexPath.row];
     [cell setCellInfo:match];
-	
 	return cell;	
 }
 
@@ -439,7 +437,7 @@
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
+   [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
@@ -447,7 +445,6 @@
     
     
     filterBarButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
-    [filterBarButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterBarButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [filterBarButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
@@ -455,8 +452,9 @@
     [filterBarButton.titleLabel setFont:font];
     [rightButtonView addSubview:filterBarButton];
     [filterBarButton release];
-    
+
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+
     [rightButtonView release];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;

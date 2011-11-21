@@ -190,5 +190,5 @@ enum{
 - (void)updateByHeaderInfo:(NSArray*)headerInfo;
 - (void)updateDate:(NSDate*)newDate startDate:(NSDate*)newStartDate;
 - (void)updateScoreModifyTime;
-
+- (NSString *)statusString;
 @end
