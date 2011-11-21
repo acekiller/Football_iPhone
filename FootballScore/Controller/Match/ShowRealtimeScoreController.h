@@ -18,8 +18,8 @@
     UILabel *awayTeamLabel;
     UILabel *homeTeamEventLabel;
     UILabel *awayTeamEventLabel;
-    Match *match;
     NSTimer *showTimer;
+    ScoreUpdate *scoreUpdate;
 }
 
 @property(nonatomic,retain)IBOutlet UILabel *leagueNameLabel;
@@ -28,15 +28,15 @@
 @property(nonatomic,retain)IBOutlet UILabel *awayTeamLabel;
 @property(nonatomic,retain)IBOutlet UILabel *homeTeamEventLabel;
 @property(nonatomic,retain)IBOutlet UILabel *awayTeamEventLabel;
-@property(nonatomic,retain) Match *match;
+
 @property(nonatomic,retain) NSTimer *showTimer;
+@property(nonatomic,retain) ScoreUpdate *scoreUpdate;
 
 
-//+ (void)show:(UIView*)superView match:(Match*)match;
-//+ (void)show:(Match *)match;
+
 + (void)show:(ScoreUpdate *)scoreUpdate;
 + (void)show:(UIView*)superView scoreUpdate:(ScoreUpdate *)scoreUpdate;
-- (void)updateViewByMatch:(Match*)newMatch;
+- (void)updateViewByScoreUpdate:(ScoreUpdate *)newScoreUpdate;
 - (void)cancelDisplay;
 - (void)createHideTimer;
 - (void)removeFromSuperView;
