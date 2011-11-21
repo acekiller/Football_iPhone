@@ -184,6 +184,10 @@
     [self.navigationController pushViewController:self.matchDetailController animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath { 
+    return NO; 
+}
+
 #pragma remote request delegate
 #pragma -
 

@@ -11,7 +11,7 @@
 
 @protocol OddsServiceDelegate <NSObject>
 
-- (void)getOddsListFinish;
+- (void)getOddsListFinish:(int)reslutCode;
 @optional
 - (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType;
 

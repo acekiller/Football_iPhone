@@ -286,10 +286,6 @@ enum OUPEI_INDEX {
                          NSLog(@"look,no odds data:%@",[oddsArray description]);
                      }
                      
-                     if (delegate && [delegate respondsToSelector:@selector(getOddsListFinish)]) {
-                         [delegate getOddsListFinish];
-                     }
-                     
                  }
                  else {
                      [manager.leagueArray removeAllObjects];
@@ -299,6 +295,10 @@ enum OUPEI_INDEX {
                      [manager.daxiaoArray removeAllObjects];
                      NSLog(@"no odds, leagues, matches got");
                  }                
+             }
+             
+             if (delegate && [delegate respondsToSelector:@selector(getOddsListFinish:)]) {
+                 [delegate getOddsListFinish:output.resultCode];
              }
              
          });                        

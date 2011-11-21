@@ -310,6 +310,11 @@
 {
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath { 
+    return NO; 
+}
+
+#pragma mark -
 
 
 - (BOOL)isSectionHide:(NSInteger)section
@@ -332,7 +337,7 @@
 #pragma remote request delegate
 #pragma -
 
-- (void)getOddsListFinish
+- (void)getOddsListFinish:(int)reslutCode
 {
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
