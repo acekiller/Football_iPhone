@@ -91,15 +91,15 @@
             case MATCH_STATUS_FINISH:
                 return FNS(@"完场");
             case MATCH_STATUS_TBD:
-            return FNS(@"完场");
+            return FNS(@"待定");
                  MATCH_STATUS_KILL:
-            return FNS(@"完场");
+            return FNS(@"腰斩");
                  MATCH_STATUS_PAUSE:
-            return FNS(@"完场");
+            return FNS(@"中断");
                  MATCH_STATUS_POSTPONE:
-            return FNS(@"完场");
+            return FNS(@"推迟");
                  MATCH_STATUS_CANCEL:
-            return FNS(@"完场");
+            return FNS(@"取消");
                  MATCH_STATUS_NOT_STARTED:
                  return @"未开赛";
             default:

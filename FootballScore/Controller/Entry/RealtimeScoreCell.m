@@ -50,9 +50,16 @@ enum cardType{
         return nil;
     }
     
-    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;        
+    RealtimeScoreCell * cell = ((RealtimeScoreCell *)[topLevelObjects objectAtIndex:0]);
+    cell.delegate = delegate;        
+
+    UIImageView *bgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"kive_li2.png"]];
+    bgView.frame = cell.bounds;
+    cell.selectedBackgroundView = bgView;
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    [bgView release];
     
-    return (RealtimeScoreCell*)[topLevelObjects objectAtIndex:0];
+    return cell;
 }
 
 + (NSString*)getCellIdentifier
@@ -86,6 +93,8 @@ enum cardType{
 - (void)updateBackground:(Match *)match
 {
     time_t now = time(0);
+    [self setBackgroundColor:[UIColor clearColor]];
+    
     if (now - match.lastScoreTime <= 10) {
         [self setBackgroundImageByName:@"kive_li2.png"];
     }
@@ -292,19 +301,6 @@ enum cardType{
         }
             break;
             
-        case MATCH_STATUS_PAUSE:
-        {
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:YES];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中断")];
-            matchStatusLabel.attributedText = attrStr;    
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
-            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        }
-            break;
             
         case MATCH_STATUS_FINISH:
         {
@@ -320,61 +316,37 @@ enum cardType{
         }
             break;
             
-        case MATCH_STATUS_NOT_STARTED:{
+        case MATCH_STATUS_PAUSE:
+        {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:match.statusString];
+            matchStatusLabel.attributedText = attrStr;   
             [self updateScores:match];
             matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
+            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
-        case MATCH_STATUS_TBD:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
+            break;
+            
+            
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        {
+            [scoreLabel setHidden:YES];
+            [halfScoreLabel setHidden:YES];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:match.statusString];
             matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
+            matchStatusLabel.frame = middlePosition;
             [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            [scoreLabel setTextColor:[UIColor clearColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
+            break;
         }
-        case MATCH_STATUS_KILL:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        
-        }
-        case MATCH_STATUS_POSTPONE:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];}
-        case MATCH_STATUS_CANCEL:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        }
+        case MATCH_STATUS_NOT_STARTED:
         default:
         {
             NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"未开")];

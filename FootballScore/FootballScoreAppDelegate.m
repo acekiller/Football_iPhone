@@ -481,5 +481,11 @@ enum
     
 }
 
+- (UIViewController *)currentViewController
+{
+    UINavigationController *vc = [self.tabBarController.viewControllers objectAtIndex:tabBarController.selectedIndex];
+    return [vc visibleViewController];
+}
+
 @end
 

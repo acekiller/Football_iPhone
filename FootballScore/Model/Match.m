@@ -11,7 +11,7 @@
 #import "TimeUtils.h"
 #import "LogUtil.h"
 #import "DetailHeader.h"
-
+#import "LocaleConstants.h"
 @implementation Match
 
 @synthesize matchId;
@@ -219,13 +219,13 @@
             return MATCH_SELECT_STATUS_ON_GOING;
             
         case MATCH_STATUS_FINISH:
-            return MATCH_SELECT_STATUS_FINISH;
-            
-        case MATCH_STATUS_NOT_STARTED:
         case MATCH_STATUS_TBD:
         case MATCH_STATUS_KILL:
         case MATCH_STATUS_POSTPONE:
         case MATCH_STATUS_CANCEL:
+            return MATCH_SELECT_STATUS_FINISH;
+            
+        case MATCH_STATUS_NOT_STARTED:
         default:
             return MATCH_SELECT_STATUS_NOT_STARTED;
     }
@@ -371,4 +371,34 @@
     self.lastScoreTime = time(0);
 }
 
+
+- (NSString *)statusString
+{
+
+    switch ([self.status intValue]) {
+        case MATCH_STATUS_NOT_STARTED:
+            return FNS(@"未开");
+        case MATCH_STATUS_FIRST_HALF:
+            return FNS(@"上半场");
+        case MATCH_STATUS_MIDDLE:
+            return FNS(@"中场");
+        case MATCH_STATUS_SECOND_HALF:
+            return FNS(@"下半场");
+        case MATCH_STATUS_TBD:
+            return FNS(@"待定");
+        case MATCH_STATUS_KILL:
+            return FNS(@"腰斩");
+        case MATCH_STATUS_PAUSE:
+            return FNS(@"中断");
+        case MATCH_STATUS_POSTPONE:
+            return FNS(@"推迟");
+            
+        case MATCH_STATUS_FINISH:
+            return FNS(@"完场");
+        case MATCH_STATUS_CANCEL:
+            return FNS(@"取消");
+        default:
+            return FNS(@"未开");
+    }
+}
 @end
