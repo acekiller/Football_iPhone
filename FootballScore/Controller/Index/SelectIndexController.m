@@ -21,6 +21,7 @@
 @synthesize buttonEuropeBwin;
 @synthesize buttonBigandSmall;
 @synthesize delegate;
+@synthesize buttonScrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +65,8 @@
     [europeBwinArray release];
     [bigandSmallArray release];
     [selectedBwin release];
+    [buttonScrollView release];
+
     [super dealloc];
 }
 
@@ -221,11 +224,55 @@
         [self.navigationController popViewControllerAnimated:YES];
 
 }
-  
-    
-    
+
     
 }
+
+// the funcition is wait to implement .
+//
+//-(void)companybuttonClicked:(id)sender{
+//    
+//    UIButton* button = (UIButton*)sender;
+//    NSString* OddsCompanyId = [NSString stringWithInt:button.tag];
+//    
+//    if ([self isOddsCompanySelected:OddsCompanyId]){
+//        [self deSelectOddsCompany:OddsCompanyId];
+//    }
+//    else{
+//        [self selectOddsCompany:OddsCompanyId];
+//    }    
+//    
+//    
+//    
+//}
+//
+//- (BOOL)isOddsCompanySelected:(NSString*)OddsCompanyId
+//{
+//    return [selectedBwin containsObject:OddsCompanyId];
+//}
+//
+//
+//- (void)selectOddsCompany:(NSString*)OddsCompanyId
+//{
+//    [selectedBwin addObject:OddsCompanyId];
+//    
+//    UIButton* button = (UIButton*)[buttonScrollView viewWithTag:[OddsCompanyId intValue]];
+//    [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
+//    
+//}
+//
+//
+//- (void)deSelectOddsCompany:(NSString*)OddsCompanyId
+//{
+//    [selectedBwin removeObject:OddsCompanyId];
+//    
+//    UIButton* button = (UIButton*)[buttonScrollView viewWithTag:[OddsCompanyId intValue]];
+//    [button setBackgroundImage:[UIImage imageNamed:@"set2.png"] forState:UIControlStateNormal];
+//    
+//        
+//}
+//
+
 
 
 #pragma mark -
@@ -289,12 +336,17 @@
         [buttonArray addObject:button];
         [button release];
     }
-    UIScrollView* buttonScrollView = [SelectIndexController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:3];
+    
+    
+    
+    buttonScrollView = [SelectIndexController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:3];
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
     [buttonScrollView setFrame:CGRectMake(0, 143, 320, 243)];
     [self.view addSubview:buttonScrollView];
+    
+    
 
 }
 
