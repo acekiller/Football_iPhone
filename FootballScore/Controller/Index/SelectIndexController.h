@@ -33,10 +33,15 @@ enum {
     NSMutableArray *bigandSmallArray;
     
     NSMutableSet *selectedBwin;
+    
+    UIScrollView* buttonScrollView ;
 
     id<SeclectIndexControllerDelegate> delegate;
     
 }
+
+
+@property(nonatomic,retain)  UIScrollView* buttonScrollView ;
 
 @property (nonatomic, retain) IBOutlet UIButton *buttonAsianBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;
@@ -47,9 +52,19 @@ enum {
 - (void)buttonClicked:(id)sender;
 - (void)createButtonsByArray:(NSArray*)array;
 
+
+//
+//- (BOOL)isOddsCompanySelected:(NSString*)OddsCompanyId;
+//- (void)selectOddsCompany:(NSString*)OddsCompanyId;
+//- (void)deSelectOddsCompany:(NSString*)OddsCompanyId;
+//
+
+
 + (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
 + (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 
                                       buttonsPerLine:(int)buttonsPerLine; 
+
+
 
 
 @end

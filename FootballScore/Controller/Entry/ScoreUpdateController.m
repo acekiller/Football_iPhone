@@ -79,7 +79,7 @@
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
         
     //  假数据，调试使用。
-/*
+
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -107,7 +107,7 @@
     [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
-*/    
+    
     [self refleshCount];
 
 }
@@ -146,6 +146,10 @@
     return 1;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath { 
+    return NO; 
+}
+
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [self.dataList count];
@@ -169,7 +173,7 @@
     
     ScoreUpdate* scoreUpdate = [dataList objectAtIndex:indexPath.row];
     
-    [cell setCellInfo:scoreUpdate];
+    [cell setCellInfo:scoreUpdate deleteFlag:self.deleteFlag];
 	
 	return cell;	
 }
