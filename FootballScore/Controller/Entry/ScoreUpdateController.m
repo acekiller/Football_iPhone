@@ -14,6 +14,8 @@
 #import "MatchManager.h"
 #import "StatusView.h"
 #import "ColorManager.h"
+#import "ShowRealtimeScoreController.h"
+
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
 @synthesize deleteFlag;
@@ -211,12 +213,7 @@
         
         for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
             if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE || scoreUpdate.scoreUpdateType == AWAYTEAMSCORE) {
-                NSString *homeTeamName = [scoreUpdate homeTeamName];
-                NSString *awayTeamName = [scoreUpdate awayTeamName];
-                NSInteger homeCount = [scoreUpdate homeTeamDataCount];
-                NSInteger awayCount = [scoreUpdate awayTeamDataCount];
-                NSString *statusText = [NSString stringWithFormat:@"%@ %d : %d %@",homeTeamName,homeCount,awayCount,awayTeamName];
-                [StatusView showtStatusText:statusText vibrate:YES duration:10];
+                [ShowRealtimeScoreController show:scoreUpdate];
                 break;
             }
         }

@@ -14,4 +14,6 @@
 
 - (void)userRegisterByToken:(NSString*)token;
 
+
+
 @end

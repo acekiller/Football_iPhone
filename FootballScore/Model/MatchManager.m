@@ -196,6 +196,46 @@ MatchManager* GlobalGetMatchIndexManager()
     return retArray;
 }
 
+NSComparisonResult intCmp(int a ,int b)
+{
+    if (a == b) {
+        return NSOrderedSame;
+    }else if(a > b){
+        return NSOrderedDescending;
+    }
+    return NSOrderedAscending;
+}
+
+NSComparisonResult doubleCmp(double a ,double b)
+{
+    if (a == b) {
+        return NSOrderedSame;
+    }else if(a > b){
+        return NSOrderedDescending;
+    }
+    return NSOrderedAscending;
+}
+
+- (void)sortMatch
+{
+    if ([matchArray count] == 0) {
+        return;
+    }
+    [matchArray sortedArrayUsingComparator:^(id obj1,id obj2){
+        Match *match1 = (Match *)obj1;
+        Match *match2 = (Match *)obj2;
+        NSComparisonResult result = intCmp([match1.status intValue], [match2.status intValue]);
+        if (result != NSOrderedSame) {
+            return -result;
+        }
+        result = doubleCmp([match1.date timeIntervalSince1970], [match2.date timeIntervalSince1970]);
+        if (result != NSOrderedSame) {
+            return result;
+        }
+        return NSOrderedSame;
+    }];
+}
+
 - (NSArray*)filterMatch
 {
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
@@ -231,7 +271,7 @@ MatchManager* GlobalGetMatchIndexManager()
     PPDebug(@"filter match done, total %d match return", [retArray count]);
     
    
-  
+//    [self sortMatch];
     
     return retArray;
 }
