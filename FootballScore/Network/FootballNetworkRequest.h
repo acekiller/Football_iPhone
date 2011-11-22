@@ -60,4 +60,8 @@ enum{
                                 matchType:(int)matchType 
                                  oddsType:(int)oddsType;
 
++ (CommonNetworkOutput*)followUnfollowMatch:(NSString*)userId
+                                    matchId:(NSString*)matchId
+                                       type:(int)type;
+
 @end

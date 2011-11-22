@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ACBABB147B3A9E0040C155 /* ShowAlertTextViewController.m */; };
+		A3ACBABE147B3A9E0040C155 /* ShowAlertTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */; };
 		A3B9F7DA146CC44200FA3C65 /* ShowRealtimeScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */; };
 		A3B9F7DB146CC44200FA3C65 /* ShowRealtimeScoreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */; };
 		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
@@ -412,6 +414,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3ACBABA147B3A9E0040C155 /* ShowAlertTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAlertTextViewController.h; sourceTree = "<group>"; };
+		A3ACBABB147B3A9E0040C155 /* ShowAlertTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAlertTextViewController.m; sourceTree = "<group>"; };
+		A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowAlertTextViewController.xib; sourceTree = "<group>"; };
 		A3B9F7D7146CC44200FA3C65 /* ShowRealtimeScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRealtimeScoreController.h; sourceTree = "<group>"; };
 		A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRealtimeScoreController.m; sourceTree = "<group>"; };
 		A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowRealtimeScoreController.xib; sourceTree = "<group>"; };
@@ -1082,6 +1087,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3ACBAB8147B3A850040C155 /* ShowAlertText */ = {
+			isa = PBXGroup;
+			children = (
+				A3ACBABA147B3A9E0040C155 /* ShowAlertTextViewController.h */,
+				A3ACBABB147B3A9E0040C155 /* ShowAlertTextViewController.m */,
+				A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */,
+			);
+			path = ShowAlertText;
+			sourceTree = "<group>";
+		};
 		C27FD7671467ACF600D7E3A9 /* OHAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1614,6 +1629,7 @@
 		CAF4CF46142ED014001D5B4A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A3ACBAB8147B3A850040C155 /* ShowAlertText */,
 				CAF4CF47142ED014001D5B4A /* About */,
 				CAF4CF7D142ED014001D5B4A /* EGOTableViewPullRefresh */,
 				CAF4CF94142ED014001D5B4A /* HJCacheClasses */,
@@ -2413,6 +2429,7 @@
 				CA83D13E14721AB800E004A6 /* livewindos@2x.png in Resources */,
 				CA83D13F14721AB800E004A6 /* odss2@2x.png in Resources */,
 				CA3FD6D3147248CA0097D016 /* ScoreIndexTitleCell.xib in Resources */,
+				A3ACBABE147B3A9E0040C155 /* ShowAlertTextViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2663,6 +2680,7 @@
 				C282D66A146E4A0A00EE435A /* DaXiao.m in Sources */,
 				CABA820B1470C2E4008E8AFB /* AboutController.m in Sources */,
 				CA3FD6D2147248CA0097D016 /* ScoreIndexTitleCell.m in Sources */,
+				A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

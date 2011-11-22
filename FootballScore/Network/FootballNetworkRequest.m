@@ -574,4 +574,11 @@ enum{
                                         output:output]; 
 }
 
++ (CommonNetworkOutput*)followUnfollowMatch:(NSString*)userId
+                                    matchId:(NSString*)matchId
+                                       type:(int)type
+{
+    return nil;
+}
+
 @end

@@ -350,4 +350,14 @@
     
 }
 
+- (void)followMatch:(NSString*)userId matchId:(NSString*)matchId
+{
+    
+}
+
+- (void)unfollowMatch:(NSString*)userId matchId:(NSString*)matchId
+{
+    
+}
+
 @end
