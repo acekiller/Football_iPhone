@@ -43,8 +43,8 @@
         self.matchType = SECOND_LEVEL_LEAGUE;
         self.oddsType = ODDS_TYPE_YAPEI;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
-        self.companyIdArray = [[NSMutableArray alloc] initWithObjects:@"1", @"2", @"3", @"4", nil ];
-        //four company id:1---澳彩    2---SB   3----立博   4----bet365
+        self.companyIdArray = [[NSMutableArray alloc] initWithObjects:@"1", @"8", @"3", @"4", nil ];
+        //four company id:1---澳彩    3---SB   4----立博   8----bet365
         self.hideSectionSet = [[NSMutableSet alloc] init];
     }
     return self;
