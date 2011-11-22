@@ -195,6 +195,30 @@
     [super dealloc];
 }
 
+- (BOOL)isFinish
+{
+    switch ([status intValue]) {
+            
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_MIDDLE:
+        case MATCH_STATUS_SECOND_HALF:
+        case MATCH_STATUS_PAUSE:
+        case MATCH_STATUS_TBD:
+            return NO;
+            
+        case MATCH_STATUS_FINISH:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+            return YES;
+            
+        case MATCH_STATUS_NOT_STARTED:
+        default:
+            return NO;
+    }
+
+}
+
 - (int)matchSelectStatus
 {
     // 0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
@@ -297,12 +321,12 @@
     [coder encodeObject:date forKey:@"date"];
     [coder encodeObject:firstHalfStartDate forKey:@"firstHalfStartDate"];
     [coder encodeObject:secondHalfStartDate forKey:@"secondHalfStartDate"];
-    [coder encodeObject:homeTeamName forKey:@"homeTeamName"];
+//    [coder encodeObject:homeTeamName forKey:@"homeTeamName"];
     [coder encodeObject:awayTeamName forKey:@"awayTeamName"];
     [coder encodeObject:homeTeamMandarinName forKey:@"homeTeamMandarinName"];
     [coder encodeObject:awayTeamMandarinName forKey:@"awayTeamMandarinName"];
     [coder encodeObject:homeTeamCantonName forKey:@"homeTeamCantonName"];
-    [coder encodeObject:homeTeamName forKey:@"homeTeamCantonName"];
+    [coder encodeObject:homeTeamName forKey:@"homeTeamName"];
     [coder encodeObject:homeTeamImage forKey:@"homeTeamImage"];
     [coder encodeObject:awayTeamImage forKey:@"awayTeamImage"];   
     [coder encodeObject:homeTeamLeaguePos forKey:@"homeTeamLeaguePos"];
@@ -312,7 +336,7 @@
     [coder encodeObject:awayTeamScore forKey:@"awayTeamScore"];   
     [coder encodeObject:homeTeamFirstHalfScore forKey:@"homeTeamFirstHalfScore"];
     [coder encodeObject:awayTeamFirstHalfScore forKey:@"awayTeamFirstHalfScore"];   
-    [coder encodeObject:awayTeamFirstHalfScore forKey:@"awayTeamFirstHalfScore"];
+//    [coder encodeObject:awayTeamFirstHalfScore forKey:@"awayTeamFirstHalfScore"];
     [coder encodeObject:awayTeamRed forKey:@"awayTeamRed"];   
     [coder encodeObject:homeTeamYellow forKey:@"homeTeamYellow"];
     [coder encodeObject:awayTeamYellow forKey:@"awayTeamYellow"];

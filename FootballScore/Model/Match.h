@@ -191,4 +191,7 @@ enum{
 - (void)updateDate:(NSDate*)newDate startDate:(NSDate*)newStartDate;
 - (void)updateScoreModifyTime;
 - (NSString *)statusString;
+
+- (BOOL)isFinish;
+
 @end

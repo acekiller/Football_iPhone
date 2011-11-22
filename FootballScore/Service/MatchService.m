@@ -316,8 +316,8 @@
     NSOperationQueue* queue = [self getOperationQueue:UPDATE_FOLLOW_MATCH];
     MatchManager *manager = [MatchManager defaultManager];
     for (Match* match in [manager.followMatchList allValues]) {
-        if ([manager getMathById:match.matchId] == nil) { // if match exists at this moment, then no need to update here    
-            PPDebug(@"<updateLatestFollowMatch> request match (%@) detail because it's not found", [match description]);
+        if ([match isFinish] == NO && [manager getMathById:match.matchId] == nil) { // if match exists at this moment, then no need to update here    
+//            PPDebug(@"<updateLatestFollowMatch> request match (%@) detail because it's not found", [match description]);
             [queue addOperationWithBlock:^{
                 
                 CommonNetworkOutput* output = [FootballNetworkRequest getMatchDetailHeader:match.matchId];
@@ -332,9 +332,10 @@
                             if ([headerArray count] > 0) {
                                 
                                 headerInfo = [headerArray objectAtIndex:0];
-                                
+                                                                
                                 // update match data by header detail info
-                                [match updateByHeaderInfo:headerInfo];
+                                PPDebug(@"Update follow match(%@) by info(%@)", [match description], [headerInfo description]);
+                                [match updateByHeaderInfo:headerInfo];                                
                             }
                         }
                     }    
@@ -344,7 +345,7 @@
             }];
         }
         else{
-            PPDebug(@"<updateLatestFollowMatch> skip request match (%@) detail because it's found", [match description]);
+//            PPDebug(@"<updateLatestFollowMatch> skip request match (%@) detail because it's found", [match description]);
         }
     }
     
