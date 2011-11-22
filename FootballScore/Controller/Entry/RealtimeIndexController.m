@@ -25,6 +25,7 @@
 #import "LanguageManager.h"
 #import "Match.h"
 
+#define SECOND_LEVEL_LEAGUE 0
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -39,9 +40,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.matchType = 0;
+        self.matchType = SECOND_LEVEL_LEAGUE;
+        self.oddsType = ODDS_TYPE_YAPEI;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
-        self.companyIdArray = [[NSMutableArray alloc] init ];
+        self.companyIdArray = [[NSMutableArray alloc] initWithObjects:@"1", @"2", @"3", @"4", nil ];
+        //four company id:1---澳彩    2---SB   3----立博   4----bet365
         self.hideSectionSet = [[NSMutableSet alloc] init];
     }
     return self;
@@ -146,6 +149,7 @@
     [super viewDidLoad];
     [self setLeftBarLogo];
     [self setRightBarButton];
+    [self updateAllOddsData];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
@@ -341,7 +345,8 @@
 {
     OddsManager* manager = [OddsManager defaultManager];
     [self.matchOddsList removeAllObjects];
-    switch (oddsType) {
+    [self hideActivity];
+    switch (self.oddsType) {
         case ODDS_TYPE_YAPEI: {
             for (Odds* odds in manager.yapeiArray) {
                 [OddsManager addOdds:odds toDictionary:self.matchOddsList];
@@ -366,8 +371,9 @@
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
+
     [self.dataTableView reloadData];
-    [self hideActivity];
+    
     
 }
 
@@ -460,6 +466,7 @@
     [self.hideSectionSet removeAllObjects];
     self.dataList = [matchOddsList allKeys];
     [self updateHeaderMatch];
+
     [self.dataTableView reloadData];
 }
 
