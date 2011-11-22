@@ -81,7 +81,7 @@
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
         
     //  假数据，调试使用。
-
+/*
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -109,7 +109,7 @@
     [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
-    
+*/    
     [self refleshCount];
 
 }
