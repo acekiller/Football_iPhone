@@ -232,9 +232,9 @@ NSComparisonResult doubleCmp(double a ,double b)
         return -result;
 
     }];
-    for (Match *match in matchArray) {
-        NSLog(@"status: %d, time: %f",[match.status intValue], [match.date timeIntervalSince1970]);
-    }
+//    for (Match *match in matchArray) {
+//        NSLog(@"status: %d, time: %f",[match.status intValue], [match.date timeIntervalSince1970]);
+//    }
 }
 
 - (NSArray*)filterMatch

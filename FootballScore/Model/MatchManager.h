@@ -55,6 +55,7 @@
 - (Match *)getFollowMatchById:(NSString *)matchId;
 
 // follow match methods
+- (void)saveFollowMatchList;
 - (void)followMatch:(Match*)match;
 - (void)unfollowMatch:(Match*)match;
 - (BOOL)isMatchFollowed:(NSString*)matchId;

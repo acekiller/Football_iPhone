@@ -277,6 +277,7 @@ enum
     NSLog(@"application stop update data");
     [self.matchService stopAllUpdates];
     [self.matchService stopRealtimeMatchUpdate];
+    [[MatchManager defaultManager] saveFollowMatchList];
     
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[self releaseResourceForAllViewControllers];	
