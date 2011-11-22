@@ -34,14 +34,12 @@ enum {
     
     NSMutableSet *selectedBwin;
     
-    UIScrollView* buttonScrollView ;
 
     id<SeclectIndexControllerDelegate> delegate;
     
 }
 
 
-@property(nonatomic,retain)  UIScrollView* buttonScrollView ;
 
 @property (nonatomic, retain) IBOutlet UIButton *buttonAsianBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;

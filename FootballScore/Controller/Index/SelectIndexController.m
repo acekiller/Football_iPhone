@@ -21,7 +21,6 @@
 @synthesize buttonEuropeBwin;
 @synthesize buttonBigandSmall;
 @synthesize delegate;
-@synthesize buttonScrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,7 +64,6 @@
     [europeBwinArray release];
     [bigandSmallArray release];
     [selectedBwin release];
-    [buttonScrollView release];
 
     [super dealloc];
 }
@@ -255,8 +253,9 @@
 //- (void)selectOddsCompany:(NSString*)OddsCompanyId
 //{
 //    [selectedBwin addObject:OddsCompanyId];
+  //UIView* v= [self.view viewWithTag:SCROLL_VIEW_TAG]
 //    
-//    UIButton* button = (UIButton*)[buttonScrollView viewWithTag:[OddsCompanyId intValue]];
+//    UIButton* button = (UIButton*)[v viewWithTag:[OddsCompanyId intValue]];
 //    [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
 //    
 //}
@@ -339,7 +338,7 @@
     
     
     
-    buttonScrollView = [SelectIndexController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:3];
+    UIScrollView *buttonScrollView = [SelectIndexController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:3];
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
