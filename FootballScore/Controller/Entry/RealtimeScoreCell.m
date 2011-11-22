@@ -17,6 +17,12 @@
 #import "TimeUtils.h"
 #define TIME_ZONE_GMT @"Asia/Shanghai"
 
+#define DEFAULT_MATCH_STATUS_OFFSET_Y 15
+#define WIDTH_BETWEEN_SCORE_NAME      5
+
+const CGRect matchStatusLabelRect = {{148, 6}, {36, 20}};
+const CGRect scoreLabelRect = {{148, 21}, {36, 20}};
+
 @implementation RealtimeScoreCell
 @synthesize matchTypeLabel;
 @synthesize startTimeLabel;
@@ -50,9 +56,16 @@ enum cardType{
         return nil;
     }
     
-    ((PPTableViewCell*)[topLevelObjects objectAtIndex:0]).delegate = delegate;        
+    RealtimeScoreCell * cell = ((RealtimeScoreCell *)[topLevelObjects objectAtIndex:0]);
+    cell.delegate = delegate;        
+
+    UIImageView *bgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"kive_li2.png"]];
+    bgView.frame = cell.bounds;
+    cell.selectedBackgroundView = bgView;
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    [bgView release];
     
-    return (RealtimeScoreCell*)[topLevelObjects objectAtIndex:0];
+    return cell;
 }
 
 + (NSString*)getCellIdentifier
@@ -86,6 +99,8 @@ enum cardType{
 - (void)updateBackground:(Match *)match
 {
     time_t now = time(0);
+    [self setBackgroundColor:[UIColor clearColor]];
+    
     if (now - match.lastScoreTime <= 10) {
         [self setBackgroundImageByName:@"kive_li2.png"];
     }
@@ -244,8 +259,6 @@ enum cardType{
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
-    CGRect middlePosition = CGRectMake(151, 21, 36, 20);
-    CGRect originalPosition = CGRectMake(151, 6, 36, 20);
     int matchStatus = [match.status intValue];
     
     switch (matchStatus) {
@@ -272,7 +285,7 @@ enum cardType{
             matchStatusLabel.attributedText = attrStr; 
             
             [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;            
+            matchStatusLabel.frame = matchStatusLabelRect;            
             [scoreLabel setTextColor:[ColorManager onGoScore]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
@@ -285,26 +298,13 @@ enum cardType{
             NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中")];
             matchStatusLabel.attributedText = attrStr;   
             [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
+            matchStatusLabel.frame = matchStatusLabelRect;
             [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
             [scoreLabel setTextColor:[ColorManager halfScoreColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
-        case MATCH_STATUS_PAUSE:
-        {
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:YES];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"中断")];
-            matchStatusLabel.attributedText = attrStr;    
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
-            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        }
-            break;
             
         case MATCH_STATUS_FINISH:
         {
@@ -313,75 +313,51 @@ enum cardType{
             NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完")];
             matchStatusLabel.attributedText = attrStr; 
             [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
+            matchStatusLabel.frame = matchStatusLabelRect;
             [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
             [scoreLabel setTextColor:[ColorManager finishScoreColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
             break;
             
-        case MATCH_STATUS_NOT_STARTED:{
+        case MATCH_STATUS_PAUSE:
+        {
             [scoreLabel setHidden:NO];
             [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:match.statusString];
+            matchStatusLabel.attributedText = attrStr;   
             [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            matchStatusLabel.frame = matchStatusLabelRect;
+            [matchStatusLabel setTextColor:[ColorManager halfScoreColor]];
+            [scoreLabel setTextColor:[ColorManager halfScoreColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
         }
-        case MATCH_STATUS_TBD:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
+            break;
+            
+            
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        {
+            [scoreLabel setHidden:YES];
+            [halfScoreLabel setHidden:YES];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:match.statusString];
             matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
+            [matchStatusLabel setFrame:CGRectOffset(matchStatusLabelRect, 0, 15)];
             [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            [scoreLabel setTextColor:[UIColor clearColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
+            break;
         }
-        case MATCH_STATUS_KILL:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        
-        }
-        case MATCH_STATUS_POSTPONE:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];}
-        case MATCH_STATUS_CANCEL:{
-            [scoreLabel setHidden:NO];
-            [halfScoreLabel setHidden:NO];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"完场")];
-            matchStatusLabel.attributedText = attrStr; 
-            [self updateScores:match];
-            matchStatusLabel.frame = originalPosition;
-            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
-            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
-            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
-        }
+        case MATCH_STATUS_NOT_STARTED:
         default:
         {
             NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"未开")];
             matchStatusLabel.attributedText = attrStr; 
             [scoreLabel setHidden:YES];
             [halfScoreLabel setHidden:YES];
-            matchStatusLabel.frame = middlePosition;
+            [matchStatusLabel setFrame:CGRectOffset(matchStatusLabelRect, 0, 15)];
             [matchStatusLabel setTextColor:[UIColor grayColor]];
             [scoreLabel setTextColor:[UIColor grayColor]];
             [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
@@ -392,9 +368,12 @@ enum cardType{
 
 }
 
+
+
 - (void)positionAdjust
 {
-    float maxWidth = 110;
+    float leftSide = followButton.frame.origin.x + followButton.frame.size.width;
+    float maxWidth = matchStatusLabelRect.origin.x - leftSide - WIDTH_BETWEEN_SCORE_NAME;
     float cardWidth = 13;
     float cardTitleSpace = 4;
     int leftCard = 0;
@@ -402,7 +381,9 @@ enum cardType{
     float homeTitleWidth;
     float awayTitleWidth;
     UIFont *titleFont = [UIFont systemFontOfSize:14];
- 
+    
+    
+    
     homeTitleWidth = [homeTeamLabel.text sizeWithFont:titleFont].width;
     awayTitleWidth = [awayTeamLabel.text sizeWithFont:titleFont].width;
     if (![homeRedCard isHidden]) {
@@ -419,61 +400,67 @@ enum cardType{
     }
     
     if ((homeTitleWidth+cardTitleSpace+cardWidth*leftCard) > maxWidth) {
-        [homeTeamLabel setFrame:CGRectMake(36+cardWidth*leftCard+cardTitleSpace, 
-                                          21, 
-                                          maxWidth-cardTitleSpace-cardWidth*leftCard, 
-                                          20)];
-        [homeRedCard setFrame:CGRectMake(36+cardWidth*(leftCard-1)+cardTitleSpace, 
-                                        23, 
-                                        cardWidth, 
-                                        16)];
-        [homeYellowCard setFrame:CGRectMake(36+cardTitleSpace, 
+        [homeTeamLabel setFrame:CGRectMake(leftSide+cardWidth*leftCard+cardTitleSpace, 
+                                           21, 
+                                           maxWidth-cardTitleSpace-cardWidth*leftCard, 
+                                           20)];
+        [homeRedCard setFrame:CGRectMake(leftSide+cardWidth*(leftCard-1)+cardTitleSpace, 
+                                         23, 
+                                         cardWidth, 
+                                         16)];
+        [homeYellowCard setFrame:CGRectMake(leftSide+cardTitleSpace, 
                                             23, 
                                             cardWidth, 
                                             16)];
     } else {
-        [homeTeamLabel setFrame:CGRectMake(36, 
+        [homeTeamLabel setFrame:CGRectMake(leftSide, 
                                            21, 
                                            maxWidth, 
                                            20)];
-        [homeRedCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth-cardTitleSpace, 
+        [homeRedCard setFrame:CGRectMake(matchStatusLabelRect.origin.x-WIDTH_BETWEEN_SCORE_NAME
+                                         -homeTitleWidth-cardWidth-cardTitleSpace, 
                                          23, 
                                          cardWidth, 
                                          16)];
-        [homeYellowCard setFrame:CGRectMake(146-homeTitleWidth-cardWidth*leftCard-cardTitleSpace,
+        [homeYellowCard setFrame:CGRectMake(matchStatusLabelRect.origin.x-WIDTH_BETWEEN_SCORE_NAME
+                                            -homeTitleWidth-cardWidth*leftCard-cardTitleSpace,
                                             23, 
                                             cardWidth, 
                                             16)];
     }
     
     if ((awayTitleWidth+cardTitleSpace+cardWidth*rightCard) > maxWidth) {
-        [awayTeamLabel setFrame:CGRectMake(192,
+        [awayTeamLabel setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME,
                                            21, 
                                            maxWidth-cardTitleSpace-cardWidth*rightCard, 
                                            20)];
-        [awayRedCard setFrame:CGRectMake(192+maxWidth-cardWidth*rightCard-cardTitleSpace, 
+        [awayRedCard setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME
+                                         +maxWidth-cardWidth*rightCard-cardTitleSpace, 
                                          23, 
                                          cardWidth, 
                                          16)];
-        [awayYellowCard setFrame:CGRectMake(192+maxWidth-cardWidth*(rightCard-1)-cardTitleSpace, 
+        [awayYellowCard setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME
+                                            +maxWidth-cardWidth*(rightCard-1)-cardTitleSpace, 
                                             23, 
                                             cardWidth, 
                                             16)];
     } else {
-        [awayTeamLabel setFrame:CGRectMake(192, 
+        [awayTeamLabel setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME, 
                                            21, 
                                            maxWidth, 
                                            20)];
-        [awayRedCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace, 
+        [awayRedCard setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME
+                                         +awayTitleWidth+cardTitleSpace, 
                                          23, 
                                          cardWidth, 
                                          16)];
-        [awayYellowCard setFrame:CGRectMake(192+awayTitleWidth+cardTitleSpace+cardWidth*(rightCard-1),
+        [awayYellowCard setFrame:CGRectMake(matchStatusLabelRect.origin.x+matchStatusLabelRect.size.width+WIDTH_BETWEEN_SCORE_NAME
+                                            +awayTitleWidth+cardTitleSpace+cardWidth*(rightCard-1),
                                             23, 
                                             cardWidth, 
                                             16)];
     }
-
+    
     
     
 }

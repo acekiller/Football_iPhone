@@ -93,5 +93,4 @@
 //-(void)getTheHidedMatches:(int)hidedMatches;
 -(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
 
-
 @end

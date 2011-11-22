@@ -47,6 +47,8 @@
 @property (nonatomic, retain) MatchService                  *matchService;
 @property (nonatomic, retain) RealtimeScoreController       *matchController;
 @property (nonatomic, retain) OddsService                   *oddsService;
+
+- (UIViewController *)currentViewController;
 @end
 
 

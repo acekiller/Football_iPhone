@@ -14,6 +14,8 @@
 #import "MatchManager.h"
 #import "UITableViewCellUtil.h"
 #import "AboutController.h"
+//#import "FootballScoreAppDelegate.h"
+//@class FootballScoreAppDelegate;
 
 @implementation MoreController
 @synthesize listData;
@@ -175,9 +177,7 @@
     
     cell.backgroundView=imageView;
     cell.backgroundView.backgroundColor = [UIColor clearColor];
-    
-//    [cell setCellBackgroundForRow:indexPath.row rowCount:[self tableView:tableView numberOfRowsInSection:indexPath.section] singleCellImage:nil firstCellImage:@"helptable_top.png" middleCellImage:@"helptable_middle.png" lastCellImage:@"helptable_bottom.png" cellWidth:300];
-    
+        
     [imageView release];
     
     return cell;
@@ -243,10 +243,10 @@
 
 - (void)showRecommendation
 {
-    NSArray* matchArray = [[MatchManager defaultManager] matchArray];
-    int index = rand() % [matchArray count];
-    Match* match = [matchArray objectAtIndex:index];
-    [ShowRealtimeScoreController show:self.view match:match];
+//    NSArray* matchArray = [[MatchManager defaultManager] matchArray];
+//    int index = rand() % [matchArray count];
+//    Match* match = [matchArray objectAtIndex:index];
+//    [ShowRealtimeScoreController show:match];
 }
 
 - (void)showAbout

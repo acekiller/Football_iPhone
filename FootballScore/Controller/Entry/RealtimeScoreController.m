@@ -31,7 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        matchScoreType = MATCH_SCORE_TYPE_ALL;
+        matchScoreType = MATCH_SCORE_TYPE_FIRST;
     }
     return self;
 }
@@ -57,7 +57,17 @@
 
 #pragma mark - View lifecycle
 
-
+- (NSInteger ) toMatchScoreTypeFromSheetIndex:(NSInteger)sheetIndex
+{
+    switch (sheetIndex) {
+        case MATCH_SCORE_TYPE_ALL:
+            return MATCH_SCORE_TYPE_FIRST;
+        case MATCH_SCORE_TYPE_FIRST:
+            return MATCH_SCORE_TYPE_ALL;
+        default:
+            return sheetIndex;
+    }
+}
 
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
 {
@@ -104,7 +114,7 @@
     [self myFollowCountBadgeViewInit];
 
     
-    [self setScoreButtonTitle: 0];
+    [self setScoreButtonTitle:[self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST]];
     
     self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
                                                 green:(0xf7)/255.0 
@@ -116,7 +126,7 @@
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
 
     
-    [self loadMatch:0];
+    [self loadMatch:MATCH_SCORE_TYPE_FIRST];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -159,14 +169,12 @@
 	RealtimeScoreCell *cell = (RealtimeScoreCell*)[theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [RealtimeScoreCell createCell:self];				
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;			        
 	}		
     
     cell.indexPath = indexPath;
 
     Match* match = [self.dataList objectAtIndex:indexPath.row];
     [cell setCellInfo:match];
-	
 	return cell;	
 }
 
@@ -248,8 +256,8 @@
                                   
                                   
                                   
-								  destructiveButtonTitle:FNS(@"全部比分")
-								  otherButtonTitles:FNS(@"一级赛事"), 
+								  destructiveButtonTitle:FNS(@"一级赛事")
+								  otherButtonTitles:FNS(@"全部比分"), 
                                   FNS(@"足彩比分"), FNS(@"竞彩比分"), FNS(@"单场比分"), nil
                                   ];
 	
@@ -272,7 +280,7 @@
 //        return;
 //    }
     
-    matchScoreType = buttonIndex;
+    matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
         
        // reload data
     [self loadMatch:matchScoreType];
@@ -284,24 +292,25 @@
 }
 
 -(void)setScoreButtonTitle:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
+    NSInteger type = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
+    switch (type) {
+        case MATCH_SCORE_TYPE_ALL:
             [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
             break;
             
-        case 1:
+        case MATCH_SCORE_TYPE_FIRST:
             [scoreTypeButton setTitle:FNS(@"一级") forState:UIControlStateNormal];
             break;
             
-        case 2:
+        case MATCH_SCORE_TYPE_SINGLE:
             [scoreTypeButton setTitle:FNS(@"足彩") forState:UIControlStateNormal];
             break;
             
-        case 3:
+        case MATCH_SCORE_TYPE_ZUCAI:
             [scoreTypeButton setTitle:FNS(@"竞彩") forState:UIControlStateNormal];
             break;
             
-        case 4:
+        case MATCH_SCORE_TYPE_JINGCAI:
             [scoreTypeButton setTitle:FNS(@"单场") forState:UIControlStateNormal];
             break;
         default:
@@ -439,7 +448,7 @@
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
-    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
+   [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];
@@ -447,7 +456,6 @@
     
     
     filterBarButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
-    [filterBarButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [filterBarButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
     [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
     [filterBarButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
@@ -455,8 +463,9 @@
     [filterBarButton.titleLabel setFont:font];
     [rightButtonView addSubview:filterBarButton];
     [filterBarButton release];
-    
+
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+
     [rightButtonView release];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;

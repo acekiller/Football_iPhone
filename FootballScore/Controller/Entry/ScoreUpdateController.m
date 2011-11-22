@@ -14,6 +14,8 @@
 #import "MatchManager.h"
 #import "StatusView.h"
 #import "ColorManager.h"
+#import "ShowRealtimeScoreController.h"
+
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
 @synthesize deleteFlag;
@@ -79,7 +81,7 @@
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
         
     //  假数据，调试使用。
-
+/*
     MatchManager *manager = [MatchManager defaultManager];
     Match *match = [manager.matchArray objectAtIndex:2];
     ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
@@ -107,7 +109,7 @@
     [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
     [update release];
-    
+*/    
     [self refleshCount];
 
 }
@@ -211,12 +213,7 @@
         
         for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
             if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE || scoreUpdate.scoreUpdateType == AWAYTEAMSCORE) {
-                NSString *homeTeamName = [scoreUpdate homeTeamName];
-                NSString *awayTeamName = [scoreUpdate awayTeamName];
-                NSInteger homeCount = [scoreUpdate homeTeamDataCount];
-                NSInteger awayCount = [scoreUpdate awayTeamDataCount];
-                NSString *statusText = [NSString stringWithFormat:@"%@ %d : %d %@",homeTeamName,homeCount,awayCount,awayTeamName];
-                [StatusView showtStatusText:statusText vibrate:YES duration:10];
+                [ShowRealtimeScoreController show:scoreUpdate];
                 break;
             }
         }

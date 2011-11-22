@@ -196,6 +196,47 @@ MatchManager* GlobalGetMatchIndexManager()
     return retArray;
 }
 
+NSComparisonResult intCmp(int a ,int b)
+{
+    if (a == b) {
+        return NSOrderedSame;
+    }else if(a > b){
+        return NSOrderedDescending;
+    }
+    return NSOrderedAscending;
+}
+
+NSComparisonResult doubleCmp(double a ,double b)
+{
+    if (a == b) {
+        return NSOrderedSame;
+    }else if(a > b){
+        return NSOrderedDescending;
+    }
+    return NSOrderedAscending;
+}
+
+- (void)sortMatch
+{
+    if ([matchArray count] == 0) {
+        return;
+    }
+    self.matchArray = [matchArray sortedArrayUsingComparator:^(id obj1,id obj2){
+        Match *match1 = (Match *)obj1;
+        Match *match2 = (Match *)obj2;
+        NSComparisonResult result = [match1.status compare:match2.status];
+        if (result == NSOrderedSame) {
+            result = [match1.date compare:match2.date];
+            return result;
+        }
+        return -result;
+
+    }];
+    for (Match *match in matchArray) {
+        NSLog(@"status: %d, time: %f",[match.status intValue], [match.date timeIntervalSince1970]);
+    }
+}
+
 - (NSArray*)filterMatch
 {
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
@@ -203,6 +244,7 @@ MatchManager* GlobalGetMatchIndexManager()
     if (!isCheckLeague) {
         return retArray;
     }
+    [self sortMatch];
     for (Match* match in matchArray){
         
         if (filterMatchStatus != MATCH_SELECT_STATUS_ALL && 
@@ -229,9 +271,7 @@ MatchManager* GlobalGetMatchIndexManager()
     
     
     PPDebug(@"filter match done, total %d match return", [retArray count]);
-    
-   
-  
+
     
     return retArray;
 }
