@@ -516,7 +516,7 @@
         
         aLabel.attributedText = aString;
         [self setCenter:aLabel.center];
-        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.jpg"].CGImage];
+        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.png"].CGImage];
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
         [aLabel release];

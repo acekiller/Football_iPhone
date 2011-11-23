@@ -111,6 +111,9 @@
 		CA81D3A01435605100C4B378 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CA81D3971435605100C4B378 /* ASINetworkQueue.m */; };
 		CA83D13E14721AB800E004A6 /* livewindos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA83D13C14721AB800E004A6 /* livewindos@2x.png */; };
 		CA83D13F14721AB800E004A6 /* odss2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA83D13D14721AB800E004A6 /* odss2@2x.png */; };
+		CA85C8E1147CA70700C3E6C4 /* odds_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */; };
+		CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */; };
+		CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */; };
 		CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */; };
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
@@ -571,6 +574,9 @@
 		CA81D3981435605100C4B378 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		CA83D13C14721AB800E004A6 /* livewindos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "livewindos@2x.png"; sourceTree = "<group>"; };
 		CA83D13D14721AB800E004A6 /* odss2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odss2@2x.png"; sourceTree = "<group>"; };
+		CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_down@2x.png"; sourceTree = "<group>"; };
+		CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_title_bg@2x.png"; sourceTree = "<group>"; };
+		CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_up@2x.png"; sourceTree = "<group>"; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1148,6 +1154,9 @@
 		C2B41317143199E100084F14 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */,
+				CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */,
+				CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */,
 				CA83D13C14721AB800E004A6 /* livewindos@2x.png */,
 				CA83D13D14721AB800E004A6 /* odss2@2x.png */,
 				CABA821A147106DD008E8AFB /* help_line@2x.png */,
@@ -2430,6 +2439,9 @@
 				CA83D13F14721AB800E004A6 /* odss2@2x.png in Resources */,
 				CA3FD6D3147248CA0097D016 /* ScoreIndexTitleCell.xib in Resources */,
 				A3ACBABE147B3A9E0040C155 /* ShowAlertTextViewController.xib in Resources */,
+				CA85C8E1147CA70700C3E6C4 /* odds_down@2x.png in Resources */,
+				CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */,
+				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
