@@ -149,6 +149,7 @@
     [super viewDidLoad];
     [self setLeftBarLogo];
     [self setRightBarButton];
+    [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
     [self updateAllOddsData];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.

@@ -212,6 +212,9 @@
     if (result == 0 && updateMatchArray == nil) {
         [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
     }
+    [[MatchManager defaultManager] selectAllLeague];
+    self.dataList = [[MatchManager defaultManager] filterMatch];
+    [self.dataTableView reloadData];
     
 }
 
@@ -284,7 +287,7 @@
         
        // reload data
     [self loadMatch:matchScoreType];
-    
+   
     // update score type button display   
     
     [self setScoreButtonTitle:buttonIndex];
