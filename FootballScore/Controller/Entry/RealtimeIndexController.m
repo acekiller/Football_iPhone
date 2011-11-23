@@ -344,31 +344,10 @@
 
 - (void)getOddsListFinish:(int)reslutCode
 {
-    OddsManager* manager = [OddsManager defaultManager];
-    [self.matchOddsList removeAllObjects];
     [self hideActivity];
-    switch (self.oddsType) {
-        case ODDS_TYPE_YAPEI: {
-            for (Odds* odds in manager.yapeiArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        case ODDS_TYPE_OUPEI: {
-            for (Odds* odds in manager.oupeiArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        case ODDS_TYPE_DAXIAO: {
-            for (Odds* odds in manager.daxiaoArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        default:
-            break;
-    }
+    OddsManager* manager = [OddsManager defaultManager];
+    [manager selectAllLeague];
+    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType];
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
@@ -433,37 +412,7 @@
 
 - (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet
 {
-    [self.matchOddsList removeAllObjects];
-    OddsManager* manager = [OddsManager defaultManager];
-    [self.matchOddsList removeAllObjects];
-    switch (oddsType) {
-        case ODDS_TYPE_YAPEI: {
-            for (Odds* odds in manager.yapeiArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        case ODDS_TYPE_OUPEI: {
-            for (Odds* odds in manager.oupeiArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        case ODDS_TYPE_DAXIAO: {
-            for (Odds* odds in manager.daxiaoArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        default:
-            break;
-    }
+    self.matchOddsList = [[OddsManager defaultManager] filterOddsByOddsType:self.oddsType];
     [self.hideSectionSet removeAllObjects];
     self.dataList = [matchOddsList allKeys];
     [self updateHeaderMatch];
