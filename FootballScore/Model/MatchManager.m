@@ -16,6 +16,7 @@
 #import "ScoreUpdateManager.h"
 #import "ScoreUpdate.h"
 #import "LogUtil.h"
+#import "League.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_LIST        @"FOLLOW_MATCH_LIST"
@@ -221,18 +222,16 @@ NSComparisonResult doubleCmp(double a ,double b)
     if ([matchArray count] == 0) {
         return;
     }
-    [matchArray sortedArrayUsingComparator:^(id obj1,id obj2){
+    self.matchArray = [matchArray sortedArrayUsingComparator:^(id obj1,id obj2){
         Match *match1 = (Match *)obj1;
         Match *match2 = (Match *)obj2;
-        NSComparisonResult result = intCmp([match1.status intValue], [match2.status intValue]);
-        if (result != NSOrderedSame) {
-            return -result;
-        }
-        result = doubleCmp([match1.date timeIntervalSince1970], [match2.date timeIntervalSince1970]);
-        if (result != NSOrderedSame) {
+        NSComparisonResult result = [match1.status compare:match2.status];
+        if (result == NSOrderedSame) {
+            result = [match1.date compare:match2.date];
             return result;
         }
-        return NSOrderedSame;
+        return -result;
+
     }];
 }
 
@@ -243,6 +242,7 @@ NSComparisonResult doubleCmp(double a ,double b)
     if (!isCheckLeague) {
         return retArray;
     }
+    [self sortMatch];
     for (Match* match in matchArray){
         
         if (filterMatchStatus != MATCH_SELECT_STATUS_ALL && 
@@ -269,9 +269,7 @@ NSComparisonResult doubleCmp(double a ,double b)
     
     
     PPDebug(@"filter match done, total %d match return", [retArray count]);
-    
-   
-//    [self sortMatch];
+
     
     return retArray;
 }
@@ -923,6 +921,15 @@ NSComparisonResult doubleCmp(double a ,double b)
     
     PPDebug(@"match %@ updated, data=%@", 
             [match description], [fields componentsJoinedByString:@" "]);
+}
+
+- (void)selectAllLeague
+{
+    [self.filterLeagueIdList removeAllObjects];
+    for (League* league in [[LeagueManager defaultManager] leagueArray]) {
+        NSString* leagueId = league.leagueId;
+        [[MatchManager defaultManager].filterLeagueIdList addObject:leagueId];
+    }
 }
 
 @end

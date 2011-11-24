@@ -32,7 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        matchScoreType = MATCH_SCORE_TYPE_ALL;
+        matchScoreType = MATCH_SCORE_TYPE_FIRST;
     }
     return self;
 }
@@ -58,7 +58,17 @@
 
 #pragma mark - View lifecycle
 
-
+- (NSInteger ) toMatchScoreTypeFromSheetIndex:(NSInteger)sheetIndex
+{
+    switch (sheetIndex) {
+        case MATCH_SCORE_TYPE_ALL:
+            return MATCH_SCORE_TYPE_FIRST;
+        case MATCH_SCORE_TYPE_FIRST:
+            return MATCH_SCORE_TYPE_ALL;
+        default:
+            return sheetIndex;
+    }
+}
 
 - (void)updateSelectMatchStatusButtonState:(int)selectMatchStatus
 {
@@ -105,7 +115,7 @@
     [self myFollowCountBadgeViewInit];
 
     
-    [self setScoreButtonTitle: 0];
+    [self setScoreButtonTitle:[self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST]];
     
     self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
                                                 green:(0xf7)/255.0 
@@ -117,7 +127,7 @@
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
 
     
-    [self loadMatch:0];
+    [self loadMatch:MATCH_SCORE_TYPE_FIRST];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -203,6 +213,9 @@
     if (result == 0 && updateMatchArray == nil) {
         [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
     }
+    [[MatchManager defaultManager] selectAllLeague];
+    self.dataList = [[MatchManager defaultManager] filterMatch];
+    [self.dataTableView reloadData];
     
 }
 
@@ -247,8 +260,8 @@
                                   
                                   
                                   
-								  destructiveButtonTitle:FNS(@"全部比分")
-								  otherButtonTitles:FNS(@"一级赛事"), 
+								  destructiveButtonTitle:FNS(@"一级赛事")
+								  otherButtonTitles:FNS(@"全部比分"), 
                                   FNS(@"足彩比分"), FNS(@"竞彩比分"), FNS(@"单场比分"), nil
                                   ];
 	
@@ -271,11 +284,11 @@
 //        return;
 //    }
     
-    matchScoreType = buttonIndex;
+    matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
         
        // reload data
     [self loadMatch:matchScoreType];
-    
+   
     // update score type button display   
     
     [self setScoreButtonTitle:buttonIndex];
@@ -283,24 +296,25 @@
 }
 
 -(void)setScoreButtonTitle:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
+    NSInteger type = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
+    switch (type) {
+        case MATCH_SCORE_TYPE_ALL:
             [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
             break;
             
-        case 1:
+        case MATCH_SCORE_TYPE_FIRST:
             [scoreTypeButton setTitle:FNS(@"一级") forState:UIControlStateNormal];
             break;
             
-        case 2:
+        case MATCH_SCORE_TYPE_SINGLE:
             [scoreTypeButton setTitle:FNS(@"足彩") forState:UIControlStateNormal];
             break;
             
-        case 3:
+        case MATCH_SCORE_TYPE_ZUCAI:
             [scoreTypeButton setTitle:FNS(@"竞彩") forState:UIControlStateNormal];
             break;
             
-        case 4:
+        case MATCH_SCORE_TYPE_JINGCAI:
             [scoreTypeButton setTitle:FNS(@"单场") forState:UIControlStateNormal];
             break;
         default:

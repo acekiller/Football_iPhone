@@ -61,4 +61,6 @@
 +(UIColor *)oddsDecreaseColor;
 +(UIColor *)oddsUnchangeColor;
 
++(UIColor *)indexTableViewBackgroundColor;
+
 @end

@@ -55,55 +55,39 @@
 + (NSString*)toMatchStatusString:(NSInteger)intValue
 {
     switch (intValue) {
-//        case MATCH_STATUS_NOT_STARTED:
-//            return FNS(@"未开");
-//            break;
-//        case MATCH_STATUS_FIRST_HALF:
-//            return FNS(@"上半场");
-//        case MATCH_STATUS_MIDDLE:
-//            return FNS(@"中场");
-//            break;
-//        case MATCH_STATUS_SECOND_HALF:
-//            return FNS(@"下半场");
-//        case MATCH_STATUS_TBD:
-//            return FNS(@"待定");
-//            break;
-//        case MATCH_STATUS_KILL:
-//            return FNS(@"腰斩");
-//        case MATCH_STATUS_PAUSE:
-//            return FNS(@"中断");
-//            break;
-//        case MATCH_STATUS_POSTPONE:
-//            return FNS(@"推迟");
-//        case MATCH_STATUS_FINISH:
-//            return FNS(@"完场");
-//            break;
-//        case MATCH_STATUS_CANCEL:
-//            return FNS(@"取消");
-//        default:
-//            return nil;
-            case MATCH_STATUS_FIRST_HALF:
+
+        case MATCH_STATUS_FIRST_HALF:
             return fns(@"上半场");
-            case MATCH_STATUS_SECOND_HALF:
+        
+        case MATCH_STATUS_SECOND_HALF:
             return fns(@"下半场");
-            case MATCH_STATUS_MIDDLE:
-                return FNS(@"中场");
-            case MATCH_STATUS_FINISH:
-                return FNS(@"完场");
-            case MATCH_STATUS_TBD:
+        
+        case MATCH_STATUS_MIDDLE:
+            return FNS(@"中场");
+        
+        case MATCH_STATUS_FINISH:
+            return FNS(@"完场");
+        
+        case MATCH_STATUS_TBD:
             return FNS(@"待定");
-                 MATCH_STATUS_KILL:
+        
+        case MATCH_STATUS_KILL:
             return FNS(@"腰斩");
-                 MATCH_STATUS_PAUSE:
+        
+        case MATCH_STATUS_PAUSE:
             return FNS(@"中断");
-                 MATCH_STATUS_POSTPONE:
+        
+        case MATCH_STATUS_POSTPONE:
             return FNS(@"推迟");
-                 MATCH_STATUS_CANCEL:
+        
+        case MATCH_STATUS_CANCEL:
             return FNS(@"取消");
-                 MATCH_STATUS_NOT_STARTED:
-                 return @"未开赛";
-            default:
-                return FNS(@"未开赛");
+        
+        case MATCH_STATUS_NOT_STARTED:
+             return @"未开赛";
+        
+        default:
+            return FNS(@"未开赛");
     }
 }
 

@@ -25,6 +25,7 @@
 #import "LanguageManager.h"
 #import "Match.h"
 
+#define SECOND_LEVEL_LEAGUE 0
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -39,9 +40,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.matchType = 0;
+        self.matchType = SECOND_LEVEL_LEAGUE;
+        self.oddsType = ODDS_TYPE_YAPEI;
         self.matchOddsList = [[NSMutableDictionary alloc] init ];
-        self.companyIdArray = [[NSMutableArray alloc] init ];
+        self.companyIdArray = [[NSMutableArray alloc] initWithObjects:@"1", @"8", @"3", @"4", nil ];
+        //four company id:1---澳彩    3---SB   4----立博   8----bet365
         self.hideSectionSet = [[NSMutableSet alloc] init];
     }
     return self;
@@ -146,6 +149,8 @@
     [super viewDidLoad];
     [self setLeftBarLogo];
     [self setRightBarButton];
+    [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
+    [self updateAllOddsData];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
@@ -339,35 +344,16 @@
 
 - (void)getOddsListFinish:(int)reslutCode
 {
+    [self hideActivity];
     OddsManager* manager = [OddsManager defaultManager];
-    [self.matchOddsList removeAllObjects];
-    switch (oddsType) {
-        case ODDS_TYPE_YAPEI: {
-            for (Odds* odds in manager.yapeiArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        case ODDS_TYPE_OUPEI: {
-            for (Odds* odds in manager.oupeiArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        case ODDS_TYPE_DAXIAO: {
-            for (Odds* odds in manager.daxiaoArray) {
-                [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-            }
-        }
-            break;
-        default:
-            break;
-    }
+    [manager selectAllLeague];
+    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType];
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
+
     [self.dataTableView reloadData];
-    [self hideActivity];
+    
     
 }
 
@@ -426,40 +412,11 @@
 
 - (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet
 {
-    [self.matchOddsList removeAllObjects];
-    OddsManager* manager = [OddsManager defaultManager];
-    [self.matchOddsList removeAllObjects];
-    switch (oddsType) {
-        case ODDS_TYPE_YAPEI: {
-            for (Odds* odds in manager.yapeiArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        case ODDS_TYPE_OUPEI: {
-            for (Odds* odds in manager.oupeiArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        case ODDS_TYPE_DAXIAO: {
-            for (Odds* odds in manager.daxiaoArray) {
-                if ([filterLeagueIdSet containsObject:[manager getLeagueIdByMatchId:odds.matchId]]) {
-                    [OddsManager addOdds:odds toDictionary:self.matchOddsList];
-                }
-            }
-        }
-            break;
-        default:
-            break;
-    }
+    self.matchOddsList = [[OddsManager defaultManager] filterOddsByOddsType:self.oddsType];
     [self.hideSectionSet removeAllObjects];
     self.dataList = [matchOddsList allKeys];
     [self updateHeaderMatch];
+
     [self.dataTableView reloadData];
 }
 
@@ -509,7 +466,7 @@
         
         aLabel.attributedText = aString;
         [self setCenter:aLabel.center];
-        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.jpg"].CGImage];
+        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.png"].CGImage];
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
         [aLabel release];

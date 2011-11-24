@@ -288,4 +288,12 @@
     return [UIColor whiteColor];
 }
 
++(UIColor *)indexTableViewBackgroundColor
+{
+    return [UIColor colorWithRed:0xDE/255.0 
+                           green:0xE7/255.0 
+                            blue:0xED/255.0 
+                           alpha:1];
+}
+
 @end

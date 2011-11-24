@@ -28,6 +28,7 @@
     
     
     NSMutableDictionary*   followMatchList;
+
 }
 
 @property (nonatomic, retain) NSDate*           serverDate;
@@ -55,6 +56,7 @@
 - (Match *)getFollowMatchById:(NSString *)matchId;
 
 // follow match methods
+- (void)saveFollowMatchList;
 - (void)followMatch:(Match*)match;
 - (void)unfollowMatch:(Match*)match;
 - (BOOL)isMatchFollowed:(NSString*)matchId;
@@ -92,5 +94,5 @@
 //get hided Matches
 //-(void)getTheHidedMatches:(int)hidedMatches;
 -(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
-
+- (void)selectAllLeague;
 @end

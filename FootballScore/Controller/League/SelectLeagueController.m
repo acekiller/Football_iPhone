@@ -208,7 +208,7 @@ const int buttonsPerLine = 4;
 
 
 
-- (void)selectLeague:(NSString*)leagueId
+- (void)selectLeague:(NSString*)leagueId //isUpdateHiddenInfo:(BOOL)isUpdateHiddenInfo
 {
     [selectLeagueIdArray addObject:leagueId];
     
@@ -216,16 +216,11 @@ const int buttonsPerLine = 4;
     [button setBackgroundImage:[UIImage imageNamed:@"set.png"] forState:UIControlStateNormal];
     
     // change color to White  , when the Button is  pressed .
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];  
-    
-    
-    //click the button and get the hided matches 
-    [self updateHiddenMatchInfo];
-
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];          
 }
 
 
-- (void)deselectLeague:(NSString*)leagueId
+- (void)deselectLeague:(NSString*)leagueId // isUpdateHiddenInfo:(BOOL)isUpdateHiddenInfo
 {
     [selectLeagueIdArray removeObject:leagueId];
 
@@ -234,14 +229,7 @@ const int buttonsPerLine = 4;
     
     
     // change color to  #666666 , when the Button is  pressed .
-     [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor ] forState:UIControlStateNormal];
-    
-    
-    //click the button and get the hided matches 
-    [self updateHiddenMatchInfo];
-   
-    
-    
+    [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor ] forState:UIControlStateNormal];        
 }
 
 - (BOOL)isLeagueSelected:(NSString*)leagueId
@@ -258,11 +246,6 @@ const int buttonsPerLine = 4;
         
     for (League* league in leagueArray){
         [self selectLeague:league.leagueId];
-        
-      
-        
-        
-        
     }
     
     //click the button and get the hided matches 
@@ -290,16 +273,7 @@ const int buttonsPerLine = 4;
 -(IBAction)selectTopLeague:(id)sender{
     
     //Remove other matches except for the top league
-    [self selectNone:sender];
-    
-    
-//    for (League* league in manager.leagueArray){
-//        [self deselectLeague:league.leagueId];
-//    }    
-    
-//    LeagueManager* manager = [LeagueManager defaultManager];
-//    for (League* league in manager.leagueArray){
-    
+    [self selectNone:sender];        
     
     for (League* league in leagueArray){
         if ([league isTop]){
@@ -323,9 +297,8 @@ const int buttonsPerLine = 4;
     else{
         [self selectLeague:leagueId];
     }    
-    
-    
-   //click the button and get the hided matches 
+        
+    //click the button and get the hided matches 
     [self updateHiddenMatchInfo];
 }
 

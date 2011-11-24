@@ -259,8 +259,6 @@ enum cardType{
 - (void)updateMatchStatus:(Match*)match
 {
     MatchManager* manager = [MatchManager defaultManager];
-//    CGRect middlePosition = CGRectMake(151, 21, 36, 20);
-//    CGRect originalPosition = CGRectMake(151, 6, 36, 20);
     int matchStatus = [match.status intValue];
     
     switch (matchStatus) {
@@ -374,7 +372,7 @@ enum cardType{
 
 - (void)positionAdjust
 {
-    float leftSide = followButton.frame.origin.x + followButton.frame.size.width;
+    float leftSide = followButton.frame.origin.x + followButton.frame.size.width+5;
     float maxWidth = matchStatusLabelRect.origin.x - leftSide - WIDTH_BETWEEN_SCORE_NAME;
     float cardWidth = 13;
     float cardTitleSpace = 4;

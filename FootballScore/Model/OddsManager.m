@@ -15,6 +15,7 @@
 #import "OuPei.h"
 #import "MatchManager.h"
 #import "LogUtil.h"
+#import "League.h"
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
 {
@@ -217,4 +218,47 @@ OddsManager* GlobleGetOddsManager()
     }
     return nil;
 }
+
+- (NSMutableDictionary*)filterOddsByOddsType:(int)oddsType
+{
+    NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init ] autorelease];
+    switch (oddsType) {
+        case ODDS_TYPE_YAPEI: {
+            for (Odds* odds in self.yapeiArray) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:dict];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_OUPEI: {
+            for (Odds* odds in self.oupeiArray) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:dict];
+                }
+            }
+        }
+            break;
+        case ODDS_TYPE_DAXIAO: {
+            for (Odds* odds in self.daxiaoArray) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                    [OddsManager addOdds:odds toDictionary:dict];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    return dict;
+    
+}
+
+- (void)selectAllLeague
+{
+    for (League* league in leagueArray) {
+        [self.filterLeagueIdList addObject:league.leagueId];
+    }
+}
+
 @end
