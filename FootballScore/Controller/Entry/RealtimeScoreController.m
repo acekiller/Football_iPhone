@@ -205,16 +205,14 @@
               updateMatchArray:(NSArray*)updateMatchArray
 {
     [self hideActivity];
-    [self dataSourceDidFinishLoadingNewData];
-
-    self.dataList = [[MatchManager defaultManager] filterMatch];
-    [[self dataTableView] reloadData];    
     if (result == 0 && updateMatchArray == nil) {
         [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
     }
+    [self dataSourceDidFinishLoadingNewData];
+
     [[MatchManager defaultManager] selectAllLeague];
     self.dataList = [[MatchManager defaultManager] filterMatch];
-    [self.dataTableView reloadData];
+    [self.dataTableView reloadData];   
     
 }
 
@@ -347,6 +345,11 @@
     MatchManager* manager = [MatchManager defaultManager];
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
     self.dataList = [manager filterMatch];
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+    } else {
+        [self hideTipsOnTableView];
+    }
     [[self dataTableView] reloadData];
     
 }
@@ -370,11 +373,17 @@
     
     [manager updateFilterMatchStatus:matchSelectStatus];
     self.dataList = [manager filterMatch];
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+    } else {
+        [self hideTipsOnTableView];
+    }
     [[self dataTableView] reloadData];    
 }
 
 - (IBAction)clickMyFollow:(id)sender
 { 
+    [self hideTipsOnTableView];
     [self setRefreshHeaderViewEnable:NO];
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
@@ -553,4 +562,5 @@
 	// [self dataSourceDidFinishLoadingNewData];
     
 }
+
 @end
