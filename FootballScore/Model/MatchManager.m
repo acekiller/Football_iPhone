@@ -16,6 +16,7 @@
 #import "ScoreUpdateManager.h"
 #import "ScoreUpdate.h"
 #import "LogUtil.h"
+#import "League.h"
 
 #define FILTER_LEAGUE_ID_LIST       @"FILTER_LEAGUE_ID_LIST"
 #define FOLLOW_MATCH_LIST        @"FOLLOW_MATCH_LIST"
@@ -920,6 +921,15 @@ NSComparisonResult doubleCmp(double a ,double b)
     
     PPDebug(@"match %@ updated, data=%@", 
             [match description], [fields componentsJoinedByString:@" "]);
+}
+
+- (void)selectAllLeague
+{
+    [self.filterLeagueIdList removeAllObjects];
+    for (League* league in [[LeagueManager defaultManager] leagueArray]) {
+        NSString* leagueId = league.leagueId;
+        [[MatchManager defaultManager].filterLeagueIdList addObject:leagueId];
+    }
 }
 
 @end
