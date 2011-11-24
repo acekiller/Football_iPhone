@@ -16,7 +16,8 @@
 #import "SelectLeagueController.h"
 #import "UITableViewCellUtil.h"
 #import "LeagueManager.h"
-
+#import "ShowAlertTextViewController.h"
+#import "UserManager.h"
 
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
@@ -403,12 +404,12 @@
     Match* match = [self.dataList objectAtIndex:indexPath.row];
     MatchManager* manager = [MatchManager defaultManager];
     if (match.isFollow == [NSNumber numberWithBool:YES]){
-        [manager unfollowMatch:match]; 
-        [self popupMessage:FNS(@"已成功取消关注") title:@""];
+        [GlobalGetMatchService() unfollowMatch:[UserManager getUserId] match:match];
+        [ShowAlertTextViewController show:self.view message:FNS(@"已成功取消关注")];
     }
     else{
-        [manager followMatch:match];
-        [self popupMessage:FNS(@"已成功关注") title:@""];
+        [GlobalGetMatchService() followMatch:[UserManager getUserId] match:match]; 
+        [ShowAlertTextViewController show:self.view message:FNS(@"已成功关注")];
     }
     
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW){

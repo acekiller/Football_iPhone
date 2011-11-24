@@ -27,8 +27,8 @@
 #define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
 #define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
 #define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
+#define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/x.aspx?"
 
-  
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
 #define FIELD_SEP               @"^"
@@ -578,6 +578,31 @@ enum{
                                     matchId:(NSString*)matchId
                                        type:(int)type
 {
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+    
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        
+        str = [str stringByAddQueryParameter:@"userid" value:userId];
+        
+        str = [str stringByAddQueryParameter:@"matchID" value:matchId];
+        
+        str = [str stringByAddQueryParameter:@"cmd" intValue:type];
+        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_FOLLOWUNFOLLOW_MATCH
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
+    
     return nil;
 }
 

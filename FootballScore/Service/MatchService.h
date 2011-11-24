@@ -69,8 +69,8 @@
 - (void)stopRealtimeMatchUpdate;
 - (void)startRealtimeMatchUpdate;
 
-- (void)followMatch:(NSString*)userId matchId:(NSString*)matchId;
-- (void)unfollowMatch:(NSString*)userId matchId:(NSString*)matchId;
+- (void)followMatch:(NSString*)userId match:(Match*)match;
+- (void)unfollowMatch:(NSString*)userId match:(Match*)match;
 
 @end
 
