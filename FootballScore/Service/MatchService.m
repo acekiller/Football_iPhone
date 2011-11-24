@@ -22,6 +22,11 @@
 #define GET_MATCH_DETAIL_HEADER @"GET_MATCH_DETAIL_HEADER"
 #define GET_MATCH_OUPEI @"GET_MATCH_OUPEI"
 #define UPDATE_FOLLOW_MATCH @"UPDATE_FOLLOW_MATCH"
+#define FOLLOW_MATCH  @"FOLLOW_MATCH"
+#define UNFOLLOW_MATCH  @"UNFOLLOW_MATCH"
+
+#define FOLLOW_MATCH_TYPE    0
+#define UNFOLLOW_MATCH_TYPE  1
 
 @implementation MatchService
 
@@ -350,14 +355,53 @@
     
 }
 
-- (void)followMatch:(NSString*)userId matchId:(NSString*)matchId
+- (void)followMatch:(NSString*)userId match:(Match*)match
 {
+    NSOperationQueue* queue = [self getOperationQueue:FOLLOW_MATCH];
+    MatchManager* manager = [MatchManager defaultManager];
+    [manager followMatch:match];
     
+    [queue addOperationWithBlock:^{
+        CommonNetworkOutput* output = [FootballNetworkRequest followUnfollowMatch:userId matchId:match.matchId type:FOLLOW_MATCH_TYPE];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(output.resultCode == ERROR_SUCCESS)
+            {
+                PPDebug(@"Follow match (%@) success", [match description]);
+            }
+            else
+            {
+                PPDebug(@"Follow match (%@) fail, error = %d", 
+                        [match description], output.resultCode);
+                
+                // TODO save it to a retry list to send request later
+                
+            }
+        });
+    }];
 }
 
-- (void)unfollowMatch:(NSString*)userId matchId:(NSString*)matchId
+- (void)unfollowMatch:(NSString*)userId match:(Match*)match
 {
+    NSOperationQueue* queue = [self getOperationQueue:UNFOLLOW_MATCH];
+    MatchManager* manager = [MatchManager defaultManager];
+    [manager unfollowMatch:match];
     
+    [queue addOperationWithBlock:^{
+        CommonNetworkOutput* output = [FootballNetworkRequest followUnfollowMatch:userId matchId:match.matchId type:UNFOLLOW_MATCH_TYPE];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(output.resultCode == ERROR_SUCCESS)
+            {
+                PPDebug(@"Unfollow match (%@) success",[match description]);
+            }
+            else
+            {
+                PPDebug(@"Unfollow match (%@) fail,error = %d",[match description],output.resultCode);
+                 // TODO save it to a retry list to send request later
+            }
+        });
+    }];
 }
 
 @end
