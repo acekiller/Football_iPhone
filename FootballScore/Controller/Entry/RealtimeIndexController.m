@@ -351,7 +351,6 @@
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
-
     [self.dataTableView reloadData];
     
     
@@ -416,7 +415,11 @@
     [self.hideSectionSet removeAllObjects];
     self.dataList = [matchOddsList allKeys];
     [self updateHeaderMatch];
-
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"没有符合条件的指数")];
+    } else {
+        [self hideTipsOnTableView];
+    }
     [self.dataTableView reloadData];
 }
 
