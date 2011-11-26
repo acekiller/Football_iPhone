@@ -30,6 +30,7 @@
 #import "UserManager.h"
 #import "OddsService.h"
 #import "UserService.h"
+#import "RetryService.h"
 
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
@@ -316,7 +317,8 @@ enum
     [self userRegister];
     [self.matchService startRealtimeMatchUpdate];
 //    [appService startAppUpdate];
-    
+    RetryService *retryService = [[[RetryService alloc] init]autorelease];
+    [retryService retryFollowUnfollowList:[UserManager getUserId]];
 }
 
 

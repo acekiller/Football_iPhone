@@ -11,6 +11,8 @@
 		A3ACBABE147B3A9E0040C155 /* ShowAlertTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */; };
 		A3B9F7DA146CC44200FA3C65 /* ShowRealtimeScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */; };
 		A3B9F7DB146CC44200FA3C65 /* ShowRealtimeScoreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */; };
+		A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */; };
+		A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F41147F323900BE4A61 /* RetryService.m */; };
 		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
 		C27FD7891467ACF700D7E3A9 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD77A1467ACF600D7E3A9 /* OHAttributedLabel.m */; };
 		C27FD7901467AFE900D7E3A9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27FD78F1467AFE900D7E3A9 /* CoreText.framework */; };
@@ -423,6 +425,10 @@
 		A3B9F7D7146CC44200FA3C65 /* ShowRealtimeScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRealtimeScoreController.h; sourceTree = "<group>"; };
 		A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRealtimeScoreController.m; sourceTree = "<group>"; };
 		A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowRealtimeScoreController.xib; sourceTree = "<group>"; };
+		A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryManager.h; sourceTree = "<group>"; };
+		A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryManager.m; sourceTree = "<group>"; };
+		A3FA4F40147F323900BE4A61 /* RetryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryService.h; sourceTree = "<group>"; };
+		A3FA4F41147F323900BE4A61 /* RetryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryService.m; sourceTree = "<group>"; };
 		C27FD7771467ACF600D7E3A9 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		C27FD7791467ACF600D7E3A9 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
@@ -1314,6 +1320,8 @@
 				C282D666146E49FE00EE435A /* OuPei.m */,
 				C282D668146E4A0A00EE435A /* DaXiao.h */,
 				C282D669146E4A0A00EE435A /* DaXiao.m */,
+				A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */,
+				A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1338,6 +1346,8 @@
 				C286A11E146B76140016E452 /* OddsService.m */,
 				C286BF2A146BBF55003A0D3D /* UserService.h */,
 				C286BF2B146BBF55003A0D3D /* UserService.m */,
+				A3FA4F40147F323900BE4A61 /* RetryService.h */,
+				A3FA4F41147F323900BE4A61 /* RetryService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2693,6 +2703,8 @@
 				CABA820B1470C2E4008E8AFB /* AboutController.m in Sources */,
 				CA3FD6D2147248CA0097D016 /* ScoreIndexTitleCell.m in Sources */,
 				A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */,
+				A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */,
+				A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
