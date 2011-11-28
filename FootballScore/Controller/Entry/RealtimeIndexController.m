@@ -308,6 +308,11 @@
     [button setTag:section];
     [button addTarget:self action:@selector(headerViewAction:) forControlEvents:UIControlEventTouchUpInside];
     [header addSubview:button];
+    if ([self isSectionHide:section]) {
+        [header setBackgroundImage:[UIImage imageNamed:@"odds_down.png"]];
+    }else{
+        [header setBackgroundImage:[UIImage imageNamed:@"odds_up.png"]];
+    }
     return header;
 }
 
@@ -456,7 +461,7 @@
         NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
         NSString *leagueDate = [NSString stringWithFormat:@"   %@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
-        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(0, 0, 320, 23.5)];
+        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(20, 1, 300, 26.5)];
         NSMutableAttributedString *aString = [NSMutableAttributedString attributedStringWithString:title];
 
         NSRange range1 = [title rangeOfString:leagueDate];
@@ -468,8 +473,7 @@
         [aString setTextColor:[UIColor whiteColor] range:range2];
         
         aLabel.attributedText = aString;
-        [self setCenter:aLabel.center];
-        [self.layer setContents:(id)[UIImage imageNamed:@"odds_title_bg.png"].CGImage];
+        [self.layer setContents:(id)[UIImage imageNamed:@"odds_up.png"].CGImage];
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
         [aLabel release];
@@ -477,5 +481,8 @@
     return self;
 }
 
-
+- (void)setBackgroundImage:(UIImage *)image
+{
+    [self.layer setContents:(id)image.CGImage];
+}
 @end
