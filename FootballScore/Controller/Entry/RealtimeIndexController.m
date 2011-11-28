@@ -150,6 +150,11 @@
     [self setLeftBarLogo];
     [self setRightBarButton];
     [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
+    CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    [manager setSelectedOddsType:ODDS_TYPE_YAPEI];
+    for (NSString* str in companyIdArray) {
+        [manager selectCompanyById:str];
+    }
     [self updateAllOddsData];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.

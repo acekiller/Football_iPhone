@@ -31,9 +31,6 @@ enum {
     NSMutableArray *asianBwinArray;
     NSMutableArray *europeBwinArray;
     NSMutableArray *bigandSmallArray;
-    
-    NSMutableSet *selectedBwin;
-    
 
     id<SeclectIndexControllerDelegate> delegate;
     
@@ -49,14 +46,6 @@ enum {
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
 - (void)createButtonsByArray:(NSArray*)array;
-
-
-//
-//- (BOOL)isOddsCompanySelected:(NSString*)OddsCompanyId;
-//- (void)selectOddsCompany:(NSString*)OddsCompanyId;
-//- (void)deSelectOddsCompany:(NSString*)OddsCompanyId;
-//
-
 
 + (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
 + (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 

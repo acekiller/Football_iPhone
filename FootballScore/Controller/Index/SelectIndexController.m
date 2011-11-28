@@ -12,6 +12,12 @@
 #import "Company.h"
 #import "ColorManager.h"
 
+typedef enum ODDS_TYPE {
+    ODDS_TYPE_YAPEI = 1,
+    ODDS_TYPE_DAXIAO = 3,
+    ODDS_TYPE_OUPEI = 2
+}ODDS_TYPE;
+
 #define SCROLL_VIEW_TAG 20111109
 #define COMPANY_ID_BUTTON_OFFSET 120111109
 #define CONTENT_TYPE_OFFSET 220111108
@@ -38,7 +44,6 @@
         asianBwinArray = [[NSMutableArray alloc] init];
         europeBwinArray = [[NSMutableArray alloc] init];
         bigandSmallArray = [[NSMutableArray alloc] init];
-        selectedBwin = [[NSMutableSet alloc] init];
         CompanyManager* manager = [CompanyManager defaultCompanyManager];
         for (Company* company in manager.allCompany) {
             if (company.hasAsianOdds) {
@@ -63,7 +68,6 @@
     [asianBwinArray release];
     [europeBwinArray release];
     [bigandSmallArray release];
-    [selectedBwin release];
 
     [super dealloc];
 }
@@ -74,6 +78,28 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)contentTypeButtonInit
+{
+    CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    switch (manager.selectedOddsType) {
+        case ODDS_TYPE_YAPEI:
+            [buttonAsianBwin setSelected:YES];
+            [self createButtonsByArray:asianBwinArray];
+            break;
+        case ODDS_TYPE_DAXIAO:
+            [buttonBigandSmall setSelected:YES];
+            [self createButtonsByArray:bigandSmallArray];
+            break;
+        case ODDS_TYPE_OUPEI:
+            [buttonEuropeBwin setSelected:YES];
+            [self createButtonsByArray:europeBwinArray];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 #pragma mark - View lifecycle
@@ -87,12 +113,15 @@
     [buttonAsianBwin setTag:ASIANBWIN];
     [buttonEuropeBwin setTag:EUROPEBWIN];
     [buttonBigandSmall setTag:BIGANDSMALL];
+    
+    [self contentTypeButtonInit];
 
-    [self clickContentTypeButton: buttonAsianBwin];
     [self.view setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+
 
 - (void)viewDidUnload
 {
@@ -124,7 +153,6 @@
 {
     contentType = [sender tag];
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    [selectedBwin removeAllObjects];
     [manager.selectedCompany removeAllObjects];
     [manager setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
     for (int i = ASIANBWIN; i <= BIGANDSMALL; i++) {
@@ -158,28 +186,25 @@
 
 - (IBAction)buttonClicked:(id)sender 
 {
+    CompanyManager* manager = [CompanyManager defaultCompanyManager];
     UIButton *button = (UIButton*)sender;
-    UILabel *label = [button titleLabel];
-    NSString *title = label.text;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FNS(@"最多只能选四个") 
                                                     message:FNS(@"") 
                                                    delegate:nil 
                                           cancelButtonTitle:FNS(@"好了，我知道了") 
                                           otherButtonTitles: nil];
     
-    if ([selectedBwin containsObject:title]) {
-        [selectedBwin removeObject:title];
+    if ([manager.selectedCompany containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]]) {
         [button setSelected:NO];
         [[CompanyManager defaultCompanyManager] unselectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
 
     }
     else {
-        if ([selectedBwin count] >= 4) {
+        if ([[manager selectedCompany] count] >= 4) {
             [alert show];
             [alert release];
             return;
         }
-        [selectedBwin addObject:title];
         [button setSelected:YES];
         [[CompanyManager defaultCompanyManager] selectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
     }
@@ -196,35 +221,18 @@
     if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
         [delegate SelectCompanyFinish];
     }
-    
-    
-    UIButton *button = (UIButton*)sender;
-    UILabel *label = [button titleLabel];
-    NSString *title = label.text;
-    
-    if ([selectedBwin containsObject:title]) {
-        [selectedBwin removeObject:title];
-        [button setSelected:NO];
 
+    if ([[[CompanyManager defaultCompanyManager] selectedCompany] count] <= 0) {  
+        [self popupMessage:@"至少选择一间赔率公司" title:nil];
+        return;
     }
 
-    else {
-        if ([selectedBwin count] <= 0) {
-            
-        [self popupMessage:@"至少选择一间赔率公司" title:nil];
-            
-           return;
-        }
-        
-        
-        [selectedBwin addObject:title];
-        [button setSelected:YES];
         [self.navigationController popViewControllerAnimated:YES];
 
 }
 
     
-}
+//}
 
 // the funcition is wait to implement .
 //
@@ -348,5 +356,7 @@
     
 
 }
+
+
 
 @end

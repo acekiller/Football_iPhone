@@ -78,7 +78,6 @@ CompanyManager* GlobalGetCompanyManager()
     self = [super init];    
     allCompany = [[NSMutableArray alloc] init];
     selectedCompany = [[NSMutableSet alloc] init];
-    
     return self;
 }
 
