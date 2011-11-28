@@ -236,8 +236,13 @@
     NSMutableArray* indexPathes = [[NSMutableArray alloc] init];    
     int row = 0;
     int matchCount = 0;
+    BOOL needReloadData = NO;
     for (Match* match in self.dataList){
         if ([updateMatchSet containsObject:match.matchId]){
+            if ([match.status intValue] < 0) {
+                needReloadData = YES;
+                break;
+            }
             [indexPathes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
             matchCount ++;
         }
@@ -248,7 +253,7 @@
     BOOL allMatchUpdateFound = (matchCount == [updateMatchSet count]);
     BOOL viewOngoingMatch = (manager.filterMatchStatus == MATCH_SELECT_STATUS_ON_GOING);
     
-    if (allMatchUpdateFound || !viewOngoingMatch){
+    if ((needReloadData == NO) && (allMatchUpdateFound || !viewOngoingMatch)){
         // update rows only for better performance
         if ([indexPathes count] > 0){
             [self.dataTableView reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone];
@@ -259,7 +264,6 @@
         self.dataList = [manager filterMatch];
         [self.dataTableView reloadData];
     }
-
     [indexPathes release];
 }
 
