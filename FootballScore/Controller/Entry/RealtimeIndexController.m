@@ -466,14 +466,14 @@
         NSString *leagueDate = [NSString stringWithFormat:@"%@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
         CGFloat x = 25.0;
-        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(x, 5.5, 320 - x, HEADER_HEIGHT)];
+        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(x, 6, 320 - x, HEADER_HEIGHT)];
         NSMutableAttributedString *aString = [NSMutableAttributedString attributedStringWithString:title];
 
         NSRange range1 = [title rangeOfString:leagueDate];
         NSRange range2 = [title rangeOfString:teamString];
         
         [aString setFont:[UIFont systemFontOfSize:13.0] range:range1];
-        [aString setFont:[UIFont systemFontOfSize:16.0] range:range2];
+        [aString setFont:[UIFont systemFontOfSize:15.0] range:range2];
         [aString setTextColor:[UIColor whiteColor] range:range1];
         [aString setTextColor:[UIColor whiteColor] range:range2];
         
