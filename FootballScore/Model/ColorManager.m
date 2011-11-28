@@ -296,4 +296,14 @@
                            alpha:1];
 }
 
+//ReamTimeScoreController tableView background color
++ (UIColor *)realTimeScoreControllerTableViewBackgroundColor
+{
+    return [UIColor colorWithRed:(0xf3)/255.0 
+                           green:(0xf7)/255.0 
+                            blue:(0xf8)/255.0 
+                           alpha:1.0];
+}
+
+
 @end
