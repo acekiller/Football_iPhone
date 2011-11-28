@@ -213,10 +213,7 @@ enum
     
     [tabBarController setBarBackground:@"bottom_bg.png"];
     
-    
 
-    
-    
     // init all service 
     [self initMatchService];
     [self userRegister];
@@ -236,7 +233,7 @@ enum
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
     
     if (![self isPushNotificationEnable]){
-//        [self bindDevice];
+        [self bindDevice];
     }
     
     return YES;
@@ -415,7 +412,9 @@ enum
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	
 //    // Get a hex string from the device token with no spaces or < >	
-//	[self saveDeviceToken:deviceToken];    
+	[self saveDeviceToken:deviceToken];    
+    //TODO post the device token to the server.
+    
 //    
 //    if ([userService user] == nil){
 //        // user not registered yet, device token will be carried by registration request        
