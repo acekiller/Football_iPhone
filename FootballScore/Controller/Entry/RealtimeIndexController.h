@@ -47,4 +47,5 @@
     
 }
 - (id)initWithMatchId:(NSString *)matchId;
+- (void)setBackgroundImage:(UIImage *)image;
 @end
