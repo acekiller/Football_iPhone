@@ -297,8 +297,8 @@ enum OUPEI_INDEX {
                  }                
              }
              
-             if (delegate && [delegate respondsToSelector:@selector(getOddsListFinish:)]) {
-                 [delegate getOddsListFinish:output.resultCode];
+             if (self.delegate && [self.delegate respondsToSelector:@selector(getOddsListFinish:)]) {
+                 [self.delegate getOddsListFinish:output.resultCode];
              }
              
          });                        

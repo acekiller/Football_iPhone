@@ -51,6 +51,7 @@ MatchManager* GlobalGetMatchIndexManager()
 @synthesize followMatchList;
 @synthesize serverDate;
 @synthesize followMatchArray;
+@synthesize isSelectAll;
 
 + (MatchManager*)defaultManager
 {
@@ -237,6 +238,9 @@ NSComparisonResult doubleCmp(double a ,double b)
 
 - (NSArray*)filterMatch
 {
+    if (isSelectAll) {
+        [self selectAllLeague];
+    }
     NSMutableArray* retArray = [[[NSMutableArray alloc] init] autorelease];
     BOOL isCheckLeague = ([filterLeagueIdList count] > 0);
     if (!isCheckLeague) {
