@@ -48,4 +48,5 @@
 }
 - (id)initWithMatchId:(NSString *)matchId;
 - (void)setBackgroundImage:(UIImage *)image;
++ (CGFloat)getHeight;
 @end

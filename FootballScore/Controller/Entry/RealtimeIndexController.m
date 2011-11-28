@@ -304,6 +304,10 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [RealtimeIndexHeaderView getHeight];
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString* matchId = [self.dataList objectAtIndex:section];
@@ -453,7 +457,7 @@
 
 @implementation RealtimeIndexHeaderView
 
-#define HEADER_HEIGHT 30
+#define HEADER_HEIGHT 33.0
 #define BUTTON_TAG 1223
 - (id)initWithMatchId:(NSString *)matchId
 {
@@ -464,16 +468,17 @@
         NSString *leagueName = [[LeagueManager defaultIndexManager]getNameById:match.leagueId];
         NSString *dateString = dateToStringByFormat(match.date, @"MM/dd");
         NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
-        NSString *leagueDate = [NSString stringWithFormat:@"   %@ %@",leagueName,dateString];
+        NSString *leagueDate = [NSString stringWithFormat:@"%@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
-        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(20, 1, 300, 26.5)];
+        CGFloat x = 25.0;
+        OHAttributedLabel *aLabel = [[OHAttributedLabel alloc]initWithFrame:CGRectMake(x, 6, 320 - x, HEADER_HEIGHT)];
         NSMutableAttributedString *aString = [NSMutableAttributedString attributedStringWithString:title];
 
         NSRange range1 = [title rangeOfString:leagueDate];
         NSRange range2 = [title rangeOfString:teamString];
         
-        [aString setFont:[UIFont systemFontOfSize:12.0] range:range1];
-        [aString setFont:[UIFont systemFontOfSize:14.0] range:range2];
+        [aString setFont:[UIFont systemFontOfSize:13.0] range:range1];
+        [aString setFont:[UIFont systemFontOfSize:15.0] range:range2];
         [aString setTextColor:[UIColor whiteColor] range:range1];
         [aString setTextColor:[UIColor whiteColor] range:range2];
         
@@ -489,5 +494,10 @@
 - (void)setBackgroundImage:(UIImage *)image
 {
     [self.layer setContents:(id)image.CGImage];
+}
+
++ (CGFloat)getHeight
+{
+    return HEADER_HEIGHT;
 }
 @end
