@@ -18,6 +18,7 @@
 #import "LeagueManager.h"
 #import "ShowAlertTextViewController.h"
 #import "UserManager.h"
+#import "ColorManager.h"
 
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
@@ -125,10 +126,8 @@
     
     [self setScoreButtonTitle:[self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST]];
     
-    self.view.backgroundColor = [UIColor colorWithRed:(0xf3)/255.0 
-                                                green:(0xf7)/255.0 
-                                                 blue:(0xf8)/255.0 
-                                                alpha:1.0];
+    self.view.backgroundColor = [ColorManager realTimeScoreControllerTableViewBackgroundColor];
+    [self.tipsLabel setTextColor:[ColorManager leageNameColor]];
     
     [super viewDidLoad];
     

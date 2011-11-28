@@ -52,6 +52,10 @@
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="270451622"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="287453043">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MCAwAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">11</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -89,6 +93,7 @@
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="801002880"/>
+								<reference key="IBUIBackgroundColor" ref="287453043"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">12</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -108,6 +113,7 @@
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="917152029"/>
+								<reference key="IBUIBackgroundColor" ref="287453043"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">13</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -127,6 +133,7 @@
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="623085910"/>
+								<reference key="IBUIBackgroundColor" ref="287453043"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">14</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -146,6 +153,7 @@
 								<reference key="NSSuperview" ref="279246246"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="880858632"/>
+								<reference key="IBUIBackgroundColor" ref="287453043"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">15</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -163,10 +171,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1067702808"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="287453043">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="287453043"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUITableView" id="880858632">

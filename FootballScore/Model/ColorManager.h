@@ -63,4 +63,6 @@
 
 +(UIColor *)indexTableViewBackgroundColor;
 
++ (UIColor *)realTimeScoreControllerTableViewBackgroundColor;
+
 @end
