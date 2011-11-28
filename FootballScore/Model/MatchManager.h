@@ -38,6 +38,7 @@
 @property (nonatomic, assign) int               filterMatchStatus;
 @property (nonatomic, assign) int               filterMatchScoreType;
 @property (nonatomic, retain) NSMutableArray*   followMatchArray;
+@property (nonatomic, assign) BOOL              isSelectAll;
 
 
 + (MatchManager *)defaultManager;

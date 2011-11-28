@@ -94,6 +94,14 @@
 
 - (void)loadMatch:(int)scoreType
 {
+    [[MatchManager defaultManager] setIsSelectAll:NO];
+    [self showActivityWithText:FNS(@"加载数据中...")];
+    [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
+}
+
+- (void)loadMatch:(int)scoreType isSelectAll:(BOOL)isSelectAll
+{
+    [[MatchManager defaultManager] setIsSelectAll:isSelectAll];
     [self showActivityWithText:FNS(@"加载数据中...")];
     [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
 }
@@ -127,7 +135,7 @@
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
 
     
-    [self loadMatch:MATCH_SCORE_TYPE_FIRST];
+    [self loadMatch:MATCH_SCORE_TYPE_FIRST isSelectAll:YES];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -206,13 +214,18 @@
               updateMatchArray:(NSArray*)updateMatchArray
 {
     [self hideActivity];
+    [self hideTipsOnTableView];
     if (result == 0 && updateMatchArray == nil) {
         [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
     }
     [self dataSourceDidFinishLoadingNewData];
 
-    [[MatchManager defaultManager] selectAllLeague];
     self.dataList = [[MatchManager defaultManager] filterMatch];
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+    } else {
+        [self hideTipsOnTableView];
+    }
     [self.dataTableView reloadData];   
     
 }
@@ -281,11 +294,10 @@
 //        // same type, no change, return directly
 //        return;
 //    }
-    
     matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
         
        // reload data
-    [self loadMatch:matchScoreType];
+    [self loadMatch:matchScoreType isSelectAll:YES];
    
     // update score type button display   
     
@@ -344,6 +356,7 @@
         return;
     // filter data list by league data
     MatchManager* manager = [MatchManager defaultManager];
+    [manager setIsSelectAll:NO];
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
     self.dataList = [manager filterMatch];
     if (self.dataList == nil || [self.dataList count] == 0) {
