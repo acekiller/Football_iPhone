@@ -7,6 +7,7 @@ function LineupView(){
     var homeReserveTemplate = Ext.XTemplate.from("home-reserve-template", helperFunctions);
     var awayLineupTemplate = Ext.XTemplate.from("away-lineup-template", helperFunctions);
     var awayReserveTemplate = Ext.XTemplate.from("away-reserve-template", helperFunctions);    
+    var nodataTemplate = Ext.XTemplate.from("nodata-template", helperFunctions);
     
     this.homeLineupPanel = new Ext.Panel({
         id: 'homeLineupPanel',
@@ -61,7 +62,7 @@ function LineupView(){
 	    }, 
 		scroll : 'vertical',
 	    items: [this.subPanel1,
-               this.subPanel2]   
+               this.subPanel2,nodataTemplate]   
 
 	});
 
@@ -77,12 +78,15 @@ LineupView.prototype = {
 			this.homeReservePanel.update(manager.data.homeReserve);
 			this.awayLineupPanel.update(manager.data.awayLineup);
 			this.awayReservePanel.update(manager.data.awayReserve);
+			Ext.get('nodata-template').dom.style.display = 'none'; 
 		}
 		 else if (manager.data == null || manager.data.homeLineup[0].length == 0){
 			//Ext.get('homelist').dom.style.display = 'none'; 
 			//Ext.get('homeReservelist').dom.style.display = 'none'; 
 			//Ext.get('awaylist').dom.style.display = 'none'; 
 			//Ext.get('awayReservelist').dom.style.display = 'none'; 
+			 console.log("*********");
+			 Ext.get('nodata-template').dom.style.display = 'block';
 			
 			this.subPanel1.hide();
 			this.subPanel2.hide();

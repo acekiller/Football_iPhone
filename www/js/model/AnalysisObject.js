@@ -1,6 +1,6 @@
 
 //points(积分排名) model
-function PointsObject(type, games, win, draw, lose, score, score_against, points, rank, winning_ratio) {
+function PointsObject(type, games, win, draw, lose, score, score_against, score_earn, points, rank, winning_ratio) {
 	this.type = type;
 	this.games = games;
 	this.win = win;
@@ -8,6 +8,7 @@ function PointsObject(type, games, win, draw, lose, score, score_against, points
 	this.lose = lose;
 	this.score = score;
 	this.score_against = score_against;
+	this.score_earn = score_earn;
 	this.points = points;
 	this.rank = rank;
 	this.winning_ratio = winning_ratio;
