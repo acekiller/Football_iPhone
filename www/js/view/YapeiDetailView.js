@@ -1,4 +1,3 @@
-
 function YapeiDetailView(type){
 	
 	this.type = type;
@@ -21,7 +20,7 @@ function YapeiDetailView(type){
 			var hour = str.substring(8, 10);
 			var minute = str.substring(10, 12);
 			
-			var result =  month + "/" + day + " " + hour + ":" + minute;
+			var result = month + "/" + day + " " + hour + ":" + minute;
 			return result;			
 		},
 		
@@ -38,59 +37,35 @@ function YapeiDetailView(type){
     var companyTemplate = Ext.XTemplate.from("odds-detail-company-template", helperFunctions);
 	var oddsTemplate = Ext.XTemplate.from("odds-detail-template", helperFunctions);
 
-
 	this.selectCompanyId = null;
 	this.manager = null;
-
-	this.detailCompanyTitlePanel = new Ext.Panel({
-		html: '<div class="ac_left_title">赔率公司选择</div>',
-		margin: '0 0 0 0',
-		scroll : 'vertical',
-	});
-
 
     this.detailCompanyPanel = new Ext.Panel({            
 //        id : 'detailCompanyPanel' + type.toString(),
         tpl : companyTemplate,
         margin: '0 0 0 0',
-		scroll : 'vertical',
-    });	
-	
-	this.leftPanel = new Ext.Panel({
-		layout: {
-            type: 'vbox',
-			align: 'stretch'
-        },
 		flex: 93/320,
-        items: [this.detailCompanyTitlePanel, this.detailCompanyPanel]    
-	});        	       
+//        align: 'top',
+        scroll : 'vertical'
+    });	        	       
 		
-	this.oddsTitlePanel = new Ext.Panel({
-		html: '<div class="ac_r_title">赔率变化</div>',
-	});
-	
 	this.oddsPanel = new Ext.Panel({
 //        id : 'oddsPanel' + type.toString(),
-         tpl : oddsTemplate,
-	});
-	
-	this.rightPanel = new Ext.Panel({
-		layout: {
-            type: 'vbox',
-			align: 'stretch',
-        },
-	    scroll : 'vertical',
+        tpl : oddsTemplate,
+        margin: '0 0 0 0',
 		flex: (320-93)/320,
-        items: [this.oddsTitlePanel, this.oddsPanel]     
+//        align: 'right',		
+        scroll : 'vertical'
 	});
-	
+
     this.mainPanel = new Ext.Panel({
+
         fullscreen: true,
         layout: {
             type: 'hbox',
-			align: 'stretch'
+            align: 'stretch'
         },
-        items: [this.leftPanel, this.rightPanel]            
+        items: [this.detailCompanyPanel, this.oddsPanel]            
     });	
 }
 
@@ -125,5 +100,8 @@ YapeiDetailView.prototype = {
 		this.detailCompanyPanel.update(manager);		
 	},
 	
+	test : function(){
+		alert("test");
+	}
+	
 };
-
