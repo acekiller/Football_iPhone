@@ -233,7 +233,7 @@ enum
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
     
     if (![self isPushNotificationEnable]){
-        [self bindDevice];
+//        [self bindDevice];
     }
     
     return YES;

@@ -221,7 +221,7 @@
 
     self.dataList = [[MatchManager defaultManager] filterMatch];
     if (self.dataList == nil || [self.dataList count] == 0) {
-        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+        [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
     } else {
         [self hideTipsOnTableView];
     }
@@ -363,7 +363,7 @@
     [manager updateFilterLeague:selectedLeagueArray removeExist:YES];
     self.dataList = [manager filterMatch];
     if (self.dataList == nil || [self.dataList count] == 0) {
-        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+        [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
     } else {
         [self hideTipsOnTableView];
     }
@@ -391,7 +391,7 @@
     [manager updateFilterMatchStatus:matchSelectStatus];
     self.dataList = [manager filterMatch];
     if (self.dataList == nil || [self.dataList count] == 0) {
-        [self showTipsOnTableView:FNS(@"没有合适条件的比赛")];
+        [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
     } else {
         [self hideTipsOnTableView];
     }
@@ -476,7 +476,7 @@
     
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
-    [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
@@ -486,7 +486,7 @@
     
     filterBarButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
     [filterBarButton addTarget:self action:@selector(clickFilterLeague:) forControlEvents:UIControlEventTouchUpInside];
-    [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss"] forState:UIControlStateNormal];
+    [filterBarButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
     [filterBarButton setTitle:FNS(@"筛选") forState:UIControlStateNormal];
     [filterBarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [filterBarButton.titleLabel setFont:font];
