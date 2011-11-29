@@ -218,16 +218,14 @@ typedef enum ODDS_TYPE {
 
 - (void)clickDone:(id)sender
 {
-    if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
-        [delegate SelectCompanyFinish];
-    }
-
     if ([[[CompanyManager defaultCompanyManager] selectedCompany] count] <= 0) {  
         [self popupMessage:@"至少选择一间赔率公司" title:nil];
         return;
     }
-
-        [self.navigationController popViewControllerAnimated:YES];
+    if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
+        [delegate SelectCompanyFinish];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 

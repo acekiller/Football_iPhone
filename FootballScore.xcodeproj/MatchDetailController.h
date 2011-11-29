@@ -109,5 +109,6 @@ enum{
 - (void)showWebViewByClick:(BOOL)needReload;
 //- (void)matchDataButtonBackGround;
 - (void)setSelection;
+- (void)setTeamNameLable:(UILabel *)label name:(NSString *)name;
 
 @end

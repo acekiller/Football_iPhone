@@ -72,11 +72,48 @@
     return self;
 }
 
+- (void)initAMatch
+{
+        //score text
+    self.matchStateLabel.text = [DataUtils toMatchStatusString:[self.match.status intValue]];
+    NSInteger status = [self.match.status intValue];
+    
+    if (status == MATCH_STATUS_FIRST_HALF 
+        || status == MATCH_STATUS_SECOND_HALF 
+        || status == MATCH_STATUS_MIDDLE 
+        || status == MATCH_STATUS_FINISH 
+        || status == MATCH_STATUS_PAUSE) 
+    {
+        //score text
+        NSString *title = [NSString stringWithFormat:@"%d : %d",self.match.homeTeamScore,self.match.awayTeamScore];
+        [self.scoreButton setTitle:title forState:UIControlStateNormal];
+        [self.scoreButton setImage:nil forState:UIControlStateNormal];
+    }else{
+        // vs image
+        [self.scoreButton setImage:[UIImage imageNamed:@"vs.png"] forState:UIControlStateNormal];
+        [self.scoreButton setTitle:nil forState:UIControlStateNormal];
+    }
+    //    [self.scoreButton setEnabled:NO];
+    NSDate *date = self.match.date;
+    NSString *dateString = dateToStringByFormat(date, @"MM/dd HH:mm");
+    if (date && dateString) {
+        self.matchStarttimeLabel.text = [NSString stringWithFormat:@"%@",dateString];
+    }else{
+        self.matchStarttimeLabel.text = nil;
+    }
+    
+    //acoording to the language setting, show the team names.
+    [self setTeamNameLable:self.homeTeamName name:self.match.homeTeamName];
+    [self setTeamNameLable:self.awayTeamName name:self.match.awayTeamName];
+ 
+}
+
 - (void)resetWithMatch:(Match*)newMatch
 {
     self.match = newMatch;
     self.eventString = nil;
     self.oupeiString = nil;
+    [self initAMatch];
     [self setSelection];
     
     [self loadMatchDetailHeaderFromServer];
@@ -129,6 +166,7 @@
     
     
     [super viewDidLoad];
+    [self initAMatch];
     // set default select button for button_event
     [self setSelection];           
 
@@ -144,7 +182,8 @@
     [self.navigationItem setTitle:FNS(@"赛事数据")];
     
     self.dataWebView.hidden = YES;
-    [self initWebView];    
+    [self initWebView];  
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
