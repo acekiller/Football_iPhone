@@ -136,6 +136,7 @@ AnalysisManager.prototype = {
 					record[POINTS_FIELD_LOSE],
 					record[POINTS_FIELD_SCORE],
 					record[POINTS_FIELD_SCORE_AGAINST],
+					record[POINTS_FIELD_SCORE]-record[POINTS_FIELD_SCORE_AGAINST],
 					record[POINTS_FIELD_POINTS],
 					record[POINTS_FIELD_RANK],
 					record[POINTS_FIELD_WINNING_RATIO]);									
@@ -159,6 +160,7 @@ AnalysisManager.prototype = {
 					record[POINTS_FIELD_LOSE],
 					record[POINTS_FIELD_SCORE],
 					record[POINTS_FIELD_SCORE_AGAINST],
+					record[POINTS_FIELD_SCORE]-record[POINTS_FIELD_SCORE_AGAINST],
 					record[POINTS_FIELD_POINTS],
 					record[POINTS_FIELD_RANK],
 					record[POINTS_FIELD_WINNING_RATIO]);									
