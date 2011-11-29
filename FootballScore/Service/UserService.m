@@ -9,6 +9,7 @@
 #import "UserService.h"
 #import "FootballNetworkRequest.h"
 #import "UserManager.h"
+#import "LogUtil.h"
 
 @implementation UserService
 
@@ -24,10 +25,10 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (output.textData != nil) {
                 [UserManager createUser:output.textData];
-                NSLog(@"Created User <%@>",output.textData);
+                PPDebug(@"<UserService>)userRegisterByToken: Created User <%@>",output.textData);
             }
             else {
-                NSLog(@"Get User ID faild");
+                PPDebug(@"<UserService>)userRegisterByToken:　Get User ID faild");
             }
             
         });                        

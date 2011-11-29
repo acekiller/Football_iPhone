@@ -36,7 +36,7 @@
                  delegate:(id<OddsServiceDelegate>)delegate;
 
 - (void)getRealtimeOdds;
-- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate;
+- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)oddsServicedelegate;
 - (void)stopGetRealtimOddsTimer;
 @end
 

@@ -775,4 +775,10 @@
 
 }
 
+-(void) managedImageCancelled:(HJManagedImageV*)mi
+{
+    
+}
+
+
 @end
