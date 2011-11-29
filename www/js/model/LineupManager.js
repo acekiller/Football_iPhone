@@ -56,7 +56,7 @@ LineupManager.prototype = {
 	
 	requestDataFromServer : function(matchId, lang){
 		
-		clearData();
+		this.clearData();
 		
 		var data = sendRequest(this.url + matchId + "&lang=" + lang);
 		if (data == null)
