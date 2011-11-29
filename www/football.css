@@ -332,6 +332,14 @@ ul,li {
 	margin-left: 28px;
 }
 
+.nodata{
+	color:#FFFFFF;
+	font-size:14px;
+	margin-left: 100px !important;
+	padding-top: 120px !important;
+	
+}
+
 .hide{
 	display:none
 }
