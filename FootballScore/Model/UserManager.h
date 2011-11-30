@@ -10,6 +10,7 @@
 
 #define USERID @"footballUserId"
 #define DEVICETOKEN @"deviceToken"
+#define ISPUSH @"isPush"
 
 @class User;
 
@@ -26,5 +27,9 @@
 + (NSString *)getUserId;
 
 + (User *) getUser;
+
++ (void)saveIsPush:(BOOL)isPush;
+
++ (BOOL)getIsPush;
 
 @end

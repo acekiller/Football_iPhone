@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "PPNetworkRequest.h"
 
+#define FOLLOW_MATCH_TYPE      @"true"
+#define UNFOLLOW_MATCH_TYPE    @"false"
+
 typedef void (^FootballNetworkResponseBlock)(NSString* data, CommonNetworkOutput* output);
 
 
@@ -62,6 +65,6 @@ enum{
 
 + (CommonNetworkOutput*)followUnfollowMatch:(NSString*)userId
                                     matchId:(NSString*)matchId
-                                       type:(int)type;
+                                       type:(NSString*)type;
 
 @end

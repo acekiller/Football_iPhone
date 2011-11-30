@@ -27,7 +27,8 @@
 #define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
 #define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
 #define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
-#define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/x.aspx?"
+#define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/PushSet.aspx?"
+
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -576,7 +577,7 @@ enum{
 
 + (CommonNetworkOutput*)followUnfollowMatch:(NSString*)userId
                                     matchId:(NSString*)matchId
-                                       type:(int)type
+                                       type:(NSString*)type
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
@@ -585,11 +586,11 @@ enum{
         //set input parameters
         NSString* str = [NSString stringWithString:baseURL];
         
-        str = [str stringByAddQueryParameter:@"userid" value:userId];
+        str = [str stringByAddQueryParameter:@"UserID" value:userId];
         
-        str = [str stringByAddQueryParameter:@"matchID" value:matchId];
+        str = [str stringByAddQueryParameter:@"MatchID" value:matchId];
         
-        str = [str stringByAddQueryParameter:@"cmd" intValue:type];
+        str = [str stringByAddQueryParameter:@"subscribe" value:type];
         
         return str;
     };

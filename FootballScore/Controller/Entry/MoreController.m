@@ -14,6 +14,7 @@
 #import "MatchManager.h"
 #import "UITableViewCellUtil.h"
 #import "AboutController.h"
+#import "LanguageManager.h"
 //#import "FootballScoreAppDelegate.h"
 //@class FootballScoreAppDelegate;
 
@@ -82,19 +83,7 @@
 #pragma mark -
 #pragma mark delegates
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex){
-		return;
-	}
-    
-    if (buttonIndex == language){
-        // same type, no change, return directly
-        return;
-    }
-    
-    language = buttonIndex;
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -106,6 +95,9 @@
     return [self.listData count];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath { 
+    return NO; 
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -204,8 +196,8 @@
     if ([rowValue isEqualToString:FNS(@"关于彩客网")])
         [self showAbout];
 
-    if ([rowValue isEqualToString:FNS(@"退出客户端")]){
-    }
+    if ([rowValue isEqualToString:FNS(@"退出客户端")])
+        [self quitApplication];
 
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -224,6 +216,19 @@
     
     [languageTable showFromTabBar:self.tabBarController.tabBar];
     [languageTable release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex){
+		return;
+	}
+    
+    if (buttonIndex == language){
+        // same type, no change, return directly
+        return;
+    }
+    
 }
 
 - (void)showFeedback
@@ -254,6 +259,33 @@
     AboutController *ac = [[AboutController alloc] init];
     [self.navigationController pushViewController:ac animated:YES];
     [ac release];
+}
+
+- (void)quitApplication
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:FNS(@"退出")
+                                                   message:FNS(@"确定退出客户端?") 
+                                                  delegate:self 
+                                         cancelButtonTitle:FNS(@"取消")  
+                                         otherButtonTitles:FNS(@"确定") , nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            if([[UIApplication sharedApplication] respondsToSelector:@selector(terminateWithSuccess)])
+            {
+                [[UIApplication sharedApplication] performSelector:@selector(terminateWithSuccess)];
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

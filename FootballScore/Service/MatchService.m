@@ -26,10 +26,6 @@
 #define FOLLOW_MATCH  @"FOLLOW_MATCH"
 #define UNFOLLOW_MATCH  @"UNFOLLOW_MATCH"
 
-#define FOLLOW_MATCH_TYPE           0
-#define FOLLOW_MATCH_TYPE_STRING    @"0"
-#define UNFOLLOW_MATCH_TYPE         1
-#define UNFOLLOW_MATCH_TYPE_STRING  @"1"
 
 @implementation MatchService
 
@@ -379,7 +375,7 @@
                         [match description], output.resultCode);
                 
                 // TODO save it to a retry list to send request later
-                [[RetryManager defaultManager] addFollowUnfollowToUserDefaults:match.matchId type:FOLLOW_MATCH_TYPE_STRING];
+                [[RetryManager defaultManager] addFollowUnfollowToUserDefaults:match.matchId type:FOLLOW_MATCH_TYPE];
             }
         });
     }];
@@ -403,7 +399,7 @@
             {
                 PPDebug(@"Unfollow match (%@) fail,error = %d",[match description],output.resultCode);
                  // TODO save it to a retry list to send request later
-                [[RetryManager defaultManager] addFollowUnfollowToUserDefaults:match.matchId type:UNFOLLOW_MATCH_TYPE_STRING];
+                [[RetryManager defaultManager] addFollowUnfollowToUserDefaults:match.matchId type:UNFOLLOW_MATCH_TYPE];
             }
         });
     }];

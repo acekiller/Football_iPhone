@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
 
-@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>{
+@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>{
 
     int language;
     NSArray *listData;
@@ -26,5 +26,6 @@
 - (void)showLanguageSelection;
 - (void)showRecommendation;
 - (void)showAbout;
+- (void)quitApplication;
 
 @end

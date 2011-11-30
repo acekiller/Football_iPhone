@@ -27,6 +27,8 @@ typedef enum ODDS_TYPE {
 @synthesize buttonEuropeBwin;
 @synthesize buttonBigandSmall;
 @synthesize delegate;
+@synthesize selectedCompanySet;
+@synthesize selectedOddsType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,18 +46,7 @@ typedef enum ODDS_TYPE {
         asianBwinArray = [[NSMutableArray alloc] init];
         europeBwinArray = [[NSMutableArray alloc] init];
         bigandSmallArray = [[NSMutableArray alloc] init];
-        CompanyManager* manager = [CompanyManager defaultCompanyManager];
-        for (Company* company in manager.allCompany) {
-            if (company.hasAsianOdds) {
-                [asianBwinArray addObject:company];
-            }
-            if (company.hasEuropeOdds) {
-                [europeBwinArray addObject:company];
-            }
-            if (company.hasDaXiao) {
-                [bigandSmallArray addObject:company];
-            }
-        }
+        selectedCompanySet = [[NSMutableSet alloc] init];  
     }
     return self;
 }
@@ -68,6 +59,7 @@ typedef enum ODDS_TYPE {
     [asianBwinArray release];
     [europeBwinArray release];
     [bigandSmallArray release];
+    [selectedCompanySet release];
 
     [super dealloc];
 }
@@ -83,6 +75,25 @@ typedef enum ODDS_TYPE {
 - (void)contentTypeButtonInit
 {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    
+    //backup the company manager data
+    self.selectedOddsType = manager.selectedOddsType;
+    [self.selectedCompanySet removeAllObjects];
+    for (Company* company in [manager.selectedCompany allObjects]) {
+        [self.selectedCompanySet addObject:company];
+    }
+    for (Company* company in manager.allCompany) {
+        if (company.hasAsianOdds) {
+            [asianBwinArray addObject:company];
+        }
+        if (company.hasEuropeOdds) {
+            [europeBwinArray addObject:company];
+        }
+        if (company.hasDaXiao) {
+            [bigandSmallArray addObject:company];
+        }
+    }
+    
     switch (manager.selectedOddsType) {
         case ODDS_TYPE_YAPEI:
             [buttonAsianBwin setSelected:YES];
@@ -152,9 +163,8 @@ typedef enum ODDS_TYPE {
 - (IBAction)clickContentTypeButton:(id)sender
 {
     contentType = [sender tag];
-    CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    [manager.selectedCompany removeAllObjects];
-    [manager setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
+    [self.selectedCompanySet removeAllObjects];
+    [self setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
     for (int i = ASIANBWIN; i <= BIGANDSMALL; i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         if ( contentType== i) {
@@ -194,34 +204,36 @@ typedef enum ODDS_TYPE {
                                           cancelButtonTitle:FNS(@"好了，我知道了") 
                                           otherButtonTitles: nil];
     
-    if ([manager.selectedCompany containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]]) {
+    if ([self.selectedCompanySet containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]]) {
         [button setSelected:NO];
-        [[CompanyManager defaultCompanyManager] unselectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
+        [self.selectedCompanySet removeObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]];
 
     }
     else {
-        if ([[manager selectedCompany] count] >= 4) {
+        if ([[self selectedCompanySet] count] >= 4) {
             [alert show];
             [alert release];
             return;
         }
         [button setSelected:YES];
-        [[CompanyManager defaultCompanyManager] selectCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]];
+        [self.selectedCompanySet addObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]];
     }
 }
 
 - (void)clickBack:(id)sender
 {
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clickDone:(id)sender
 {
-    if ([[[CompanyManager defaultCompanyManager] selectedCompany] count] <= 0) {  
+    CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    if ([[self selectedCompanySet] count] <= 0) {  
         [self popupMessage:@"至少选择一间赔率公司" title:nil];
         return;
     }
+    manager.selectedOddsType = self.selectedOddsType;
+    manager.selectedCompany = self.selectedCompanySet;
     if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
         [delegate SelectCompanyFinish];
     }
@@ -332,7 +344,7 @@ typedef enum ODDS_TYPE {
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [button setTag:([company.companyId intValue] + COMPANY_ID_BUTTON_OFFSET)];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        if ([[CompanyManager defaultCompanyManager].selectedCompany containsObject:company]) {
+        if ([self.selectedCompanySet containsObject:company]) {
             [button setSelected:YES];
         }
         else {
