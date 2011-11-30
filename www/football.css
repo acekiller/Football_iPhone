@@ -335,8 +335,8 @@ ul,li {
 .nodata{
 	color:#FFFFFF;
 	font-size:14px;
-	margin-left: 100px ;
-	padding-top: 120px ;
+	margin-left: 100px !important;
+	padding-top: 120px !important;
 	
 }
 

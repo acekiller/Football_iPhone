@@ -342,7 +342,7 @@
 
 - (void)updateLineupView:(NSString*)dataString needReload:(BOOL)needReload
 {           
-    NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, %@, %d);", 
+    NSString *jsCode = [NSString stringWithFormat:@"displayLineup(true, \"%@\", %d);", 
                         match.matchId, [LanguageManager getLanguage]];      
     PPDebug(@"<updateLineupView> execute java script = %@",jsCode);        
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];   

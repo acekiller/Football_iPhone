@@ -53,6 +53,8 @@ function LineupView(){
                this.awayReservePanel]          
 	});
 	
+	
+	
 	this.mainPanel = new Ext.Panel({
 		fullscreen: true,
 		bodyStyle:'background-image: url(images/team_bg@2x.png);background-repeat: no-repeat',
@@ -61,8 +63,9 @@ function LineupView(){
 			align: 'left'
 	    }, 
 		scroll : 'vertical',
+		tpl : '<div class="nodata"><span>暂无阵容相关数据</span></div>',
 	    items: [this.subPanel1,
-               this.subPanel2,nodataTemplate]   
+               this.subPanel2] 
 
 	});
 
@@ -78,16 +81,16 @@ LineupView.prototype = {
 			this.homeReservePanel.update(manager.data.homeReserve);
 			this.awayLineupPanel.update(manager.data.awayLineup);
 			this.awayReservePanel.update(manager.data.awayReserve);
-			Ext.get('nodata-template').dom.style.display = 'none'; 
+//			Ext.get('nodata-template').dom.style.display = 'none'; 
+			
 		}
-		 else if (manager.data == null || manager.data.homeLineup[0].length == 0){
+		 else {
 			//Ext.get('homelist').dom.style.display = 'none'; 
 			//Ext.get('homeReservelist').dom.style.display = 'none'; 
 			//Ext.get('awaylist').dom.style.display = 'none'; 
 			//Ext.get('awayReservelist').dom.style.display = 'none'; 
-			 console.log("*********");
-			 Ext.get('nodata-template').dom.style.display = 'block';
-			
+//			 Ext.get('nodata-template').dom.style.display = 'block';
+			this.mainPanel.update();
 			this.subPanel1.hide();
 			this.subPanel2.hide();
 		}
