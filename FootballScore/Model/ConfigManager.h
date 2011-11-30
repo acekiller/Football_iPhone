@@ -8,12 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+#define HAS_SOUND @"HAS_SOUND"
+#define IS_VIBRATION @"HAS_IS_VIBRATION"
 
 @interface ConfigManager : NSObject {
     
 }
 
-+ (NSString*)getValue:(NSString*)configKey;
-+ (void)setValue:(NSString*)configKey value:(NSString*)value;
+//+ (NSString*)getValue:(NSString*)configKey;
+//+ (void)setValue:(NSString*)configKey value:(NSString*)value;
+
++ (void)saveHasSound:(BOOL)hasSound;
++ (void)saveIsVibration:(BOOL)isVibration;
+
++ (BOOL)getHasSound;
++ (BOOL)getIsVibration;
 
 @end

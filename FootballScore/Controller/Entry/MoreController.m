@@ -196,8 +196,8 @@
     if ([rowValue isEqualToString:FNS(@"关于彩客网")])
         [self showAbout];
 
-    if ([rowValue isEqualToString:FNS(@"退出客户端")]){
-    }
+    if ([rowValue isEqualToString:FNS(@"退出客户端")])
+        [self quitApplication];
 
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -259,6 +259,33 @@
     AboutController *ac = [[AboutController alloc] init];
     [self.navigationController pushViewController:ac animated:YES];
     [ac release];
+}
+
+- (void)quitApplication
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:FNS(@"退出")
+                                                   message:FNS(@"确定退出客户端?") 
+                                                  delegate:self 
+                                         cancelButtonTitle:FNS(@"取消")  
+                                         otherButtonTitles:FNS(@"确定") , nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            if([[UIApplication sharedApplication] respondsToSelector:@selector(terminateWithSuccess)])
+            {
+                [[UIApplication sharedApplication] performSelector:@selector(terminateWithSuccess)];
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

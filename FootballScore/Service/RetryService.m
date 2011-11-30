@@ -15,10 +15,8 @@
 #define RETRY_FOLLOW_MATCH     @"RETRY_FOLLOW_MATCH"
 #define RETRY_UNFOLLOW_MATCH   @"RETRY_UNFOLLOW_MATCH"
 
-#define FOLLOW_MATCH_TYPE           0
-#define FOLLOW_MATCH_TYPE_STRING    @"0"
-#define UNFOLLOW_MATCH_TYPE         1
-#define UNFOLLOW_MATCH_TYPE_STRING  @"1"
+
+
 
 @implementation RetryService
 
@@ -33,7 +31,7 @@
             if(output.resultCode == ERROR_SUCCESS)
             {
                 PPDebug(@"Retry follow match (%@) success",matchId);
-                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:FOLLOW_MATCH_TYPE_STRING];
+                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:FOLLOW_MATCH_TYPE];
             }
             else
             {
@@ -55,7 +53,7 @@
             if(output.resultCode == ERROR_SUCCESS)
             {
                 PPDebug(@"Retry unfollow match (%@) success",matchId);
-                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:UNFOLLOW_MATCH_TYPE_STRING];
+                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:UNFOLLOW_MATCH_TYPE];
             }
             else
             {
@@ -77,7 +75,7 @@
     while(matchId = [enumerator nextObject])
     {
         type =  [failedRequestsList objectForKey:matchId];
-        if ([type isEqualToString:FOLLOW_MATCH_TYPE_STRING])
+        if ([type isEqualToString:FOLLOW_MATCH_TYPE])
         {
             [self retryFollowMatch:userId matchId:matchId];
         }

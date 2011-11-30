@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A352085C1484CB4300544A61 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A352085B1484CB4300544A61 /* AudioToolbox.framework */; };
 		A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ACBABB147B3A9E0040C155 /* ShowAlertTextViewController.m */; };
 		A3ACBABE147B3A9E0040C155 /* ShowAlertTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */; };
 		A3B9F7DA146CC44200FA3C65 /* ShowRealtimeScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */; };
 		A3B9F7DB146CC44200FA3C65 /* ShowRealtimeScoreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */; };
+		A3C11F431485D55500CD218C /* goals_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A3C11F421485D55500CD218C /* goals_sound.wav */; };
 		A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */; };
 		A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F41147F323900BE4A61 /* RetryService.m */; };
 		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
@@ -419,12 +421,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A352085B1484CB4300544A61 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A3ACBABA147B3A9E0040C155 /* ShowAlertTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAlertTextViewController.h; sourceTree = "<group>"; };
 		A3ACBABB147B3A9E0040C155 /* ShowAlertTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAlertTextViewController.m; sourceTree = "<group>"; };
 		A3ACBABC147B3A9E0040C155 /* ShowAlertTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowAlertTextViewController.xib; sourceTree = "<group>"; };
 		A3B9F7D7146CC44200FA3C65 /* ShowRealtimeScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRealtimeScoreController.h; sourceTree = "<group>"; };
 		A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRealtimeScoreController.m; sourceTree = "<group>"; };
 		A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowRealtimeScoreController.xib; sourceTree = "<group>"; };
+		A3C11F421485D55500CD218C /* goals_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = goals_sound.wav; sourceTree = "<group>"; };
 		A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryManager.h; sourceTree = "<group>"; };
 		A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryManager.m; sourceTree = "<group>"; };
 		A3FA4F40147F323900BE4A61 /* RetryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryService.h; sourceTree = "<group>"; };
@@ -1065,6 +1069,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A352085C1484CB4300544A61 /* AudioToolbox.framework in Frameworks */,
 				C27FD7901467AFE900D7E3A9 /* CoreText.framework in Frameworks */,
 				CA7F24BC1433727300CC0F05 /* MobileCoreServices.framework in Frameworks */,
 				CA207BE8142EDFE600A4C425 /* libz.1.1.3.dylib in Frameworks */,
@@ -1109,6 +1114,14 @@
 			path = ShowAlertText;
 			sourceTree = "<group>";
 		};
+		A3C11F411485D55500CD218C /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				A3C11F421485D55500CD218C /* goals_sound.wav */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
 		C27FD7671467ACF600D7E3A9 /* OHAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,6 +1153,7 @@
 		C2B41315143199E100084F14 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A3C11F411485D55500CD218C /* sound */,
 				C2B41316143199E100084F14 /* Icon */,
 				C2B41317143199E100084F14 /* Image */,
 			);
@@ -1496,6 +1510,7 @@
 		CAF4CC40142ECFCC001D5B4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A352085B1484CB4300544A61 /* AudioToolbox.framework */,
 				C27FD78F1467AFE900D7E3A9 /* CoreText.framework */,
 				CA7F24BB1433727300CC0F05 /* MobileCoreServices.framework */,
 				CA207BE7142EDFE600A4C425 /* libz.1.1.3.dylib */,
@@ -2452,6 +2467,7 @@
 				CA85C8E1147CA70700C3E6C4 /* odds_down@2x.png in Resources */,
 				CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */,
 				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
+				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
