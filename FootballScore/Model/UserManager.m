@@ -53,4 +53,16 @@
     return NO;
 }
 
++ (void)saveIsPush:(BOOL)isPush
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isPush forKey:ISPUSH];
+}
+
++ (BOOL)getIsPush
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:ISPUSH];
+}
+
 @end

@@ -12,6 +12,8 @@
 #import "MatchManager.h"
 #import "FootballScoreAppDelegate.h"
 #import "ScoreUpdate.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "LogUtil.h"
 
 #define SHOW_REAL_TIME_SCORE_INTERVAL 10
 
@@ -27,6 +29,7 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
 @synthesize awayTeamEventLabel;
 @synthesize showTimer;
 @synthesize scoreUpdate;
+@synthesize player;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,17 +80,26 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     }
 }
 
-+ (void)show:(ScoreUpdate *)scoreUpdate
++ (void)show:(ScoreUpdate *)scoreUpdate 
+ isVibration:(BOOL)isVibration 
+    hasSound:(BOOL)hasSound
 {
     FootballScoreAppDelegate *appDelegate = (FootballScoreAppDelegate *)[UIApplication sharedApplication].delegate;
     UIViewController *controller = [appDelegate currentViewController];
     UIView *view = [controller view];
     if (view) {
-        [ShowRealtimeScoreController show:view scoreUpdate:scoreUpdate];
+        [ShowRealtimeScoreController show:view 
+                              scoreUpdate:scoreUpdate 
+                              isVibration:isVibration
+                                 hasSound:hasSound];
     }
+    
 }
 
-+ (void)show:(UIView*)superView scoreUpdate:(ScoreUpdate *)newScoreUpdate
++ (void)show:(UIView*)superView 
+ scoreUpdate:(ScoreUpdate *)newScoreUpdate
+ isVibration:(BOOL)isVibration 
+    hasSound:(BOOL)hasSound
 {
     if (globalShowRealtimeScoreController == nil){
         globalShowRealtimeScoreController = [[ShowRealtimeScoreController alloc] init];
@@ -106,12 +118,25 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     // schedule timer here 
     [globalShowRealtimeScoreController createHideTimer];
     
+    if (isVibration) {
+        AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+    }
+    if (hasSound)
+    {
+        [globalShowRealtimeScoreController playeSound:@"goals_sound.wav"];
+    }
 }
 
 - (void)dealloc
-{
-    [scoreUpdate release];
+{   [leagueNameLabel release];
+    [startTimeLabel release];
+    [homeTeamLabel release];
+    [awayTeamLabel release];
+    [homeTeamEventLabel release];
+    [awayTeamEventLabel release];
     [showTimer release];
+    [scoreUpdate release];
+    [player release];
     [super dealloc];
 }
 
@@ -168,5 +193,20 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     [self removeFromSuperView];
 }
 
+- (void)playeSound:(NSString*)soundFile
+{
+    NSURL  *soundUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]  resourcePath] , soundFile]];
+    NSError  *error;
+    self.player = [[[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:&error] autorelease];
+    
+	if (!error){
+		[player prepareToPlay];
+	}
+	else {
+		PPDebug(@"Fail to init audio player , error = %d",error.code);
+	}
+    
+    [player play];
+}
 
 @end

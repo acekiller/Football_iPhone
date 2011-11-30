@@ -15,6 +15,7 @@
 #import "StatusView.h"
 #import "ColorManager.h"
 #import "ShowRealtimeScoreController.h"
+#import "ConfigManager.h"
 
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
@@ -213,7 +214,10 @@
         
         for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
             if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE || scoreUpdate.scoreUpdateType == AWAYTEAMSCORE) {
-                [ShowRealtimeScoreController show:scoreUpdate];
+                //[ShowRealtimeScoreController show:scoreUpdate];  //增加了参数
+                [ShowRealtimeScoreController show:scoreUpdate 
+                                      isVibration:[ConfigManager getIsVibration]
+                                         hasSound:[ConfigManager getHasSound]];
                 break;
             }
         }

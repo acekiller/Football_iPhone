@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @class Match;
 @class ScoreUpdate;
@@ -20,6 +21,7 @@
     UILabel *awayTeamEventLabel;
     NSTimer *showTimer;
     ScoreUpdate *scoreUpdate;
+    AVAudioPlayer	*player;
 }
 
 @property(nonatomic,retain)IBOutlet UILabel *leagueNameLabel;
@@ -31,14 +33,22 @@
 
 @property(nonatomic,retain) NSTimer *showTimer;
 @property(nonatomic,retain) ScoreUpdate *scoreUpdate;
+@property(nonatomic,retain) AVAudioPlayer *player;
 
 
++ (void)show:(ScoreUpdate *)scoreUpdate 
+ isVibration:(BOOL)isVibration 
+    hasSound:(BOOL)hasSound;
 
-+ (void)show:(ScoreUpdate *)scoreUpdate;
-+ (void)show:(UIView*)superView scoreUpdate:(ScoreUpdate *)scoreUpdate;
++ (void)show:(UIView*)superView 
+ scoreUpdate:(ScoreUpdate *)newScoreUpdate
+ isVibration:(BOOL)isVibration 
+    hasSound:(BOOL)hasSound;
+
 - (void)updateViewByScoreUpdate:(ScoreUpdate *)newScoreUpdate;
 - (void)cancelDisplay;
 - (void)createHideTimer;
 - (void)removeFromSuperView;
+- (void)playeSound:(NSString*)soundFile;
 
 @end
