@@ -11,7 +11,6 @@
 
 @interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>{
 
-    int language;
     NSArray *listData;
     UITableView *moreOptionList;
 }
