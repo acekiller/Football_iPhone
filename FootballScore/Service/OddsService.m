@@ -331,12 +331,12 @@ enum OUPEI_INDEX {
                         oddsUpdateSet = [[OddsManager defaultManager] getOddsUpdateSet:segment oddsType:realTimeOddsType];
                     }
                     else {
-                        PPDebug(@"<OddsService>getRealtimeOdds: no segment data");
+                        PPDebug(@"<OddsService>getRealtimeOdds: Update realtime odds failed, no segment data");
                     }
                     
                 }
                 else {
-                    PPDebug(@"<OddsService>getRealtimeOdds: no odds change list updated");
+                    PPDebug(@"<OddsService>getRealtimeOdds: Update realtime odds failed, no odds change list updated");
                 }   
            
             }
