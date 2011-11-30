@@ -32,8 +32,8 @@ enum {
     NSMutableArray *europeBwinArray;
     NSMutableArray *bigandSmallArray;
     
-    NSMutableSet *originSelectedCompanySet;
-    int           originSelectedType;
+    NSMutableSet *selectedCompanySet;
+    int           selectedOddsType;
 
     id<SeclectIndexControllerDelegate> delegate;
     
@@ -45,8 +45,8 @@ enum {
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonBigandSmall;
 @property (nonatomic, assign) id<SeclectIndexControllerDelegate> delegate;
-@property (nonatomic, retain) NSMutableSet *originSelectedCompanySet;
-@property (nonatomic, assign) int originSelectedType;
+@property (nonatomic, retain) NSMutableSet *selectedCompanySet;
+@property (nonatomic, assign) int selectedOddsType;
 
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
