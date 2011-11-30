@@ -27,6 +27,8 @@ typedef enum ODDS_TYPE {
 @synthesize buttonEuropeBwin;
 @synthesize buttonBigandSmall;
 @synthesize delegate;
+@synthesize originSelectedCompanySet;
+@synthesize originSelectedType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +46,7 @@ typedef enum ODDS_TYPE {
         asianBwinArray = [[NSMutableArray alloc] init];
         europeBwinArray = [[NSMutableArray alloc] init];
         bigandSmallArray = [[NSMutableArray alloc] init];
+        originSelectedCompanySet = [[NSMutableSet alloc] init];
         CompanyManager* manager = [CompanyManager defaultCompanyManager];
         for (Company* company in manager.allCompany) {
             if (company.hasAsianOdds) {
@@ -68,6 +71,7 @@ typedef enum ODDS_TYPE {
     [asianBwinArray release];
     [europeBwinArray release];
     [bigandSmallArray release];
+    [originSelectedCompanySet release];
 
     [super dealloc];
 }
@@ -83,6 +87,14 @@ typedef enum ODDS_TYPE {
 - (void)contentTypeButtonInit
 {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    
+    //backup the company manager data
+    self.originSelectedType = manager.selectedOddsType;
+    [self.originSelectedCompanySet removeAllObjects];
+    for (Company* company in [manager.selectedCompany allObjects]) {
+        [self.originSelectedCompanySet addObject:company];
+    }
+    
     switch (manager.selectedOddsType) {
         case ODDS_TYPE_YAPEI:
             [buttonAsianBwin setSelected:YES];
@@ -212,7 +224,9 @@ typedef enum ODDS_TYPE {
 
 - (void)clickBack:(id)sender
 {
-
+    CompanyManager *manager = [CompanyManager defaultCompanyManager];
+    manager.selectedCompany = self.originSelectedCompanySet;
+    manager.selectedOddsType = self.originSelectedType;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
