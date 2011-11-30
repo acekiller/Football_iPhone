@@ -18,6 +18,7 @@
 #import "Match.h"
 #import "LeagueManager.h"
 #import "MatchManager.h"
+#import "LogUtil.h"
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
 #define GET_REALTIME_ODDS @"GET_REALTIME_ODDS"
@@ -125,14 +126,15 @@ enum OUPEI_INDEX {
                             }
                             
                         }
+                        PPDebug(@"<OddsService>updateAllBetCompanyList: Totally get %d companies, %d companies added", [segment count],[manager.allCompany count]);
                     }
                     else {
-                        NSLog(@"segment format error:%@",[segment description]);
+                        PPDebug(@"<OddsService>updateAllBetCompanyList: Segment error, get data failed");
                     }
                    
                 }
                 else {
-                    NSLog(@"no company list updated");
+                    PPDebug(@"<OddsService>updateAllBetCompanyList: No company list updated");
                 }                
             }
 
@@ -176,9 +178,10 @@ enum OUPEI_INDEX {
                              [manager.leagueArray addObject:league];
                              [league release];
                          }
+                         PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d leagues get,%d are added", [leagueArray count], [manager.leagueArray count]);
                      }
                      else {
-                         NSLog(@"Get league array error:%@",[leagueArray description]);
+                         PPDebug(@"<OddsService>getOddsList: Update league info failed,because no league array is got");
                      }
                      
                      //  Tom add this 
@@ -208,16 +211,17 @@ enum OUPEI_INDEX {
                              [matchIndexArray addObject:match];
                              [match release];
                          }
+                         PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d matches get,%d are added", [matchArray count], [manager.matchArray count]);
                      }
                      else {
-                         NSLog(@"Get match error:%@",[matchArray description]);
+                         PPDebug(@"<OddsService>getOddsList: Update match info failed,because no match array is got");
                      }
                      [[MatchManager defaultMatchIndexManger]updateAllMatchArray:matchIndexArray];
                      [matchIndexArray release];
                       
                      if ([oddsArray count] > 0) {
                          switch (oddsType) {
-                             case ODDS_TYPE_YAPEI:
+                             case ODDS_TYPE_YAPEI: {
                                  [manager.yapeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
@@ -234,10 +238,11 @@ enum OUPEI_INDEX {
                                      [manager.yapeiArray addObject:yapei];
                                      [yapei release];                            
                                      
-                                     
                                  }
+                                 PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d yapei get,%d are added", [oddsArray count], [manager.yapeiArray count]);
+                             }
                                  break;
-                             case ODDS_TYPE_DAXIAO:
+                             case ODDS_TYPE_DAXIAO: {
                                  [manager.daxiaoArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
@@ -254,11 +259,11 @@ enum OUPEI_INDEX {
                                      [manager.daxiaoArray addObject:daxiao];
                                      [daxiao release];
                                      
-                                     
-                                     
                                  }
+                                 PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d daxiao get,%d are added", [oddsArray count], [manager.daxiaoArray count]);
+                             }
                                  break;
-                             case ODDS_TYPE_OUPEI:
+                             case ODDS_TYPE_OUPEI: {
                                  [manager.oupeiArray removeAllObjects];
                                  for (NSArray* data in oddsArray) {
                                      NSString* matchId = [data objectAtIndex:INDEX_OF_ODDS_MATCH_ID];
@@ -275,15 +280,16 @@ enum OUPEI_INDEX {
                                      [manager.oupeiArray addObject:oupei];
                                      [oupei release];                            
                                      
-                                     
                                  }
+                                 PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d oupei get,%d are added", [oddsArray count], [manager.oupeiArray count]);
+                             }
                                  break;
                              default:
                                  break;
                          }
                      }
                      else {
-                         NSLog(@"look,no odds data:%@",[oddsArray description]);
+                         PPDebug(@"<OddsService>getOddsList:update oddsList failed, no odds is got");
                      }
                      
                  }
@@ -293,7 +299,7 @@ enum OUPEI_INDEX {
                      [manager.oupeiArray removeAllObjects];
                      [manager.yapeiArray removeAllObjects];
                      [manager.daxiaoArray removeAllObjects];
-                     NSLog(@"no odds, leagues, matches got");
+                     PPDebug(@"<OddsService>getOddsList: No odds, leagues, matches got");
                  }                
              }
              
@@ -325,12 +331,12 @@ enum OUPEI_INDEX {
                         oddsUpdateSet = [[OddsManager defaultManager] getOddsUpdateSet:segment oddsType:realTimeOddsType];
                     }
                     else {
-                        NSLog(@"segment format error:%@",[segment description]);
+                        PPDebug(@"<OddsService>getRealtimeOdds: Update realtime odds failed, no segment data");
                     }
                     
                 }
                 else {
-                    NSLog(@"no odds change list updated");
+                    PPDebug(@"<OddsService>getRealtimeOdds: Update realtime odds failed, no odds change list updated");
                 }   
            
             }
@@ -348,12 +354,12 @@ enum OUPEI_INDEX {
     #define REALTIME_ODDS_TIMER_INTERVAL 10
 #endif
 
-- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)delegate
+- (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)oddsServicedelegate
 {
-    self.delegate = delegate;
+    self.delegate = oddsServicedelegate;
     self.realTimeOddsType = oddsType;
     
-    NSLog(@"<startGetRealtimOddsTimerUpdate>");
+    PPDebug(@"<OddsService>startGetRealtimOddsTimerUpdate");
     
     
     if (oddsType >= ODDS_TYPE_YAPEI && oddsType <=ODDS_TYPE_OUPEI) {
@@ -367,7 +373,7 @@ enum OUPEI_INDEX {
 }
 - (void)stopGetRealtimOddsTimer
 {
-    NSLog(@"<stopRealtimeOddsUpdate>");
+    PPDebug(@"<OddsService>stopRealtimeOddsUpdate");
     [self.realTimeOddsTimer invalidate];
     self.realTimeOddsTimer = nil;
     
