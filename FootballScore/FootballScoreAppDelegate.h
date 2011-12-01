@@ -20,6 +20,7 @@
 @class MatchService;
 @class RealtimeScoreController;
 @class OddsService;
+@class ScheduleService;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -47,6 +48,7 @@
 @property (nonatomic, retain) MatchService                  *matchService;
 @property (nonatomic, retain) RealtimeScoreController       *matchController;
 @property (nonatomic, retain) OddsService                   *oddsService;
+@property (nonatomic, retain) ScheduleService               *scheduleService;
 
 - (UIViewController *)currentViewController;
 @end

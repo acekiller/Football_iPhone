@@ -31,6 +31,7 @@
 #import "OddsService.h"
 #import "UserService.h"
 #import "RetryService.h"
+#import "ScheduleService.h"
 
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
@@ -65,7 +66,11 @@ OddsService *GlobalGetOddsService()
     FootballScoreAppDelegate* delegate = (FootballScoreAppDelegate*)[[UIApplication sharedApplication] delegate];    
     return [delegate oddsService];                
 }
-
+ScheduleService *GlobalGetScheduleService()
+{
+    FootballScoreAppDelegate* delegate = (FootballScoreAppDelegate*)[[UIApplication sharedApplication] delegate];    
+    return [delegate scheduleService];                
+}
 @implementation FootballScoreAppDelegate
 
 @synthesize window;
@@ -75,6 +80,7 @@ OddsService *GlobalGetOddsService()
 @synthesize matchService;
 @synthesize matchController;
 @synthesize oddsService;
+@synthesize scheduleService;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -118,7 +124,7 @@ enum
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
-	[UIUtils addViewController:[MoreController alloc]
+	[UIUtils addViewController:[PPTableViewController alloc]
 					 viewTitle:FNS(@"资料库")
 					 viewImage:@"b_menu_4.png"
 			  hasNavController:YES			
@@ -175,13 +181,18 @@ enum
 
 - (void)initMatchService
 {
-    self.matchService = [[MatchService alloc] init];
+    matchService = [[MatchService alloc] init];
 }
 
 - (void)initOddsSerivce
 {
-    self.oddsService = [[OddsService alloc] init];
+    oddsService = [[OddsService alloc] init];
     [self.oddsService updateAllBetCompanyList];
+}
+
+- (void)initScheduleService
+{
+    scheduleService = [[ScheduleService alloc] init];
 }
 
 - (void)userRegister
@@ -218,6 +229,7 @@ enum
     [self initMatchService];
     [self userRegister];
     [self initOddsSerivce];
+    [self initScheduleService];
 
 	[self initMobClick];
     [self initImageCacheManager];    

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
 
-@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>{
+@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>{
 
     NSArray *listData;
     UITableView *moreOptionList;
+    int whichAcctionSheet;
 }
 
 @property (nonatomic, retain) NSArray *listData;
@@ -26,5 +27,11 @@
 - (void)showRecommendation;
 - (void)showAbout;
 - (void)quitApplication;
+
+- (void)sendSMS;
+- (void)displaySMSComposerSheet;
+- (void)sendEmail;
+- (void)displayComposeEmail;
+- (void)launchMailAppOnDevice;
 
 @end

@@ -66,5 +66,7 @@ enum{
 + (CommonNetworkOutput*)followUnfollowMatch:(NSString*)userId
                                     matchId:(NSString*)matchId
                                        type:(NSString*)type;
++ (CommonNetworkOutput*)getWeeklyScheduleByDate:(NSDate*)date 
+                                       language:(int)language; 
 
 @end

@@ -23,6 +23,7 @@
 + (LeagueManager*)defaultManager; // for match
 
 + (LeagueManager*)defaultIndexManager;  //for match index 
++ (LeagueManager*)defaultScheduleManager;
 
 
 
@@ -50,3 +51,4 @@
 
 extern LeagueManager* GlobalLeagueManager(); //for  match 
 extern LeagueManager* GlobalLeagueIndexManager(); // for match index 
+extern LeagueManager* GlobalLeagueScheduleManager();

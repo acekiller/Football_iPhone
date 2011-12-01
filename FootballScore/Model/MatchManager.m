@@ -23,6 +23,7 @@
 
 MatchManager* matchManager;
 MatchManager* matchIndexManager;
+MatchManager* matchScheduleManager;
 
 MatchManager* GlobalGetMatchManager()
 {
@@ -40,6 +41,15 @@ MatchManager* GlobalGetMatchIndexManager()
     }
     
     return matchIndexManager;
+}
+
+MatchManager* GlobalGetMatchScheduleManager()
+{
+    if (matchScheduleManager == nil){
+        matchScheduleManager = [[MatchManager alloc] init];
+    }
+    
+    return matchScheduleManager;
 }
 
 @implementation MatchManager
@@ -62,6 +72,11 @@ MatchManager* GlobalGetMatchIndexManager()
 + (MatchManager *)defaultMatchIndexManger
 {
     return GlobalGetMatchIndexManager();
+}
+
++ (MatchManager *)defaultMatchScheduleManager
+{
+    return GlobalGetMatchScheduleManager();
 }
 
 

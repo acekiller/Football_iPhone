@@ -65,8 +65,10 @@ enum{
 }
 
 
-
-
++ (LeagueManager*)defaultScheduleManager
+{
+    return GlobalLeagueScheduleManager();
+}
 
 
 //for match 
@@ -229,7 +231,16 @@ LeagueManager* GlobalLeagueIndexManager()
 }
 
 
+LeagueManager* scheduleManager;
 
+LeagueManager* GlobalLeagueScheduleManager()
+{
+    if (scheduleManager == nil){
+        scheduleManager = [[LeagueManager alloc] init];
+    }
+    
+    return scheduleManager;
+}
 
 
 

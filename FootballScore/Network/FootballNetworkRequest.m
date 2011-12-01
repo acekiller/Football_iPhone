@@ -28,6 +28,7 @@
 #define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
 #define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
 #define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/PushSet.aspx?"
+#define URL_GET_WEEKLY_SCHEDULE     @"http://bf.bet007.com/phone/scheduleByDate.aspx?"
 
 
 #define SEGMENT_SEP             @"$$"
@@ -605,6 +606,31 @@ enum{
                                         output:output]; 
     
     return nil;
+}
+
++ (CommonNetworkOutput*)getWeeklyScheduleByDate:(NSDate *)date language:(int)language
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+
+        str = [str stringByAddQueryParameter:@"lang" intValue:language];
+        str = [str stringByAddQueryParameter:@"Date" value:dateToString(date)];
+
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_WEEKLY_SCHEDULE
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
 }
 
 @end

@@ -43,6 +43,7 @@
 
 + (MatchManager *)defaultManager;
 + (MatchManager *)defaultMatchIndexManger;
++ (MatchManager *)defaultMatchScheduleManager;
 + (NSArray*)fromString:(NSArray*)stringArray;
 
 - (void)updateServerDate:(NSDate*)newServerDate;
