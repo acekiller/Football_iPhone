@@ -154,7 +154,7 @@ function MatchDetailView(){
 	        type: 'vbox',
 	        align: 'top'
 	    },
-		tpl : '<div class="noEventdata"><span>暂无比赛事件相关数据</span></div>',
+		//tpl : '<div class="noEventdata"><span>暂无比赛事件相关数据</span></div>',
 	    scroll : 'vertical',
 	    items: [this.eventPanel, this.statPanel]            
 	});
@@ -169,7 +169,7 @@ MatchDetailView.prototype = {
 		
 		if (manager.statArray == null || manager.statArray.length == 0) {
 			this.statPanel.hide();
-			this.mainPanel.update();
+			//this.mainPanel.update();
 		}
 		else {
 			this.statPanel.show();
