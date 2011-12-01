@@ -10,13 +10,16 @@
 #import "LocaleConstants.h"
 #import "AlertController.h"
 #import "UserFeedbackController.h"
-#import "ShowRealtimeScoreController.h"
-#import "MatchManager.h"
 #import "UITableViewCellUtil.h"
 #import "AboutController.h"
 #import "LanguageManager.h"
-//#import "FootballScoreAppDelegate.h"
-//@class FootballScoreAppDelegate;
+
+enum actionsheetNumber{
+    LANGUAGE_SELECTION,
+    RECOMMENDATION,
+};
+
+
 
 @implementation MoreController
 @synthesize listData;
@@ -203,11 +206,55 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (LANGUAGE_SELECTION == whichAcctionSheet) 
+    {
+        if (buttonIndex == actionSheet.cancelButtonIndex){
+            return;
+        }
+        
+        if (buttonIndex == language){
+            // same type, no change, return directly
+            return;
+        }
+        
+    }
+    else if (RECOMMENDATION == whichAcctionSheet)
+    {
+        if (buttonIndex == actionSheet.cancelButtonIndex){
+            return;
+        }
+        else if (buttonIndex == 0)
+        {
+            [self sendSMS];
+        }
+        else if (buttonIndex == 1)
+        {
+            [self sendEmail];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            exit(0);
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark -
 #pragma mark optionsSelection
 
 - (void)showLanguageSelection
 {
+    whichAcctionSheet = LANGUAGE_SELECTION;
     UIActionSheet *languageTable = [[UIActionSheet alloc]initWithTitle:FNS(@"请选择语言习惯") 
                                                               delegate:self 
                                                      cancelButtonTitle:FNS(@"取消") 
@@ -216,19 +263,6 @@
     
     [languageTable showFromTabBar:self.tabBarController.tabBar];
     [languageTable release];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex){
-		return;
-	}
-    
-    if (buttonIndex == language){
-        // same type, no change, return directly
-        return;
-    }
-    
 }
 
 - (void)showFeedback
@@ -248,10 +282,14 @@
 
 - (void)showRecommendation
 {
-//    NSArray* matchArray = [[MatchManager defaultManager] matchArray];
-//    int index = rand() % [matchArray count];
-//    Match* match = [matchArray objectAtIndex:index];
-//    [ShowRealtimeScoreController show:match];
+    whichAcctionSheet = RECOMMENDATION;
+    UIActionSheet *share = [[UIActionSheet alloc] initWithTitle:FNS(@"请选择推荐方式") 
+                                                       delegate:self 
+                                              cancelButtonTitle:FNS(@"取消") 
+                                         destructiveButtonTitle:FNS(@"短信") 
+                                              otherButtonTitles:FNS(@"邮件"), nil];
+    [share showFromTabBar:self.tabBarController.tabBar];
+    [share release];
 }
 
 - (void)showAbout
@@ -263,8 +301,8 @@
 
 - (void)quitApplication
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:FNS(@"退出")
-                                                   message:FNS(@"确定退出客户端?") 
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                   message:FNS(@"确定退出客户端吗?") 
                                                   delegate:self 
                                          cancelButtonTitle:FNS(@"取消")  
                                          otherButtonTitles:FNS(@"确定") , nil];
@@ -272,20 +310,131 @@
     [alert release];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+#pragma mark -
+#pragma mark send SMS
+
+- (void)sendSMS
 {
-    switch (buttonIndex) {
-        case 0:
-            break;
-        case 1:
-            if([[UIApplication sharedApplication] respondsToSelector:@selector(terminateWithSuccess)])
-            {
-                [[UIApplication sharedApplication] performSelector:@selector(terminateWithSuccess)];
-            }
-            break;
-        default:
-            break;
-    }
+    Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
+	
+	if (messageClass != nil) { 			
+		// Check whether the current device is configured for sending SMS messages
+		if ([messageClass canSendText]) {
+			[self displaySMSComposerSheet];
+		}
+		else {	
+            [self popupUnhappyMessage:FNS(@"没有配置设备发送短信") title:nil];
+		}
+	}
+	else {
+        [self popupUnhappyMessage:FNS(@"没有配置设备发送短信") title:nil];
+	}
+}
+
+- (void)displaySMSComposerSheet 
+{
+	MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
+	picker.messageComposeDelegate = self;
+	
+	[self presentModalViewController:picker animated:YES];
+	[picker release];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
+                 didFinishWithResult:(MessageComposeResult)result 
+{
+	// Notifies users about errors associated with the interface
+	switch (result)
+	{
+		case MessageComposeResultCancelled:
+            [self popupHappyMessage:FNS(@"短信取消") title:nil];
+			break;
+		case MessageComposeResultSent:
+            [self popupHappyMessage:FNS(@"短信已发送") title:nil];
+			break;
+		case MessageComposeResultFailed:
+            [self popupUnhappyMessage:FNS(@"短信发送失败") title:nil];
+			break;
+		default:
+            [self popupHappyMessage:FNS(@"短信没有发送") title:nil];
+			break;
+	}
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
+#pragma mark send Email
+
+- (void)sendEmail
+{
+	Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+	if (mailClass != nil)
+	{
+		// We must always check whether the current device is configured for sending emails
+		if ([mailClass canSendMail])
+		{
+			[self displayComposeEmail];
+		}
+		else
+		{
+			[self launchMailAppOnDevice];
+		}
+	}
+	else
+	{
+		[self launchMailAppOnDevice];
+	}
+}
+
+
+- (void)displayComposeEmail
+{
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	picker.mailComposeDelegate = self;
+	
+	[picker setSubject:FNS(@"向你推荐彩客网的比分客户端")];
+	
+	NSString *emailBody = FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx");
+	[picker setMessageBody:emailBody isHTML:NO];
+	
+	[self presentModalViewController:picker animated:YES];
+    [picker release];
+}
+
+
+- (void)launchMailAppOnDevice
+{
+	NSString *email = @"mailto:user@example.com";
+	email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
+
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller 
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{
+	// Notifies users about errors associated with the interface
+	switch (result)
+	{
+		case MFMailComposeResultCancelled:
+            [self popupHappyMessage:FNS(@"邮件取消") title:nil];
+			break;
+		case MFMailComposeResultSaved:
+            [self popupHappyMessage:FNS(@"邮件已保存") title:nil];
+			break;
+		case MFMailComposeResultSent:
+            [self popupHappyMessage:FNS(@"邮件已发送") title:nil];
+			break;
+		case MFMailComposeResultFailed:
+            [self popupUnhappyMessage:FNS(@"邮件发送失败") title:nil];
+			break;
+		default:
+            [self popupHappyMessage:FNS(@"邮件没有发送") title:nil];
+			break;
+	}
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end
