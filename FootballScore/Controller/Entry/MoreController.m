@@ -142,31 +142,31 @@ typedef enum {
     
     UIImage *image = nil;
     switch ([indexPath row]) {
-        case 0:
+        case COMPLETE_SCORE:
             image = [UIImage imageNamed:@"szicon1.png"];
             break;
-        case 1:
+        case WEEK_SCHEDUAL:
             image = [UIImage imageNamed:@"szicon2.png"];
             break;
-        case 2:
+        case SCORE_NOTICE_SETTING:
             image = [UIImage imageNamed:@"szicon3.png"];
             break;
-        case 3:
+        case LANGUAGE_SETTING:
             image = [UIImage imageNamed:@"szicon4.png"];
             break;
-        case 4:
+        case FEEDBACK:
             image = [UIImage imageNamed:@"szicon5.png"];
             break;
-        case 5:
+        case RECOMMEND:
             image = [UIImage imageNamed:@"szicon6.png"];
             break;
-        case 6:
+        case ABOUT:
             image = [UIImage imageNamed:@"szicon7.png"];
             break;
-        case 7:
+        case UPDATE:
             image = [UIImage imageNamed:@"szicon8.png"];
             break;
-        case 8:
+        case QUIT:
             image = [UIImage imageNamed:@"szicon9.png"];
             break;
         default:

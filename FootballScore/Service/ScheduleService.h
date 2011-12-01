@@ -8,6 +8,17 @@
 
 #import "CommonService.h"
 
-@interface ScheduleService : CommonService
+@protocol ScheduleServiceDelegate <NSObject>
+
+- (void)getMatchScheduleFinish;
 
 @end
+
+@interface ScheduleService : CommonService {
+    
+}
+@property (nonatomic, assign) id<ScheduleServiceDelegate> delegate;
+
+@end
+
+extern ScheduleService *GlobalGetScheduleService();
