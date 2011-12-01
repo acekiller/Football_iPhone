@@ -21,6 +21,24 @@ enum actionsheetNumber{
 
 
 
+typedef enum {
+    SIMPLIFY_MANADRIN = 1,
+    SIMPLIFY_CANTONESE,
+    TRADITIONAL_CANTONESE
+    } LANGUAGE_TYPE;
+
+typedef enum {
+    COMPLETE_SCORE = 0,
+    WEEK_SCHEDUAL,
+    SCORE_NOTICE_SETTING,
+    LANGUAGE_SETTING,
+    FEEDBACK,
+    RECOMMEND,
+    ABOUT,
+    UPDATE,
+    QUIT
+    } MORE_SELECTION;
+
 @implementation MoreController
 @synthesize listData;
 @synthesize moreOptionList;
@@ -182,25 +200,34 @@ enum actionsheetNumber{
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = [indexPath row];
-    NSString *rowValue = [listData objectAtIndex:row];
-    
-    if ([rowValue isEqualToString:FNS(@"语言简繁设置")])
-        [self showLanguageSelection];
-  
-    if ([rowValue isEqualToString:FNS(@"比分提示设置")])
-        [self showScoreAlert];
-
-    if ([rowValue isEqualToString:FNS(@"信息反馈")])
-        [self showFeedback];
-    
-    if ([rowValue isEqualToString:FNS(@"推荐给好友")])
-        [self showRecommendation];
-
-    if ([rowValue isEqualToString:FNS(@"关于彩客网")])
-        [self showAbout];
-
-    if ([rowValue isEqualToString:FNS(@"退出客户端")])
-        [self quitApplication];
+    switch (row) {
+        case COMPLETE_SCORE:
+            break;
+        case WEEK_SCHEDUAL:
+            break;
+        case SCORE_NOTICE_SETTING:
+            [self showScoreAlert];
+            break;
+        case LANGUAGE_SETTING:
+            [self showLanguageSelection];
+            break;
+        case FEEDBACK:
+            [self showFeedback];
+            break;
+        case RECOMMEND:
+            [self showRecommendation];
+            break;
+        case ABOUT:
+            [self showAbout];
+            break;
+        case UPDATE:
+            break;
+        case QUIT:
+            [self quitApplication];
+            break;
+        default:
+            break;
+    }
 
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -214,10 +241,7 @@ enum actionsheetNumber{
             return;
         }
         
-        if (buttonIndex == language){
-            // same type, no change, return directly
-            return;
-        }
+        [LanguageManager setLanguage:buttonIndex];
         
     }
     else if (RECOMMENDATION == whichAcctionSheet)

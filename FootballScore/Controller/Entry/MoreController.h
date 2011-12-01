@@ -11,7 +11,6 @@
 
 @interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>{
 
-    int language;
     NSArray *listData;
     UITableView *moreOptionList;
     int whichAcctionSheet;
