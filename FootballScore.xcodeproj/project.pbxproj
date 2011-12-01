@@ -36,6 +36,9 @@
 		C286C2831468DD7F008D87F6 /* CompanyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C2821468DD7F008D87F6 /* CompanyManager.m */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		C2BF923314871FC00032CE9F /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF923114871FC00032CE9F /* ScheduleController.m */; };
+		C2BF923414871FC00032CE9F /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2BF923214871FC00032CE9F /* ScheduleController.xib */; };
+		C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF9236148732A80032CE9F /* ScheduleService.m */; };
 		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
 		CA1F4DBD145802CE001C3F19 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = CA1F4DBB145802CE001C3F19 /* 57.png */; };
@@ -469,6 +472,11 @@
 		C286C2821468DD7F008D87F6 /* CompanyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyManager.m; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		C2BF923014871FC00032CE9F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
+		C2BF923114871FC00032CE9F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
+		C2BF923214871FC00032CE9F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
+		C2BF9235148732A80032CE9F /* ScheduleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleService.h; sourceTree = "<group>"; };
+		C2BF9236148732A80032CE9F /* ScheduleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleService.m; sourceTree = "<group>"; };
 		C2D36E8F1460E64100603923 /* PPSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSegmentControl.h; sourceTree = "<group>"; };
 		C2D36E901460E64100603923 /* PPSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSegmentControl.m; sourceTree = "<group>"; };
 		CA0D57061438197D00EFE8F2 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
@@ -1264,6 +1272,16 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		C2BF922E14871E7B0032CE9F /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				C2BF923014871FC00032CE9F /* ScheduleController.h */,
+				C2BF923114871FC00032CE9F /* ScheduleController.m */,
+				C2BF923214871FC00032CE9F /* ScheduleController.xib */,
+			);
+			name = Schedule;
+			sourceTree = "<group>";
+		};
 		C2D36E8E1460E64100603923 /* PPSegmentControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -1277,6 +1295,7 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C2BF922E14871E7B0032CE9F /* Schedule */,
 				C280CAA31447D6F000EBCD9A /* More */,
 				CAC0DC79144679BC0024DEB3 /* Index */,
 				CA207C09142EF2DB00A4C425 /* Match */,
@@ -1362,6 +1381,8 @@
 				C286BF2B146BBF55003A0D3D /* UserService.m */,
 				A3FA4F40147F323900BE4A61 /* RetryService.h */,
 				A3FA4F41147F323900BE4A61 /* RetryService.m */,
+				C2BF9235148732A80032CE9F /* ScheduleService.h */,
+				C2BF9236148732A80032CE9F /* ScheduleService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2468,6 +2489,7 @@
 				CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */,
 				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
 				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
+				C2BF923414871FC00032CE9F /* ScheduleController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2721,6 +2743,8 @@
 				A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */,
 				A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */,
 				A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */,
+				C2BF923314871FC00032CE9F /* ScheduleController.m in Sources */,
+				C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

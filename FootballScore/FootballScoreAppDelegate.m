@@ -118,7 +118,7 @@ enum
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
-	[UIUtils addViewController:[MoreController alloc]
+	[UIUtils addViewController:[PPTableViewController alloc]
 					 viewTitle:FNS(@"资料库")
 					 viewImage:@"b_menu_4.png"
 			  hasNavController:YES			
