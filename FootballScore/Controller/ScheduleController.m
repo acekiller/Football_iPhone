@@ -25,6 +25,7 @@
     return self;
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -82,7 +83,16 @@
 
     }
     Match* match = [self.dataList objectAtIndex:[indexPath row]];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@ vs %@ ",[[LeagueManager defaultScheduleManager] getNameById:match.leagueId ], match.homeTeamName, match.awayTeamName];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %d:%d(%d:%d) %@ ",
+                           [[LeagueManager defaultScheduleManager] getNameById:match.leagueId ], 
+                           //[self convertMatchStartTime:match.date], 
+                           FNS(@"完"), 
+                           match.homeTeamScore,
+                           match.awayTeamScore, 
+                           match.homeTeamFirstHalfScore, 
+                           match.awayTeamFirstHalfScore,
+                           match.homeTeamName, 
+                           match.awayTeamName];
     return cell;
 }
 
@@ -99,7 +109,7 @@
 {
     [self hideActivity];
     self.dataList = [[MatchManager defaultMatchScheduleManager] matchArray];
-    [self.dateLabel setText:dateToString([MatchManager defaultMatchScheduleManager].serverDate)];
+    //[self.dateLabel setText:dateToString([MatchManager defaultMatchScheduleManager].serverDate)];
     [self.dataTableView reloadData];
 }
 
@@ -132,7 +142,7 @@
     for (i = 0 ; i<7 ;i++)
     {
         interval = 24*60*60*i;
-        beforeDate = [date dateByAddingTimeInterval:-interval];
+        beforeDate = [date dateByAddingTimeInterval:interval];
         dateString = [df stringFromDate:beforeDate];
         [dateActionSheet addButtonWithTitle: dateString];
     }
@@ -144,11 +154,32 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*buttonIndex];
+    [GlobalGetScheduleService() getSchedule:self date:date];
+    [self.dateLabel setText:dateToString(date)];
+    [self showActivityWithText:FNS(@"loading")];
+    [self release];
 }
 
 - (void)dealloc {
     [dateLabel release];
     [super dealloc];
+}
+
+- (NSString*)convertMatchStartTime:(NSDate*)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSString *dateString = [[[NSString alloc] init] autorelease];
+    [formatter setDateFormat:@"HH:mm"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
+
+    
+    if (nil !=[formatter stringFromDate:date]){
+        dateString = [formatter stringFromDate:date];
+    }
+    
+    [formatter release];
+    return dateString;
+    
 }
 @end

@@ -16,4 +16,6 @@
 
 + (void)showWithSuperController:(UIViewController*)superViewController;
 - (IBAction)clicksSelectDateButton:(id)sender;
+- (NSString*)convertMatchStartTime:(NSDate*)date;
+
 @end
