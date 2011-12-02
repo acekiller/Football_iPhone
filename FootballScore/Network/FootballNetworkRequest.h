@@ -69,4 +69,6 @@ enum{
 + (CommonNetworkOutput*)getWeeklyScheduleByDate:(NSDate*)date 
                                        language:(int)language; 
 
++ (CommonNetworkOutput*)getVersion;
+
 @end

@@ -29,6 +29,7 @@
 #define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
 #define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/Subscribe.aspx?"
 #define URL_GET_WEEKLY_SCHEDULE     @"http://bf.bet007.com/phone/scheduleByDate.aspx?"
+#define URL_GET_VERSION             @"http://bf.bet007.com/phone/iphone_ver.txt"
 
 
 #define SEGMENT_SEP             @"$$"
@@ -631,6 +632,27 @@ enum{
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];
+}
+
++ (CommonNetworkOutput*)getVersion
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_VERSION
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
 }
 
 @end
