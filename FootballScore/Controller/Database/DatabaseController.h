@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+     
+    EUROPE = 1601,
+    AMERICAS,
+    ASIA,
+    AFRICA,
+    OCEANIA
+} ContinentType;
+
+
 @interface DatabaseController : UIViewController
 
+- (IBAction)clickContinent:(id)sender;
 @end

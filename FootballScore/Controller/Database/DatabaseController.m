@@ -48,4 +48,35 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)clickContinent:(id)sender {
+    
+    ContinentType continent = ((UIButton *)sender).tag;
+    switch (continent) {
+        case AMERICAS:
+        {
+            NSLog(@"美洲");
+        }
+            break;
+        case AFRICA:
+        {
+            NSLog(@"非洲");            
+        }
+            break;
+        case ASIA:
+        {
+            NSLog(@"亚洲");
+        }
+            break;
+        case OCEANIA:
+        {
+            NSLog(@"大洋洲");
+        }
+            break;
+            
+        case EUROPE:
+        default:
+            NSLog(@"欧洲");
+            break;
+    }
+}
 @end
