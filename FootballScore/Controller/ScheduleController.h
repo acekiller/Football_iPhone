@@ -7,10 +7,13 @@
 //
 
 #import "PPTableViewController.h"
+#import "ScheduleService.h"
 
-@interface ScheduleController : PPTableViewController {
+@interface ScheduleController : PPTableViewController <ScheduleServiceDelegate, UIActionSheetDelegate>{
     
 }
+@property (retain, nonatomic) IBOutlet UILabel *dateLabel;
 
 + (void)showWithSuperController:(UIViewController*)superViewController;
+- (IBAction)clicksSelectDateButton:(id)sender;
 @end

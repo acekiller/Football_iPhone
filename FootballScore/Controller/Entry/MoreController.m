@@ -13,6 +13,7 @@
 #import "UITableViewCellUtil.h"
 #import "AboutController.h"
 #import "LanguageManager.h"
+#import "ScheduleController.h"
 
 enum actionsheetNumber{
     LANGUAGE_SELECTION,
@@ -202,8 +203,10 @@ typedef enum {
     NSUInteger row = [indexPath row];
     switch (row) {
         case COMPLETE_SCORE:
+            
             break;
         case WEEK_SCHEDUAL:
+            [ScheduleController showWithSuperController:self];
             break;
         case SCORE_NOTICE_SETTING:
             [self showScoreAlert];

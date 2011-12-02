@@ -14,7 +14,6 @@
 #import "TimeUtils.h"
 
 @implementation ScheduleService
-@synthesize delegate;
 
 - (NSDate*)parseSeverDate:(NSArray*)dataArray
 {
@@ -32,7 +31,7 @@
     return dateFromChineseStringByFormat(dateString, DEFAULT_DATE_FORMAT);
 }
 
-- (void)addRealtimeMatchUpdateToQueue:(id<ScheduleServiceDelegate>)delegate date:(NSDate*)date
+- (void)getSchedule:(id<ScheduleServiceDelegate>)delegate date:(NSDate*)date
 {
     int lang = [LanguageManager getLanguage]; 
    
@@ -59,13 +58,13 @@
                 // parser result into match array and update
                 updateMatchArray = [MatchManager fromString:
                                     [output.arrayData objectAtIndex:REALTIME_MATCH_DATA]];
-                [[MatchManager defaultManager] updateAllMatchArray:updateMatchArray];
+                [[MatchManager defaultMatchScheduleManager] updateAllMatchArray:updateMatchArray];
             }
             
             // step 2 : update UI
-            if (self.delegate && [self.delegate respondsToSelector:
+            if (delegate && [delegate respondsToSelector:
                              @selector(getMatchScheduleFinish)]){
-                [self.delegate getMatchScheduleFinish];
+                [delegate getMatchScheduleFinish];
             }
             
         });                        
