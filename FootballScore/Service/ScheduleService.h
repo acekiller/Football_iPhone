@@ -17,8 +17,7 @@
 @interface ScheduleService : CommonService {
     
 }
-@property (nonatomic, assign) id<ScheduleServiceDelegate> delegate;
-
+- (void)getSchedule:(id<ScheduleServiceDelegate>)scheduleDelegate date:(NSDate*)date;
 @end
 
 extern ScheduleService *GlobalGetScheduleService();

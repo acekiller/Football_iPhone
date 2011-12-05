@@ -1,14 +1,14 @@
 //
-//  ScheduleController.m
+//  DatabaseController.m
 //  FootballScore
 //
-//  Created by Orange on 11-12-1.
+//  Created by  on 11-12-2.
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "ScheduleController.h"
+#import "DatabaseController.h"
 
-@implementation ScheduleController
+@implementation DatabaseController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,32 +48,35 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - PPTableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.dataList count];
+- (IBAction)clickContinent:(id)sender {
+    
+    ContinentType continent = ((UIButton *)sender).tag;
+    switch (continent) {
+        case AMERICAS:
+        {
+            NSLog(@"美洲");
+        }
+            break;
+        case AFRICA:
+        {
+            NSLog(@"非洲");            
+        }
+            break;
+        case ASIA:
+        {
+            NSLog(@"亚洲");
+        }
+            break;
+        case OCEANIA:
+        {
+            NSLog(@"大洋洲");
+        }
+            break;
+            
+        case EUROPE:
+        default:
+            NSLog(@"欧洲");
+            break;
+    }
 }
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-    UITableViewCell* cell = [[UITableViewCell alloc] init];
-	return cell;	
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath { 
-    return NO; 
-}
-
-+ (void)showWithSuperController:(UIViewController*)superViewController
-{
-    ScheduleController* vc = [[ScheduleController alloc] init];
-    [superViewController.navigationController pushViewController:vc animated:YES];
-    [vc release];
-}
-
 @end

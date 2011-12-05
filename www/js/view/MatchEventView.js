@@ -135,6 +135,7 @@ function MatchDetailView(){
 	// init template	
 	var eventTemplate = Ext.XTemplate.from("event-template", helperFunctions);
 	var statTemplate = Ext.XTemplate.from("stat-template", helperFunctions);
+	var noEventTemplate = Ext.XTemplate.from("noEvent-template", helperFunctions);
 	
 	this.eventPanel = new Ext.Panel({	    
 	    id : 'eventPanel',
@@ -147,6 +148,10 @@ function MatchDetailView(){
 	    id : 'statPanel',
 	    tpl : statTemplate
 	});	
+	this.noEventPanel = new Ext.Panel({
+	    id : 'noEventPanel',
+	    tpl : noEventTemplate
+	});	
 	
 	this.mainPanel = new Ext.Panel({	
 	    fullscreen: true,
@@ -156,7 +161,7 @@ function MatchDetailView(){
 	    },
 		//tpl : '<div class="noEventdata"><span>暂无比赛事件相关数据</span></div>',
 	    scroll : 'vertical',
-	    items: [this.eventPanel, this.statPanel]            
+	    items: [this.eventPanel, this.statPanel,this.noEventPanel]            
 	});
 	
 }
@@ -167,9 +172,16 @@ MatchDetailView.prototype = {
 		
 		this.eventPanel.update(manager.eventArray);
 		
+		if (manager.eventArray == null || manager.eventArray.length == 0) {
+			this.noEventPanel.show();
+			this.noEventPanel.update();
+		}
+		else{
+			this.noEventPanel.hide();
+		}
+		
 		if (manager.statArray == null || manager.statArray.length == 0) {
 			this.statPanel.hide();
-			//this.mainPanel.update();
 		}
 		else {
 			this.statPanel.show();

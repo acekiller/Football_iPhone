@@ -380,6 +380,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        return;
+    }
     self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
     [self updateAllOddsData];
 }

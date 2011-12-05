@@ -27,9 +27,10 @@
 #define URL_GET_BET_COMPANY_LIST    @"http://bf.bet007.com/phone/Company.aspx"
 #define URL_GET_ODDS_LIST           @"http://bf.bet007.com/phone/Odds.aspx?"
 #define URL_GET_REALTIME_ODDS       @"http://bf.bet007.com/phone/OddsChange.aspx?"
-#define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/PushSet.aspx?"
+#define URL_FOLLOWUNFOLLOW_MATCH    @"http://bf.bet007.com/phone/Subscribe.aspx?"
 #define URL_GET_WEEKLY_SCHEDULE     @"http://bf.bet007.com/phone/scheduleByDate.aspx?"
-
+#define URL_GET_VERSION             @"http://bf.bet007.com/phone/iphone_ver.txt"
+#define URL_GET_DATABASE            @"http://bf.bet007.com/phone/InfoIndex.aspx?"
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -219,6 +220,34 @@ enum{
                                responseHandler:responseHandler
                                         output:output];    
 }    
+
+
++ (CommonNetworkOutput*)getDataBase:(NSInteger)lang 
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL]; 
+        str = [str stringByAddQueryParameter:@"lang" intValue:lang];
+
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        if ([output.arrayData count] != DATABASE_SEGMENT){
+            NSLog(@"<getDataBase> but segment not enough");
+            output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
+        }
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_DATABASE
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];    
+}  
 
 + (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType
 {
@@ -631,6 +660,27 @@ enum{
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output];
+}
+
++ (CommonNetworkOutput*)getVersion
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_VERSION
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
 }
 
 @end

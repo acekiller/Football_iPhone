@@ -36,8 +36,6 @@
 		C286C2831468DD7F008D87F6 /* CompanyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C2821468DD7F008D87F6 /* CompanyManager.m */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
-		C2BF923314871FC00032CE9F /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF923114871FC00032CE9F /* ScheduleController.m */; };
-		C2BF923414871FC00032CE9F /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2BF923214871FC00032CE9F /* ScheduleController.xib */; };
 		C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF9236148732A80032CE9F /* ScheduleService.m */; };
 		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
@@ -100,6 +98,10 @@
 		CA3FD46F143ABAC600119BD4 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3FD46E143ABAC600119BD4 /* LanguageManager.m */; };
 		CA3FD6D2147248CA0097D016 /* ScoreIndexTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3FD6D0147248C90097D016 /* ScoreIndexTitleCell.m */; };
 		CA3FD6D3147248CA0097D016 /* ScoreIndexTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3FD6D1147248CA0097D016 /* ScoreIndexTitleCell.xib */; };
+		CA4F50441488D2820030070F /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50421488D2820030070F /* ScheduleController.m */; };
+		CA4F50451488D2820030070F /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50431488D2820030070F /* ScheduleController.xib */; };
+		CA4F504A1488D2C70030070F /* DatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50481488D2C70030070F /* DatabaseController.m */; };
+		CA4F504B1488D2C70030070F /* DatabaseController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50491488D2C70030070F /* DatabaseController.xib */; };
 		CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */; };
 		CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA7144E82E1009B2318 /* Mandarin.strings */; };
 		CA6C9DAA144E8322009B2318 /* Cantonese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA9144E8322009B2318 /* Cantonese.strings */; };
@@ -121,6 +123,9 @@
 		CA85C8E1147CA70700C3E6C4 /* odds_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */; };
 		CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */; };
 		CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */; };
+		CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CC148C628D00EABF7E /* DataBaseService.m */; };
+		CAA633D0148C634A00EABF7E /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CF148C634A00EABF7E /* DataBase.m */; };
+		CAA633D3148C6B6B00EABF7E /* DataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */; };
 		CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */; };
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
@@ -472,9 +477,6 @@
 		C286C2821468DD7F008D87F6 /* CompanyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyManager.m; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
-		C2BF923014871FC00032CE9F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
-		C2BF923114871FC00032CE9F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
-		C2BF923214871FC00032CE9F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
 		C2BF9235148732A80032CE9F /* ScheduleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleService.h; sourceTree = "<group>"; };
 		C2BF9236148732A80032CE9F /* ScheduleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleService.m; sourceTree = "<group>"; };
 		C2D36E8F1460E64100603923 /* PPSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSegmentControl.h; sourceTree = "<group>"; };
@@ -559,6 +561,12 @@
 		CA3FD6CF147248C80097D016 /* ScoreIndexTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreIndexTitleCell.h; sourceTree = "<group>"; };
 		CA3FD6D0147248C90097D016 /* ScoreIndexTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreIndexTitleCell.m; sourceTree = "<group>"; };
 		CA3FD6D1147248CA0097D016 /* ScoreIndexTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreIndexTitleCell.xib; sourceTree = "<group>"; };
+		CA4F50411488D2820030070F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
+		CA4F50421488D2820030070F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
+		CA4F50431488D2820030070F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
+		CA4F50471488D2C70030070F /* DatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseController.h; sourceTree = "<group>"; };
+		CA4F50481488D2C70030070F /* DatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseController.m; sourceTree = "<group>"; };
+		CA4F50491488D2C70030070F /* DatabaseController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatabaseController.xib; sourceTree = "<group>"; };
 		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
 		CA6C9DA7144E82E1009B2318 /* Mandarin.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Mandarin.strings; sourceTree = "<group>"; };
 		CA6C9DA9144E8322009B2318 /* Cantonese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Cantonese.strings; sourceTree = "<group>"; };
@@ -595,6 +603,12 @@
 		CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_down@2x.png"; sourceTree = "<group>"; };
 		CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_title_bg@2x.png"; sourceTree = "<group>"; };
 		CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_up@2x.png"; sourceTree = "<group>"; };
+		CAA633CB148C628D00EABF7E /* DataBaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseService.h; sourceTree = "<group>"; };
+		CAA633CC148C628D00EABF7E /* DataBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseService.m; sourceTree = "<group>"; };
+		CAA633CE148C634A00EABF7E /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
+		CAA633CF148C634A00EABF7E /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
+		CAA633D1148C6B6B00EABF7E /* DataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseManager.h; sourceTree = "<group>"; };
+		CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseManager.m; sourceTree = "<group>"; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1272,16 +1286,6 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
-		C2BF922E14871E7B0032CE9F /* Schedule */ = {
-			isa = PBXGroup;
-			children = (
-				C2BF923014871FC00032CE9F /* ScheduleController.h */,
-				C2BF923114871FC00032CE9F /* ScheduleController.m */,
-				C2BF923214871FC00032CE9F /* ScheduleController.xib */,
-			);
-			name = Schedule;
-			sourceTree = "<group>";
-		};
 		C2D36E8E1460E64100603923 /* PPSegmentControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -1295,7 +1299,8 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C2BF922E14871E7B0032CE9F /* Schedule */,
+				CA4F50461488D2A70030070F /* Database */,
+				CA4F50401488D2820030070F /* Schedule */,
 				C280CAA31447D6F000EBCD9A /* More */,
 				CAC0DC79144679BC0024DEB3 /* Index */,
 				CA207C09142EF2DB00A4C425 /* Match */,
@@ -1355,6 +1360,10 @@
 				C282D669146E4A0A00EE435A /* DaXiao.m */,
 				A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */,
 				A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */,
+				CAA633CE148C634A00EABF7E /* DataBase.h */,
+				CAA633CF148C634A00EABF7E /* DataBase.m */,
+				CAA633D1148C6B6B00EABF7E /* DataBaseManager.h */,
+				CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1383,6 +1392,8 @@
 				A3FA4F41147F323900BE4A61 /* RetryService.m */,
 				C2BF9235148732A80032CE9F /* ScheduleService.h */,
 				C2BF9236148732A80032CE9F /* ScheduleService.m */,
+				CAA633CB148C628D00EABF7E /* DataBaseService.h */,
+				CAA633CC148C628D00EABF7E /* DataBaseService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1450,6 +1461,26 @@
 				CA7F23751433722100CC0F05 /* MatchDetailController.xib */,
 			);
 			path = Match;
+			sourceTree = "<group>";
+		};
+		CA4F50401488D2820030070F /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				CA4F50411488D2820030070F /* ScheduleController.h */,
+				CA4F50421488D2820030070F /* ScheduleController.m */,
+				CA4F50431488D2820030070F /* ScheduleController.xib */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		CA4F50461488D2A70030070F /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				CA4F50471488D2C70030070F /* DatabaseController.h */,
+				CA4F50481488D2C70030070F /* DatabaseController.m */,
+				CA4F50491488D2C70030070F /* DatabaseController.xib */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		CA6C9DA4144E8219009B2318 /* Language */ = {
@@ -2489,7 +2520,8 @@
 				CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */,
 				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
 				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
-				C2BF923414871FC00032CE9F /* ScheduleController.xib in Resources */,
+				CA4F50451488D2820030070F /* ScheduleController.xib in Resources */,
+				CA4F504B1488D2C70030070F /* DatabaseController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2743,8 +2775,12 @@
 				A3ACBABD147B3A9E0040C155 /* ShowAlertTextViewController.m in Sources */,
 				A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */,
 				A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */,
-				C2BF923314871FC00032CE9F /* ScheduleController.m in Sources */,
 				C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */,
+				CA4F50441488D2820030070F /* ScheduleController.m in Sources */,
+				CA4F504A1488D2C70030070F /* DatabaseController.m in Sources */,
+				CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */,
+				CAA633D0148C634A00EABF7E /* DataBase.m in Sources */,
+				CAA633D3148C6B6B00EABF7E /* DataBaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
