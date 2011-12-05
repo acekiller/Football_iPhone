@@ -36,9 +36,27 @@
     
 }
 
-- (void)getVersion
+- (void)getVersion:(id<UserServiceDelegate>)delegate;
 {
-
+    NSOperationQueue* queue = [self getOperationQueue:@"GET_VERSION"];
+    
+    [queue addOperationWithBlock:^{
+        CommonNetworkOutput* output = [FootballNetworkRequest getVersion];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            if(output.textData)
+//            {
+//                [[VersionManager defaultManager] setLatestVersion:output.textData];
+//            }
+//            else
+//            {
+//                PPDebug(@"get version faild");
+//            }
+            if (delegate && [delegate respondsToSelector:@selector(getVersionFinish: data:)]) {
+                [delegate getVersionFinish:output.resultCode data:output.textData];
+            }
+        });
+    }];
 }
 
 @end

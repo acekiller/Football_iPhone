@@ -14,6 +14,8 @@
 #import "AboutController.h"
 #import "LanguageManager.h"
 #import "ScheduleController.h"
+#import "UserService.h"
+
 
 enum actionsheetNumber{
     LANGUAGE_SELECTION,
@@ -224,6 +226,7 @@ typedef enum {
             [self showAbout];
             break;
         case UPDATE:
+            [self updateApplication];
             break;
         case QUIT:
             [self quitApplication];
@@ -324,6 +327,37 @@ typedef enum {
     AboutController *ac = [[AboutController alloc] init];
     [self.navigationController pushViewController:ac animated:YES];
     [ac release];
+}
+
+- (void)updateApplication
+{
+//    [self showActivityWithText:@"正在检查版本..."];
+    UserService *userService = [[[UserService alloc] init] autorelease];
+    [userService getVersion:self];
+    
+}
+
+- (void)getVersionFinish:(int)result data:(NSString*)data
+{
+//    [self hideActivity];
+    if (0 == result) 
+    {
+        NSString *latestVersion = data;
+        NSString *localVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        if ([latestVersion isEqualToString:localVersion]) 
+        {
+            [self popupHappyMessage:FNS(@"已经是最新版本") title:nil];
+        }
+        else
+        {
+            //NSString *appId = GlobalGetPlaceAppId();
+            [UIUtils openApp: GlobalGetPlaceAppId()];  //跳到更新页面
+        }
+    }
+    else
+    {
+        [self popupUnhappyMessage:FNS(@"查询版本失败") title:nil];
+    }
 }
 
 - (void)quitApplication
