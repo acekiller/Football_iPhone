@@ -1,5 +1,5 @@
 //
-//  DatabaseController.h
+//  RepositoryController.h
 //  FootballScore
 //
 //  Created by  on 11-12-2.
@@ -19,7 +19,7 @@ typedef enum {
 } ContinentType;
 
 
-@interface DatabaseController : PPTableViewController
+@interface RepositoryController : PPTableViewController
 
 - (IBAction)clickContinent:(id)sender;
 @end

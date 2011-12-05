@@ -463,6 +463,7 @@
 
 - (void) setHeaderInfo:(DetailHeader *)header
 {
+    PPDebug(@"set header info, header = %@", [header description]);
     
     self.matchStateLabel.text = [DataUtils toMatchStatusString:header.matchStatus];
     NSInteger status = header.matchStatus;
@@ -552,10 +553,12 @@
 
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo
 {
-    DetailHeader* header = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
-    self.detailHeader = header;
-    [self setHeaderInfo:self.detailHeader];
-    [header release];
+    if (headerInfo != nil){
+        DetailHeader* header = [[DetailHeader alloc] initWithDetailHeaderArray:headerInfo];
+        self.detailHeader = header;
+        [self setHeaderInfo:self.detailHeader];
+        [header release];
+    }
 }
 
 #pragma Web View Related & Web View Delegate

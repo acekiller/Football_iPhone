@@ -6,9 +6,9 @@
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DataBase.h"
+#import "Repository.h"
 
-@implementation DBContinent
+@implementation Continent
 @synthesize continentId;
 @synthesize continentName;
 
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation DBCountry
+@implementation Country
 
 @synthesize countryId;
 @synthesize continentId;
@@ -55,8 +55,4 @@
     [continentId release];
     [super dealloc];
 }
-@end
-
-@implementation DBLeague
-
 @end

@@ -205,10 +205,10 @@ typedef enum {
     NSUInteger row = [indexPath row];
     switch (row) {
         case COMPLETE_SCORE:
-            
+            [ScheduleController showFinishedMatchWithSuperController:self];
             break;
         case WEEK_SCHEDUAL:
-            [ScheduleController showWithSuperController:self];
+            [ScheduleController showScheduleWithSuperController:self];
             break;
         case SCORE_NOTICE_SETTING:
             [self showScoreAlert];

@@ -30,6 +30,13 @@ enum{
 };
 
 enum{
+    CONTINENT_INDEX = 0,
+    COUNTRY_INDEX,
+    LEAGUE_INDEX,
+    DATABASE_SEGMENT
+};
+
+enum{
     MATCH_DETAIIL_HEADER_SEGMENT = 1
 };
 
@@ -56,6 +63,7 @@ enum{
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
 + (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
++ (CommonNetworkOutput*)getRepository:(NSInteger)lang;
 + (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType;
 + (CommonNetworkOutput*)getOddsListByDate:(NSDate*)date 
                            companyIdArray:(NSArray*)companyIdAray 

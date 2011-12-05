@@ -31,7 +31,7 @@
 - (id)initWithDetailHeaderArray:(NSArray *)headerArray
 {
     self = [super init];
-    if (self && headerArray && [headerArray count] == DETAIL_HEADER_FILED_COUNT) {
+    if (self && headerArray && [headerArray count] >= DETAIL_HEADER_FILED_COUNT) {
         self.homeTeamSCName = [headerArray objectAtIndex:INDEX_DETAIL_HEADER_HOME_TEAM_SCNAME];
         self.awayTeamSCName = [headerArray objectAtIndex:INDEX_DETAIL_HEADER_AWAY_TEAM_SCNAME];
         self.homeTeamYYName = [headerArray objectAtIndex:INDEX_DETAIL_HEADER_HOME_TEAM_YYNAME];
