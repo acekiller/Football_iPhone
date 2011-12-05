@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPTableViewController.h"
 
 typedef enum {
      
@@ -18,7 +19,7 @@ typedef enum {
 } ContinentType;
 
 
-@interface DatabaseController : UIViewController
+@interface DatabaseController : PPTableViewController
 
 - (IBAction)clickContinent:(id)sender;
 @end
