@@ -14,9 +14,11 @@
 }
 @property (retain, nonatomic) IBOutlet UILabel *dateLabel;
 
-+ (void)showWithSuperController:(UIViewController*)superViewController;
++ (void)showScheduleWithSuperController:(UIViewController*)superViewController;
++ (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController;
 - (IBAction)clicksSelectDateButton:(id)sender;
 - (NSString*)convertMatchStartTime:(NSDate*)date;
+- (NSString*)convertStatus:(NSNumber*)status;
 - (void)initCell:(UITableViewCell*)cell;
 - (void)setCell:(UITableViewCell*)cell withMatch:(Match*)match;
 @property (retain, nonatomic) IBOutlet UIButton *selectedDateButton;

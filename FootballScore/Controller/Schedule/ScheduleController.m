@@ -12,6 +12,23 @@
 #import "Match.h"
 #import "LeagueManager.h"
 #import "TimeUtils.h"
+#import "ColorManager.h"
+
+//enum{
+//    
+//    // 0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
+//    
+//    MATCH_STATUS_NOT_STARTED = 0,
+//    MATCH_STATUS_FIRST_HALF = 1,
+//    MATCH_STATUS_MIDDLE = 2,
+//    MATCH_STATUS_SECOND_HALF = 3,
+//    MATCH_STATUS_TBD = -11,
+//    MATCH_STATUS_KILL = -12,
+//    MATCH_STATUS_PAUSE = -13,
+//    MATCH_STATUS_POSTPONE = -14,
+//    MATCH_STATUS_FINISH = -1,
+//    MATCH_STATUS_CANCEL = -10
+//};
 
 @implementation ScheduleController
 @synthesize selectedDateButton;
@@ -43,7 +60,6 @@
     [super viewDidLoad];
     [self.dateLabel setText:dateToString([NSDate dateWithTimeIntervalSinceNow:0])];
     [self.selectedDateButton setTitle:FNS(@"选择日期") forState:UIControlStateNormal];
-    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -87,6 +103,7 @@
     }
     Match* match = [self.dataList objectAtIndex:[indexPath row]];
     [self setCell:cell withMatch:match];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
@@ -107,12 +124,19 @@
     [self.dataTableView reloadData];
 }
 
-+ (void)showWithSuperController:(UIViewController*)superViewController
++ (void)showScheduleWithSuperController:(UIViewController*)superViewController
 {
     ScheduleController* vc = [[ScheduleController alloc] init];
     [superViewController.navigationController pushViewController:vc animated:YES];
     [GlobalGetScheduleService() getSchedule:vc date:nil];
     [vc showActivityWithText:FNS(@"loading")];
+    [vc release];
+}
+
++ (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController
+{
+    ScheduleController* vc = [[ScheduleController alloc] init];
+    [superViewController.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
 
@@ -181,6 +205,28 @@
     
 }
 
+- (NSString*)convertStatus:(NSNumber*)status
+{
+    switch ([status intValue]) {
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+            return FNS(@"进行中");
+        case MATCH_STATUS_MIDDLE:
+            return FNS(@"中");
+        case MATCH_STATUS_FINISH:
+            return FNS(@"完");
+        case MATCH_STATUS_PAUSE:
+            return FNS(@"中断");
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        case MATCH_STATUS_NOT_STARTED:
+        default:
+            return FNS(@"未开");
+    }
+}
+
 enum {
     TAG_LEAGUE_NAME = 20111205,
     TAG_DATE_AND_STATUS,
@@ -190,11 +236,11 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 40, 20)];
-    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 90, 20)];
-    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 0, 40, 20)];
-    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(230, 0, 90, 20)];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 55, 20)];
+    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 20)];
+    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 20)];
+    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 20)];
     [leagueName setFont:[UIFont systemFontOfSize:10]];
     [dateAndStatus setFont:[UIFont systemFontOfSize:10]];
     [homeTeamName setFont:[UIFont systemFontOfSize:10]];
@@ -228,7 +274,7 @@ enum {
     UILabel* awayTeamName = (UILabel*)[cell viewWithTag:TAG_AWAY_TEAM_NAME];
     [leagueName setText:[[LeagueManager defaultLeagueScheduleManager] getNameById:match.leagueId ]];
     [homeTeamName setText:match.homeTeamName];
-    [dateAndStatus setText:[NSString stringWithFormat:@"%@ %@", [self convertMatchStartTime:match.date], FNS(@"完")]];
+    [dateAndStatus setText:[NSString stringWithFormat:@"%@ %@", [self convertMatchStartTime:match.date], [self convertStatus:match.status]]];
     [scoreLabel setText:[NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]]];
     [awayTeamName setText:match.awayTeamName];
 }
