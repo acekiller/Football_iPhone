@@ -53,7 +53,7 @@
                 // parse league data and update                        
                 leagueArray = [LeagueManager fromString:
                                [output.arrayData objectAtIndex:REALTIME_MATCH_LEAGUE]];                    
-                [[LeagueManager defaultScheduleManager] updateLeague:leagueArray];
+                [[LeagueManager defaultLeagueScheduleManager] updateLeague:leagueArray];
                 
                 // parser result into match array and update
                 updateMatchArray = [MatchManager fromString:

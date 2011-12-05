@@ -14,12 +14,14 @@
 #import "TimeUtils.h"
 
 @implementation ScheduleController
+@synthesize selectedDateButton;
 @synthesize dateLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        dateLabel  = [[UILabel alloc] init];
         // Custom initialization
     }
     return self;
@@ -39,12 +41,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.dateLabel setText:dateToString([NSDate dateWithTimeIntervalSinceNow:0])];
+    [self.selectedDateButton setTitle:FNS(@"选择日期") forState:UIControlStateNormal];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
     [self setDateLabel:nil];
+    [self setSelectedDateButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -74,25 +80,13 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
-    UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:@"test"];
+    UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:@"ScheduleController"];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"test"] autorelease];
-        
-        [cell.textLabel setFont:[UIFont systemFontOfSize:10]];
-        cell.textLabel.textColor=[UIColor colorWithRed:0x46/255.0 green:0x46/255.0 blue:0x46/255.0 alpha:1.0];
-
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ScheduleController"] autorelease];
+        [self initCell:cell];
     }
     Match* match = [self.dataList objectAtIndex:[indexPath row]];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %d:%d(%d:%d) %@ ",
-                           [[LeagueManager defaultScheduleManager] getNameById:match.leagueId ], 
-                           //[self convertMatchStartTime:match.date], 
-                           FNS(@"完"), 
-                           match.homeTeamScore,
-                           match.awayTeamScore, 
-                           match.homeTeamFirstHalfScore, 
-                           match.awayTeamFirstHalfScore,
-                           match.homeTeamName, 
-                           match.awayTeamName];
+    [self setCell:cell withMatch:match];
     return cell;
 }
 
@@ -154,15 +148,19 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        return;
+    }
     NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*buttonIndex];
     [GlobalGetScheduleService() getSchedule:self date:date];
     [self.dateLabel setText:dateToString(date)];
     [self showActivityWithText:FNS(@"loading")];
-    [self release];
+    [self.dataTableView reloadData];
 }
 
 - (void)dealloc {
     [dateLabel release];
+    [selectedDateButton release];
     [super dealloc];
 }
 
@@ -181,5 +179,57 @@
     [formatter release];
     return dateString;
     
+}
+
+enum {
+    TAG_LEAGUE_NAME = 20111205,
+    TAG_DATE_AND_STATUS,
+    TAG_HOME_TEAM_NAME,
+    TAG_SCORE_LABEL,
+    TAG_AWAY_TEAM_NAME
+};
+- (void)initCell:(UITableViewCell*)cell
+{
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 40, 20)];
+    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 90, 20)];
+    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 0, 40, 20)];
+    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(230, 0, 90, 20)];
+    [leagueName setFont:[UIFont systemFontOfSize:10]];
+    [dateAndStatus setFont:[UIFont systemFontOfSize:10]];
+    [homeTeamName setFont:[UIFont systemFontOfSize:10]];
+    [scoreLabel setFont:[UIFont systemFontOfSize:10]];
+    [awayTeamName setFont:[UIFont systemFontOfSize:10]];
+    [leagueName setTag:TAG_LEAGUE_NAME];
+    [dateAndStatus setTag:TAG_DATE_AND_STATUS];
+    [homeTeamName setTag:TAG_HOME_TEAM_NAME];
+    [scoreLabel setTag:TAG_SCORE_LABEL];
+    [awayTeamName setTag:TAG_AWAY_TEAM_NAME];
+    [scoreLabel setTextAlignment:UITextAlignmentCenter];
+    [homeTeamName setTextAlignment:UITextAlignmentRight];
+    [cell addSubview:leagueName];
+    [cell addSubview:dateAndStatus];
+    [cell addSubview:homeTeamName];
+    [cell addSubview:scoreLabel];
+    [cell addSubview:awayTeamName];
+    [leagueName release];
+    [dateAndStatus release];
+    [homeTeamName release];
+    [scoreLabel release];
+    [awayTeamName release];
+}
+
+- (void)setCell:(UITableViewCell*)cell withMatch:(Match*)match
+{
+    UILabel* leagueName = (UILabel*)[cell viewWithTag:TAG_LEAGUE_NAME];
+    UILabel* dateAndStatus = (UILabel*)[cell viewWithTag:TAG_DATE_AND_STATUS];
+    UILabel* homeTeamName = (UILabel*)[cell viewWithTag:TAG_HOME_TEAM_NAME];
+    UILabel* scoreLabel = (UILabel*)[cell viewWithTag:TAG_SCORE_LABEL];
+    UILabel* awayTeamName = (UILabel*)[cell viewWithTag:TAG_AWAY_TEAM_NAME];
+    [leagueName setText:[[LeagueManager defaultLeagueScheduleManager] getNameById:match.leagueId ]];
+    [homeTeamName setText:match.homeTeamName];
+    [dateAndStatus setText:[NSString stringWithFormat:@"%@ %@", [self convertMatchStartTime:match.date], FNS(@"完")]];
+    [scoreLabel setText:[NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]]];
+    [awayTeamName setText:match.awayTeamName];
 }
 @end

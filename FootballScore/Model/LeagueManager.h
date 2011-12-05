@@ -23,7 +23,7 @@
 + (LeagueManager*)defaultManager; // for match
 
 + (LeagueManager*)defaultIndexManager;  //for match index 
-+ (LeagueManager*)defaultScheduleManager;
++ (LeagueManager*)defaultLeagueScheduleManager;
 
 
 
