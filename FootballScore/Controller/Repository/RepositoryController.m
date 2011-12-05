@@ -100,6 +100,9 @@
 
 - (void)createButtonsBycountryArray:(NSArray*) countryArray action:(SEL)action
 {
+    if ([countryArray count] == 0) {
+        return;
+    }
     NSMutableArray* buttonArray = [[NSMutableArray alloc] init];
     for (Country* country in countryArray) {
         NSString *title = country.countryName;
@@ -120,7 +123,7 @@
     UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW];
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
- //   buttonScrollView.tag = SCROLL_VIEW_TAG;     
+    buttonScrollView.tag = SCROLL_VIEW_TAG;     
     [buttonScrollView setFrame:CGRectMake(0, 85, 320, 480-85-55)];
     [self.view addSubview:buttonScrollView];
     
@@ -173,7 +176,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh)];
-    selectedContinent = 1;
+    selectedContinent = 0;
     [self clickRefresh];
 }
 
