@@ -91,6 +91,8 @@ enum
     TAB_REALTIME_SCORE = 1,
 };
 
+
+
 - (void)initTabViewControllers
 {
     tabBarController.delegate = self;
