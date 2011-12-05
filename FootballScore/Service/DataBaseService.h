@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "CommonService.h"
 @protocol DataBaseDelegate <NSObject>
 
 @optional
@@ -16,6 +16,10 @@
 
 @end
 
-@interface DataBaseService : NSObject
+@interface DataBaseService : CommonService
+{
 
+}
+
+- (void) updateDataBase:(NSInteger)language delegate:(id<DataBaseDelegate>)aDelegate;
 @end
