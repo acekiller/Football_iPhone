@@ -1,24 +1,25 @@
 //
-//  DataBaseManager.m
+//  RepositoryManager.m
 //  FootballScore
 //
 //  Created by  on 11-12-5.
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DataBaseManager.h"
-#import "DataBase.h"
+#import "RepositoryManager.h"
+#import "Repository.h"
+#import "League.h"
 
-DataBaseManager *manager = nil;
-DataBaseManager *GlobalGetDataBaseManager()
+RepositoryManager *manager = nil;
+RepositoryManager *GlobalGetRepositoryManager()
 {
     if (manager == nil) {
-        manager = [[DataBaseManager alloc] init];
+        manager = [[RepositoryManager alloc] init];
     }
     return manager;
 }
 
-@implementation DataBaseManager
+@implementation RepositoryManager
 @synthesize countryArray = _countryArray;
 @synthesize continentArray = _continentArray;
 @synthesize leagueArray = _leagueArray;
@@ -34,9 +35,9 @@ DataBaseManager *GlobalGetDataBaseManager()
     return self;
 }
 
-+ (DataBaseManager *)defaultManager
++ (RepositoryManager *)defaultManager
 {
-    return GlobalGetDataBaseManager();
+    return GlobalGetRepositoryManager();
 }
 
 
@@ -51,7 +52,7 @@ DataBaseManager *GlobalGetDataBaseManager()
         if ([continentArray count] == CONTINENT_INDEX_COUNT) {
             NSString *continentId = [continentArray objectAtIndex:CONTINENT_ID_INDEX];
             NSString *continentName = [continentArray objectAtIndex:CONTINENT_NAME_INDEX];
-            DBContinent *continent = [[DBContinent alloc]initWithId:continentId name:continentName];
+            Continent *continent = [[Continent alloc]initWithId:continentId name:continentName];
             [_continentArray addObject:continent];
             [continent release];
         }
@@ -69,7 +70,7 @@ DataBaseManager *GlobalGetDataBaseManager()
             NSString *countryId = [countryArray objectAtIndex:COUNTRY_ID_INDEX];
             NSString *countryName = [countryArray objectAtIndex:COUNTRY_NAME_INDEX];
             NSString *continentId = [countryArray objectAtIndex:COUNTRY_CONTINENT_ID_INDEX];
-            DBCountry *country = [[DBCountry alloc] initWithId:countryId name:countryName aContinentId:continentId];
+            Country *country = [[Country alloc] initWithId:countryId name:countryName aContinentId:continentId];
             [_countryArray addObject:country];
             [country release];
         }
@@ -88,7 +89,7 @@ DataBaseManager *GlobalGetDataBaseManager()
             NSString *leagueCountryId = [leagueArray objectAtIndex:LEAGUE_COUNTRY_ID_INDEX];
             NSInteger leagueType = [[leagueArray objectAtIndex:LEAGUE_TYPE_INDEX]intValue];
             NSArray *seasonList = [[[leagueArray objectAtIndex:LEAGUE_LIST_INDEX] string]componentsSeparatedByString:@","];
-            DBLeague *league = [[DBLeague alloc]initWithLeagueId:leagueId leagueName:leagueName countryId:leagueCountryId type:leagueType seasonList:seasonList];
+            League *league = [[League alloc]initWithLeagueId:leagueId leagueName:leagueName countryId:leagueCountryId leagueType:leagueType seasonList:seasonList];
             [_leagueArray addObject:league];
             [league release];
         }

@@ -1,31 +1,31 @@
 //
-//  DataBaseService.m
+//  RepositoryService.m
 //  FootballScore
 //
 //  Created by  on 11-12-5.
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DataBaseService.h"
+#import "RepositoryService.h"
 #import "FootballNetworkRequest.h"
-#import "DataBaseManager.h"
+#import "RepositoryManager.h"
 
-#define UPDATE_DATABASE @"UPDATE_DATABASE"
-
-
-@implementation DataBaseService
+#define UPDATE_Repository @"UPDATE_Repository"
 
 
-- (void) updateDataBase:(NSInteger)language delegate:(id<DataBaseDelegate>)aDelegate
+@implementation RepositoryService
+
+
+- (void) updateRepository:(NSInteger)language delegate:(id<RepositoryDelegate>)aDelegate
 {
-    NSOperationQueue* queue = [self getOperationQueue:UPDATE_DATABASE];
-    if (aDelegate && [aDelegate respondsToSelector:@selector(willUpdateDataBase)]) {
-        [aDelegate willUpdateDataBase];
+    NSOperationQueue* queue = [self getOperationQueue:UPDATE_Repository];
+    if (aDelegate && [aDelegate respondsToSelector:@selector(willUpdateRepository)]) {
+        [aDelegate willUpdateRepository];
     }
     
     [queue addOperationWithBlock:^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest getDataBase:language];
+        CommonNetworkOutput* output = [FootballNetworkRequest getRepository:language];
         
         dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -35,14 +35,14 @@
                 NSArray *continentArray = [output.arrayData objectAtIndex:CONTINENT_INDEX];
                 NSArray *countryArray = [output.arrayData objectAtIndex:COUNTRY_INDEX];
                 NSArray *leagueArray = [output.arrayData objectAtIndex:LEAGUE_INDEX];
-                DataBaseManager *manager = [DataBaseManager defaultManager];
+                RepositoryManager *manager = [RepositoryManager defaultManager];
                 [manager updateContinentArray:continentArray];
                 [manager updateContinentArray:countryArray];
                 [manager updateLeagueArray:leagueArray];
             }
             
-            if (aDelegate && [aDelegate respondsToSelector:@selector(didUpdateDataBase:)]) {
-                [aDelegate didUpdateDataBase:output.resultCode];
+            if (aDelegate && [aDelegate respondsToSelector:@selector(didUpdateRepository:)]) {
+                [aDelegate didUpdateRepository:output.resultCode];
             }
 
         });                       

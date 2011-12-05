@@ -1,5 +1,5 @@
 //
-//  DataBaseManager.h
+//  RepositoryManager.h
 //  FootballScore
 //
 //  Created by  on 11-12-5.
@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface DataBaseManager : NSObject
+@interface RepositoryManager : NSObject
 {
     NSMutableArray *_countryArray;
     NSMutableArray *_continentArray;
@@ -22,10 +22,10 @@
 @property(nonatomic, retain)    NSMutableArray *continentArray;
 @property(nonatomic, retain)    NSMutableArray *leagueArray;
 
-+ (DataBaseManager *)defaultManager;
++ (RepositoryManager *)defaultManager;
 - (void)updateContinentArray:(NSArray *)outPutContinentArray;
 - (void)updateCountryArray:(NSArray *)outPutCountryArray;
 - (void)updateLeagueArray:(NSArray *)outPutLeagueArray;
 
 @end
-extern DataBaseManager *GlobalGetDataBaseManager();
+extern RepositoryManager *GlobalGetRepositoryManager();

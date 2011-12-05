@@ -1,14 +1,14 @@
 //
-//  DatabaseController.m
+//  RepositoryController.m
 //  FootballScore
 //
 //  Created by  on 11-12-2.
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DatabaseController.h"
+#import "RepositoryController.h"
 
-@implementation DatabaseController
+@implementation RepositoryController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

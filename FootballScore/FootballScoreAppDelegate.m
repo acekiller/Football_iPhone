@@ -25,7 +25,7 @@
 #import "ScoreUpdateController.h"
 #import "RealtimeScoreController.h"
 #import "RealtimeIndexController.h"
-#import "DatabaseController.h"
+#import "RepositoryController.h"
 #import "MoreController.h"
 #import "MatchManager.h"
 #import "UserManager.h"
@@ -125,7 +125,7 @@ enum
 			  hasNavController:YES			
 			   viewControllers:controllers];	
 	
-	[UIUtils addViewController:[DatabaseController alloc]
+	[UIUtils addViewController:[RepositoryController alloc]
 					 viewTitle:FNS(@"资料库")
 					 viewImage:@"b_menu_4.png"
 			  hasNavController:YES			

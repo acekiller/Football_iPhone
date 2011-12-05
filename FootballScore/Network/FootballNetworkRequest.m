@@ -222,7 +222,7 @@ enum{
 }    
 
 
-+ (CommonNetworkOutput*)getDataBase:(NSInteger)lang 
++ (CommonNetworkOutput*)getRepository:(NSInteger)lang 
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     

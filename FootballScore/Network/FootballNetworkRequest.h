@@ -63,7 +63,7 @@ enum{
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
 + (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
 + (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
-+ (CommonNetworkOutput*)getDataBase:(NSInteger)lang;
++ (CommonNetworkOutput*)getRepository:(NSInteger)lang;
 + (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType;
 + (CommonNetworkOutput*)getOddsListByDate:(NSDate*)date 
                            companyIdArray:(NSArray*)companyIdAray 

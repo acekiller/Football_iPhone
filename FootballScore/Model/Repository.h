@@ -33,7 +33,7 @@ enum
     LEAGUE_INDEX_COUNT
 };
 
-@interface DBContinent : NSObject
+@interface Continent : NSObject
 {
     NSString *continentId;
     NSString *continentName;
@@ -45,7 +45,7 @@ enum
 @end
 
 
-@interface DBCountry : NSObject
+@interface Country : NSObject
 {
     NSString *countryId;
     NSString *countryName;
@@ -58,21 +58,4 @@ enum
 - (id)initWithId:(NSString *)aCountryId name:(NSString *)aCountryName aContinentId:(NSString *)aContinentId;
 @end
 
-@interface DBLeague : NSObject
-{
-    NSString *dbLeagueId;
-    NSString *dbCountryId;
-    NSString *dbLeagueName;
-    NSInteger dbType;
-    NSArray *seasonList;
-}
-@property(nonatomic, retain) NSString *dbLeagueId;
-@property(nonatomic, retain) NSString *dbCountryId;
-@property(nonatomic, retain) NSString *dbLeagueName;
-@property(nonatomic, assign) NSInteger dbType;
-@property(nonatomic, retain) NSArray *seasonList;
 
-- (id)initWithLeagueId: (NSString *)leagueId leagueName:(NSString *)leagueName 
-             countryId:(NSString *)countryId type:(NSInteger)type 
-            seasonList:(NSArray *)aSeasonList;
-@end
