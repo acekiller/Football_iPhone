@@ -59,4 +59,34 @@
 
 @implementation DBLeague
 
+@synthesize dbLeagueId;
+@synthesize dbCountryId;
+@synthesize dbLeagueName;
+@synthesize dbType;
+@synthesize seasonList;
+
+- (id)initWithLeagueId: (NSString *)leagueId leagueName:(NSString *)leagueName 
+             countryId:(NSString *)countryId type:(NSInteger)type 
+            seasonList:(NSArray *)aSeasonList
+{
+    self = [super init];
+    if (self) {
+        self.dbLeagueId = leagueId;
+        self.dbCountryId = countryId;
+        self.dbLeagueName = leagueName;
+        self.dbType = type;
+        self.seasonList = seasonList;
+    }
+    return self;
+}
+
+-(void)dealloc
+{
+    [dbLeagueName release];
+    [dbLeagueId release];
+    [dbCountryId release];
+    [seasonList release];
+    [super release];
+}
+
 @end

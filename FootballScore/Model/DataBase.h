@@ -32,5 +32,17 @@
 @end
 
 @interface DBLeague : NSObject
+{
+    NSString *dbLeagueId;
+    NSString *dbCountryId;
+    NSString *dbLeagueName;
+    NSInteger dbType;
+    NSArray *seasonList;
+}
+@property(nonatomic, retain) NSString *dbLeagueId;
+@property(nonatomic, retain) NSString *dbCountryId;
+@property(nonatomic, retain) NSString *dbLeagueName;
+@property(nonatomic, assign) NSInteger dbType;
+@property(nonatomic, retain) NSArray *seasonList;
 
 @end

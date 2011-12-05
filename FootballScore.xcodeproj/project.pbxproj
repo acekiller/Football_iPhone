@@ -125,6 +125,7 @@
 		CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */; };
 		CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CC148C628D00EABF7E /* DataBaseService.m */; };
 		CAA633D0148C634A00EABF7E /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CF148C634A00EABF7E /* DataBase.m */; };
+		CAA633D3148C6B6B00EABF7E /* DataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */; };
 		CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */; };
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
@@ -606,6 +607,8 @@
 		CAA633CC148C628D00EABF7E /* DataBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseService.m; sourceTree = "<group>"; };
 		CAA633CE148C634A00EABF7E /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
 		CAA633CF148C634A00EABF7E /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
+		CAA633D1148C6B6B00EABF7E /* DataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseManager.h; sourceTree = "<group>"; };
+		CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseManager.m; sourceTree = "<group>"; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1359,6 +1362,8 @@
 				A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */,
 				CAA633CE148C634A00EABF7E /* DataBase.h */,
 				CAA633CF148C634A00EABF7E /* DataBase.m */,
+				CAA633D1148C6B6B00EABF7E /* DataBaseManager.h */,
+				CAA633D2148C6B6B00EABF7E /* DataBaseManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2775,6 +2780,7 @@
 				CA4F504A1488D2C70030070F /* DatabaseController.m in Sources */,
 				CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */,
 				CAA633D0148C634A00EABF7E /* DataBase.m in Sources */,
+				CAA633D3148C6B6B00EABF7E /* DataBaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
