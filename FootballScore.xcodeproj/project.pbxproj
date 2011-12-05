@@ -100,8 +100,8 @@
 		CA3FD6D3147248CA0097D016 /* ScoreIndexTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3FD6D1147248CA0097D016 /* ScoreIndexTitleCell.xib */; };
 		CA4F50441488D2820030070F /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50421488D2820030070F /* ScheduleController.m */; };
 		CA4F50451488D2820030070F /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50431488D2820030070F /* ScheduleController.xib */; };
-		CA4F504A1488D2C70030070F /* DatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50481488D2C70030070F /* DatabaseController.m */; };
-		CA4F504B1488D2C70030070F /* DatabaseController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50491488D2C70030070F /* DatabaseController.xib */; };
+		CA4F504A1488D2C70030070F /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50481488D2C70030070F /* RepositoryController.m */; };
+		CA4F504B1488D2C70030070F /* RepositoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50491488D2C70030070F /* RepositoryController.xib */; };
 		CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */; };
 		CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA7144E82E1009B2318 /* Mandarin.strings */; };
 		CA6C9DAA144E8322009B2318 /* Cantonese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA9144E8322009B2318 /* Cantonese.strings */; };
@@ -123,8 +123,9 @@
 		CA85C8E1147CA70700C3E6C4 /* odds_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */; };
 		CA85C8E2147CA70700C3E6C4 /* odds_title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */; };
 		CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */; };
-		CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CC148C628D00EABF7E /* DataBaseService.m */; };
-		CAA633D0148C634A00EABF7E /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CF148C634A00EABF7E /* DataBase.m */; };
+		CAA633CD148C628D00EABF7E /* RepositoryService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CC148C628D00EABF7E /* RepositoryService.m */; };
+		CAA633D0148C634A00EABF7E /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CF148C634A00EABF7E /* Repository.m */; };
+		CAA633D3148C6B6B00EABF7E /* RepositoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */; };
 		CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */; };
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
@@ -563,9 +564,9 @@
 		CA4F50411488D2820030070F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
 		CA4F50421488D2820030070F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
 		CA4F50431488D2820030070F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
-		CA4F50471488D2C70030070F /* DatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseController.h; sourceTree = "<group>"; };
-		CA4F50481488D2C70030070F /* DatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseController.m; sourceTree = "<group>"; };
-		CA4F50491488D2C70030070F /* DatabaseController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatabaseController.xib; sourceTree = "<group>"; };
+		CA4F50471488D2C70030070F /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryController.h; sourceTree = "<group>"; };
+		CA4F50481488D2C70030070F /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
+		CA4F50491488D2C70030070F /* RepositoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryController.xib; sourceTree = "<group>"; };
 		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
 		CA6C9DA7144E82E1009B2318 /* Mandarin.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Mandarin.strings; sourceTree = "<group>"; };
 		CA6C9DA9144E8322009B2318 /* Cantonese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Cantonese.strings; sourceTree = "<group>"; };
@@ -602,10 +603,12 @@
 		CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_down@2x.png"; sourceTree = "<group>"; };
 		CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_title_bg@2x.png"; sourceTree = "<group>"; };
 		CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_up@2x.png"; sourceTree = "<group>"; };
-		CAA633CB148C628D00EABF7E /* DataBaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseService.h; sourceTree = "<group>"; };
-		CAA633CC148C628D00EABF7E /* DataBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseService.m; sourceTree = "<group>"; };
-		CAA633CE148C634A00EABF7E /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
-		CAA633CF148C634A00EABF7E /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
+		CAA633CB148C628D00EABF7E /* RepositoryService.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryService.h; sourceTree = "<group>"; };
+		CAA633CC148C628D00EABF7E /* RepositoryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryService.m; sourceTree = "<group>"; };
+		CAA633CE148C634A00EABF7E /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Repository.h; sourceTree = "<group>"; };
+		CAA633CF148C634A00EABF7E /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
+		CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryManager.h; sourceTree = "<group>"; };
+		CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryManager.m; sourceTree = "<group>"; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1316,13 +1319,13 @@
 				CAC0DC75144677310024DEB3 /* User.h */,
 				CAC0DC76144677310024DEB3 /* User.m */,
 				CA207BE9142EE06100A4C425 /* MainModel.xcdatamodeld */,
-				CA207BFA142EF1D800A4C425 /* League.h */,
 				CA207BF1142EF1A100A4C425 /* MatchManager.h */,
 				CA207BF2142EF1A100A4C425 /* MatchManager.m */,
 				CA207BF4142EF1B400A4C425 /* Match.h */,
 				CA207BF5142EF1B400A4C425 /* Match.m */,
 				CA207BF7142EF1D000A4C425 /* LeagueManager.h */,
 				CA207BF8142EF1D000A4C425 /* LeagueManager.m */,
+				CA207BFA142EF1D800A4C425 /* League.h */,
 				CA207BFB142EF1D800A4C425 /* League.m */,
 				CA207C06142EF27C00A4C425 /* UserManager.h */,
 				CA207C07142EF27C00A4C425 /* UserManager.m */,
@@ -1357,8 +1360,10 @@
 				C282D669146E4A0A00EE435A /* DaXiao.m */,
 				A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */,
 				A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */,
-				CAA633CE148C634A00EABF7E /* DataBase.h */,
-				CAA633CF148C634A00EABF7E /* DataBase.m */,
+				CAA633CE148C634A00EABF7E /* Repository.h */,
+				CAA633CF148C634A00EABF7E /* Repository.m */,
+				CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */,
+				CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1387,8 +1392,8 @@
 				A3FA4F41147F323900BE4A61 /* RetryService.m */,
 				C2BF9235148732A80032CE9F /* ScheduleService.h */,
 				C2BF9236148732A80032CE9F /* ScheduleService.m */,
-				CAA633CB148C628D00EABF7E /* DataBaseService.h */,
-				CAA633CC148C628D00EABF7E /* DataBaseService.m */,
+				CAA633CB148C628D00EABF7E /* RepositoryService.h */,
+				CAA633CC148C628D00EABF7E /* RepositoryService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1471,9 +1476,9 @@
 		CA4F50461488D2A70030070F /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				CA4F50471488D2C70030070F /* DatabaseController.h */,
-				CA4F50481488D2C70030070F /* DatabaseController.m */,
-				CA4F50491488D2C70030070F /* DatabaseController.xib */,
+				CA4F50471488D2C70030070F /* RepositoryController.h */,
+				CA4F50481488D2C70030070F /* RepositoryController.m */,
+				CA4F50491488D2C70030070F /* RepositoryController.xib */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -2516,7 +2521,7 @@
 				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
 				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
 				CA4F50451488D2820030070F /* ScheduleController.xib in Resources */,
-				CA4F504B1488D2C70030070F /* DatabaseController.xib in Resources */,
+				CA4F504B1488D2C70030070F /* RepositoryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2772,9 +2777,10 @@
 				A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */,
 				C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */,
 				CA4F50441488D2820030070F /* ScheduleController.m in Sources */,
-				CA4F504A1488D2C70030070F /* DatabaseController.m in Sources */,
-				CAA633CD148C628D00EABF7E /* DataBaseService.m in Sources */,
-				CAA633D0148C634A00EABF7E /* DataBase.m in Sources */,
+				CA4F504A1488D2C70030070F /* RepositoryController.m in Sources */,
+				CAA633CD148C628D00EABF7E /* RepositoryService.m in Sources */,
+				CAA633D0148C634A00EABF7E /* Repository.m in Sources */,
+				CAA633D3148C6B6B00EABF7E /* RepositoryManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

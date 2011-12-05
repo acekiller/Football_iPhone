@@ -14,6 +14,10 @@
 @synthesize name;
 @synthesize leagueId;
 @synthesize isTop;
+@synthesize countryId;
+@synthesize leagueType;
+@synthesize seasonList;
+
 
 - (id)initWithName:(NSString*)na
           leagueId:(NSString*)lid
@@ -27,6 +31,22 @@
     return self;
 }
 
+- (id)initWithLeagueId: (NSString *)lId leagueName:(NSString *)lName 
+             countryId:(NSString *)cId leagueType:(NSInteger)lType 
+            seasonList:(NSArray *)sList
+{
+    self = [super init];
+    if (self) {
+        self.leagueId = lId;
+        self.name = lName;
+        self.countryId = cId;
+        self.leagueType = lType;
+        self.seasonList = sList;
+    }
+    return self;
+}
+
+
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"[name=%@, id=%@, isTop=%d", 
@@ -37,6 +57,8 @@
 {
     [name release];
     [leagueId release];
+    [countryId release];
+    [seasonList release];
     [super dealloc];
 }
 

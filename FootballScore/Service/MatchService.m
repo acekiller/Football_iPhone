@@ -226,7 +226,14 @@
                     NSArray *headerArray = [output.arrayData objectAtIndex:0];
                     if ([headerArray count] > 0) {
                         headerInfo = [headerArray objectAtIndex:0];
+                        PPDebug(@"<getMatchDetailHeader> get header info = %@", [headerInfo description]);
                     }
+                    else{
+                        PPDebug(@"<getMatchDetailHeader> get header info, but header info array is 0");
+                    }
+                }
+                else{
+                    PPDebug(@"<getMatchDetailHeader> get header info, but array data is 0");                    
                 }
             }            
             // step 2 : update UI
