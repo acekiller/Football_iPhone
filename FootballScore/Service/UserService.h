@@ -14,6 +14,6 @@
 
 - (void)userRegisterByToken:(NSString*)token;
 
-
+- (void)getVersion;
 
 @end
