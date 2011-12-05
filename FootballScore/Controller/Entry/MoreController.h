@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
+#import "UserService.h"
 
-@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>{
+@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UserServiceDelegate >{
 
     NSArray *listData;
     UITableView *moreOptionList;
@@ -26,6 +27,7 @@
 - (void)showLanguageSelection;
 - (void)showRecommendation;
 - (void)showAbout;
+- (void)updateApplication;
 - (void)quitApplication;
 
 - (void)sendSMS;

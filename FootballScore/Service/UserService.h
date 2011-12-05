@@ -8,12 +8,20 @@
 
 #import "CommonService.h"
 
+@protocol UserServiceDelegate <NSObject>
+
+@optional
+
+- (void)getVersionFinish:(int)result data:(NSString*)data;
+
+@end
+
 @interface UserService : CommonService {
     
 }
 
 - (void)userRegisterByToken:(NSString*)token;
 
-- (void)getVersion;
+- (void)getVersion:(id<UserServiceDelegate>)delegate;
 
 @end

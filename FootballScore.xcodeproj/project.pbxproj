@@ -34,6 +34,10 @@
 		C286C27C1468C443008D87F6 /* ScoreIndexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C286C27A1468C443008D87F6 /* ScoreIndexCell.xib */; };
 		C286C2801468D75E008D87F6 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C27F1468D75E008D87F6 /* Company.m */; };
 		C286C2831468DD7F008D87F6 /* CompanyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C286C2821468DD7F008D87F6 /* CompanyManager.m */; };
+		C2AF5EF4148CB4EA000ACF1B /* LeagueScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AF5EF2148CB4EA000ACF1B /* LeagueScheduleController.m */; };
+		C2AF5EF5148CB4EA000ACF1B /* LeagueScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF5EF3148CB4EA000ACF1B /* LeagueScheduleController.xib */; };
+		C2AF5EFA148CB501000ACF1B /* CupScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AF5EF8148CB501000ACF1B /* CupScheduleController.m */; };
+		C2AF5EFB148CB501000ACF1B /* CupScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
 		C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF9236148732A80032CE9F /* ScheduleService.m */; };
@@ -475,6 +479,12 @@
 		C286C27F1468D75E008D87F6 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		C286C2811468DD7F008D87F6 /* CompanyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyManager.h; sourceTree = "<group>"; };
 		C286C2821468DD7F008D87F6 /* CompanyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyManager.m; sourceTree = "<group>"; };
+		C2AF5EF1148CB4EA000ACF1B /* LeagueScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueScheduleController.h; sourceTree = "<group>"; };
+		C2AF5EF2148CB4EA000ACF1B /* LeagueScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueScheduleController.m; sourceTree = "<group>"; };
+		C2AF5EF3148CB4EA000ACF1B /* LeagueScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueScheduleController.xib; sourceTree = "<group>"; };
+		C2AF5EF7148CB501000ACF1B /* CupScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupScheduleController.h; sourceTree = "<group>"; };
+		C2AF5EF8148CB501000ACF1B /* CupScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CupScheduleController.m; sourceTree = "<group>"; };
+		C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CupScheduleController.xib; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
 		C2BF9235148732A80032CE9F /* ScheduleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleService.h; sourceTree = "<group>"; };
@@ -603,11 +613,11 @@
 		CA85C8DE147CA70700C3E6C4 /* odds_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_down@2x.png"; sourceTree = "<group>"; };
 		CA85C8DF147CA70700C3E6C4 /* odds_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_title_bg@2x.png"; sourceTree = "<group>"; };
 		CA85C8E0147CA70700C3E6C4 /* odds_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_up@2x.png"; sourceTree = "<group>"; };
-		CAA633CB148C628D00EABF7E /* RepositoryService.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryService.h; sourceTree = "<group>"; };
+		CAA633CB148C628D00EABF7E /* RepositoryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryService.h; sourceTree = "<group>"; };
 		CAA633CC148C628D00EABF7E /* RepositoryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryService.m; sourceTree = "<group>"; };
-		CAA633CE148C634A00EABF7E /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Repository.h; sourceTree = "<group>"; };
+		CAA633CE148C634A00EABF7E /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
 		CAA633CF148C634A00EABF7E /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
-		CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryManager.h; sourceTree = "<group>"; };
+		CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryManager.h; sourceTree = "<group>"; };
 		CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryManager.m; sourceTree = "<group>"; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
@@ -1469,6 +1479,12 @@
 				CA4F50411488D2820030070F /* ScheduleController.h */,
 				CA4F50421488D2820030070F /* ScheduleController.m */,
 				CA4F50431488D2820030070F /* ScheduleController.xib */,
+				C2AF5EF1148CB4EA000ACF1B /* LeagueScheduleController.h */,
+				C2AF5EF2148CB4EA000ACF1B /* LeagueScheduleController.m */,
+				C2AF5EF3148CB4EA000ACF1B /* LeagueScheduleController.xib */,
+				C2AF5EF7148CB501000ACF1B /* CupScheduleController.h */,
+				C2AF5EF8148CB501000ACF1B /* CupScheduleController.m */,
+				C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -2522,6 +2538,8 @@
 				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
 				CA4F50451488D2820030070F /* ScheduleController.xib in Resources */,
 				CA4F504B1488D2C70030070F /* RepositoryController.xib in Resources */,
+				C2AF5EF5148CB4EA000ACF1B /* LeagueScheduleController.xib in Resources */,
+				C2AF5EFB148CB501000ACF1B /* CupScheduleController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2781,6 +2799,8 @@
 				CAA633CD148C628D00EABF7E /* RepositoryService.m in Sources */,
 				CAA633D0148C634A00EABF7E /* Repository.m in Sources */,
 				CAA633D3148C6B6B00EABF7E /* RepositoryManager.m in Sources */,
+				C2AF5EF4148CB4EA000ACF1B /* LeagueScheduleController.m in Sources */,
+				C2AF5EFA148CB501000ACF1B /* CupScheduleController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
