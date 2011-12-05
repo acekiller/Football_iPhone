@@ -23,3 +23,6 @@
 
 - (void) updateRepository:(NSInteger)language delegate:(id<RepositoryDelegate>)aDelegate;
 @end
+
+
+extern RepositoryService *GlobalGetRepositoryService();

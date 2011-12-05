@@ -8,18 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
-
-typedef enum {
-     
-    EUROPE = 1601,
-    AMERICAS,
-    ASIA,
-    AFRICA,
-    OCEANIA
-} ContinentType;
+#import "RepositoryService.h"
 
 
-@interface RepositoryController : PPTableViewController
 
+@interface RepositoryController : PPTableViewController<RepositoryDelegate>
+{
+    NSInteger selectedContinent;
+    NSArray *filterCountryArray;
+}
+
+@property (nonatomic, retain)     NSArray *filterCountryArray;
 - (IBAction)clickContinent:(id)sender;
+
+@property (retain, nonatomic) IBOutlet UIScrollView *repositoryScrollView;
+
 @end

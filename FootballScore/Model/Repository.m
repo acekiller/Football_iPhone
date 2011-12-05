@@ -41,7 +41,7 @@
 {
     self = [super init];
     if (self) {
-        self.continentId = aCountryName;
+        self.continentId = aContinentId;
         self.countryId = aCountryId;
         self.countryName = aCountryName;
     }

@@ -12,6 +12,14 @@
 
 #define UPDATE_Repository @"UPDATE_Repository"
 
+RepositoryService *service = nil;
+RepositoryService *GlobalGetRepositoryService()
+{
+    if (service == nil) {
+        service = [[RepositoryService alloc] init];
+    }
+    return service;
+}
 
 @implementation RepositoryService
 
@@ -37,7 +45,7 @@
                 NSArray *leagueArray = [output.arrayData objectAtIndex:LEAGUE_INDEX];
                 RepositoryManager *manager = [RepositoryManager defaultManager];
                 [manager updateContinentArray:continentArray];
-                [manager updateContinentArray:countryArray];
+                [manager updateCountryArray:countryArray];
                 [manager updateLeagueArray:leagueArray];
             }
             

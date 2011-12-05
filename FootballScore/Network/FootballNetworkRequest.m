@@ -236,7 +236,7 @@ enum{
     };
     
     FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
-        if ([output.arrayData count] != DATABASE_SEGMENT){
+        if ([output.arrayData count] < DATABASE_SEGMENT){
             NSLog(@"<getDataBase> but segment not enough");
             output.resultCode = ERROR_INCORRECT_RESPONSE_DATA;
         }

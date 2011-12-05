@@ -10,6 +10,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class Country;
+@class League;
+@class Continent;
 
 @interface RepositoryManager : NSObject
 {
@@ -26,6 +29,10 @@
 - (void)updateContinentArray:(NSArray *)outPutContinentArray;
 - (void)updateCountryArray:(NSArray *)outPutCountryArray;
 - (void)updateLeagueArray:(NSArray *)outPutLeagueArray;
+- (NSArray *)filterCountryArrayWithContinentId:(NSInteger)continentId;
+- (Country *)getCountryById:(NSString *)countryId;
+- (Continent *)getContinentById:(NSString *)continentId;
+
 
 @end
 extern RepositoryManager *GlobalGetRepositoryManager();

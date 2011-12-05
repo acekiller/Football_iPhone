@@ -53,8 +53,7 @@ enum {
 - (void)createButtonsByArray:(NSArray*)array;
 
 + (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
-+ (UIScrollView*)createButtonScrollViewByButtonArray:(NSArray*)buttons 
-                                      buttonsPerLine:(int)buttonsPerLine; 
+
 
 
 

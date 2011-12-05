@@ -564,7 +564,7 @@
 		CA4F50411488D2820030070F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
 		CA4F50421488D2820030070F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
 		CA4F50431488D2820030070F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
-		CA4F50471488D2C70030070F /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RepositoryController.h; sourceTree = "<group>"; };
+		CA4F50471488D2C70030070F /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
 		CA4F50481488D2C70030070F /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
 		CA4F50491488D2C70030070F /* RepositoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryController.xib; sourceTree = "<group>"; };
 		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
