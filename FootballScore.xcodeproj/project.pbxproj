@@ -104,8 +104,6 @@
 		CA3FD6D3147248CA0097D016 /* ScoreIndexTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3FD6D1147248CA0097D016 /* ScoreIndexTitleCell.xib */; };
 		CA4F50441488D2820030070F /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50421488D2820030070F /* ScheduleController.m */; };
 		CA4F50451488D2820030070F /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50431488D2820030070F /* ScheduleController.xib */; };
-		CA4F504A1488D2C70030070F /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4F50481488D2C70030070F /* RepositoryController.m */; };
-		CA4F504B1488D2C70030070F /* RepositoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4F50491488D2C70030070F /* RepositoryController.xib */; };
 		CA6C9DA6144E8243009B2318 /* SimpleChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */; };
 		CA6C9DA8144E82E1009B2318 /* Mandarin.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA7144E82E1009B2318 /* Mandarin.strings */; };
 		CA6C9DAA144E8322009B2318 /* Cantonese.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA6C9DA9144E8322009B2318 /* Cantonese.strings */; };
@@ -130,6 +128,8 @@
 		CAA633CD148C628D00EABF7E /* RepositoryService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CC148C628D00EABF7E /* RepositoryService.m */; };
 		CAA633D0148C634A00EABF7E /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633CF148C634A00EABF7E /* Repository.m */; };
 		CAA633D3148C6B6B00EABF7E /* RepositoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */; };
+		CAA633DD148CCAE000EABF7E /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA633DB148CCAE000EABF7E /* RepositoryController.m */; };
+		CAA633DE148CCAE000EABF7E /* RepositoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA633DC148CCAE000EABF7E /* RepositoryController.xib */; };
 		CAAF53B91468C1BA0071F5C3 /* odds_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */; };
 		CAAF53BA1468C1BA0071F5C3 /* se_btn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */; };
 		CAB858281459418F007F0E64 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB858261459418F007F0E64 /* Default.png */; };
@@ -201,6 +201,8 @@
 		CAC38A66144BC64900FB66B7 /* odds_btn1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5E144BC64900FB66B7 /* odds_btn1@2x.png */; };
 		CAC38A67144BC64900FB66B7 /* odds_se_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A5F144BC64900FB66B7 /* odds_se_bg@2x.png */; };
 		CAC38A68144BC64900FB66B7 /* odds_title_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CAC38A60144BC64900FB66B7 /* odds_title_bg@2x.jpg */; };
+		CAF37033148DAB1B003627F8 /* LeagueController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF37031148DAB1B003627F8 /* LeagueController.m */; };
+		CAF37034148DAB1B003627F8 /* LeagueController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAF37032148DAB1B003627F8 /* LeagueController.xib */; };
 		CAF4CC42142ECFCC001D5B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC41142ECFCC001D5B4A /* UIKit.framework */; };
 		CAF4CC44142ECFCC001D5B4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC43142ECFCC001D5B4A /* Foundation.framework */; };
 		CAF4CC46142ECFCC001D5B4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4CC45142ECFCC001D5B4A /* CoreGraphics.framework */; };
@@ -574,9 +576,6 @@
 		CA4F50411488D2820030070F /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
 		CA4F50421488D2820030070F /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
 		CA4F50431488D2820030070F /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = "<group>"; };
-		CA4F50471488D2C70030070F /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
-		CA4F50481488D2C70030070F /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
-		CA4F50491488D2C70030070F /* RepositoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryController.xib; sourceTree = "<group>"; };
 		CA6C9DA5144E8243009B2318 /* SimpleChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SimpleChinese.strings; sourceTree = "<group>"; };
 		CA6C9DA7144E82E1009B2318 /* Mandarin.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Mandarin.strings; sourceTree = "<group>"; };
 		CA6C9DA9144E8322009B2318 /* Cantonese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Cantonese.strings; sourceTree = "<group>"; };
@@ -619,6 +618,9 @@
 		CAA633CF148C634A00EABF7E /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
 		CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryManager.h; sourceTree = "<group>"; };
 		CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryManager.m; sourceTree = "<group>"; };
+		CAA633DA148CCAE000EABF7E /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RepositoryController.h; path = FootballScore/Controller/Repository/RepositoryController.h; sourceTree = SOURCE_ROOT; };
+		CAA633DB148CCAE000EABF7E /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RepositoryController.m; path = FootballScore/Controller/Repository/RepositoryController.m; sourceTree = SOURCE_ROOT; };
+		CAA633DC148CCAE000EABF7E /* RepositoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RepositoryController.xib; path = FootballScore/Controller/Repository/RepositoryController.xib; sourceTree = SOURCE_ROOT; };
 		CAAF53B71468C1BA0071F5C3 /* odds_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_logo@2x.png"; sourceTree = "<group>"; };
 		CAAF53B81468C1BA0071F5C3 /* se_btn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "se_btn3@2x.png"; sourceTree = "<group>"; };
 		CAB858261459418F007F0E64 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -696,6 +698,9 @@
 		CAC38A5E144BC64900FB66B7 /* odds_btn1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_btn1@2x.png"; sourceTree = "<group>"; };
 		CAC38A5F144BC64900FB66B7 /* odds_se_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odds_se_bg@2x.png"; sourceTree = "<group>"; };
 		CAC38A60144BC64900FB66B7 /* odds_title_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "odds_title_bg@2x.jpg"; sourceTree = "<group>"; };
+		CAF37030148DAB1B003627F8 /* LeagueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeagueController.h; path = FootballScore/Controller/Repository/LeagueController.h; sourceTree = SOURCE_ROOT; };
+		CAF37031148DAB1B003627F8 /* LeagueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeagueController.m; path = FootballScore/Controller/Repository/LeagueController.m; sourceTree = SOURCE_ROOT; };
+		CAF37032148DAB1B003627F8 /* LeagueController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeagueController.xib; path = FootballScore/Controller/Repository/LeagueController.xib; sourceTree = SOURCE_ROOT; };
 		CAF4CC3D142ECFCC001D5B4A /* FootballScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF4CC41142ECFCC001D5B4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAF4CC43142ECFCC001D5B4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1309,7 +1314,7 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CA4F50461488D2A70030070F /* Database */,
+				CA4F50461488D2A70030070F /* Repository */,
 				CA4F50401488D2820030070F /* Schedule */,
 				C280CAA31447D6F000EBCD9A /* More */,
 				CAC0DC79144679BC0024DEB3 /* Index */,
@@ -1489,13 +1494,17 @@
 			path = Schedule;
 			sourceTree = "<group>";
 		};
-		CA4F50461488D2A70030070F /* Database */ = {
+		CA4F50461488D2A70030070F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				CA4F50471488D2C70030070F /* RepositoryController.h */,
-				CA4F50481488D2C70030070F /* RepositoryController.m */,
-				CA4F50491488D2C70030070F /* RepositoryController.xib */,
+				CAA633DA148CCAE000EABF7E /* RepositoryController.h */,
+				CAA633DB148CCAE000EABF7E /* RepositoryController.m */,
+				CAA633DC148CCAE000EABF7E /* RepositoryController.xib */,
+				CAF37030148DAB1B003627F8 /* LeagueController.h */,
+				CAF37031148DAB1B003627F8 /* LeagueController.m */,
+				CAF37032148DAB1B003627F8 /* LeagueController.xib */,
 			);
+			name = Repository;
 			path = Database;
 			sourceTree = "<group>";
 		};
@@ -2537,9 +2546,10 @@
 				CA85C8E3147CA70700C3E6C4 /* odds_up@2x.png in Resources */,
 				A3C11F431485D55500CD218C /* goals_sound.wav in Resources */,
 				CA4F50451488D2820030070F /* ScheduleController.xib in Resources */,
-				CA4F504B1488D2C70030070F /* RepositoryController.xib in Resources */,
 				C2AF5EF5148CB4EA000ACF1B /* LeagueScheduleController.xib in Resources */,
 				C2AF5EFB148CB501000ACF1B /* CupScheduleController.xib in Resources */,
+				CAA633DE148CCAE000EABF7E /* RepositoryController.xib in Resources */,
+				CAF37034148DAB1B003627F8 /* LeagueController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2795,12 +2805,13 @@
 				A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */,
 				C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */,
 				CA4F50441488D2820030070F /* ScheduleController.m in Sources */,
-				CA4F504A1488D2C70030070F /* RepositoryController.m in Sources */,
 				CAA633CD148C628D00EABF7E /* RepositoryService.m in Sources */,
 				CAA633D0148C634A00EABF7E /* Repository.m in Sources */,
 				CAA633D3148C6B6B00EABF7E /* RepositoryManager.m in Sources */,
 				C2AF5EF4148CB4EA000ACF1B /* LeagueScheduleController.m in Sources */,
 				C2AF5EFA148CB501000ACF1B /* CupScheduleController.m in Sources */,
+				CAA633DD148CCAE000EABF7E /* RepositoryController.m in Sources */,
+				CAF37033148DAB1B003627F8 /* LeagueController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
