@@ -10,7 +10,7 @@
 #import "PPTableViewController.h"
 #import "UserService.h"
 
-@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UserServiceDelegate >{
+@interface MoreController : PPTableViewController <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UserServiceDelegate >{
 
     NSArray *listData;
     UITableView *moreOptionList;
@@ -30,10 +30,5 @@
 - (void)updateApplication;
 - (void)quitApplication;
 
-- (void)sendSMS;
-- (void)displaySMSComposerSheet;
-- (void)sendEmail;
-- (void)displayComposeEmail;
-- (void)launchMailAppOnDevice;
 
 @end
