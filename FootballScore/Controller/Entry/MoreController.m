@@ -15,6 +15,8 @@
 #import "LanguageManager.h"
 #import "ScheduleController.h"
 #import "UserService.h"
+#import "UIUtils.h"
+#import "FootballScoreAppDelegate.h"
 
 
 enum actionsheetNumber{
@@ -350,8 +352,7 @@ typedef enum {
         }
         else
         {
-            //NSString *appId = GlobalGetPlaceAppId();
-            [UIUtils openApp: GlobalGetPlaceAppId()];  //跳到更新页面
+            [UIUtils openApp:kAppId];  //跳到更新页面
         }
     }
     else
