@@ -84,10 +84,6 @@
     }
 }
 
-
-
-
-
 - (void)clickCountry:(id)sender
 {
     UIButton *button = (UIButton *)sender;
