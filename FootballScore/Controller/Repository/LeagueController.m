@@ -68,17 +68,36 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
+
+        //set cell backgroud view
+        UIView *bgView = [[UIView alloc] init];
+        cell.backgroundView = bgView;
+        [bgView release];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"data_s_y1.png"]];
+        [bgImageView setFrame:CGRectMake(9, 2, 302, 32)];
+        [cell.backgroundView addSubview:bgImageView];
+        [bgImageView release];
+        
+        //set cell selection background view
+        UIView *selectionBgView = [[UIView alloc] init];
+        cell.selectedBackgroundView = selectionBgView;
+        [selectionBgView release];        
+        UIImageView *selectionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"data_s_y2.png"]];
+        [selectionImageView setFrame:CGRectMake(9, 2, 302, 32)];
+        [cell.selectedBackgroundView addSubview:selectionImageView];
+        [selectionImageView release];
     }
     //config the cell
     League *league = [dataList objectAtIndex:indexPath.row];
-    cell.textLabel.text = league.name;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = [NSString stringWithFormat:@"  %@",league.name];
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 36;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
