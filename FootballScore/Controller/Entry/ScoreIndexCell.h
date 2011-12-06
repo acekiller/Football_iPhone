@@ -16,6 +16,7 @@
 + (NSString*)getCellIdentifier;
 + (CGFloat)getCellHeight;
 - (void)setCellInfo:(Odds*)odds company:(Company*)company;
+- (NSString*)oddsNumberDisplay:(NSNumber*)oddsNumber;
 
 @property (retain, nonatomic) IBOutlet UIButton *companyName;
 @property (retain, nonatomic) IBOutlet UIButton *home_homeWin_bigBall_init;
