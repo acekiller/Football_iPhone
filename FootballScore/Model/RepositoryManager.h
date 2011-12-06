@@ -32,7 +32,7 @@
 - (NSArray *)filterCountryArrayWithContinentId:(NSInteger)continentId;
 - (Country *)getCountryById:(NSString *)countryId;
 - (Continent *)getContinentById:(NSString *)continentId;
-
-
+- (NSArray *)getLeagueArrayByCountryId:(NSString *)countryId;
+- (NSArray *)getLeagueArrayByKey:(NSString *)key;
 @end
 extern RepositoryManager *GlobalGetRepositoryManager();

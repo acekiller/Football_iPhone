@@ -12,7 +12,7 @@
 
 
 
-@interface RepositoryController : PPTableViewController<RepositoryDelegate>
+@interface RepositoryController : PPTableViewController<RepositoryDelegate,UITextFieldDelegate>
 {
     NSInteger selectedContinent;
     NSArray *filterCountryArray;
@@ -21,6 +21,7 @@
 @property (nonatomic, retain)     NSArray *filterCountryArray;
 - (IBAction)clickContinent:(id)sender;
 
-@property (retain, nonatomic) IBOutlet UIScrollView *repositoryScrollView;
+@property (retain, nonatomic) IBOutlet UITextField *searchTextField;
+- (IBAction)clickSearch:(id)sender;
 
 @end
