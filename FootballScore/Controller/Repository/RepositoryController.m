@@ -15,7 +15,7 @@
 #import "League.h"
 #import "ColorManager.h"
 #import "LeagueController.h"
-
+#import "PPNetworkRequest.h"
 @implementation RepositoryController
 @synthesize searchTextField;
 @synthesize filterCountryArray;
@@ -132,19 +132,24 @@
         NSString *title = country.countryName;
         NSInteger tag = [country.countryId intValue] + COUNTRY_ID_BUTTON_OFFSET;
         UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(160, 160, 72, 32)];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setTitle:title forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:@"set.png"] 
+        
+        [button setBackgroundImage:[UIImage imageNamed:@"data_s_t1.png"] 
                           forState:UIControlStateNormal];
-        [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] 
+        [button setBackgroundImage:[UIImage imageNamed:@"data_s_t2.png"] forState:UIControlStateHighlighted];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleColor:[ColorManager repositoryCountoryUnselectedColor] 
                      forState:UIControlStateNormal];
+        
         [button setTag:tag];
         [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
         [buttonArray addObject:button];
         [button release];
     }
     
-    UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW];
+    UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW buttonSeparatorY:8];
+    
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
@@ -155,8 +160,11 @@
 
 - (void) fillCountryButtons
 {
-    [self createButtonsBycountryArray:self.filterCountryArray
-                               action:@selector(clickCountry:)];
+    if ([self.filterCountryArray count] != 0) {
+        [self createButtonsBycountryArray:self.filterCountryArray
+                                   action:@selector(clickCountry:)];
+    }
+
 }
 
 
@@ -185,12 +193,17 @@
 }
 - (void)didUpdateRepository:(NSInteger)errorCode
 {
-    [self fillContinentButtons];
-    
-    self.filterCountryArray = [[RepositoryManager defaultManager] filterCountryArrayWithContinentId:selectedContinent];
-    
-    [self fillCountryButtons];
     [self hideActivity];
+    if (errorCode == ERROR_SUCCESS) {
+        [self fillContinentButtons];
+        
+        self.filterCountryArray = [[RepositoryManager defaultManager] filterCountryArrayWithContinentId:selectedContinent];
+        
+        [self fillCountryButtons];
+    }else{
+        [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
+    }
+
 }
 
 
@@ -213,18 +226,42 @@
 
 #pragma mark - View lifecycle
 
+
+- (void)setRightBarButton
+{
+    float buttonHigh = 27.5;
+    float buttonLen = 47.5;
+    float refeshButtonLen = 32.5;
+    float seporator = 5;
+    float leftOffest = 20;
+    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
+    
+    UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refeshButtonLen, buttonHigh)];
+    [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    [refleshButton setTitle:@"" forState:UIControlStateNormal];
+    [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [refleshButton addTarget:self action:@selector(clickRefresh) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:refleshButton];
+    [refleshButton release];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    [rightButtonView release];
+    
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    [rightBarButton release];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh)];
+    [self.view setBackgroundColor:[UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1]];
+    [self setRightBarButton];
     selectedContinent = 0;
     [self clickRefresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self addBlankView:50 currentResponder:self.searchTextField];
+    [self addBlankView:42 currentResponder:self.searchTextField];
     [super viewDidAppear:animated];
 }
 

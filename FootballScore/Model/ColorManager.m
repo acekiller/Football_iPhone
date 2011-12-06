@@ -306,4 +306,19 @@
 }
 
 
++(UIColor *)repositoryCountoryUnselectedColor
+{
+    return [UIColor colorWithRed:(0x5c)/255.0 
+                           green:(0x72)/255.0 
+                            blue:(0x85)/255.0 
+                           alpha:1.0];
+}
++(UIColor *)repositoryLegueUnselectedColor
+{
+    return [UIColor colorWithRed:(0x35)/255.0 
+                           green:(0x42)/255.0 
+                            blue:(0x53)/255.0 
+                           alpha:1.0];
+}
+
 @end

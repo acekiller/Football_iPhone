@@ -65,4 +65,9 @@
 
 + (UIColor *)realTimeScoreControllerTableViewBackgroundColor;
 
+
+//Repository && League Controller Color
+
++(UIColor *)repositoryCountoryUnselectedColor;
++(UIColor *)repositoryLegueUnselectedColor;
 @end

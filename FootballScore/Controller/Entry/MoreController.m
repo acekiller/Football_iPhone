@@ -259,11 +259,17 @@ typedef enum {
         }
         else if (buttonIndex == 0)
         {
-            [self sendSMS];
+            [self sendSms:@"" body:FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx")];
         }
         else if (buttonIndex == 1)
         {
-            [self sendEmail];
+            [self sendEmailTo:nil 
+                 ccRecipients:nil 
+                bccRecipients:nil 
+                      subject:FNS(@"向你推荐彩客网的比分客户端") 
+                         body:FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx") 
+                       isHTML:NO 
+                     delegate:self];
         }
     }
 }
@@ -372,108 +378,6 @@ typedef enum {
     [alert release];
 }
 
-#pragma mark -
-#pragma mark send SMS
-
-- (void)sendSMS
-{
-    Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
-	
-	if (messageClass != nil) { 			
-		// Check whether the current device is configured for sending SMS messages
-		if ([messageClass canSendText]) {
-			[self displaySMSComposerSheet];
-		}
-		else {	
-            [self popupUnhappyMessage:FNS(@"没有配置设备发送短信") title:nil];
-		}
-	}
-	else {
-        [self popupUnhappyMessage:FNS(@"没有配置设备发送短信") title:nil];
-	}
-}
-
-- (void)displaySMSComposerSheet 
-{
-	MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
-	picker.messageComposeDelegate = self;
-	
-	[self presentModalViewController:picker animated:YES];
-	[picker release];
-}
-
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
-                 didFinishWithResult:(MessageComposeResult)result 
-{
-	// Notifies users about errors associated with the interface
-	switch (result)
-	{
-		case MessageComposeResultCancelled:
-            [self popupHappyMessage:FNS(@"短信取消") title:nil];
-			break;
-		case MessageComposeResultSent:
-            [self popupHappyMessage:FNS(@"短信已发送") title:nil];
-			break;
-		case MessageComposeResultFailed:
-            [self popupUnhappyMessage:FNS(@"短信发送失败") title:nil];
-			break;
-		default:
-            [self popupHappyMessage:FNS(@"短信没有发送") title:nil];
-			break;
-	}
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-#pragma mark -
-#pragma mark send Email
-
-- (void)sendEmail
-{
-	Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
-	if (mailClass != nil)
-	{
-		// We must always check whether the current device is configured for sending emails
-		if ([mailClass canSendMail])
-		{
-			[self displayComposeEmail];
-		}
-		else
-		{
-			[self launchMailAppOnDevice];
-		}
-	}
-	else
-	{
-		[self launchMailAppOnDevice];
-	}
-}
-
-
-- (void)displayComposeEmail
-{
-	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-	picker.mailComposeDelegate = self;
-	
-	[picker setSubject:FNS(@"向你推荐彩客网的比分客户端")];
-	
-	NSString *emailBody = FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx");
-	[picker setMessageBody:emailBody isHTML:NO];
-	
-	[self presentModalViewController:picker animated:YES];
-    [picker release];
-}
-
-
-- (void)launchMailAppOnDevice
-{
-	NSString *email = @"mailto:user@example.com";
-	email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
-}
-
-
 - (void)mailComposeController:(MFMailComposeViewController*)controller 
           didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
 {
@@ -493,7 +397,6 @@ typedef enum {
             [self popupUnhappyMessage:FNS(@"邮件发送失败") title:nil];
 			break;
 		default:
-            [self popupHappyMessage:FNS(@"邮件没有发送") title:nil];
 			break;
 	}
 	[self dismissModalViewControllerAnimated:YES];
