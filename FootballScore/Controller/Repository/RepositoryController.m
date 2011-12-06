@@ -132,23 +132,24 @@
         NSString *title = country.countryName;
         NSInteger tag = [country.countryId intValue] + COUNTRY_ID_BUTTON_OFFSET;
         UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(160, 160, 72, 32)];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setTitle:title forState:UIControlStateNormal];
         
         [button setBackgroundImage:[UIImage imageNamed:@"data_s_t1.png"] 
                           forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"data_s_t2.png"] forState:UIControlStateHighlighted];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        
-        [button setTitleColor:[ColorManager MatchesNameButtonNotChosenColor] 
+        [button setTitleColor:[ColorManager repositoryCountoryUnselectedColor] 
                      forState:UIControlStateNormal];
+        
         [button setTag:tag];
         [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
         [buttonArray addObject:button];
         [button release];
     }
     
-    UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW];
+    UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW buttonSeparatorY:8];
+    
     [buttonArray release];
     [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
@@ -159,8 +160,11 @@
 
 - (void) fillCountryButtons
 {
-    [self createButtonsBycountryArray:self.filterCountryArray
-                               action:@selector(clickCountry:)];
+    if ([self.filterCountryArray count] != 0) {
+        [self createButtonsBycountryArray:self.filterCountryArray
+                                   action:@selector(clickCountry:)];
+    }
+
 }
 
 
@@ -196,6 +200,8 @@
         self.filterCountryArray = [[RepositoryManager defaultManager] filterCountryArrayWithContinentId:selectedContinent];
         
         [self fillCountryButtons];
+    }else{
+        [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
 
 }
@@ -247,8 +253,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1]];
     [self setRightBarButton];
-
     selectedContinent = 0;
     [self clickRefresh];
 }

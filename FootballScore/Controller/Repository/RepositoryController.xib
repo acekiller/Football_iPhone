@@ -37,13 +37,13 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="638520178">
+					<object class="IBUIImageView" id="884393530">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 42}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="512683962"/>
+						<reference key="NSNextKeyView" ref="304676896"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -51,7 +51,7 @@
 							<string key="NSResourceName">data_search_bg@2x.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="512683962">
+					<object class="IBUIImageView" id="304676896">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{10, 8}, {248, 27}}</string>
@@ -72,7 +72,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="728104978"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="739459626">
+						<object class="NSColor" key="IBUIBackgroundColor" id="535607272">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -110,7 +110,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="361581663"/>
-						<reference key="IBUIBackgroundColor" ref="739459626"/>
+						<reference key="IBUIBackgroundColor" ref="535607272"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -120,7 +120,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
+						<object class="NSColor" key="IBUINormalTitleColor" id="903847053">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
@@ -157,10 +157,7 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">欧洲</string>
 						<reference key="IBUIHighlightedTitleColor" ref="318362793"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="903847053"/>
 						<reference key="IBUINormalTitleShadowColor" ref="847998652"/>
 						<reference key="IBUIFontDescription" ref="52661589"/>
 						<reference key="IBUIFont" ref="788419043"/>
@@ -284,13 +281,10 @@
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="638520178"/>
+				<reference key="NSNextKeyView" ref="884393530"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<int key="NSColorSpace">2</int>
+					<bytes key="NSRGB">MC44OTAxOTYwNzg0IDAuOTA5ODAzOTIxNiAwLjkxNzY0NzA1ODgAA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
@@ -408,9 +402,9 @@
 							<reference ref="986631241"/>
 							<reference ref="361581663"/>
 							<reference ref="728104978"/>
-							<reference ref="512683962"/>
+							<reference ref="304676896"/>
 							<reference ref="623320897"/>
-							<reference ref="638520178"/>
+							<reference ref="884393530"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -467,12 +461,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">33</int>
-						<reference key="object" ref="512683962"/>
+						<reference key="object" ref="304676896"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
-						<reference key="object" ref="638520178"/>
+						<reference key="object" ref="884393530"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
