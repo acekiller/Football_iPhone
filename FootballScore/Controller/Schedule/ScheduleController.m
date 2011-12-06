@@ -14,22 +14,6 @@
 #import "TimeUtils.h"
 #import "ColorManager.h"
 
-//enum{
-//    
-//    // 0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
-//    
-//    MATCH_STATUS_NOT_STARTED = 0,
-//    MATCH_STATUS_FIRST_HALF = 1,
-//    MATCH_STATUS_MIDDLE = 2,
-//    MATCH_STATUS_SECOND_HALF = 3,
-//    MATCH_STATUS_TBD = -11,
-//    MATCH_STATUS_KILL = -12,
-//    MATCH_STATUS_PAUSE = -13,
-//    MATCH_STATUS_POSTPONE = -14,
-//    MATCH_STATUS_FINISH = -1,
-//    MATCH_STATUS_CANCEL = -10
-//};
-
 @implementation ScheduleController
 @synthesize selectedDateButton;
 @synthesize dateLabel;
