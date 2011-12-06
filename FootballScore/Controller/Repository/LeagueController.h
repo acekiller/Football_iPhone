@@ -14,4 +14,6 @@
     
 }
 
+
+- (id)initWithLeagueArray:(NSArray *)leagueArray;
 @end

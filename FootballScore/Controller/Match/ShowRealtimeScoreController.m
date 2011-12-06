@@ -103,13 +103,15 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
 {
     if (globalShowRealtimeScoreController == nil){
         globalShowRealtimeScoreController = [[ShowRealtimeScoreController alloc] init];
-
-        // set position
-        CGRect rect = globalShowRealtimeScoreController.view.bounds;
-        rect.origin = CGPointMake(34, 314);
-        globalShowRealtimeScoreController.view.frame = rect;
     }
+    
     [globalShowRealtimeScoreController removeFromSuperView];
+    
+    // set position
+    CGRect rect = globalShowRealtimeScoreController.view.bounds;
+    rect.origin = CGPointMake(34, 314);
+    globalShowRealtimeScoreController.view.frame = rect;
+    
     [superView addSubview:globalShowRealtimeScoreController.view];
     
     // set scoreUpdate
