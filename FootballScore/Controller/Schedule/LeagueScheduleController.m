@@ -7,6 +7,7 @@
 //
 
 #import "LeagueScheduleController.h"
+#import "LogUtil.h"
 
 enum {
     POINT_BUTTON_TAG = 20111206,
@@ -19,13 +20,8 @@ enum {
 };
 
 @implementation LeagueScheduleController
-@synthesize pointCommand;
-@synthesize scheduleCommand;
-@synthesize rangQiuCommand;
-@synthesize daxiaoCommand;
-@synthesize shooterRankingCommand;
-@synthesize seasonCommand;
-@synthesize roundCommand;
+@synthesize dataWebView;
+@synthesize buttonCommandsDict;
 @synthesize pointButton;
 @synthesize scheduleButton;
 @synthesize rangQiuButton;
@@ -75,6 +71,7 @@ enum {
     [self setShooterRankingButton:nil];
     [self setSeasonSelectionButton:nil];
     [self setRoundSelectionButton:nil];
+    [self setDataWebView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -86,26 +83,19 @@ enum {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)setScoreCommand:(id<CommonCommandDelegate>)point 
-               schedule:(id<CommonCommandDelegate>)schedule 
-                rangQiu:(id<CommonCommandDelegate>)rangQiu 
-                 daxiao:(id<CommonCommandDelegate>)daxiao 
-         shooterRanking:(id<CommonCommandDelegate>)shooterRanking 
-                 season:(id<CommonCommandDelegate>)season  
-                  round:(id<CommonCommandDelegate>)round
+- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key
 {
-    self.pointCommand = point;
-    self.scheduleCommand = schedule;
-    self.rangQiuCommand = rangQiu;
-    self.daxiaoCommand = daxiao;
-    self.shooterRankingCommand = shooterRanking;
-    self.seasonCommand = season;
-    self.roundCommand = round;
+    if (buttonCommandsDict == nil) {
+        buttonCommandsDict = [[NSMutableDictionary alloc] init];
+    }
+    [self.buttonCommandsDict setObject:command forKey:[NSNumber numberWithInt:Key]];
+        
 }
 
 - (IBAction)buttonClick:(id)sender
 {
-    
+    id<CommonCommandDelegate> command = [self.buttonCommandsDict objectForKey:[NSNumber numberWithInt:[sender tag]]];
+    [command execute];
 }
 
 - (void)dealloc {
@@ -116,16 +106,29 @@ enum {
     [shooterRankingButton release];
     [seasonSelectionButton release];
     [roundSelectionButton release];
+    [dataWebView release];
     [super dealloc];
 }
 @end
 
-@implementation Common_command
+@implementation JsCommand
 
 
 - (void)execute
-{
+{  
+    PPDebug(@"<displayEvent> execute JS = %@",jsCodeString);    
+    [superControllerWebView stringByEvaluatingJavaScriptFromString:jsCodeString];    
     
+}
+
+- (id)initWithJSCodeString:(NSString*)jsCode dataWebView:(UIWebView*)webView
+{
+    self = [super init];
+    if (self) {
+        superControllerWebView = webView;
+        jsCodeString = jsCode;
+    }
+    return self;
 }
 
 @end
