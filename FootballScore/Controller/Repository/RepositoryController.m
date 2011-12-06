@@ -14,9 +14,10 @@
 #import "Repository.h"
 #import "League.h"
 #import "ColorManager.h"
+#import "LeagueController.h"
 
 @implementation RepositoryController
-@synthesize repositoryScrollView;
+@synthesize searchTextField;
 @synthesize filterCountryArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,8 +31,8 @@
 
 - (void)dealloc
 {
-    [repositoryScrollView release];
     [filterCountryArray release];
+    [searchTextField release];
     [super dealloc];
 }
 
@@ -84,12 +85,39 @@
     }
 }
 
+
+- (NSString *)getLeagueControllerTitle:(Country *)country
+{
+    NSString *name = country.countryName;
+    NSString *title = @"";
+    if (name == nil) {
+        return FNS(@"赛事资料库");
+    }
+    if ([name length] >= 2) {
+        NSString *str = [name substringFromIndex:(name.length - 2)];
+        if ([str isEqualToString:@"赛事"] || [str isEqualToString:@"賽事"]) {
+            title = [NSString stringWithFormat:@"%@%@",name,FNS(@"资料库")];
+        }else{
+            title = [NSString stringWithFormat:@"%@%@",name,FNS(@"赛事资料库")];
+        }
+    }else
+    {
+        title = [NSString stringWithFormat:@"%@%@",name,FNS(@"赛事资料库")];
+    }
+    return title;
+}
+
 - (void)clickCountry:(id)sender
 {
     UIButton *button = (UIButton *)sender;
     Country *country = [self getCountryWithButtonTag:button.tag];
     if (country) {
-        NSLog(@"click country: id = %d, name = %@", [country.countryId integerValue],country.countryName);    
+        NSLog(@"click country: id = %d, name = %@", [country.countryId integerValue],country.countryName); 
+        NSArray *leagueArray = [[RepositoryManager defaultManager] getLeagueArrayByCountryId:country.countryId];
+        LeagueController *lc = [[LeagueController alloc]initWithLeagueArray:leagueArray];
+        lc.title = [self getLeagueControllerTitle:country];
+        [self.navigationController pushViewController:lc animated:YES];
+        [lc release];
     }
     
 }
@@ -165,6 +193,24 @@
     [self hideActivity];
 }
 
+
+#pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [textField setTextColor:[UIColor blackColor]];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self clickSearch:nil];
+    return YES;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -176,9 +222,15 @@
     [self clickRefresh];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self addBlankView:50 currentResponder:self.searchTextField];
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidUnload
 {
-    [self setRepositoryScrollView:nil];
+    [self setSearchTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -191,4 +243,12 @@
 }
 
 
+- (IBAction)clickSearch:(id)sender {
+    [self.searchTextField resignFirstResponder];
+    NSArray *leagueArray = [[RepositoryManager defaultManager] getLeagueArrayByKey:searchTextField.text];
+    LeagueController *lc = [[LeagueController alloc]initWithLeagueArray:leagueArray];
+    lc.title = FNS(@"搜索结果");
+    [self.navigationController pushViewController:lc animated:YES];
+    [lc release];
+}
 @end

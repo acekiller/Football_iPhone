@@ -9,6 +9,7 @@
 #import "RepositoryManager.h"
 #import "Repository.h"
 #import "League.h"
+#import "LocaleConstants.h"
 
 RepositoryManager *manager = nil;
 RepositoryManager *GlobalGetRepositoryManager()
@@ -142,6 +143,64 @@ RepositoryManager *GlobalGetRepositoryManager()
         }
     }
     return nil;
+}
+
+
+- (NSArray *)getLeagueArrayByCountryId:(NSString *)countryId
+{
+    if ([_leagueArray count] == 0) {
+        return nil;
+    }
+    NSMutableArray *leagueArray = [[[NSMutableArray alloc]init] autorelease];
+    for (League * league in _leagueArray) {
+        if ([league.countryId isEqualToString:countryId]) {
+            [leagueArray addObject:league];
+        }
+    }
+    return leagueArray;
+}
+
+- (NSArray *)getLeagueArrayByKey:(NSString *)key
+{
+    if ([_leagueArray count] == 0) {
+        return nil;
+    }
+    NSMutableArray *leagueArray = [[[NSMutableArray alloc]init] autorelease];
+    
+    for (League * league in _leagueArray) {
+        //search in league name
+        NSRange range = [league.name rangeOfString:FNSWithLang(key, 0)];
+        
+        if (range.length != 0) {
+            [leagueArray addObject:league];
+            continue;
+        }
+        
+        range = [league.name rangeOfString:FNSWithLang(key, 1)];
+        if (range.length != 0) {
+            [leagueArray addObject:league];
+            continue;
+        }
+        //search in country name
+        Country *country = [self getCountryById:league.countryId];
+        if (country == nil || country.countryName == nil) {
+            continue;
+        }
+        
+        NSString *name = country.countryName;
+        range = [name rangeOfString:FNSWithLang(key, 0)];
+        if (range.length != 0) {
+            [leagueArray addObject:league];
+            continue;
+        }
+        range = [name rangeOfString:FNSWithLang(key, 1)];
+        if (range.length != 0) {
+            [leagueArray addObject:league];
+            continue;
+        }
+    }
+    
+    return leagueArray;
 }
 
 -(void)dealloc
