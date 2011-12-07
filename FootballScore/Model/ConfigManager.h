@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #define HAS_SOUND @"HAS_SOUND"
-#define IS_VIBRATION @"HAS_IS_VIBRATION"
+#define IS_VIBRATION @"IS_VIBRATION"
+#define REFRESH_INTERVAL @"REFRESH_INTERVAL"
 
 @interface ConfigManager : NSObject {
     
@@ -20,8 +21,10 @@
 
 + (void)saveHasSound:(BOOL)hasSound;
 + (void)saveIsVibration:(BOOL)isVibration;
++ (void)saveRefreshInterval:(NSTimeInterval)refreshInterval;
 
 + (BOOL)getHasSound;
 + (BOOL)getIsVibration;
++ (NSTimeInterval)getRefreshInterval;
 
 @end
