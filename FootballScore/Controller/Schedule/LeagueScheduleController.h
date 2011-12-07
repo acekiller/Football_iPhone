@@ -28,10 +28,14 @@
 @property (retain, nonatomic) IBOutlet UIButton *seasonSelectionButton;
 @property (retain, nonatomic) IBOutlet UIButton *roundSelectionButton;
 @property (retain, nonatomic) League* league;
+@property (assign, nonatomic) NSInteger loadCount;
+@property (assign, nonatomic) BOOL showDataFinished;
 
 - (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key; 
 - (id)initWithLeague:(League*)leagueValue;
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
+- (void)loadWebViewByHtml:(NSString*)html;
+- (void)initWebView;
 @end
 
 

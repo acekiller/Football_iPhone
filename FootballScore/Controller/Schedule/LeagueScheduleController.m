@@ -8,6 +8,8 @@
 
 #import "LeagueScheduleController.h"
 #import "LogUtil.h"
+#import "FileUtil.h"
+#import "LogUtil.h"
 
 enum {
     POINT_BUTTON_TAG = 20111206,
@@ -30,6 +32,8 @@ enum {
 @synthesize seasonSelectionButton;
 @synthesize roundSelectionButton;
 @synthesize league;
+@synthesize loadCount;
+@synthesize showDataFinished;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,6 +73,7 @@ enum {
     [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
     [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
     [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayYapeiDetail(true, 655164, 0)"];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -127,6 +132,25 @@ enum {
     [vc release];
 }
 
+
+- (void)loadWebViewByHtml:(NSString*)html
+{
+    self.dataWebView.hidden = YES;
+    loadCount = 0;
+    showDataFinished = NO;
+    
+    NSURL* url = [FileUtil bundleURL:html];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"load webview url = %@", [request description]);
+    if (request) {
+        [self.dataWebView loadRequest:request];        
+    }        
+}
+
+- (void)initWebView
+{
+    [self loadWebViewByHtml:@"www/match_detail.html"];
+}
 
 @end
 
