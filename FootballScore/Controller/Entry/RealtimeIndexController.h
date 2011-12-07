@@ -27,9 +27,6 @@
 @property (nonatomic, assign) int oddsType;
 @property (nonatomic, retain) NSMutableSet *hideSectionSet;
 
-- (IBAction)clickContentFilterButton:(id)sender;
-- (IBAction)clickSearcHistoryBackButton:(id)sender;
--(IBAction)clickSelectLeagueController:(id)sender;
 - (void)updateAllOddsData;
 - (void)refleshOddsType;
 - (void)refleshCompanyIdArray;
@@ -38,6 +35,11 @@
 - (void)addSectionToHideSet:(NSInteger)section;
 - (void)removeSectionFromHideSet:(NSInteger)section;
 - (void)updateHeaderMatch;
+
+- (void)setRightBarButtons;
+- (void)clickSelectContentButton;
+- (void)clickSelectLeagueButton;
+- (void)clickSearcHistoryButton;
 
 @end
 
