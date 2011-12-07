@@ -21,34 +21,37 @@ function ScheduleView(type){
 		},
 		
 		isFinished : function(state){
-			if(state == -1)return true;
+			if(state == -1){
+                return true;
+            }
 			return false;
 		},
 		getStateString : function(state){
-//0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
+
+            //0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
 			switch(state){
-				case 0:
+				case "0":
 					return "未";
-				case 1:
+				case "1":
 					return "上";
-				case 2:
+				case "2":
 					return "中";
-				case 3:
+				case "3":
 					return "下";
-				case -11:
+				case "-11":
 					return "待定";
-				case -12:
+				case "-12":
 					return "腰斩";
-				case -13:
+				case "-13":
 					return "中断";
-				case -14:
+				case "-14":
 					return "推迟";
-				case -1:
+				case "-1":
 					return "完";
-				case -10:
+				case "-10":
 					return "取消";
 				default:
-					return "未";
+					return "未3";
 			}
 		}
 	 };
