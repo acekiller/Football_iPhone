@@ -18,7 +18,11 @@ DepositoryApp = new Ext.Application({
 
 //		测试联赛积分
 //		testDisplayJifenLocally();
-        testDisplayJifenRemote();
+//        testDisplayJifenRemote();
+//        测试赛程
+        testDisplayScheduleLocally();
+//        testDisplayScheduleRemote();
+
     }
 
 });
@@ -62,5 +66,37 @@ function displayJifen(reload, leagueId, season, lang, data){
 	DepositoryApp.jifenView = getjifenView();	
 	setCurrentView(DepositoryApp.jifenView.mainPanel);	
 	DepositoryApp.jifenView.updateView(jifenManager);
+	return true;	
+}
+
+
+function getscheduleView()
+{
+	if (DepositoryApp.scheduleView != null)
+		return DepositoryApp.scheduleView;
+	else
+		return new ScheduleView();
+}
+
+
+function displaySchedule(reload, leagueId, season, round, lang, data){
+	if(round == undefined){
+		round = "";
+	}
+	if(lang == undefined){
+		lang = "";
+	}
+	if (reload) {
+		if (data != undefined) {
+			if (scheduleManager.readData(data) == false) {
+				return false;
+			}
+		} else if (scheduleManager.requestDataFromServer(leagueId, season, round ,lang) == false){
+			return false;
+		}
+	}
+	DepositoryApp.scheduleView = getscheduleView();	
+	setCurrentView(DepositoryApp.scheduleView.mainPanel);	
+	DepositoryApp.scheduleView.updateView(scheduleManager);
 	return true;	
 }
