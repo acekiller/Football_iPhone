@@ -250,7 +250,10 @@ const int buttonsPerLine = 4;
     
     //click the button and get the hided matches 
     [self updateHiddenMatchInfo];
-
+    
+    [topLeagueButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
+    [selectAllButton setBackgroundImage:[UIImage imageNamed:@"se_btn3"] forState:UIControlStateNormal];
+    [selectNoneButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
 }
 
 -(IBAction)selectNone:(id)sender{
@@ -267,7 +270,10 @@ const int buttonsPerLine = 4;
     
     //click the button and get the hided matches 
     [self updateHiddenMatchInfo];
-
+    
+    [topLeagueButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
+    [selectAllButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
+    [selectNoneButton setBackgroundImage:[UIImage imageNamed:@"se_btn3"] forState:UIControlStateNormal];
 }
 
 -(IBAction)selectTopLeague:(id)sender{
@@ -283,7 +289,10 @@ const int buttonsPerLine = 4;
     
     //click the button and get the hided matches 
     [self updateHiddenMatchInfo];
-
+    
+    [topLeagueButton setBackgroundImage:[UIImage imageNamed:@"se_btn3"] forState:UIControlStateNormal];
+    [selectAllButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
+    [selectNoneButton setBackgroundImage:[UIImage imageNamed:@"se_btn"] forState:UIControlStateNormal];
 }
 
 -(void)buttonClicked:(id)sender{

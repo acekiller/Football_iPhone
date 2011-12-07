@@ -409,6 +409,11 @@
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
     [[MatchManager defaultManager] updateFilterMatchStatus:matchSelectStatus];
     [self reloadMyFollowList];
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"您还没有选择关注的赛事")];
+    } else {
+        [self hideTipsOnTableView];
+    }
 //    MatchManager *manager = [MatchManager defaultManager];
 //    self.dataList = [manager getAllFollowMatch];
 //    [[self dataTableView] reloadData];
@@ -477,7 +482,7 @@
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
-   [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];

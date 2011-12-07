@@ -116,7 +116,7 @@
         return;
     }
     [self showActivityWithText:@"加载数据中..."];
-    [GlobalGetOddsService() getRealtimeOdds];
+    [self updateAllOddsData];
 
 }
 - (void)setRightBarButton
