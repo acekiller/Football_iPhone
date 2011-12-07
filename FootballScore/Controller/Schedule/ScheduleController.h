@@ -18,7 +18,7 @@
 + (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController;
 - (IBAction)clicksSelectDateButton:(id)sender;
 - (NSString*)convertMatchStartTime:(NSDate*)date;
-- (NSString*)convertStatus:(NSNumber*)status;
+- (NSString*)convertStatus:(Match*)match;
 - (void)initCell:(UITableViewCell*)cell;
 - (void)setCell:(UITableViewCell*)cell withMatch:(Match*)match;
 @property (retain, nonatomic) IBOutlet UIButton *selectedDateButton;
