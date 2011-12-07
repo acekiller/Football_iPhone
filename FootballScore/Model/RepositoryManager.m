@@ -165,6 +165,9 @@ RepositoryManager *GlobalGetRepositoryManager()
     if ([_leagueArray count] == 0) {
         return nil;
     }
+    // trim the space and the line.
+    key = [key stringByTrimmingCharactersInSet:
+           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSMutableArray *leagueArray = [[[NSMutableArray alloc]init] autorelease];
     
     for (League * league in _leagueArray) {

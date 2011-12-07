@@ -44,6 +44,7 @@
     [super viewDidLoad];
     NSString * leftButtonName = @"ss.png";    
     [self setNavigationLeftButton:FNS(@"返回") imageName:leftButtonName action:@selector(clickBack:)];
+    [self.view setBackgroundColor:[ColorManager blackGroundColor]];
 }
 
 - (void)viewDidUnload
