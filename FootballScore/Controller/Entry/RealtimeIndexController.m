@@ -119,36 +119,18 @@
     [self updateAllOddsData];
 
 }
-- (void)setRightBarButton
-{
-    float buttonHigh = 27.5;
-    float buttonLen = 47.5;
-    float refeshButtonLen = 32.5;
-    float seporator = 5;
-    float leftOffest = 20;
-    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
-    
-    UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refeshButtonLen, buttonHigh)];
-    [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
-    [refleshButton setTitle:@"" forState:UIControlStateNormal];
-    [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [refleshButton addTarget:self action:@selector(clickRefleshButton) forControlEvents:UIControlEventTouchUpInside];
-    [rightButtonView addSubview:refleshButton];
-    [refleshButton release];
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
-    [rightButtonView release];
-    
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-    [rightBarButton release];
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    supportRefreshHeader = YES;
+    [self setRefreshHeaderViewFrame:CGRectMake(0, 0 - self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.width)];
+    
     [self setLeftBarLogo];
-    [self setRightBarButton];
+    [self setRightBarButtons];
     [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
     [manager setSelectedOddsType:ODDS_TYPE_YAPEI];
@@ -173,31 +155,93 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma Pull Refresh Delegate
+- (void) reloadTableViewDataSource
+{
+    if (self.oddsType < 1 || self.oddsType > 3) {
+        return;
+    }
+    [self showActivityWithText:@"加载数据中..."];
+    [self updateAllOddsData];
+}
 
-- (IBAction)clickContentFilterButton:(id)sender
+- (void)dataSourceDidFinishLoadingNewData{
+    _reloading = NO;
+    [super dataSourceDidFinishLoadingNewData];
+}
+
+
+#pragma setRightBarButtons and selector
+- (void)setRightBarButtons
+{
+    float buttonHigh = 27.5;
+    float buttonLen = 47.5;
+    float seporator = 10;
+    float leftOffest = 20;
+    UIFont *font = [UIFont systemFontOfSize:14];
+    
+    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, leftOffest+3*(buttonLen+seporator)-4, buttonHigh)]; 
+    
+    
+    UIButton *selectContentButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
+    [selectContentButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
+    [selectContentButton setTitle:FNS(@"内容") forState:UIControlStateNormal];
+    [selectContentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [selectContentButton.titleLabel setFont:font];
+    [selectContentButton addTarget:self action:@selector(clickSelectContentButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:selectContentButton]; 
+    [selectContentButton release];
+    
+    
+    UIButton *selectLeagueButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen+seporator, 0, buttonLen, buttonHigh)];
+    [selectLeagueButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
+    [selectLeagueButton setTitle:FNS(@"赛事") forState:UIControlStateNormal];
+    [selectLeagueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [selectLeagueButton.titleLabel setFont:font];
+    [selectLeagueButton addTarget:self action:@selector(clickSelectLeagueButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:selectLeagueButton]; 
+    [selectLeagueButton release];
+    
+    UIButton *searcHistoryButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, buttonLen, buttonHigh)];
+    [searcHistoryButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
+    [searcHistoryButton setTitle:FNS(@"回查") forState:UIControlStateNormal];
+    [searcHistoryButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [searcHistoryButton.titleLabel setFont:font];
+    [searcHistoryButton addTarget:self action:@selector(clickSearcHistoryButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:searcHistoryButton]; 
+    [searcHistoryButton release];
+    
+    
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    [rightButtonView release];
+    
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    [rightBarButton release];
+}
+
+- (void)clickSelectContentButton
 {
     [SelectIndexController show:self];
 }
 
-
--(IBAction)clickSelectLeagueController:(id)sender{
-    
+- (void)clickSelectLeagueButton
+{
     [SelectLeagueController show:self  
                    leagueIdArray:[[OddsManager defaultManager] leagueArray] 
               filterLeagueIdList:[[OddsManager defaultManager] filterLeagueIdList]];
 }
 
-- (IBAction)clickSearcHistoryBackButton:(id)sender
+- (void)clickSearcHistoryButton
 {
     NSDate *date = [NSDate date];
     NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
     [df setDateFormat:@"yyyy-MM-dd"];
     
     UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"历史回查") 
-                                                              delegate:self 
-                                                     cancelButtonTitle:FNS(@"返回")
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
+                                                                delegate:self 
+                                                       cancelButtonTitle:FNS(@"返回")
+                                                  destructiveButtonTitle:nil
+                                                       otherButtonTitles:nil];
     
     int i;
     NSTimeInterval interval;
@@ -217,7 +261,6 @@
     
     [dateActionSheet release];
 }
-
 
 
 #pragma table view delegate
