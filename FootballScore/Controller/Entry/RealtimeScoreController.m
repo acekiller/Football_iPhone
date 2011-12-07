@@ -409,6 +409,11 @@
     [self updateSelectMatchStatusButtonState:matchSelectStatus];
     [[MatchManager defaultManager] updateFilterMatchStatus:matchSelectStatus];
     [self reloadMyFollowList];
+    if (self.dataList == nil || [self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"您还没有选择关注的赛事")];
+    } else {
+        [self hideTipsOnTableView];
+    }
 //    MatchManager *manager = [MatchManager defaultManager];
 //    self.dataList = [manager getAllFollowMatch];
 //    [[self dataTableView] reloadData];
