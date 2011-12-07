@@ -477,7 +477,7 @@
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
     [scoreTypeButton setBackgroundImage:[UIImage imageNamed:@"ss.png"] forState:UIControlStateNormal];
-   [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
+    [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
     [scoreTypeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [scoreTypeButton.titleLabel setFont:font]; 
     [scoreTypeButton addTarget:self action:@selector(clickSelectMatchType:) forControlEvents:UIControlEventTouchUpInside];

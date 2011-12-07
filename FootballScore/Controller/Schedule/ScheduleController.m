@@ -42,8 +42,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.dateLabel setText:dateToString([NSDate dateWithTimeIntervalSinceNow:0])];
-    [self.selectedDateButton setTitle:FNS(@"选择日期") forState:UIControlStateNormal];
+    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
+    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString([NSDate dateWithTimeIntervalSinceNow:0]), chineseWeekDayFromDate([NSDate dateWithTimeIntervalSinceNow:0])]];
+    [self.selectedDateButton setTitle:FNS(@" 选择日期") forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -66,7 +67,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 20.0f;	
+    return 30.0f;	
 }	
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,6 +112,7 @@
 + (void)showScheduleWithSuperController:(UIViewController*)superViewController
 {
     ScheduleController* vc = [[ScheduleController alloc] init];
+    [vc setTitle:FNS(@"一周赛程")];
     [superViewController.navigationController pushViewController:vc animated:YES];
     [GlobalGetScheduleService() getSchedule:vc date:nil];
     [vc showActivityWithText:FNS(@"loading")];
@@ -124,15 +126,16 @@
     [vc release];
 }
 
+#define WEEK_DAY_COUNT 7
 - (IBAction)clicksSelectDateButton:(id)sender
 {
     NSDate *date = [NSDate date];
     NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
     [df setDateFormat:@"yyyy-MM-dd"];
     
-    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"历史回查") 
+    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"一周赛事") 
                                                                 delegate:self 
-                                                       cancelButtonTitle:FNS(@"返回")
+                                                       cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil
                                                        otherButtonTitles:nil];
     
@@ -140,15 +143,22 @@
     NSTimeInterval interval;
     NSString *dateString = nil;
     NSDate *beforeDate=[NSDate date];
+
+
     
-    for (i = 0 ; i<7 ;i++)
+    
+    for (i = 0 ; i<WEEK_DAY_COUNT+1 ;i++)
     {
-        interval = 24*60*60*i;
+        if (i == 0) {
+            [dateActionSheet addButtonWithTitle:FNS(@"返回")];
+            [dateActionSheet setCancelButtonIndex:0];
+            continue;
+        }
+        interval = 24*60*60*(i-1);
         beforeDate = [date dateByAddingTimeInterval:interval];
         dateString = [df stringFromDate:beforeDate];
         [dateActionSheet addButtonWithTitle: dateString];
     }
-    
     [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
     
     [dateActionSheet release];
@@ -161,9 +171,8 @@
     }
     NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*buttonIndex];
     [GlobalGetScheduleService() getSchedule:self date:date];
-    [self.dateLabel setText:dateToString(date)];
+    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(date), chineseWeekDayFromDate(date)]];
     [self showActivityWithText:FNS(@"loading")];
-    [self.dataTableView reloadData];
 }
 
 - (void)dealloc {
@@ -189,12 +198,12 @@
     
 }
 
-- (NSString*)convertStatus:(NSNumber*)status
+- (NSString*)convertStatus:(Match*)match
 {
-    switch ([status intValue]) {
+    switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
-            return FNS(@"进行中");
+            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_MIDDLE:
             return FNS(@"中");
         case MATCH_STATUS_FINISH:
@@ -207,7 +216,7 @@
         case MATCH_STATUS_CANCEL:
         case MATCH_STATUS_NOT_STARTED:
         default:
-            return FNS(@"未开");
+            return FNS(@"未");
     }
 }
 
@@ -220,16 +229,16 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 55, 20)];
-    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 20)];
-    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 20)];
-    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 20)];
-    [leagueName setFont:[UIFont systemFontOfSize:10]];
-    [dateAndStatus setFont:[UIFont systemFontOfSize:10]];
-    [homeTeamName setFont:[UIFont systemFontOfSize:10]];
-    [scoreLabel setFont:[UIFont systemFontOfSize:10]];
-    [awayTeamName setFont:[UIFont systemFontOfSize:10]];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 55, 30)];
+    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 30)];
+    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 30)];
+    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 30)];
+    [leagueName setFont:[UIFont systemFontOfSize:12]];
+    [dateAndStatus setFont:[UIFont systemFontOfSize:12]];
+    [homeTeamName setFont:[UIFont systemFontOfSize:12]];
+    [scoreLabel setFont:[UIFont systemFontOfSize:12]];
+    [awayTeamName setFont:[UIFont systemFontOfSize:12]];
     [leagueName setTag:TAG_LEAGUE_NAME];
     [dateAndStatus setTag:TAG_DATE_AND_STATUS];
     [homeTeamName setTag:TAG_HOME_TEAM_NAME];
@@ -258,8 +267,8 @@ enum {
     UILabel* awayTeamName = (UILabel*)[cell viewWithTag:TAG_AWAY_TEAM_NAME];
     [leagueName setText:[[LeagueManager defaultLeagueScheduleManager] getNameById:match.leagueId ]];
     [homeTeamName setText:match.homeTeamName];
-    [dateAndStatus setText:[NSString stringWithFormat:@"%@ %@", [self convertMatchStartTime:match.date], [self convertStatus:match.status]]];
-    [scoreLabel setText:[NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]]];
+    [dateAndStatus setText:[NSString stringWithFormat:@"%@", [self convertMatchStartTime:match.date]]];
+    [scoreLabel setText:[self convertStatus:match]];
     [awayTeamName setText:match.awayTeamName];
 }
 @end
