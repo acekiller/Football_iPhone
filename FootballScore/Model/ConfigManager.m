@@ -32,6 +32,13 @@
     [userDefaults setBool:isVibration forKey:IS_VIBRATION];
 }
 
++ (void)saveRefreshInterval:(NSTimeInterval)refreshInterval
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setDouble:refreshInterval forKey:REFRESH_INTERVAL];
+}
+
+
 + (BOOL)getHasSound
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:HAS_SOUND];
@@ -40,6 +47,11 @@
 + (BOOL)getIsVibration
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:IS_VIBRATION];
+}
+
++ (NSTimeInterval)getRefreshInterval
+{
+    return [[NSUserDefaults standardUserDefaults] doubleForKey:REFRESH_INTERVAL];
 }
 
 @end
