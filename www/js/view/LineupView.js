@@ -13,13 +13,13 @@ function LineupView(){
         id: 'homeLineupPanel',
         tpl: homeLineupTemplate,
         margin: '10 0 10 20',
-        align: 'left',
+        align: 'left'
     });
     
     this.homeReservePanel = new Ext.Panel({
         id: 'homeReservePanel',
         tpl: homeReserveTemplate,
-        margin: '0 0 0 20',
+        margin: '0 0 0 20'
     });
     
     this.awayLineupPanel = new Ext.Panel({
@@ -32,7 +32,7 @@ function LineupView(){
     this.awayReservePanel = new Ext.Panel({
         id: 'awayReservePanel',
         tpl: awayReserveTemplate,
-        margin: '0 0 0 110',
+        margin: '0 0 0 110'
     });
 	
 	this.subPanel1 = new Ext.Panel({	

@@ -11,6 +11,11 @@
 		<script type="text/javascript" src="js/model/JifenObject.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/model/JifenManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/JifenView.js" charset='utf-8'></script>
+		
+		<script type="text/javascript" src="js/model/ScheduleObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/ScheduleManager.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/ScheduleView.js" charset='utf-8'></script>
+		
 		<script type="text/javascript" src="js/RepositoryVariable.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/repository.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/test.js" charset='utf-8'></script>
@@ -40,6 +45,45 @@
 					</tpl>
 					<td>{rank}</td><td>{simplifiedTeamName}</td><td>{matches}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{goals}</td><td>{goalsAgainst}</td><td>{points}</td>
 				</tr>
+				</tpl>
+			</table>
+			</div>
+        </textarea>
+        
+        		<textarea id="schedule-template" class="x-hidden-display">
+			<div id="data">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+			    <tr class="data_title">
+			      <td width="73">时间</td>
+			      <td width="30">&nbsp;</td>
+			      <td width="82">主队</td>
+			      <td width="57">走</td>
+			      <td width="78">客队</td>
+				</tr>
+				
+				<tpl for="dataArray">
+					<tpl if="xindex % 2 === 0">
+						<tr class="date_td1">
+					</tpl>
+					<tpl if="xindex % 2 !== 0">
+						<tr class="date_td2">
+					</tpl>
+					
+						<td><span class="data_time2">{[this.scheduleDateString(values.playingTime)]}</span></td>
+					    <td>{[this.getStateString(values.state)]}</td>
+					    <td>{simplifiedHomeTeamName}</td>
+						
+						<tpl if="this.isFinished(state)">
+	      					<td>{homeTeamScore}.{awayTeamScore}({homeTeamHalfScore}.{awayTeamHalfScore})</td> 
+						</tpl>
+						
+						<tpl if="!this.isFinished(state)">
+	      					<td>VS</td> 
+						</tpl>
+	      				
+	      				<td>{simplifiedAwayTeamName}</td>
+					
+					</tr>
 				</tpl>
 			</table>
 			</div>

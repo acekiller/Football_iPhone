@@ -247,6 +247,7 @@
     NSTimeInterval interval;
     NSString *dateString = nil;
     NSDate *beforeDate=[NSDate date];
+    [dateActionSheet setCancelButtonIndex:-1];
     
     for (i = 0 ; i<7 ;i++)
     {
@@ -426,7 +427,7 @@
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         return;
     }
-    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
+    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:24*60*60-24*60*60*buttonIndex];
     [self updateAllOddsData];
 }
 
