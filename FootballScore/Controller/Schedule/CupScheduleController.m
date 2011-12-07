@@ -7,14 +7,25 @@
 //
 
 #import "CupScheduleController.h"
+#import "LeagueController.h"
 
 @implementation CupScheduleController
+@synthesize league;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithLeague:(League*)leagueValue
+{
+    self = [super init];
+    if (self) {
+        self.league = leagueValue;
     }
     return self;
 }
@@ -46,6 +57,13 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
++ (void)showWithSuperController:(UIViewController*)superController League:(League*)league
+{
+    CupScheduleController* vc = [[CupScheduleController alloc] initWithLeague:league];
+    [superController.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 @end

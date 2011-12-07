@@ -10,6 +10,9 @@
 #import "League.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "LeagueScheduleController.h"
+#import "CupScheduleController.h"
+#import "LogUtil.h"
 
 @implementation LeagueController
 
@@ -105,9 +108,23 @@
 {
     return 36;
 }
+#define LEAGUE_MATCH 1
+#define CUP_MATCH 2
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    League* league = [self.dataList objectAtIndex:indexPath.row];
+    switch (league.leagueType) {
+        case LEAGUE_MATCH:
+            [LeagueScheduleController showWithSuperController:self League:league];
+            break;
+        case CUP_MATCH:
+            [CupScheduleController showWithSuperController:self League:league];
+            break;
+        default:
+            PPDebug(@"<LeagueController> Unrecongnized league type:%d", league.leagueType);
+            break;
+    }
     
 }
 

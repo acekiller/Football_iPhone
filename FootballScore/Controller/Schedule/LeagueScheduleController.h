@@ -7,6 +7,7 @@
 //
 
 #import "PPViewController.h"
+@class League;
 @protocol CommonCommandDelegate <NSObject>
 
 - (void)execute;
@@ -15,6 +16,7 @@
 
 @interface LeagueScheduleController : PPViewController {
     NSMutableDictionary*  buttonCommandsDict;
+    League* league;
 };
 @property (retain, nonatomic) IBOutlet UIWebView *dataWebView;
 @property (retain, nonatomic) NSMutableDictionary* buttonCommandsDict;
@@ -25,8 +27,11 @@
 @property (retain, nonatomic) IBOutlet UIButton *shooterRankingButton;
 @property (retain, nonatomic) IBOutlet UIButton *seasonSelectionButton;
 @property (retain, nonatomic) IBOutlet UIButton *roundSelectionButton;
+@property (retain, nonatomic) League* league;
 
 - (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key; 
+- (id)initWithLeague:(League*)leagueValue;
++ (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 @end
 
 

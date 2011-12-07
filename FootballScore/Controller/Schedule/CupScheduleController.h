@@ -7,7 +7,14 @@
 //
 
 #import "PPViewController.h"
+@class League;
 
-@interface CupScheduleController : PPViewController
+@interface CupScheduleController : PPViewController {
+    League* league;
+}
+@property (retain, nonatomic) League* league;
+
++ (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
+- (id)initWithLeague:(League*)leagueValue;
 
 @end

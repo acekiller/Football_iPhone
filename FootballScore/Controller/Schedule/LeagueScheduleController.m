@@ -29,12 +29,22 @@ enum {
 @synthesize shooterRankingButton;
 @synthesize seasonSelectionButton;
 @synthesize roundSelectionButton;
+@synthesize league;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithLeague:(League*)leagueValue
+{
+    self = [super init];
+    if (self) {
+        self.league = leagueValue;
     }
     return self;
 }
@@ -109,6 +119,15 @@ enum {
     [dataWebView release];
     [super dealloc];
 }
+
++ (void)showWithSuperController:(UIViewController*)superController League:(League*)league
+{
+    LeagueScheduleController* vc = [[LeagueScheduleController alloc] initWithLeague:league];
+    [superController.navigationController pushViewController:vc animated:YES];
+    [vc release];
+}
+
+
 @end
 
 @implementation JsCommand
