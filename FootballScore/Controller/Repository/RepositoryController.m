@@ -112,7 +112,6 @@
     UIButton *button = (UIButton *)sender;
     Country *country = [self getCountryWithButtonTag:button.tag];
     if (country) {
-        NSLog(@"click country: id = %d, name = %@", [country.countryId integerValue],country.countryName); 
         NSArray *leagueArray = [[RepositoryManager defaultManager] getLeagueArrayByCountryId:country.countryId];
         LeagueController *lc = [[LeagueController alloc]initWithLeagueArray:leagueArray];
         lc.title = [self getLeagueControllerTitle:country];
@@ -124,6 +123,7 @@
 
 - (void)createButtonsBycountryArray:(NSArray*) countryArray action:(SEL)action
 {
+    [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     if ([countryArray count] == 0) {
         return;
     }
@@ -151,25 +151,29 @@
     UIScrollView *buttonScrollView = [PPViewController createButtonScrollViewByButtonArray:buttonArray buttonsPerLine:COUNTRY_BUTTON_COUNT_PER_ROW buttonSeparatorY:8];
     
     [buttonArray release];
-    [[self.view viewWithTag:SCROLL_VIEW_TAG] removeFromSuperview];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
-    [buttonScrollView setFrame:CGRectMake(0, 85, 320, 480-85-55)];
+    [buttonScrollView setFrame:CGRectMake(0, 95, 320, 480-95-65)];
+    [buttonScrollView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:buttonScrollView];
     
 }
 
 - (void) fillCountryButtons
 {
-    if ([self.filterCountryArray count] != 0) {
-        [self createButtonsBycountryArray:self.filterCountryArray
+    [self createButtonsBycountryArray:self.filterCountryArray
                                    action:@selector(clickCountry:)];
-    }
-
+    
 }
-
 
 - (IBAction)clickContinent:(id)sender {
     UIButton *button = (UIButton *)sender;
+    button.selected = YES;
+    for (int i = CONTINENT_BASE_BUTTON_TAG; i <= CONTINENT_END_BUTTON_TAG; ++ i) {
+        if (i != button.tag) {
+            UIButton *unselectedButton = (UIButton *)[self.view viewWithTag:i];
+            unselectedButton.selected = NO;
+        }
+    }
     Continent *continent = [self getContinentWithButtonTag:button.tag];
     selectedContinent = [continent.continentId integerValue];
     self.filterCountryArray = [[RepositoryManager defaultManager] filterCountryArrayWithContinentId:selectedContinent];
@@ -200,9 +204,16 @@
         self.filterCountryArray = [[RepositoryManager defaultManager] filterCountryArrayWithContinentId:selectedContinent];
         
         [self fillCountryButtons];
+        
+        // the first time refresh.
+        if (selectedContinent < 0) {
+            [self clickContinent:[self.view viewWithTag:CONTINENT_BASE_BUTTON_TAG + 1]];
+        }
+        
     }else{
         [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
+
 
 }
 
@@ -226,6 +237,22 @@
 
 #pragma mark - View lifecycle
 
+- (void)setLeftBarLogo
+{
+    UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    
+    UIImageView *liveLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"data_logo.png"]];
+    [leftTopBarView addSubview:liveLogo];
+    [liveLogo release];
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftTopBarView];
+    [leftTopBarView release];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    self.navigationItem.title = @"";
+    [leftBarButton release];
+    
+}
 
 - (void)setRightBarButton
 {
@@ -253,9 +280,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1]];
+    [self.view setBackgroundColor:[ColorManager blackGroundColor]];
+    [self setLeftBarLogo];
     [self setRightBarButton];
-    selectedContinent = 0;
+    selectedContinent = -1;
     [self clickRefresh];
 }
 

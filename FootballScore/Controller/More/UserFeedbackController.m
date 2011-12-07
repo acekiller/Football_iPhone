@@ -8,7 +8,7 @@
 
 #import "UserFeedbackController.h"
 #import "LocaleConstants.h"
-
+#import "ColorManager.h"
 @implementation UserFeedbackController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.view setBackgroundColor:[UIColor colorWithRed:0xE3/255.0 green:0xE8/255.0 blue:0xEA/255.0 alpha:1]];
+    [self.view setBackgroundColor:[ColorManager blackGroundColor]];
     self.navigationItem.title = FNS(@"信息反馈");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];

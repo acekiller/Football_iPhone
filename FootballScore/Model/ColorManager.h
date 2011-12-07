@@ -70,4 +70,6 @@
 
 +(UIColor *)repositoryCountoryUnselectedColor;
 +(UIColor *)repositoryLegueUnselectedColor;
+
+
 @end
