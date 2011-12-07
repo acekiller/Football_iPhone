@@ -51,9 +51,9 @@
 
 - (NSString*)oddsNumberDisplay:(NSNumber*)oddsNumber
 {
-    NSString *numberString = [NSString floatToStringWithoutZeroTail:[oddsNumber floatValue]];
+    NSString *numberString = [oddsNumber stringValue];
     
-    if ([numberString rangeOfString:@"."].location == NSNotFound) 
+    if ([numberString length] == 1)
         return [NSString stringWithFormat:@"%@.0",numberString];
     else
         return numberString;

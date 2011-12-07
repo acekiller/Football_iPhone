@@ -152,7 +152,7 @@
     
     [buttonArray release];
     buttonScrollView.tag = SCROLL_VIEW_TAG;     
-    [buttonScrollView setFrame:CGRectMake(0, 95, 320, 480-95-65)];
+    [buttonScrollView setFrame:CGRectMake(0, 95, 320, 310)];
     [buttonScrollView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:buttonScrollView];
     
