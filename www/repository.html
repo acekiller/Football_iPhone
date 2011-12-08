@@ -16,6 +16,19 @@
 		<script type="text/javascript" src="js/model/ScheduleManager.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/view/ScheduleView.js" charset='utf-8'></script>
 		
+		<script type="text/javascript" src="js/model/RangqiuObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/RangqiuManager.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/RangqiuView.js" charset='utf-8'></script>
+		
+		
+		<script type="text/javascript" src="js/model/DaxiaoObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/DaxiaoManager.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/DaxiaoView.js" charset='utf-8'></script>
+		
+		<script type="text/javascript" src="js/model/ScorerObject.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/model/ScorerManager.js" charset='utf-8'></script>
+		<script type="text/javascript" src="js/view/ScorerView.js" charset='utf-8'></script>
+		
 		<script type="text/javascript" src="js/RepositoryVariable.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/repository.js" charset='utf-8'></script>
 		<script type="text/javascript" src="js/test.js" charset='utf-8'></script>
@@ -50,7 +63,90 @@
 			</div>
         </textarea>
         
-        		<textarea id="schedule-template" class="x-hidden-display">
+        
+        <textarea id="rangqiu-template" class="x-hidden-display">
+			<div id="data">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr class="data_title">
+				     <td width="98">球队</td>				
+				      <td width="28">赛</td>
+				      <td width="26">上</td>
+				      <td width="27">平</td>
+				      <td width="25">下</td>
+				      <td width="27">赢</td>
+				      <td width="27">走</td>
+				      <td width="26">输</td>
+				      <td width="36">净胜</td>
+				</tr>
+				<tpl for="dataArray">
+					<tpl if="xindex % 2 === 0">
+						<tr class="date_td1">
+					</tpl>
+					<tpl if="xindex % 2 !== 0">
+						<tr class="date_td2">
+					</tpl>
+					<td>{simplifiedTeamName}</td><td>{matches}</td><td>{up}</td><td>{draw}</td>
+					<td>{down}</td><td>{win}</td><td>{zou}</td><td>{lose}</td><td>{scoreEarn}</td>
+				</tr>
+				</tpl>
+			</table>
+			</div>
+        </textarea>
+       
+        <textarea id="daxiao-template" class="x-hidden-display">
+			<div id="data">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr class="data_title">
+				      <td width="111">球队</td>
+				      <td width="27">赛</td>
+				      <td width="27">大</td>
+				      <td width="27">走</td>
+				      <td width="31">小</td>
+				      <td width="30">大%</td>
+				      <td width="30">小%</td>
+				      <td width="37">走%</td>
+				</tr>
+				<tpl for="dataArray">
+					<tpl if="xindex % 2 === 0">
+						<tr class="date_td1">
+					</tpl>
+					<tpl if="xindex % 2 !== 0">
+						<tr class="date_td2">
+					</tpl>
+					<td>{simplifiedTeamName}</td><td>{matches}</td><td>{big}</td><td>{zou}</td>
+					<td>{small}</td><td>{daqiulv}</td><td>{xiaoqiulv}</td><td>{zoulv}</td>
+				</tr>
+				</tpl>
+			</table>
+			</div>
+        </textarea>
+        
+       	<textarea id="scorer-template" class="x-hidden-display">
+			<div id="data">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr class="data_title">
+			      <td width="81">球员</td>
+			      <td width="52">国籍</td>
+			      <td width="83">球队</td>
+			      <td width="33">进球</td>
+			      <td width="35">主进</td>
+			      <td width="36">客进</td>
+				</tr>
+				<tpl for="dataArray">
+					<tpl if="xindex % 2 === 0">
+						<tr class="date_td1">
+					</tpl>
+					<tpl if="xindex % 2 !== 0">
+						<tr class="date_td2">
+					</tpl>
+					<td>{simplifiedScorerName}</td><td>{country}</td><td>{simplifiedTeamName}</td><td>{scoreCount}</td><td>{homeScoreCount}</td><td>{awayScoreCount}</td>
+				</tr>
+				</tpl>
+			</table>
+			</div>
+        </textarea>
+        
+        	<textarea id="schedule-template" class="x-hidden-display">
 			<div id="data">
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
 			    <tr class="data_title">
