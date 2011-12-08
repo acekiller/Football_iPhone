@@ -66,14 +66,8 @@ enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.pointButton setTag:POINT_BUTTON_TAG];
-    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
-    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
-    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
-    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
-    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
-    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayYapeiDetail(true, 655164, 0)"];
+    [self buttonTagInit];
+    [self initWebView];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -98,21 +92,6 @@ enum {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key
-{
-    if (buttonCommandsDict == nil) {
-        buttonCommandsDict = [[NSMutableDictionary alloc] init];
-    }
-    [self.buttonCommandsDict setObject:command forKey:[NSNumber numberWithInt:Key]];
-        
-}
-
-- (IBAction)buttonClick:(id)sender
-{
-    id<CommonCommandDelegate> command = [self.buttonCommandsDict objectForKey:[NSNumber numberWithInt:[sender tag]]];
-    [command execute];
-}
-
 - (void)dealloc {
     [pointButton release];
     [scheduleButton release];
@@ -132,24 +111,74 @@ enum {
     [vc release];
 }
 
+- (void)buttonTagInit
+{
+    [self.pointButton setTag:POINT_BUTTON_TAG];
+    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
+    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
+    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
+    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
+    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
+    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
+}
+
+- (void)initWebView
+{
+    [self loadWebViewByHtml:@"www/repository.html"];
+    [self showActivityWithText:@"loading"];
+}
+
+- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key
+{
+    if (buttonCommandsDict == nil) {
+        buttonCommandsDict = [[NSMutableDictionary alloc] init];
+    }
+    [self.buttonCommandsDict setObject:command forKey:[NSNumber numberWithInt:Key]];
+        
+}
+
+- (IBAction)buttonClick:(id)sender
+{
+    id<CommonCommandDelegate> command = [self.buttonCommandsDict objectForKey:[NSNumber numberWithInt:[sender tag]]];
+    if (command) {
+        [command execute];
+    } else if ([sender tag ] == SEASON_SELECTION_BUTTON_TAG) {
+        [self showSeasonSelectionActionSheet];
+    }
+    
+}
 
 - (void)loadWebViewByHtml:(NSString*)html
 {
-    self.dataWebView.hidden = YES;
+    self.dataWebView.hidden = NO;
     loadCount = 0;
     showDataFinished = NO;
     
     NSURL* url = [FileUtil bundleURL:html];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"load webview url = %@", [request description]);
+    PPDebug(@"load webview url = %@", [request description]);
     if (request) {
         [self.dataWebView loadRequest:request];        
     }        
 }
 
-- (void)initWebView
+- (void)showSeasonSelectionActionSheet
 {
-    [self loadWebViewByHtml:@"www/match_detail.html"];
+    
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
+    loadCount ++; 
+ 
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"<webView> didFailLoadWithError, error=%@", [error description]);
 }
 
 @end

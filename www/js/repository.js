@@ -18,11 +18,23 @@ DepositoryApp = new Ext.Application({
 
 //		测试联赛积分
 //		testDisplayJifenLocally();
-//        testDisplayJifenRemote();
-//        测试赛程
-        testDisplayScheduleLocally();
-//        testDisplayScheduleRemote();
+//      testDisplayJifenRemote();
 
+//        测试赛程
+//      testDisplayScheduleLocally();
+//      testDisplayScheduleRemote();
+
+//		测试射手榜
+//      testDisplayScorerLocally();
+//      testDisplayScorerRemote();
+        
+//		测试大小
+//      testDisplayDaxiaoLocally();
+//      testDisplayDaxiaoRemote();
+
+//		测试让球
+//      testDisplayRangqiuLocally();
+      testDisplayRangqiuRemote();
     }
 
 });
@@ -35,7 +47,11 @@ function hideView(view){
 }
 
 function hideAllView(){
-	
+	hideView(DepositoryApp.daxiaoView);
+	hideView(DepositoryApp.jifenView);
+	hideView(DepositoryApp.rangqiuView);
+	hideView(DepositoryApp.scheduleView);
+	hideView(DepositoryApp.scorerView);
 }
 
 function setCurrentView(panel){	
@@ -44,7 +60,7 @@ function setCurrentView(panel){
 	panel.show();	
 }
 
-function getjifenView()
+function getJifenView()
 {
 	if (DepositoryApp.jifenView != null)
 		return DepositoryApp.jifenView;
@@ -63,7 +79,7 @@ function displayJifen(reload, leagueId, season, lang, data){
 			return false;
 		}
 	}
-	DepositoryApp.jifenView = getjifenView();	
+	DepositoryApp.jifenView = getJifenView();	
 	setCurrentView(DepositoryApp.jifenView.mainPanel);	
 	DepositoryApp.jifenView.updateView(jifenManager);
 	return true;	
@@ -98,5 +114,81 @@ function displaySchedule(reload, leagueId, season, round, lang, data){
 	DepositoryApp.scheduleView = getscheduleView();	
 	setCurrentView(DepositoryApp.scheduleView.mainPanel);	
 	DepositoryApp.scheduleView.updateView(scheduleManager);
+	return true;	
+}
+
+function getScorerView()
+{
+	if (DepositoryApp.scorerView != null)
+		return DepositoryApp.scorerView;
+	else
+		return new ScorerView();
+}
+
+
+function displayScorer(reload, leagueId, season, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (scorerManager.readData(data) == false) {
+				return false;
+			}
+		} else if (scorerManager.requestDataFromServer(leagueId, season, lang) == false){
+			return false;
+		}
+	}
+	DepositoryApp.scorerView = getScorerView();	
+	setCurrentView(DepositoryApp.scorerView.mainPanel);	
+	DepositoryApp.scorerView.updateView(scorerManager);
+	return true;	
+}
+
+
+function getDaxiaoView()
+{
+	if (DepositoryApp.daxiaoView != null)
+		return DepositoryApp.daxiaoView;
+	else
+		return new DaxiaoView();
+}
+
+
+function displayDaxiao(reload, leagueId, season, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (daxiaoManager.readData(data) == false) {
+				return false;
+			}
+		} else if (daxiaoManager.requestDataFromServer(leagueId, season, lang) == false){
+			return false;
+		}
+	}
+	DepositoryApp.daxiaoView = getDaxiaoView();	
+	setCurrentView(DepositoryApp.daxiaoView.mainPanel);	
+	DepositoryApp.daxiaoView.updateView(daxiaoManager);
+	return true;	
+}
+
+function getRangqiuView()
+{
+	if (DepositoryApp.rangqiuView != null)
+		return DepositoryApp.rangqiuView;
+	else
+		return new RangqiuView();
+}
+
+
+function displayRangqiu(reload, leagueId, season, lang, data){
+	if (reload) {
+		if (data != undefined) {
+			if (rangqiuManager.readData(data) == false) {
+				return false;
+			}
+		} else if (rangqiuManager.requestDataFromServer(leagueId, season, lang) == false){
+			return false;
+		}
+	}
+	DepositoryApp.rangqiuView = getRangqiuView();	
+	setCurrentView(DepositoryApp.rangqiuView.mainPanel);	
+	DepositoryApp.rangqiuView.updateView(rangqiuManager);
 	return true;	
 }

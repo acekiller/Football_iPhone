@@ -14,7 +14,7 @@
 
 @end
 
-@interface LeagueScheduleController : PPViewController {
+@interface LeagueScheduleController : PPViewController{
     NSMutableDictionary*  buttonCommandsDict;
     League* league;
 };
@@ -36,6 +36,8 @@
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
+- (void)buttonTagInit;
+- (void)showSeasonSelectionActionSheet;
 @end
 
 
