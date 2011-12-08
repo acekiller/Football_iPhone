@@ -498,7 +498,18 @@
     if (self && match) {
         NSString *leagueName = [[LeagueManager defaultIndexManager]getNameById:match.leagueId];
         NSString *dateString = dateToStringByFormat(match.date, @"MM/dd");
-        NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
+        
+        NSString *teamString=nil;
+        
+        if ([match.status intValue] == MATCH_STATUS_FINISH) 
+        {
+            teamString = [NSString stringWithFormat:@"%@ %@:%@ %@",match.homeTeamName,match.homeTeamScore,match.awayTeamScore,match.awayTeamName];
+        }
+        else
+        {
+            teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
+        }
+
         NSString *leagueDate = [NSString stringWithFormat:@"%@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
         CGFloat x = 25.0;

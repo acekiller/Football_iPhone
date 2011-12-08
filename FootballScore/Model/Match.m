@@ -135,6 +135,9 @@
             date:(NSString*)dateValue 
     homeTeamName:(NSString*)homeTeamNameValue 
     awayTeamName:(NSString*)awayTeamNameValue
+          status:(NSString*)statusValue
+   homeTeamScore:(NSString*)homeTeamScoreValue
+   awayTeamScore:(NSString*)awayTeamScoreValue
 {
     self = [super init];
     if (self) {
@@ -144,6 +147,9 @@
                                                   DEFAULT_DATE_FORMAT);
         self.homeTeamName = homeTeamNameValue;
         self.awayTeamName = awayTeamNameValue;
+        [self setStatus:[NSNumber numberWithInt:[statusValue intValue]]];
+        self.homeTeamScore = homeTeamScoreValue;
+        self.awayTeamScore = awayTeamScoreValue;
     }
     return self;
     

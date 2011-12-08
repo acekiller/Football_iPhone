@@ -182,7 +182,10 @@ enum{
         leagueId:(NSString*)leagueIdValue 
             date:(NSString*)dateValue 
     homeTeamName:(NSString*)homeTeamName 
-    awayTeamName:(NSString*)awayTeamName;
+    awayTeamName:(NSString*)awayTeamName
+          status:(NSString*)statusValue
+   homeTeamScore:(NSString*)homeTeamScoreValue
+   awayTeamScore:(NSString*)awayTeamScoreValue;
 
 - (int)matchSelectStatus;
 - (void)updateStartDate:(NSDate*)newStartDate;
