@@ -530,6 +530,8 @@
         [aString setTextColor:[UIColor whiteColor] range:range2];
         
         aLabel.attributedText = aString;
+        aLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    
         [self.layer setContents:(id)[UIImage imageNamed:@"odds_up.png"].CGImage];
         [aLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:aLabel];
