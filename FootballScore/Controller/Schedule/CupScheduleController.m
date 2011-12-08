@@ -114,6 +114,16 @@
     }        
 }
 
+- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key
+{
+    
+}
+
+- (void)showTypeSelectionActionSheet
+{
+    
+}
+
 
 @end
 

@@ -204,7 +204,7 @@
     switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
-            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
+            return [NSString stringWithFormat:@"%d.%d(%d.%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_MIDDLE:
             return FNS(@"中");
         case MATCH_STATUS_FINISH:
@@ -238,7 +238,7 @@ enum {
     [leagueName setFont:[UIFont systemFontOfSize:12]];
     [dateAndStatus setFont:[UIFont systemFontOfSize:11]];
     [homeTeamName setFont:[UIFont systemFontOfSize:12]];
-    [scoreLabel setFont:[UIFont systemFontOfSize:12]];
+    [scoreLabel setFont:[UIFont systemFontOfSize:11]];
     [awayTeamName setFont:[UIFont systemFontOfSize:12]];
     [leagueName setBackgroundColor:[UIColor clearColor]];
     [dateAndStatus setBackgroundColor:[UIColor clearColor]];
