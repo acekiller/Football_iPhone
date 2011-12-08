@@ -8,8 +8,14 @@
 
 #import "CupScheduleController.h"
 #import "LeagueController.h"
+#import "FileUtil.h"
+#import "LogUtil.h"
 
 @implementation CupScheduleController
+@synthesize groupPointsButton;
+@synthesize groupMatchButton;
+@synthesize dataWebView;
+@synthesize matchResultButton;
 @synthesize league;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,11 +49,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initWebView];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
+    [self setDataWebView:nil];
+    [self setGroupMatchButton:nil];
+    [self setGroupPointsButton:nil];
+    [self setMatchResultButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -65,6 +76,44 @@
     [superController.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
+
+- (void)dealloc {
+    [dataWebView release];
+    [groupMatchButton release];
+    [groupPointsButton release];
+    [matchResultButton release];
+    [super dealloc];
+}
+
+- (void)buttonTagInit
+{
+
+}
+
+- (void)initWebView
+{
+    [self loadWebViewByHtml:@"www/repository.html"];
+    [self showActivityWithText:@"loading"];
+}
+
+
+- (IBAction)buttonClick:(id)sender
+{
+
+}
+
+- (void)loadWebViewByHtml:(NSString*)html
+{
+    self.dataWebView.hidden = NO;
+    
+    NSURL* url = [FileUtil bundleURL:html];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    PPDebug(@"load webview url = %@", [request description]);
+    if (request) {
+        [self.dataWebView loadRequest:request];        
+    }        
+}
+
 
 @end
 

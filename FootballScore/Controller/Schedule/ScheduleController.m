@@ -42,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
     [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString([NSDate dateWithTimeIntervalSinceNow:0]), chineseWeekDayFromDate([NSDate dateWithTimeIntervalSinceNow:0])]];
     [self.selectedDateButton setTitle:FNS(@" 选择日期") forState:UIControlStateNormal];
@@ -89,6 +90,11 @@
     Match* match = [self.dataList objectAtIndex:[indexPath row]];
     [self setCell:cell withMatch:match];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if ([indexPath row]%2 != 0) {
+        [cell.contentView setBackgroundColor:[ColorManager scoreIndexTitleCellBackgroundColor]];
+    } else {
+        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+    }
     return cell;
 }
 
@@ -224,16 +230,21 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 55, 30)];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 45, 30)];
     UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 30)];
     UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 30)];
     UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 30)];
     [leagueName setFont:[UIFont systemFontOfSize:12]];
-    [dateAndStatus setFont:[UIFont systemFontOfSize:12]];
+    [dateAndStatus setFont:[UIFont systemFontOfSize:11]];
     [homeTeamName setFont:[UIFont systemFontOfSize:12]];
     [scoreLabel setFont:[UIFont systemFontOfSize:12]];
     [awayTeamName setFont:[UIFont systemFontOfSize:12]];
+    [leagueName setBackgroundColor:[UIColor clearColor]];
+    [dateAndStatus setBackgroundColor:[UIColor clearColor]];
+    [homeTeamName setBackgroundColor:[UIColor clearColor]];
+    [scoreLabel setBackgroundColor:[UIColor clearColor]];
+    [awayTeamName setBackgroundColor:[UIColor clearColor]];
     [leagueName setTag:TAG_LEAGUE_NAME];
     [dateAndStatus setTag:TAG_DATE_AND_STATUS];
     [homeTeamName setTag:TAG_HOME_TEAM_NAME];
@@ -265,5 +276,13 @@ enum {
     [dateAndStatus setText:[NSString stringWithFormat:@"%@", [self convertMatchStartTime:match.date]]];
     [scoreLabel setText:[self convertStatus:match]];
     [awayTeamName setText:match.awayTeamName];
+    [dateAndStatus setTextColor:[UIColor grayColor]];
+    [homeTeamName setTextColor:[ColorManager soundsAlertColor]];
+    [awayTeamName setTextColor:[ColorManager soundsAlertColor]];
+    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || [match.status intValue] == MATCH_STATUS_SECOND_HALF) {
+        [scoreLabel setTextColor:[UIColor redColor]];
+    } else {
+        [scoreLabel setTextColor:[UIColor blueColor]];
+    }
 }
 @end
