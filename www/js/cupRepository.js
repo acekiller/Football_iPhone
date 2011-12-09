@@ -39,8 +39,9 @@ function hideView(view){
 }
 
 function hideAllView(){
-	hideView(CupRepositoryApp.daxiaoView);
-	
+	hideView(CupRepositoryApp.cupGroupPointsView);
+	hideView(CupRepositoryApp.cupGroupResultView);
+	hideView(CupRepositoryApp.cupScheduleResultView);
 }
 
 function setCurrentView(panel){	
