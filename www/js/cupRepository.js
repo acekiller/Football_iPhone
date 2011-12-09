@@ -15,10 +15,17 @@ CupRepositoryApp = new Ext.Application({
         // set launched flag
         MatchDetailApp.isLaunched = 1;
         
+        //测试小组积分
+//        testDisplayCupGroupPointsLocally();
+//        testDisplayCupGroupPointsRemote();
         
-        testDisplayCupGroupPointsLocally();
-//        testDisplayCupGroupResultLocally();
+        //测试小组赛程赛果
 //        testDisplayCupScheduleResultLocally();
+//        testDisplayCupScheduleResultRemote();
+        
+        //测试（十六强等其它）赛程赛果
+//        testDisplayCupGroupResultLocally();
+//        testDisplayCupGroupResultRemote();
 
     }
 
