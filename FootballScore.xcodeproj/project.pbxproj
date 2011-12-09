@@ -323,7 +323,6 @@
 		CAF4D4E7142ED016001D5B4A /* ActionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D18E142ED014001D5B4A /* ActionSelector.m */; };
 		CAF4D4E8142ED016001D5B4A /* ArrayOfCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D190142ED014001D5B4A /* ArrayOfCharacters.m */; };
 		CAF4D4E9142ED016001D5B4A /* DeviceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D192142ED014001D5B4A /* DeviceDetection.m */; };
-		CAF4D4EA142ED016001D5B4A /* ReviewRequest.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAF4D193142ED014001D5B4A /* ReviewRequest.strings */; };
 		CAF4D4EB142ED016001D5B4A /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D196142ED014001D5B4A /* FileUtil.m */; };
 		CAF4D4EC142ED016001D5B4A /* FontUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D198142ED014001D5B4A /* FontUtils.m */; };
 		CAF4D4ED142ED016001D5B4A /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4D19A142ED014001D5B4A /* GTMBase64.m */; };
@@ -911,7 +910,6 @@
 		CAF4D190142ED014001D5B4A /* ArrayOfCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayOfCharacters.m; sourceTree = "<group>"; };
 		CAF4D191142ED014001D5B4A /* DeviceDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetection.h; sourceTree = "<group>"; };
 		CAF4D192142ED014001D5B4A /* DeviceDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetection.m; sourceTree = "<group>"; };
-		CAF4D194142ED014001D5B4A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/ReviewRequest.strings; sourceTree = "<group>"; };
 		CAF4D195142ED014001D5B4A /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
 		CAF4D196142ED014001D5B4A /* FileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtil.m; sourceTree = "<group>"; };
 		CAF4D197142ED014001D5B4A /* FontUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontUtils.h; sourceTree = "<group>"; };
@@ -939,8 +937,6 @@
 		CAF4D1AD142ED014001D5B4A /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeUtils.m; sourceTree = "<group>"; };
 		CAF4D1AE142ED014001D5B4A /* UIImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageUtil.h; sourceTree = "<group>"; };
 		CAF4D1AF142ED014001D5B4A /* UIImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageUtil.m; sourceTree = "<group>"; };
-		CAF4D1B0142ED014001D5B4A /* zh_Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_Hans; path = zh_Hans.lproj/ReviewRequest.strings; sourceTree = "<group>"; };
-		CAF4D1B1142ED014001D5B4A /* zh_Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_Hant; path = zh_Hant.lproj/ReviewRequest.strings; sourceTree = "<group>"; };
 		CAF4D1B3142ED014001D5B4A /* SearchHistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryManager.h; sourceTree = "<group>"; };
 		CAF4D1B4142ED014001D5B4A /* SearchHistoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryManager.m; sourceTree = "<group>"; };
 		CAF4D1B5142ED014001D5B4A /* TextViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewExt.h; sourceTree = "<group>"; };
@@ -2057,7 +2053,6 @@
 				CAF4D190142ED014001D5B4A /* ArrayOfCharacters.m */,
 				CAF4D191142ED014001D5B4A /* DeviceDetection.h */,
 				CAF4D192142ED014001D5B4A /* DeviceDetection.m */,
-				CAF4D193142ED014001D5B4A /* ReviewRequest.strings */,
 				CAF4D195142ED014001D5B4A /* FileUtil.h */,
 				CAF4D196142ED014001D5B4A /* FileUtil.m */,
 				CAF4D197142ED014001D5B4A /* FontUtils.h */,
@@ -2487,7 +2482,6 @@
 				CAF4D3FE142ED015001D5B4A /* MoreTableViewCell.xib in Resources */,
 				CAF4D479142ED015001D5B4A /* Help.txt in Resources */,
 				CAF4D4DF142ED016001D5B4A /* SpecialCharacters.txt in Resources */,
-				CAF4D4EA142ED016001D5B4A /* ReviewRequest.strings in Resources */,
 				CAF4D516142ED016001D5B4A /* arrow_left_24.png in Resources */,
 				CAF4D517142ED016001D5B4A /* arrow_left_24@2x.png in Resources */,
 				CAF4D518142ED016001D5B4A /* arrow_left_64.png in Resources */,
@@ -2976,16 +2970,6 @@
 				CAF4CF90142ED014001D5B4A /* zh-Hant */,
 			);
 			name = EGORefresh.strings;
-			sourceTree = "<group>";
-		};
-		CAF4D193142ED014001D5B4A /* ReviewRequest.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CAF4D194142ED014001D5B4A /* English */,
-				CAF4D1B0142ED014001D5B4A /* zh_Hans */,
-				CAF4D1B1142ED014001D5B4A /* zh_Hant */,
-			);
-			name = ReviewRequest.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

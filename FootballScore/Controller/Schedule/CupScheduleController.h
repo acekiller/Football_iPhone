@@ -7,6 +7,7 @@
 //
 
 #import "PPViewController.h"
+#import "LeagueScheduleController.h"
 @class League;
 
 @interface CupScheduleController : PPViewController {
@@ -16,6 +17,16 @@
 
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (id)initWithLeague:(League*)leagueValue;
+@property (retain, nonatomic) IBOutlet UIButton *groupPointsButton;
+@property (retain, nonatomic) IBOutlet UIButton *groupMatchButton;
+@property (retain, nonatomic) IBOutlet UIButton *matchResultButton;
+@property (retain, nonatomic) IBOutlet UIWebView *dataWebView;
+
+- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key; 
+- (void)loadWebViewByHtml:(NSString*)html;
+- (void)initWebView;
+- (void)buttonTagInit;
+- (void)showTypeSelectionActionSheet;
 
 @end
 

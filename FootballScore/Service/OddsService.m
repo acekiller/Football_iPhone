@@ -53,6 +53,9 @@ enum MATCH_INDEX {
     INDEX_OF_MATCH_TIME,
     INDEX_OF_HOME_TEAM_NAME,
     INDEX_OF_AWAY_TEAM_NAME,
+    INDEX_OF_MATCH_STATUS,
+    INDEX_OF_HOME_TEAM_SCORE,
+    INDEX_OF_AWAY_TEAM_SCORE
     };
 
 enum YAPEI_INDEX {
@@ -205,8 +208,12 @@ enum OUPEI_INDEX {
                              NSString* matchTime = [data objectAtIndex:INDEX_OF_MATCH_TIME];
                              NSString* homeTeamName = [data objectAtIndex:INDEX_OF_HOME_TEAM_NAME];
                              NSString* awayTeamName = [data objectAtIndex:INDEX_OF_AWAY_TEAM_NAME];
+                             NSString* matchStatus = [data objectAtIndex:INDEX_OF_MATCH_STATUS];
+                             NSString* homeTeamScore = [data objectAtIndex:INDEX_OF_HOME_TEAM_SCORE];
+                             NSString* awayTeamScore = [data objectAtIndex:INDEX_OF_AWAY_TEAM_SCORE];
+
+                             Match* match = [[Match alloc] initWithId:matchId leagueId:leagueId date:matchTime homeTeamName:homeTeamName awayTeamName:awayTeamName status:matchStatus homeTeamScore:homeTeamScore awayTeamScore:awayTeamScore];
                              
-                             Match* match = [[Match alloc] initWithId:matchId leagueId:leagueId date:matchTime homeTeamName:homeTeamName awayTeamName:awayTeamName];
                              [manager.matchArray addObject:match];
                              [matchIndexArray addObject:match];
                              [match release];

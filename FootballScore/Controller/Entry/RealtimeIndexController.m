@@ -110,25 +110,14 @@
     
 }
 
-- (void)clickRefleshButton
-{
-    if (self.oddsType < 1 || self.oddsType > 3) {
-        return;
-    }
-    [self showActivityWithText:@"加载数据中..."];
-    [self updateAllOddsData];
-
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     
     supportRefreshHeader = YES;
-    [self setRefreshHeaderViewFrame:CGRectMake(0, 0 - self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.width)];
-    
+    [super viewDidLoad];
+    [self setRefreshHeaderViewFrame:CGRectMake(0, 0 - self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
     [self setLeftBarLogo];
     [self setRightBarButtons];
     [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
@@ -161,13 +150,7 @@
     if (self.oddsType < 1 || self.oddsType > 3) {
         return;
     }
-    [self showActivityWithText:@"加载数据中..."];
     [self updateAllOddsData];
-}
-
-- (void)dataSourceDidFinishLoadingNewData{
-    _reloading = NO;
-    [super dataSourceDidFinishLoadingNewData];
 }
 
 
@@ -403,6 +386,7 @@
 - (void)getOddsListFinish:(int)reslutCode
 {
     [self hideActivity];
+    [self dataSourceDidFinishLoadingNewData];
     OddsManager* manager = [OddsManager defaultManager];
     [manager selectAllLeague];
     self.matchOddsList = [manager filterOddsByOddsType:self.oddsType];
@@ -514,7 +498,18 @@
     if (self && match) {
         NSString *leagueName = [[LeagueManager defaultIndexManager]getNameById:match.leagueId];
         NSString *dateString = dateToStringByFormat(match.date, @"MM/dd");
-        NSString *teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
+        
+        NSString *teamString=nil;
+        
+        if ([match.status intValue] == MATCH_STATUS_FINISH) 
+        {
+            teamString = [NSString stringWithFormat:@"%@ %@:%@ %@",match.homeTeamName,match.homeTeamScore,match.awayTeamScore,match.awayTeamName];
+        }
+        else
+        {
+            teamString = [NSString stringWithFormat:@"%@ VS %@",match.homeTeamName,match.awayTeamName];
+        }
+
         NSString *leagueDate = [NSString stringWithFormat:@"%@ %@",leagueName,dateString];
         NSString *title = [NSString stringWithFormat:@"%@   %@",leagueDate, teamString];
         CGFloat x = 25.0;
