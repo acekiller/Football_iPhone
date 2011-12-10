@@ -34,7 +34,7 @@ DepositoryApp = new Ext.Application({
 
 //		测试让球
 //      testDisplayRangqiuLocally();
-      testDisplayRangqiuRemote();
+//      testDisplayRangqiuRemote();
     }
 
 });
