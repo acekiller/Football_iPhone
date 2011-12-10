@@ -170,14 +170,14 @@ MatchDetailView.prototype = {
 	constructor : MatchDetailView,
 	updateView : function(manager){
 		
-		this.eventPanel.update(manager.eventArray);
-		
 		if (manager.eventArray == null || manager.eventArray.length == 0) {
 			this.noEventPanel.show();
 			this.noEventPanel.update();
 		}
 		else{
 			this.noEventPanel.hide();
+			this.eventPanel.update(manager.eventArray);
+
 		}
 		
 		if (manager.statArray == null || manager.statArray.length == 0) {

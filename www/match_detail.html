@@ -156,11 +156,11 @@
                     <td width="9%">变</td>
                 </tr>
 				<tpl for="dataArray">
-				<tr>
+				<tr onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})">
 					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
-        			<td>{homeChupei}&nbsp;&nbsp;<span style="color:#ff0000">{chupan}</span>&nbsp;&nbsp;{awayChupei}</td>
-        			<td>{homeJishi}&nbsp;&nbsp;<span style="color:#ff0000">{jishi}</span>&nbsp;&nbsp;{awayJishi}</td>
-        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="14" /></div></td>
+        			<td><span style="color:#2D6EAE">{homeChupei}</span>&nbsp;&nbsp;<span style="color:#ff0000">{chupan}</span>&nbsp;&nbsp;<span style="color:#2D6EAE">{awayChupei}</span></td>
+        			<td><span style="color:#2D6EAE">{homeJishi}</span>&nbsp;&nbsp;<span style="color:#ff0000">{jishi}</span>&nbsp;&nbsp;<span style="color:#2D6EAE">{awayJishi}</span></td>
+        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="18" /></div></td>
 				</tr>
 				</tpl>
         </textarea>
@@ -233,8 +233,8 @@
 		<textarea id="analysis-template" class="x-hidden-display">
 			<div id="fx">
 <!--积分排名-->					
-						<div id="ttt" class="fx_title1" onclick="pointsAction(this)">积分排名</div>
-							<div id ="table_points" style="display:block;">
+						<div id="pointsRankTitle" class="fx_title1" onclick="pointsAction()">积分排名</div>
+							<div id ="table_points" style="display:none;">
 								<table width="100%" border="0" cellpadding="0" cellspacing="0" >
 									<tbody>
 									<tr><td class="fx_2title" colspan="11">{hometeam} 全场</td></tr>	
@@ -267,8 +267,8 @@
 							</div>
 							
 <!--对赛往绩-->				
-						<div class="fx_title1" onclick="headtoheadActoin(this)">对赛往绩</div>
-							<div id ="table_headtohead" style="display:block;">
+						<div id="headtoheadTitle" class="fx_title1" onclick="headtoheadActoin()">对赛往绩</div>
+							<div id ="table_headtohead" style="display:none;">
 								<tpl for="groupHeadtoheadArray">
 								<li>
 									<table  width="100%" border="0" cellpadding="0" cellspacing="0" >
@@ -287,8 +287,8 @@
 								</tpl>
 							</div>
 <!--近期战绩-->					
-						<div class="fx_title1" onclick="recordsAction(this)">近期战绩</div>
-							<div id="table_records" style="display:block;">
+						<div id="recordsTitle" class="fx_title1" onclick="recordsAction()">近期战绩</div>
+							<div id="table_records" style="display:none;">
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 										<tr><td class="fx_2title" colspan="6">{hometeam}</td></tr>
 										<tr class="o_title">
@@ -316,8 +316,8 @@
 					</td>
 				</tr>
 <!--未来三场-->					
-						<div class="fx_title1" onclick="near3gamesAction(this)">未来三场</div>	
-							<div id="table_near3games" style="display:block;">
+						<div id="near3gamesTitle" class="fx_title1" onclick="near3gamesAction()">未来三场</div>	
+							<div id="table_near3games" style="display:none;">
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 										<tr><td class="fx_2title" colspan="4">{hometeam}</td></tr>
 										<tr class="o_title">
@@ -342,8 +342,8 @@
 									</table>
 							</div>						
 <!--心水推荐-->				
-						<div class="fx_title1" onclick="recommendAction(this)">心水推荐</div>	
-							<div id="table_recommend" style="display:block;">
+						<div id="recommendTitle" class="fx_title1" onclick="recommendAction()">心水推荐</div>	
+							<div id="table_recommend" style="display:none;">
 									<tpl for="recommendArray">
 									<table width="100%" border="0" cellpadding="0" cellspacing="0" >
 										<tr class="o_title">
