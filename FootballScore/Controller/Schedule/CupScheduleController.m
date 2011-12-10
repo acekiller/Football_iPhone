@@ -12,6 +12,10 @@
 #import "LogUtil.h"
 #import "LocaleConstants.h"
 #import "TimeUtils.h"
+#import "LanguageManager.h"
+#import "League.h"
+
+#define WEB_VIEW_URL @"www/cupRepository.html"
 
 @implementation CupScheduleController
 @synthesize groupPointsButton;
@@ -19,6 +23,7 @@
 @synthesize dataWebView;
 @synthesize matchResultButton;
 @synthesize league;
+@synthesize currentSeason;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,7 +58,8 @@
     [super viewDidLoad];
     [self initWebView];
     [self initBarButton];
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayCupGroupPoints(true, 67, 2006-2008, 1193, 0)"];
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayCupScheduleResult(true, \"67\", \"2006-2008\",\"1193\",'0');"];
+    [self.dataWebView setHidden:NO];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -104,7 +110,7 @@ enum {
 
 - (void)initWebView
 {
-    [self loadWebViewByHtml:@"www/cupRepository.html"];
+    [self loadWebViewByHtml:WEB_VIEW_URL];
     //[self showActivityWithText:@"loading"];
 }
 
@@ -124,10 +130,21 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    //NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, \"%@\", %d);",
-    //                    match.matchId, [LanguageManager getLanguage]];    
-    //PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
-    //[self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(reload, \"%@\", \"%@\", '1193', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    
+    self.dataWebView.hidden = NO;    
+    [self hideActivity];
+}
+
+- (void)updateGroupPoints
+{
+    //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+    //                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(reload, \"%@\", \"%@\", '1193', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
     self.dataWebView.hidden = NO;    
     [self hideActivity];
@@ -136,12 +153,15 @@ enum {
 // return the view is shown directly or not
 - (BOOL)showMatchResult:(BOOL)needReload
 {
-    //    if (self.eventString == nil || needReload){
-    //        [self loadMatchEventFromServer];
-    //        return NO;
-    //    }
-    
+
    [self updateMatchResult];
+    return YES;
+}
+
+- (BOOL)groupPoints:(BOOL)needReload
+{
+    
+    [self updateGroupPoints];
     return YES;
 }
 
@@ -154,11 +174,7 @@ enum {
             break;
             
         case GROUP_POINT_BUTTON_TAG:
-            //[self showOupeiView:needReload];
-            break;
-            
-        case MATCH_TYPE_SELECT_BUTTON_TAG:
-            //[self showYapeiView:needReload];
+            [self groupPoints:needReload];
             break;
         default:
             break;

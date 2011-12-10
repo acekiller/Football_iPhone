@@ -25,6 +25,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *matchTypeSelectButton;
 @property (retain, nonatomic) IBOutlet UIButton *matchResultButton;
 @property (retain, nonatomic) IBOutlet UIWebView *dataWebView;
+@property (retain, nonatomic) NSString* currentSeason;
 
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
