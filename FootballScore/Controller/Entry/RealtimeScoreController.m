@@ -220,13 +220,19 @@
     [self dataSourceDidFinishLoadingNewData];
 
     self.dataList = [[MatchManager defaultManager] filterMatch];
-    if (self.dataList == nil || [self.dataList count] == 0) {
-        [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
-    } else {
+    if (self.dataList == nil || [self.dataList count] == 0) 
+    {
+        if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW ) 
+            [self showTipsOnTableView:FNS(@"您还没有选择关注的赛事")];
+        else
+            [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
+    } 
+    else 
+    {
         [self hideTipsOnTableView];
     }
-    [self.dataTableView reloadData];   
     
+    [self.dataTableView reloadData];   
 }
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet
