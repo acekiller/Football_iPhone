@@ -109,7 +109,7 @@
 
 - (void)viewDidLoad
 {
-    int UPDATE_TIME_INTERVAL = 1;
+    int UPDATE_TIME_INTERVAL = 2;
     self.supportRefreshHeader = YES;
     
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL

@@ -51,7 +51,11 @@
 
 + (NSTimeInterval)getRefreshInterval
 {
-    return [[NSUserDefaults standardUserDefaults] doubleForKey:REFRESH_INTERVAL];
+    NSNumber* timeInterval = [[NSUserDefaults standardUserDefaults] objectForKey:REFRESH_INTERVAL];
+    if (timeInterval == nil) 
+        return 10;  // default is 10 seconds
+    else
+        return [timeInterval doubleValue];
 }
 
 @end
