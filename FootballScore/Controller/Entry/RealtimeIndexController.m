@@ -389,7 +389,7 @@
     [self dataSourceDidFinishLoadingNewData];
     OddsManager* manager = [OddsManager defaultManager];
     [manager selectAllLeague];
-    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType];
+    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
@@ -456,7 +456,7 @@
 
 - (void)filterOddsByLeague:(NSSet*)filterLeagueIdSet
 {
-    self.matchOddsList = [[OddsManager defaultManager] filterOddsByOddsType:self.oddsType];
+    self.matchOddsList = [[OddsManager defaultManager] filterOddsByOddsType:self.oddsType date:self.oddsDate];
     [self.hideSectionSet removeAllObjects];
     self.dataList = [matchOddsList allKeys];
     [self updateHeaderMatch];

@@ -50,6 +50,9 @@ enum ODDS_REALTIME_INDEX {
 - (NSSet *)getOddsUpdateSet:(NSArray *)realtimeOddsArray oddsType:(ODDS_TYPE)oddsType;
 -(int)getHiddenMatchCount:(NSSet*)leagueIdSet;
 - (NSString*)getLeagueIdByMatchId:(NSString*)matchId;
-- (NSMutableDictionary*)filterOddsByOddsType:(int)oddsType;
+- (NSMutableDictionary*)filterOddsByOddsType:(int)oddsType date:(NSDate*)filterDate;
 - (void)selectAllLeague;
+
+- (BOOL)canDisplayOdds:(Odds*)odds date:(NSDate*)filterDate;
+
 @end
