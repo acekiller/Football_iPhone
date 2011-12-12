@@ -76,6 +76,7 @@ function getCupScheduleResultView()
 
 
 function displayCupGroupPoints(reload, leagueId, season, groupId, lang, data){
+	alert("小组积分");
 	if (reload) {
 		if (data != undefined) {
 			if (cupScheduleManager.readData(data) == false) {
@@ -94,6 +95,7 @@ function displayCupGroupPoints(reload, leagueId, season, groupId, lang, data){
 
 
 function displayCupGroupResult(reload, leagueId, season, groupId, lang, data){
+	alert("小组赛程");
 	if (reload) {
 		if (data != undefined) {
 			if (cupScheduleManager.readData(data) == false) {
@@ -111,6 +113,7 @@ function displayCupGroupResult(reload, leagueId, season, groupId, lang, data){
 }
 
 function displayCupScheduleResult(reload, leagueId, season, groupId, lang, data){
+	alert("赛程赛果");
 	if (reload) {
 		if (data != undefined) {
 			if (cupScheduleManager.readData(data) == false) {
