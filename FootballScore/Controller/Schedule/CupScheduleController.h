@@ -8,9 +8,10 @@
 
 #import "PPViewController.h"
 #import "LeagueScheduleController.h"
+#import "RepositoryService.h"
 @class League;
 
-@interface CupScheduleController : PPViewController <UIActionSheetDelegate>{
+@interface CupScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
     League* league;
     int currentSelection;
     BOOL isWebViewReady;

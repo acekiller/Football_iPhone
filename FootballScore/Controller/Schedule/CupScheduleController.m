@@ -51,14 +51,26 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)initGroup
+{
+    [GlobalGetRepositoryService() getGroupInfo:0 leagueId:self.league.leagueId season:[self.league.seasonList objectAtIndex:0] Delegate:self];
+}
+
+- (void)getGroupInfoFinish:(NSArray *)GroupInfo
+{
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initGroup];
+    [self buttonTagInit];
     [self initWebView];
     [self initBarButton];
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayCupScheduleResult(true, \"67\", \"2006-2008\",\"1193\",'0');"];
+    //[self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayCupScheduleResult(true, \"67\", \"2006-2008\",\"1193\",'0');"];
     [self.dataWebView setHidden:NO];
     // Do any additional setup after loading the view from its nib.
 }
@@ -130,7 +142,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(reload, \"%@\", \"%@\", '1193', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -142,7 +154,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(reload, \"%@\", \"%@\", '1193', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -195,7 +207,7 @@ enum {
 
 - (void)showWebViewByClick:(BOOL)needReload
 {
-    if (isWebViewReady){
+    if (1){
         [self showWebView:needReload];
     }
 }

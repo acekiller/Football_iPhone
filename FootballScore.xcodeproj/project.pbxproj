@@ -41,6 +41,7 @@
 		C2AF5EFB148CB501000ACF1B /* CupScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		C2BCFAD21495AFB3006A12FF /* CupMatchType.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFAD11495AFB3006A12FF /* CupMatchType.m */; };
 		C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF9236148732A80032CE9F /* ScheduleService.m */; };
 		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
 		CA0D57071438197D00EFE8F2 /* www in Resources */ = {isa = PBXBuildFile; fileRef = CA0D57061438197D00EFE8F2 /* www */; };
@@ -513,6 +514,8 @@
 		C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CupScheduleController.xib; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		C2BCFAD01495AFB3006A12FF /* CupMatchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupMatchType.h; sourceTree = "<group>"; };
+		C2BCFAD11495AFB3006A12FF /* CupMatchType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CupMatchType.m; sourceTree = "<group>"; };
 		C2BF9235148732A80032CE9F /* ScheduleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleService.h; sourceTree = "<group>"; };
 		C2BF9236148732A80032CE9F /* ScheduleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleService.m; sourceTree = "<group>"; };
 		C2D36E8F1460E64100603923 /* PPSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSegmentControl.h; sourceTree = "<group>"; };
@@ -1447,6 +1450,8 @@
 				CAA633CF148C634A00EABF7E /* Repository.m */,
 				CAA633D1148C6B6B00EABF7E /* RepositoryManager.h */,
 				CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */,
+				C2BCFAD01495AFB3006A12FF /* CupMatchType.h */,
+				C2BCFAD11495AFB3006A12FF /* CupMatchType.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2902,6 +2907,7 @@
 				C2AF5EFA148CB501000ACF1B /* CupScheduleController.m in Sources */,
 				CAA633DD148CCAE000EABF7E /* RepositoryController.m in Sources */,
 				CAF37033148DAB1B003627F8 /* LeagueController.m in Sources */,
+				C2BCFAD21495AFB3006A12FF /* CupMatchType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
