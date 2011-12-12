@@ -10,6 +10,7 @@
 #import "Repository.h"
 #import "League.h"
 #import "LocaleConstants.h"
+#import "CupMatchType.h"
 
 RepositoryManager *manager = nil;
 RepositoryManager *GlobalGetRepositoryManager()
@@ -204,6 +205,21 @@ RepositoryManager *GlobalGetRepositoryManager()
     }
     
     return leagueArray;
+}
+
+#pragma mark - cup match type getter
+- (NSArray*)getCupMatchTypes:(NSArray*)inputArray
+{
+    NSMutableArray* cupMatchTypesArray = [[[NSMutableArray alloc] init ] autorelease];
+    for (NSArray* array in inputArray) {
+        NSString* matchTypeId = [array objectAtIndex:MATCH_TYPE_ID];
+        NSString* matchTypeName = [array objectAtIndex:MATCH_TYPE_NAME];
+        NSString* isCurrent = [array objectAtIndex:IS_CURRENT];
+        CupMatchType* type = [[CupMatchType alloc] initWithId:matchTypeId name:matchTypeName isCurrentType:isCurrent];
+        [cupMatchTypesArray addObject:type];
+        [type release];
+    }
+    return cupMatchTypesArray;
 }
 
 -(void)dealloc

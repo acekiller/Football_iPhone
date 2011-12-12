@@ -9,8 +9,10 @@
 #import "RepositoryService.h"
 #import "FootballNetworkRequest.h"
 #import "RepositoryManager.h"
+#import "CupMatchType.h"
 
 #define UPDATE_Repository @"UPDATE_Repository"
+#define GET_GROUP_INFO    @"GET_GROUP_INFO"
 
 RepositoryService *service = nil;
 RepositoryService *GlobalGetRepositoryService()
@@ -53,6 +55,37 @@ RepositoryService *GlobalGetRepositoryService()
                 [aDelegate didUpdateRepository:output.resultCode];
             }
 
+        });                       
+    }];
+}
+#define MATCH_TYPE_INFO_INDEX 0
+- (void) getGroupInfo:(int)language leagueId:(NSString*)leagueId season:(NSString*)season Delegate:(id<RepositoryDelegate>)aDelegate
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_GROUP_INFO];
+    if (aDelegate && [aDelegate respondsToSelector:@selector(willUpdateRepository)]) {
+        [aDelegate willUpdateRepository];
+    }
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getCupScheduleMatchInfo:leagueId season:season language:language];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSArray* matchTypeArray = nil;
+            
+            if (output.resultCode == ERROR_SUCCESS){
+                
+                // parse score records and update match
+                NSArray *array = [output.arrayData objectAtIndex:MATCH_TYPE_INFO_INDEX];
+                RepositoryManager *manager = [RepositoryManager defaultManager];
+                matchTypeArray = [manager getCupMatchTypes:array];
+            }
+            
+            if (aDelegate && [aDelegate respondsToSelector:@selector(getGroupInfoFinish:)]) {
+                [aDelegate getGroupInfoFinish:matchTypeArray];
+            }
+            
         });                       
     }];
 }
