@@ -14,8 +14,14 @@
 #import "TimeUtils.h"
 #import "LanguageManager.h"
 #import "League.h"
+#import "CupMatchType.h"
 
 #define WEB_VIEW_URL @"www/cupRepository.html"
+
+enum {
+    SEASON_SELECTOR = 0,
+    MATCH_TYPE_SELECTOR
+    };
 
 @implementation CupScheduleController
 @synthesize groupPointsButton;
@@ -23,6 +29,8 @@
 @synthesize dataWebView;
 @synthesize matchResultButton;
 @synthesize league;
+@synthesize matchTypesList;
+@synthesize currentCupMatchType;
 @synthesize currentSeason;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,7 +66,12 @@
 
 - (void)getGroupInfoFinish:(NSArray *)GroupInfo
 {
-    
+    self.matchTypesList = GroupInfo;
+    for (CupMatchType* type in self.matchTypesList) {
+        if ([type.isCurrentType isEqualToString:@"True"]) {
+            [self.matchTypeSelectButton setTitle:type.matchTypeName forState:UIControlStateNormal];
+        }
+    }
 }
 
 #pragma mark - View lifecycle
@@ -70,7 +83,7 @@
     [self buttonTagInit];
     [self initWebView];
     [self initBarButton];
-    //[self.dataWebView stringByEvaluatingJavaScriptFromString:@"displayCupScheduleResult(true, \"67\", \"2006-2008\",\"1193\",'0');"];
+
     [self.dataWebView setHidden:NO];
     // Do any additional setup after loading the view from its nib.
 }
@@ -142,7 +155,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -154,7 +167,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '', %d);", [self.league leagueId], [self currentSeason], [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -241,17 +254,16 @@ enum {
     }        
 }
 
-#define SEASON_COUNT 5
 - (void)selectSeason
 {
-    UIActionSheet* seasonSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"类型选择") 
+    actionSheetIndex = SEASON_SELECTOR;
+    UIActionSheet* seasonSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛季选择") 
                                                                    delegate:self 
                                                           cancelButtonTitle:FNS(@"cancel") 
                                                      destructiveButtonTitle:nil 
                                                           otherButtonTitles:nil];
-    for (int i=0; i<SEASON_COUNT; i++) {
-        NSString* seasonTitle = [CupScheduleController creatSeasonByYearOffset:i];
-        [seasonSelector addButtonWithTitle:seasonTitle];
+    for (NSString* title in self.league.seasonList) {
+        [seasonSelector addButtonWithTitle:title];
     }
     [seasonSelector showFromTabBar:self.tabBarController.tabBar];
     [seasonSelector release];
@@ -259,29 +271,47 @@ enum {
 
 - (IBAction)showTypeSelectionActionSheet:(id)sender
 {
-    UIActionSheet* matchTypeSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"类型选择") 
-                                                                   delegate:self 
-                                                          cancelButtonTitle:FNS(@"cancel") 
-                                                     destructiveButtonTitle:nil 
-                                                          otherButtonTitles:FNS(@"分组赛"), FNS(@"十六强"), FNS(@"八强赛强"), FNS(@"准决赛"), FNS(@"决赛"), nil];
-    [matchTypeSelector showFromTabBar:self.tabBarController.tabBar];
-    [matchTypeSelector release];
+    actionSheetIndex = MATCH_TYPE_SELECTOR;
+    UIActionSheet* typeSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛事类别选择") 
+                                                                delegate:self 
+                                                       cancelButtonTitle:FNS(@"cancel") 
+                                                  destructiveButtonTitle:nil 
+                                                       otherButtonTitles:nil];
+    for (CupMatchType* type in self.matchTypesList) {
+        [typeSelector addButtonWithTitle:type.matchTypeName];
+    }
+    [typeSelector showFromTabBar:self.tabBarController.tabBar];
+    [typeSelector release];
+}
+
+- (void)didSelectSeason:(int)index
+{
+    [GlobalGetRepositoryService() getGroupInfo:[LanguageManager getLanguage] leagueId:self.league.leagueId season:[self.league.seasonList objectAtIndex:index] Delegate:self];
+    self.currentSeason = [self.league.seasonList objectAtIndex:index];
+}
+
+- (void)didSelectMatchType:(int)index
+{
+    self.currentCupMatchType = [self.matchTypesList objectAtIndex:index];
+    //[self updateMatchResult];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    switch (actionSheetIndex) {
+        case SEASON_SELECTOR: {
+            [self didSelectSeason:actionSheetIndex];
+        }
+            break;
+        case MATCH_TYPE_SELECTOR: {
+            [self didSelectMatchType:actionSheetIndex];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
-+ (NSString *)creatSeasonByYearOffset:(int)offset
-{
-    NSDate* nowDate = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSString* thisYearString = dateToStringByFormat(nowDate, @"YYYY");
-    int thisYearNum = [thisYearString intValue];
-    
-    return [NSString stringWithFormat:@"%d-%d", (thisYearNum-offset-1), (thisYearNum-offset)];
-    
-}
 
 
 @end
