@@ -393,3 +393,8 @@ ul,li {
 .hide{
 	display:none
 }
+
+.text_break{
+	
+	word-wrap:break-word;word-break:break-all;
+}
