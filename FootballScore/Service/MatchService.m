@@ -16,6 +16,7 @@
 #import "TimeUtils.h"
 #import "LogUtil.h"
 #import "RetryManager.h"
+#import "ConfigManager.h"
 
 #define GET_REALTIME_MATCH  @"GET_REALTIME_MATCH"
 #define GET_REALTIME_SCORE  @"GET_REALTIME_SCORE"
@@ -63,7 +64,6 @@
 }
 
 #define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
-#define REALTIME_MATCH_TIMER_INTERVAL   30*60      //30 minutes
 
 - (void)startRealtimeScoreUpdate
 {
@@ -97,7 +97,7 @@
     [self stopRealtimeMatchUpdate];
     
     // create new timer
-    self.realtimeMatchTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_MATCH_TIMER_INTERVAL target:self selector:@selector(realtimeMatchUpdateTimerTask) userInfo:nil repeats:YES];
+    self.realtimeMatchTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(realtimeMatchUpdateTimerTask) userInfo:nil repeats:YES];
 }
 
 - (void)realtimeMatchUpdateTimerTask

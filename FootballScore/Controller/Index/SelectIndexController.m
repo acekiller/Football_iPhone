@@ -120,7 +120,7 @@ typedef enum ODDS_TYPE {
     
     [self.navigationItem setTitle:@"内容筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"  action:@selector(clickBack:)];
-    [self setNavigationRightButton:fns(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
+    [self setNavigationRightButton:FNS(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
     [buttonAsianBwin setTag:ASIANBWIN];
     [buttonEuropeBwin setTag:EUROPEBWIN];
     [buttonBigandSmall setTag:BIGANDSMALL];

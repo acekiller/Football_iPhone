@@ -125,7 +125,7 @@ enum {
 - (void)initWebView
 {
     [self loadWebViewByHtml:@"www/repository.html"];
-    [self showActivityWithText:@"loading"];
+    //[self showActivityWithText:@"loading"];
 }
 
 - (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key

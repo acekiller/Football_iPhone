@@ -16,6 +16,8 @@
 #import "MatchManager.h"
 #import "LogUtil.h"
 #import "League.h"
+#import "TimeUtils.h"
+
 OddsManager* oddsManager;
 OddsManager* GlobleGetOddsManager() 
 {
@@ -219,13 +221,43 @@ OddsManager* GlobleGetOddsManager()
     return nil;
 }
 
-- (NSMutableDictionary*)filterOddsByOddsType:(int)oddsType
+- (BOOL)canDisplayOdds:(Odds*)odds date:(NSDate*)filterDate
+{
+    BOOL isToday = isChineseToday(filterDate);
+    if (!isToday)   // the conditions only work for today
+        return YES;
+    
+    MatchManager* matchManager = [MatchManager defaultMatchIndexManger];
+    Match* match = [matchManager getMathById:odds.matchId];
+    if (match == nil)
+        return YES;
+    
+    if ([match.status intValue] == MATCH_STATUS_FINISH)  
+        //The match has finished, don't display
+    {
+        return NO;
+    }
+    else if(([match.status intValue] == MATCH_STATUS_FIRST_HALF 
+        || [match.status intValue] == MATCH_STATUS_MIDDLE 
+        || [match.status intValue] == MATCH_STATUS_SECOND_HALF
+        )
+       && [match.date timeIntervalSinceNow]<=-15*60)  //The match has started, and more than 15 minutes
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+- (NSMutableDictionary*)filterOddsByOddsType:(int)oddsType date:(NSDate*)filterDate
 {
     NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init ] autorelease];
     switch (oddsType) {
         case ODDS_TYPE_YAPEI: {
             for (Odds* odds in self.yapeiArray) {
-                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]] && [self canDisplayOdds:odds date:filterDate]) {
                     [OddsManager addOdds:odds toDictionary:dict];
                 }
             }
@@ -233,7 +265,7 @@ OddsManager* GlobleGetOddsManager()
             break;
         case ODDS_TYPE_OUPEI: {
             for (Odds* odds in self.oupeiArray) {
-                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]] && [self canDisplayOdds:odds date:filterDate]) {
                     [OddsManager addOdds:odds toDictionary:dict];
                 }
             }
@@ -241,7 +273,7 @@ OddsManager* GlobleGetOddsManager()
             break;
         case ODDS_TYPE_DAXIAO: {
             for (Odds* odds in self.daxiaoArray) {
-                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]]) {
+                if ([self.filterLeagueIdList containsObject:[self getLeagueIdByMatchId:odds.matchId]] && [self canDisplayOdds:odds date:filterDate]) {
                     [OddsManager addOdds:odds toDictionary:dict];
                 }
             }

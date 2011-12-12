@@ -19,6 +19,8 @@
 #import "LeagueManager.h"
 #import "MatchManager.h"
 #import "LogUtil.h"
+#import "ConfigManager.h"
+
 #define GET_COMPANY_LIST @"GET_COMPANY_LIST"
 #define GET_ODDS_LIST    @"GET_ODDS_LIST"
 #define GET_REALTIME_ODDS @"GET_REALTIME_ODDS"
@@ -357,9 +359,6 @@ enum OUPEI_INDEX {
     }];
 }
 
-#ifndef REALTIME_ODDS_TIMER_INTERVAL 
-    #define REALTIME_ODDS_TIMER_INTERVAL 10
-#endif
 
 - (void)startGetRealtimOddsTimer:(ODDS_TYPE)oddsType delegate:(id<OddsServiceDelegate>)oddsServicedelegate
 {
@@ -374,7 +373,7 @@ enum OUPEI_INDEX {
         [self stopGetRealtimOddsTimer];
         
         // create new timer
-        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_ODDS_TIMER_INTERVAL target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:NO];
+        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:YES];
     }
 
 }
