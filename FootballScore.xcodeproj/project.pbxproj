@@ -13,6 +13,7 @@
 		A3B9F7DA146CC44200FA3C65 /* ShowRealtimeScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */; };
 		A3B9F7DB146CC44200FA3C65 /* ShowRealtimeScoreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */; };
 		A3C11F431485D55500CD218C /* goals_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A3C11F421485D55500CD218C /* goals_sound.wav */; };
+		A3C12C521495984B00615932 /* MyAlertSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A3C12C511495984B00615932 /* MyAlertSettings.plist */; };
 		A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */; };
 		A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F41147F323900BE4A61 /* RetryService.m */; };
 		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
@@ -465,6 +466,7 @@
 		A3B9F7D8146CC44200FA3C65 /* ShowRealtimeScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRealtimeScoreController.m; sourceTree = "<group>"; };
 		A3B9F7D9146CC44200FA3C65 /* ShowRealtimeScoreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowRealtimeScoreController.xib; sourceTree = "<group>"; };
 		A3C11F421485D55500CD218C /* goals_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = goals_sound.wav; sourceTree = "<group>"; };
+		A3C12C511495984B00615932 /* MyAlertSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MyAlertSettings.plist; sourceTree = "<group>"; };
 		A3FA4F3C147F2D1100BE4A61 /* RetryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryManager.h; sourceTree = "<group>"; };
 		A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryManager.m; sourceTree = "<group>"; };
 		A3FA4F40147F323900BE4A61 /* RetryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryService.h; sourceTree = "<group>"; };
@@ -1216,6 +1218,7 @@
 		C280CAA31447D6F000EBCD9A /* More */ = {
 			isa = PBXGroup;
 			children = (
+				A3C12C511495984B00615932 /* MyAlertSettings.plist */,
 				C280CAA41447D6F000EBCD9A /* AlertController.h */,
 				C280CAA51447D6F000EBCD9A /* AlertController.m */,
 				C280CAA61447D6F000EBCD9A /* AlertController.xib */,
@@ -2636,6 +2639,7 @@
 				CAB10E2E148E080700686CC9 /* data6_menu_2@2x.png in Resources */,
 				CAB10E2F148E080700686CC9 /* data6_menu_1@2x.png in Resources */,
 				CAB10E30148E080700686CC9 /* data_logo@2x.png in Resources */,
+				A3C12C521495984B00615932 /* MyAlertSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
