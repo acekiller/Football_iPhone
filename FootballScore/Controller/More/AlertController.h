@@ -26,7 +26,9 @@
     NSArray  *array;
     NSDictionary *dictionary;
     
-    
+    UISlider *timeIntervalSlider;
+    UILabel *sliderValueLable;
+    UILabel *secondLable;
 }
 
 
@@ -39,5 +41,9 @@
 @property(nonatomic,retain)NSDictionary *dictionary;
 
 @property (nonatomic, assign) int pushType;
+
+@property(nonatomic,retain)UISlider *timeIntervalSlider;
+@property(nonatomic,retain)UILabel *sliderValueLable;
+@property(nonatomic,retain)UILabel *secondLable;
 
 @end
