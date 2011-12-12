@@ -78,5 +78,5 @@ enum{
                                        language:(int)language; 
 
 + (CommonNetworkOutput*)getVersion;
-
++ (CommonNetworkOutput*)getCupScheduleMatchInfo:(NSString*)leagueId season:(NSString*)season language:(int)language;
 @end

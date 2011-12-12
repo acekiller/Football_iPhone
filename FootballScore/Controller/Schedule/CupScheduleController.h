@@ -8,13 +8,16 @@
 
 #import "PPViewController.h"
 #import "LeagueScheduleController.h"
+#import "RepositoryService.h"
 @class League;
 
-@interface CupScheduleController : PPViewController <UIActionSheetDelegate>{
+@interface CupScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
     League* league;
     int currentSelection;
     BOOL isWebViewReady;
     NSString* currentSeason;
+    NSString* currentCupMatchType;
+    int actionSheetIndex;
     
 }
 @property (retain, nonatomic) League* league;
@@ -26,14 +29,13 @@
 @property (retain, nonatomic) IBOutlet UIButton *matchResultButton;
 @property (retain, nonatomic) IBOutlet UIWebView *dataWebView;
 @property (retain, nonatomic) NSString* currentSeason;
-
+@property (retain, nonatomic) NSString* currentCupMatchType;
+@property (retain, nonatomic) NSArray* matchTypesList;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
 - (void)buttonTagInit;
 - (void)initBarButton;
 - (void)selectSeason;
-+ (NSString *)creatSeasonByYearOffset:(int)offset;
-
 @end
 
 
