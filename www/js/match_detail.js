@@ -45,8 +45,9 @@ MatchDetailApp = new Ext.Application({
 //		testDisplayLineup();
 //		testDisplayLineupRemote();
 
+        
 //		测试分析
-		testDisplayAnalysisLocal();
+//		testDisplayAnalysisLocal();
 		//testDisplayAnalysisRemote();
 		//testSep();
     }
@@ -259,6 +260,13 @@ function displayAnalysis(reload, matchId, homeTeam, awayTeam, lang, data) {
 	MatchDetailApp.analysisView = getAnalysisView();
 	setCurrentView(MatchDetailApp.analysisView.mainPanel);
 	MatchDetailApp.analysisView.updateView(analysisManager);
+	
+	pointsAction();
+	recommendAction();
+	headtoheadActoin();
+	recordsAction();
+	near3gamesAction();
+
 	return true;
 }
 
