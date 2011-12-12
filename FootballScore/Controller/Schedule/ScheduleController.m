@@ -141,7 +141,7 @@
     
     UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"一周赛事") 
                                                                 delegate:self 
-                                                       cancelButtonTitle:FNS(@"返回")
+                                                       cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil
                                                        otherButtonTitles:nil];
     
@@ -149,17 +149,19 @@
     NSTimeInterval interval;
     NSString *dateString = nil;
     NSDate *beforeDate=[NSDate date];
-    [dateActionSheet setCancelButtonIndex:-1];
 
     for (i = 0 ; i<WEEK_DAY_COUNT ;i++)
     {
-
         interval = 24*60*60*i;
         beforeDate = [date dateByAddingTimeInterval:interval];
         dateString = [df stringFromDate:beforeDate];
         int b = [dateActionSheet addButtonWithTitle: dateString];
         b = b;
     }
+    
+    [dateActionSheet addButtonWithTitle:FNS(@"返回")];
+    [dateActionSheet setCancelButtonIndex:WEEK_DAY_COUNT];
+    
     [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
     
     [dateActionSheet release];
@@ -167,10 +169,10 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
         return;
     }
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*(buttonIndex-1)];
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*(buttonIndex)];
     [GlobalGetScheduleService() getSchedule:self date:date];
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(date), chineseWeekDayFromDate(date)]];
     [self showActivityWithText:FNS(@"loading")];

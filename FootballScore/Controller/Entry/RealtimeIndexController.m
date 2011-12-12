@@ -222,7 +222,7 @@
     
     UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"历史回查") 
                                                                 delegate:self 
-                                                       cancelButtonTitle:FNS(@"返回")
+                                                       cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil
                                                        otherButtonTitles:nil];
     
@@ -230,7 +230,6 @@
     NSTimeInterval interval;
     NSString *dateString = nil;
     NSDate *beforeDate=[NSDate date];
-    [dateActionSheet setCancelButtonIndex:-1];
     
     for (i = 0 ; i<7 ;i++)
     {
@@ -239,6 +238,9 @@
         dateString = [df stringFromDate:beforeDate];
         [dateActionSheet addButtonWithTitle: dateString];
     }
+    
+    [dateActionSheet addButtonWithTitle:FNS(@"返回")];
+    [dateActionSheet setCancelButtonIndex:7];
     
     [dateActionSheet showFromTabBar:self.tabBarController.tabBar];
     
@@ -411,7 +413,7 @@
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         return;
     }
-    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:24*60*60-24*60*60*buttonIndex];
+    self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
     [self updateAllOddsData];
 }
 
