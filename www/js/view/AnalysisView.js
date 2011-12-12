@@ -15,10 +15,15 @@ function AnalysisView(){
 	};
 
     var analysisTemplate = Ext.XTemplate.from("analysis-template", helperFunctions);
+  
     
     this.analysisPanel = new Ext.Panel({
         tpl: analysisTemplate
     });
+    
+	
+	
+	
     
     this.mainPanel = new Ext.Panel({
         fullscreen: true,
@@ -37,7 +42,7 @@ AnalysisView.prototype = {
     
     updateView: function(manager){
     
-        this.analysisPanel.update(manager);
+     this.analysisPanel.update(manager);
         
     }
 };

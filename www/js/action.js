@@ -40,7 +40,12 @@ function pointsAction() {
 		obj.style.background ='url(images/fx_title_2.png)';
 	}
 	
-	addNoDataTips(subtable);	
+	var pointsRankData = document.getElementById('pointsRankData');
+	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	if(pointsRankData==null || pointsRankData==""){
+		subtable.innerHTML = html;
+	}
+	
 }
 
 function headtoheadActoin() {
@@ -54,7 +59,11 @@ function headtoheadActoin() {
 		obj.style.background ='url(images/fx_title_2.png)';
 	}
 	
-	addNoDataTips(subtable);
+	var headData = document.getElementById('headData');
+	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	if(headData==null || headData==""){
+		subtable.innerHTML = html;
+	}
 }
 
 function recordsAction() {
@@ -67,7 +76,12 @@ function recordsAction() {
 	} else {
 		obj.style.background ='url(images/fx_title_2.png)';
 	}
-	addNoDataTips(subtable);
+	
+	var recordsData = document.getElementById('recordsData');
+	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	if(recordsData==null || recordsData==""){
+		subtable.innerHTML = html;
+	}
 }
 
 function near3gamesAction() {
@@ -81,7 +95,12 @@ function near3gamesAction() {
 		obj.style.background ='url(images/fx_title_2.png)';
 	}
 	
-	addNoDataTips(subtable);
+	var Near3GamesData = document.getElementById('Near3GamesData');
+	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	if(Near3GamesData==null || v==""){
+		subtable.innerHTML = html;
+	}
+	
 }
 
 function recommendAction() {
