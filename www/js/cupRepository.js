@@ -16,7 +16,7 @@ CupRepositoryApp = new Ext.Application({
         MatchDetailApp.isLaunched = 1;
         
         //测试小组积分
-//        testDisplayCupGroupPointsLocally();
+        testDisplayCupGroupPointsLocally();
 //        testDisplayCupGroupPointsRemote();
         
         //测试小组赛程赛果
