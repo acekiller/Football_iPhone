@@ -50,12 +50,7 @@ RetryManager* GlobalGetRetryManager()
     {
         NSMutableDictionary *list =[NSMutableDictionary dictionaryWithDictionary:
                                                   [[NSUserDefaults standardUserDefaults] objectForKey:FOLLOW_UNFOLLOW_RETRYLIST]];
-        NSLog(@"%@",[list description]);
-        NSLog(@"%@",matchId);
-        
         [list removeObjectForKey:matchId];
-        NSLog(@"%@",[list description]);
-        
         [[NSUserDefaults standardUserDefaults] setObject:list forKey:FOLLOW_UNFOLLOW_RETRYLIST];
     }
 }
