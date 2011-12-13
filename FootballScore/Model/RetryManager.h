@@ -16,4 +16,7 @@
 - (void)removeFollowUnfollowFromUserDefaults:(NSString *)matchId type:(NSString *)type;
 - (NSMutableDictionary*)getFollowUnfollowListFromUserDefaults;
 
+- (void)saveNeedRetryPushSet:(BOOL)isNeed;
+- (BOOL)getNeedRetryPushSet;
+
 @end

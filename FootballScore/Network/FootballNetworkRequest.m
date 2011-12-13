@@ -357,7 +357,7 @@ enum{
                                         output:output];
 }
 
-+ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token
++ (CommonNetworkOutput*)updateUserPushInfo:(NSString*)userId pushType:(int)pushType token:(NSString*)token
 {
     CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
     
@@ -366,7 +366,7 @@ enum{
         //set input parameters
         NSString* str = [NSString stringWithString:baseURL];
         
-        str = [str stringByAddQueryParameter:@"UserID" intValue:userId];
+        str = [str stringByAddQueryParameter:@"UserID" value:userId];
         
         str = [str stringByAddQueryParameter:@"Type" intValue:pushType];
         
