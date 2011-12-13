@@ -27,6 +27,13 @@ function CupGroupPointsView(){
 	            }
 				return false;
 			},
+			
+			isOutlet : function(color){
+				if(color != "") {
+					return true;
+				}
+				return false;	
+			},
 			getStateString : function(state){
 
 	            //0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消

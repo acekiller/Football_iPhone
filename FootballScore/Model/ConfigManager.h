@@ -12,6 +12,9 @@
 #define IS_VIBRATION @"IS_VIBRATION"
 #define REFRESH_INTERVAL @"REFRESH_INTERVAL"
 
+#define REFRESH_INTERVAL_MIN 10
+#define REFRESH_INTERVAL_MAX 360
+
 @interface ConfigManager : NSObject {
     
 }

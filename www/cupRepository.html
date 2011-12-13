@@ -43,11 +43,11 @@
 							    <td width="36">积分</td>
                				</tr>
 							<tpl for="CupPointsArray">
-								<tpl if="xindex % 2 === 0">
-									<tr class="date_td1">
+								<tpl if="this.isOutlet(color)">
+									<tr class="">
 								</tpl>
-								<tpl if="xindex % 2 !== 0">
-									<tr class="date_td2">
+								<tpl if="!this.isOutlet(color)">
+									<tr class="date_td1">
 								</tpl>
 								<td>{rank}</td><td>{simplifiedTeamName}</td><td>{matches}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{scoreAgainst}</td><td>{scoreEarn}</td><td>{points}</td>
 								</tr>

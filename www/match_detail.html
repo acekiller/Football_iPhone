@@ -242,7 +242,7 @@
 	                    				<td>全场</td><td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
 	                				</tr>
 									<tpl for="homePointsArray">
-										<tr class="fx_col">
+										<tr id="pointsRankData" class="fx_col">
 										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{score_earn}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
@@ -274,11 +274,16 @@
 									<table  width="100%" border="0" cellpadding="0" cellspacing="0" >
 									<tr><td class="fx_2title" colspan="6">{[this.getYearFromDate(values)]}</td></tr>	
 									<tr class="o_title">
-										<td>日期</td><td>赛事</td><td>主场</td><td>比分</td><td>客场</td><td>半场</td>
+										<td>日期</td>
+										<td>赛事</td>
+										<td width="90">主场</td>
+										<td>比分</td>
+										<td width="90">客场</td>
+										<td>半场</td>
 									</tr>
 									<tpl for=".">
-										<tr class="fx_col">
-										<td>{[this.getMonthDayFromDate(values.time)]}</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{homeHalfPoints}-{awayHalfPoints}</td>
+										<tr id="headData" class="fx_col">
+										<td>{[this.getMonthDayFromDate(values.time)]}</td><td>{league}</td><td class="text_break">{home}</td><td>{homePoints}-{awayPoints}</td><td class="text_break">{away}</td><td>{homeHalfPoints}-{awayHalfPoints}</td>
 										</tr>
 									</tpl>
 									
@@ -292,11 +297,16 @@
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 										<tr><td class="fx_2title" colspan="6">{hometeam}</td></tr>
 										<tr class="o_title">
-											<td>日期</td><td>赛事</td><td>主队</td><td>比分</td><td>客队</td><td>盘路</td>
+											<td width="80">日期</td>
+											<td width="40">赛事</td>
+											<td width="70">主队</td>
+											<td width="30">比分</td>
+											<td width="70">客队</td>
+											<td width="30">盘路</td>
 										</tr>
-										<tpl for="homeRecordArray">
-										<tr class="fx_col">
-											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{home}</td><td>{homePoints}-{awayPoints}</td><td>{away}</td><td>{odds}</td>
+										<tpl id="tpl_homeRecordArray" for="homeRecordArray">
+										<tr id="recordsData" class="fx_col">
+											<td class="text_break">{[this.formateDate(values.time)]}</td><td class="text_break">{league}</td><td class="text_break">{home}</td><td>{homePoints}-{awayPoints}</td><td class="text_break">{away}</td><td>{odds}</td>
 										</tr>
 										</tpl>
 									</table>
@@ -316,15 +326,18 @@
 					</td>
 				</tr>
 <!--未来三场-->					
-						<div id="near3gamesTitle" class="fx_title2" onclick="near3gamesAction()">未来三场</div>	
+						<div id="near3gamesTitle" class="fx_title2" onclick="near3gamesAction()">未来三场</div>
 							<div id="table_near3games" style="display:none;">
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 										<tr><td class="fx_2title" colspan="4">{hometeam}</td></tr>
 										<tr class="o_title">
-											<td>时间</td><td>赛事</td><td>对阵</td><td>间隔</td>
+											 <td width="29%">时间</td>
+    										 <td width="20%">赛事</td>
+										     <td width="36%">对阵</td>
+										     <td width="15%">间隔</td>
 										</tr>
 										<tpl for="homeNear3GamesArray">
-										<tr class="fx_col">
+										<tr id="Near3GamesData" class="fx_col">
 											<td>{[this.formateDate(values.time)]}</td><td>{league}</td><td>{[values.home==parent.hometeam ? values.away : values.home]}</td><td>{offsetday}</td>
 										</tr>
 										</tpl>
@@ -341,6 +354,7 @@
 										</tpl>
 									</table>
 							</div>						
+						
 <!--心水推荐-->				
 						<div id="recommendTitle" class="fx_title2" onclick="recommendAction()">心水推荐</div>	
 							<div id="table_recommend" style="display:none;">
