@@ -101,7 +101,7 @@ typedef enum {
 
 - (void)optionListInit
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完整比分"), FNS(@"一周赛程"), FNS(@"比分提示设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于彩客网"), FNS(@"客户端更新"), FNS(@"退出客户端"),  nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完整比分"), FNS(@"一周赛程"), FNS(@"比分设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于彩客网"), FNS(@"客户端更新"), FNS(@"退出客户端"),  nil];
     self.listData = array;
     [array release];
 }
