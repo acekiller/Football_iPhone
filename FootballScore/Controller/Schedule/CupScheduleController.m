@@ -47,6 +47,7 @@ enum {
     self = [super init];
     if (self) {
         self.league = leagueValue;
+        self.currentSeason = [self.league.seasonList objectAtIndex:0];
     }
     return self;
 }
@@ -61,7 +62,7 @@ enum {
 
 - (void)initGroup
 {
-    [GlobalGetRepositoryService() getGroupInfo:0 leagueId:self.league.leagueId season:[self.league.seasonList objectAtIndex:0] Delegate:self];
+    [GlobalGetRepositoryService() getGroupInfo:0 leagueId:self.league.leagueId season:self.currentSeason Delegate:self];
 }
 
 - (void)getGroupInfoFinish:(NSArray *)GroupInfo
@@ -70,6 +71,7 @@ enum {
     for (CupMatchType* type in self.matchTypesList) {
         if ([type.isCurrentType isEqualToString:@"True"]) {
             [self.matchTypeSelectButton setTitle:type.matchTypeName forState:UIControlStateNormal];
+            self.currentCupMatchType = type.matchTypeId;
         }
     }
 }
@@ -155,7 +157,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -167,7 +169,19 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    
+    self.dataWebView.hidden = NO;    
+    [self hideActivity];
+}
+
+- (void)updateScheduleResult
+{
+    //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+    //                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupScheduleResult(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -190,6 +204,13 @@ enum {
     return YES;
 }
 
+- (BOOL)showScheduleResult:(BOOL)needReload
+{
+    
+    [self updateScheduleResult];
+    return YES;
+}
+
 - (void)trueShowWebView:(NSNumber*)needReloadValue
 {
     BOOL needReload = [needReloadValue boolValue];
@@ -202,6 +223,7 @@ enum {
             [self groupPoints:needReload];
             break;
         default:
+            [self showScheduleResult:needReload];
             break;
     }
     
@@ -259,12 +281,13 @@ enum {
     actionSheetIndex = SEASON_SELECTOR;
     UIActionSheet* seasonSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛季选择") 
                                                                    delegate:self 
-                                                          cancelButtonTitle:FNS(@"cancel") 
+                                                          cancelButtonTitle:nil 
                                                      destructiveButtonTitle:nil 
                                                           otherButtonTitles:nil];
     for (NSString* title in self.league.seasonList) {
         [seasonSelector addButtonWithTitle:title];
     }
+    [seasonSelector addButtonWithTitle:FNS(@"返回")];
     [seasonSelector showFromTabBar:self.tabBarController.tabBar];
     [seasonSelector release];
 }
@@ -274,12 +297,14 @@ enum {
     actionSheetIndex = MATCH_TYPE_SELECTOR;
     UIActionSheet* typeSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛事类别选择") 
                                                                 delegate:self 
-                                                       cancelButtonTitle:FNS(@"cancel") 
+                                                       cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil 
                                                        otherButtonTitles:nil];
     for (CupMatchType* type in self.matchTypesList) {
         [typeSelector addButtonWithTitle:type.matchTypeName];
     }
+    [typeSelector addButtonWithTitle:FNS(@"返回")];
+    [typeSelector setCancelButtonIndex:[self.matchTypesList count]];
     [typeSelector showFromTabBar:self.tabBarController.tabBar];
     [typeSelector release];
 }
@@ -290,29 +315,37 @@ enum {
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
 }
 
-- (void)didSelectMatchType:(int)index
+- (void)didSelectMatchType:(int)index title:(NSString*)title
 {
-    self.currentCupMatchType = [self.matchTypesList objectAtIndex:index];
-    //[self updateMatchResult];
+    CupMatchType* currentType = [self.matchTypesList objectAtIndex:index];
+    self.currentCupMatchType = currentType.matchTypeId;
+    if ([title hasSuffix:@"组赛"]) {
+        [self updateMatchResult];
+    } else {
+        [self updateScheduleResult];
+    }
+    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        return;
+    }
     switch (actionSheetIndex) {
         case SEASON_SELECTOR: {
-            [self didSelectSeason:actionSheetIndex];
+            [self didSelectSeason:buttonIndex];
         }
             break;
         case MATCH_TYPE_SELECTOR: {
-            [self didSelectMatchType:actionSheetIndex];
+            NSString* title = [actionSheet buttonTitleAtIndex:buttonIndex];
+            [self didSelectMatchType:buttonIndex title:title];
         }
             break;
         default:
             break;
     }
 }
-
-
 
 @end
 

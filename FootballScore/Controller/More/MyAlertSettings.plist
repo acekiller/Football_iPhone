@@ -2,11 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>3</key>
+	<array>
+		<string>刷新时间:</string>
+		<string></string>
+	</array>
 	<key>2</key>
 	<array>
 		<string>比分动态推送:</string>
 		<string>不推送比分</string>
-		<string>推送所有比赛的比分</string>
 		<string>仅仅推送我关注的比赛的比分</string>
 	</array>
 	<key>1</key>
