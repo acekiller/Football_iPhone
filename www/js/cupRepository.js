@@ -24,7 +24,7 @@ CupRepositoryApp = new Ext.Application({
 //        testDisplayCupScheduleResultRemote();
         
         //测试（十六强等其它）赛程赛果
-        testDisplayCupGroupResultLocally();
+//        testDisplayCupGroupResultLocally();
 //        testDisplayCupGroupResultRemote();
 
     }
