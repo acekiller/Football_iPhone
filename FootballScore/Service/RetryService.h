@@ -15,4 +15,6 @@
 - (void)retryUnfollowMatch:(NSString*)userId matchId:(NSString*)matchId;
 - (void)retryFollowUnfollowList:(NSString*)userId;
 
+- (void)retryPushSet:(NSString*)userId token:(NSString*)token;
+
 @end

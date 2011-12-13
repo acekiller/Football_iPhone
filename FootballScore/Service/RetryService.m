@@ -10,6 +10,7 @@
 #import "RetryManager.h"
 #import "FootballNetworkRequest.h"
 #import "LogUtil.h"
+#import "UserManager.h"
 
 
 #define RETRY_FOLLOW_MATCH     @"RETRY_FOLLOW_MATCH"
@@ -31,7 +32,7 @@
             if(output.resultCode == ERROR_SUCCESS)
             {
                 PPDebug(@"Retry follow match (%@) success",matchId);
-                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:FOLLOW_MATCH_TYPE];
+                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:matchId type:FOLLOW_MATCH_TYPE];
             }
             else
             {
@@ -53,7 +54,7 @@
             if(output.resultCode == ERROR_SUCCESS)
             {
                 PPDebug(@"Retry unfollow match (%@) success",matchId);
-                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:userId type:UNFOLLOW_MATCH_TYPE];
+                [[RetryManager defaultManager] removeFollowUnfollowFromUserDefaults:matchId type:UNFOLLOW_MATCH_TYPE];
             }
             else
             {
@@ -85,6 +86,32 @@
         }
     }
     
+}
+
+- (void)retryPushSet:(NSString*)userId token:(NSString*)token
+{
+    if ([[RetryManager defaultManager] getNeedRetryPushSet])
+    {
+        NSOperationQueue* queue = [self getOperationQueue:@"UPDATE_PUSH_SET"];
+        
+        [queue addOperationWithBlock:^{
+            
+            CommonNetworkOutput* output = [FootballNetworkRequest updateUserPushInfo:userId pushType:[UserManager getIsPush] token:token];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if([output.textData isEqualToString:PUSH_SET_SUCCESS])
+                {
+                     [[RetryManager defaultManager] saveNeedRetryPushSet:NO];
+                    PPDebug(@"<RetryService>)Retry push set success");
+                }
+                else
+                {
+                    PPDebug(@"<RetryServicee>)Retry push set failed");
+                }
+            });
+        }];
+
+    }
 }
 
 @end

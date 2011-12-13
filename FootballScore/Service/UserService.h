@@ -8,6 +8,8 @@
 
 #import "CommonService.h"
 
+#define PUSH_SET_SUCCESS  @"成功"
+
 @protocol UserServiceDelegate <NSObject>
 
 @optional
@@ -23,5 +25,7 @@
 - (void)userRegisterByToken:(NSString*)token;
 
 - (void)getVersion:(id<UserServiceDelegate>)delegate;
+
+- (void)updateUserPushInfo:(NSString*)userId pushType:(int)pushType token:(NSString*)token;
 
 @end
