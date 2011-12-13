@@ -12,6 +12,8 @@
 #import "LocaleConstants.h"
 #import "ConfigManager.h"
 #import "UserManager.h"
+#import "UserService.h"
+#import "PPApplication.h"
 
 #define TITLE_HEIGHT    36
 #define CONTENT_HEIGHT  52
@@ -23,20 +25,8 @@ enum{
 };
 
 enum{
-    GOALS_TIPS_ROW = 0,
-    SOUND_TIPS_ROW = 1,
-    VIBRATION_TIPS_ROW = 2
-};
-
-enum{
-    PUSH_SCORE_ROW = 0,
-    NOT_PUSH_ROW = 1,
-    PUSH_ROW = 2
-};
-
-enum{
-    REFRESH_TIME_ROW = 0,
-    SLIDER_ROW = 1,
+    NOTPUSH_VALUE = 0,
+    PUSH_VALUE = 1
 };
 
 @implementation AlertController
@@ -74,6 +64,11 @@ enum{
     sliderValueLable.text = [[NSNumber numberWithFloat:sliderValue] stringValue];
 }
 
+- (NSString*)getDeviceToken
+{
+	return [[NSUserDefaults standardUserDefaults] objectForKey:kKeyDeviceToken];
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *CellIdentifier =@"AlertSettings";
@@ -101,7 +96,6 @@ enum{
                         cellWidth:290];
     
     
-    
     if (indexPath.row == 0){    
         cell.textLabel.textColor = [ColorManager scoreAlertColor];
     }
@@ -115,19 +109,29 @@ enum{
     {
         if (indexPath.row == 1) 
         {
-            cell.detailTextLabel.text = FNS(@"进球时声音会提示");
             if ([ConfigManager getHasSound]) 
+            {
+                cell.detailTextLabel.text = FNS(@"进球时声音会提示");
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             else
+            {
+                cell.detailTextLabel.text = FNS(@"进球时声音不会提示");
                 cell.accessoryType = UITableViewCellAccessoryNone;
+            }
         }
         else if(indexPath.row == 2)
         {
-            cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
             if ([ConfigManager getIsVibration])
+            {
+                cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             else
+            {
+                cell.detailTextLabel.text = FNS(@"进球时手机不会发出震动");
                 cell.accessoryType = UITableViewCellAccessoryNone;
+            }
         }
     }
     else if (indexPath.section == PUSH_SCORE_SECTION)
@@ -169,27 +173,42 @@ enum{
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
+    // set goals tips 
     if (indexPath.section == GOALS_TIPS_SECTION) 
     {
         if (cell.accessoryType == UITableViewCellAccessoryNone)
         {
             if (indexPath.row == 1)
+            {
                 [ConfigManager saveHasSound:YES];
+                cell.detailTextLabel.text = FNS(@"进球时声音会提示");
+            }
             else if (indexPath.row == 2)
+            {
                 [ConfigManager saveIsVibration:YES];
+                cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
+            }
             
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else
         {
             if (indexPath.row == 1)
+            {
                 [ConfigManager saveHasSound:NO];
+                cell.detailTextLabel.text = FNS(@"进球时声音不会提示");
+            }
             else if (indexPath.row == 2)
+            {
                 [ConfigManager saveIsVibration:NO];
+                cell.detailTextLabel.text = FNS(@"进球时手机不会发出震动");
+            }
+            
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
     
+    // set push 
     else if (indexPath.section == PUSH_SCORE_SECTION)
     {
         if (indexPath.row == 1) 
@@ -197,6 +216,8 @@ enum{
             if (cell.accessoryType == UITableViewCellAccessoryNone)
             {
                 [UserManager saveIsPush:NO];
+                UserService *userService = [[[UserService alloc] init] autorelease];
+                [userService updateUserPushInfo:[UserManager getUserId] pushType:NOTPUSH_VALUE token:[self getDeviceToken]];
                 
                 UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:indexPath.section]];
                 
@@ -209,6 +230,8 @@ enum{
             if (cell.accessoryType == UITableViewCellAccessoryNone)
             {
                 [UserManager saveIsPush:YES];
+                UserService *userService = [[[UserService alloc] init] autorelease];
+                [userService updateUserPushInfo:[UserManager getUserId] pushType:PUSH_VALUE token:[self getDeviceToken]];
                 
                 UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:indexPath.section]];
                 
@@ -275,7 +298,7 @@ enum{
 
 - (void)viewDidLoad
 {
-    [self.navigationItem  setTitle:FNS(@"提示设置")];
+    [self.navigationItem  setTitle:FNS(@"比分设置")];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"MyAlertSettings" 
@@ -297,12 +320,14 @@ enum{
     
     
     sliderValueLable.text = [[NSNumber numberWithFloat:timeIntervalSlider.value] stringValue];
+    sliderValueLable.textColor = [ColorManager soundsAlertColor];
     [sliderValueLable setFont:[UIFont systemFontOfSize:15]];
     [sliderValueLable setTextAlignment:UITextAlignmentRight];
     [timeIntervalSlider addTarget:self action:@selector(timeIntervalSliderChange:) forControlEvents:UIControlEventValueChanged];
     
     
     secondLable.text = FNS(@"秒");
+    secondLable.textColor = [ColorManager soundsAlertColor];
     [secondLable setFont:[UIFont systemFontOfSize:15]];
     
     [super viewDidLoad];

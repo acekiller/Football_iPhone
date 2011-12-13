@@ -46,4 +46,6 @@
 @property(nonatomic,retain)UILabel *sliderValueLable;
 @property(nonatomic,retain)UILabel *secondLable;
 
+- (NSString*)getDeviceToken;
+
 @end
