@@ -13,7 +13,7 @@ CupRepositoryApp = new Ext.Application({
         // define all views here
         
         // set launched flag
-        MatchDetailApp.isLaunched = 1;
+        CupRepositoryApp.isLaunched = 1;
         
         //测试小组积分
         testDisplayCupGroupPointsLocally();
@@ -30,6 +30,11 @@ CupRepositoryApp = new Ext.Application({
     }
 
 });
+
+function isAppLaunched(){
+	return CupRepositoryApp.isLaunched;
+}
+
 
 function hideView(view){
 	console.log("hide view " + view);
