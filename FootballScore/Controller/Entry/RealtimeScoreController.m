@@ -79,11 +79,13 @@
             [button setSelected:YES];  
             [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2_on"] forState:UIControlStateNormal];     
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor clearColor]];
         }
         else{
             [button setSelected:NO];
             [button setBackgroundImage:[UIImage imageNamed:@"live_menu_2"] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor clearColor]];
         }   
         
     }
