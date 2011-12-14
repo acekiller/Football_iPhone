@@ -93,12 +93,13 @@ RepositoryManager *GlobalGetRepositoryManager()
         if ([leagueArray count] >= LEAGUE_INDEX_COUNT) {
             NSString *leagueId = [leagueArray objectAtIndex:LEAGUE_ID_INDEX];
             NSString *leagueName = [leagueArray objectAtIndex:LEAGUE_NAME_INDEX];
+            NSString *leagueShortName = [leagueArray objectAtIndex:LEAGUE_SHORT_NAME_INDEX];
             NSString *leagueCountryId = [leagueArray objectAtIndex:LEAGUE_COUNTRY_ID_INDEX];
             NSInteger leagueType = [[leagueArray objectAtIndex:LEAGUE_TYPE_INDEX]intValue];
             NSString *seasonListString = [leagueArray objectAtIndex:LEAGUE_LIST_INDEX];
             
             NSArray *seasonList = [seasonListString componentsSeparatedByString:@","];
-            League *league = [[League alloc]initWithLeagueId:leagueId leagueName:leagueName countryId:leagueCountryId leagueType:leagueType seasonList:seasonList];
+            League *league = [[League alloc]initWithLeagueId:leagueId leagueName:leagueName leagueShortName:leagueShortName countryId:leagueCountryId leagueType:leagueType seasonList:seasonList];
             [_leagueArray addObject:league];
             [league release];
         }
@@ -220,6 +221,25 @@ RepositoryManager *GlobalGetRepositoryManager()
         [type release];
     }
     return cupMatchTypesArray;
+}
+
+#pragma mark - get league schedule rounds count
+#define ROUNDS_COUNT_INDEX 0
+#define CURRENT_ROUND_INDEX 1
+- (NSArray*)getLeagueScheduleRoundsCount:(NSArray*)inputArray
+{
+    NSNumber* count;
+    NSNumber*  current;
+    NSArray* countArray = [inputArray objectAtIndex:ROUNDS_COUNT_INDEX];//for total rounds count
+    NSArray* currentArray = [inputArray objectAtIndex:CURRENT_ROUND_INDEX];//for current round index
+    NSArray* countSubarray = [countArray objectAtIndex:0];
+    NSArray* currentSubarray = [currentArray objectAtIndex:0];
+    NSString* countString = [countSubarray objectAtIndex:0];
+    NSString* currentString = [currentSubarray objectAtIndex:0];
+    count = [NSNumber numberWithInt:[countString intValue]];
+    current = [NSNumber numberWithInt:[currentString intValue]];
+    NSArray* array = [NSArray arrayWithObjects:count, current, nil];
+    return array;
 }
 
 -(void)dealloc

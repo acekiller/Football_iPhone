@@ -32,6 +32,7 @@
 #define URL_GET_VERSION             @"http://bf.bet007.com/phone/iphone_ver.txt"
 #define URL_GET_DATABASE            @"http://bf.bet007.com/phone/InfoIndex.aspx?"
 #define URL_GET_CUP_SCHEDULE_GROUP  @"http://bf.bet007.com/phone/CupSaiCheng.aspx?"
+#define URL_GET_LEAGUE_SCHEDULE_ROUNDS @"http://bf.bet007.com/phone/SaiCheng.aspx?"
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -702,6 +703,29 @@ enum{
     }; 
     
     return [FootballNetworkRequest sendRequest:URL_GET_CUP_SCHEDULE_GROUP
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output]; 
+}
+
++ (CommonNetworkOutput*)getLeagueScheduleRoundsWithId:(NSString*)leagueId season:(NSString*)season
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        //set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        str = [str stringByAddQueryParameter:@"ID" value:leagueId];        
+        str = [str stringByAddQueryParameter:@"Season" value:season];
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_LEAGUE_SCHEDULE_ROUNDS
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output]; 

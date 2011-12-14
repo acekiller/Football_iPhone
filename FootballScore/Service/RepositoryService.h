@@ -14,6 +14,7 @@
 - (void)willUpdateRepository;
 - (void)didUpdateRepository:(NSInteger)errorCode;
 - (void)getGroupInfoFinish:(NSArray*)GroupInfo;
+- (void)getRoundsCountFinish:(NSArray*)roundsArray;
 
 @end
 
@@ -24,6 +25,7 @@
 
 - (void) updateRepository:(NSInteger)language delegate:(id<RepositoryDelegate>)aDelegate;
 - (void) getGroupInfo:(int)language leagueId:(NSString*)leagueId season:(NSString*)season Delegate:(id<RepositoryDelegate>)aDelegate;
+- (void) getRoundsCountWithLeagueId:(NSString*)leagueId season:(NSString*)season Delegate:(id<RepositoryDelegate>)aDelegate;
 @end
 
 

@@ -14,7 +14,8 @@
     int         sportsType;                 // football, basketball, etc
 
     NSString    *leagueId;
-    NSString    *name;    
+    NSString    *name; 
+    NSString    *shortName;
     BOOL        isTop;
     
     NSString *countryId;
@@ -25,6 +26,7 @@
 
 @property (nonatomic, retain) NSString    *leagueId;
 @property (nonatomic, retain) NSString    *name;
+@property (nonatomic, retain) NSString    *shortName;
 @property (nonatomic, assign) BOOL        isTop;
 @property(nonatomic, retain) NSString *countryId;
 @property(nonatomic, assign) NSInteger leagueType;
@@ -35,6 +37,12 @@
              isTop:(BOOL)isTop;
 - (id)initWithLeagueId: (NSString *)lId leagueName:(NSString *)lName 
              countryId:(NSString *)cId leagueType:(NSInteger)lType 
+            seasonList:(NSArray *)sList;
+- (id)initWithLeagueId: (NSString *)lId 
+            leagueName:(NSString *)lName 
+       leagueShortName:(NSString*)sName
+             countryId:(NSString *)cId 
+            leagueType:(NSInteger)lType 
             seasonList:(NSArray *)sList;
 
 

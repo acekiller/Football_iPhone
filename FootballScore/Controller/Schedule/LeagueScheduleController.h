@@ -7,16 +7,25 @@
 //
 
 #import "PPViewController.h"
+#import "RepositoryService.h"
 @class League;
-@protocol CommonCommandDelegate <NSObject>
+@protocol CommonCommandInterface <NSObject>
 
 - (void)execute;
 
 @end
 
-@interface LeagueScheduleController : PPViewController{
+@interface LeagueScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
     NSMutableDictionary*  buttonCommandsDict;
     League* league;
+    int currentSelection;
+    int loadCounter;
+    int roundsCount;
+    int currentRound;
+    int actionSheetIndex;
+    BOOL isWebViewReady;
+    BOOL isGroupReady;
+    BOOL firstLoadWebView;
 };
 @property (retain, nonatomic) IBOutlet UIWebView *dataWebView;
 @property (retain, nonatomic) NSMutableDictionary* buttonCommandsDict;
@@ -30,18 +39,18 @@
 @property (retain, nonatomic) League* league;
 @property (assign, nonatomic) NSInteger loadCount;
 @property (assign, nonatomic) BOOL showDataFinished;
+@property (retain, nonatomic) NSString* currentSeason;
 
-- (void)setScoreCommand:(id<CommonCommandDelegate>)command forKey:(int)Key; 
+- (void)setScoreCommand:(id<CommonCommandInterface>)command forKey:(int)Key; 
 - (id)initWithLeague:(League*)leagueValue;
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
-- (void)buttonTagInit;
 - (void)showSeasonSelectionActionSheet;
 @end
 
 
-@interface JsCommand : NSObject <CommonCommandDelegate>{
+@interface JsCommand : NSObject <CommonCommandInterface>{
 @private
     NSString* jsCodeString;
     UIWebView* superControllerWebView;

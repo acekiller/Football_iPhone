@@ -35,5 +35,6 @@
 - (NSArray *)getLeagueArrayByCountryId:(NSString *)countryId;
 - (NSArray *)getLeagueArrayByKey:(NSString *)key;
 - (NSArray*)getCupMatchTypes:(NSArray*)inputArray;
+- (NSArray*)getLeagueScheduleRoundsCount:(NSArray*)inputArray;
 @end
 extern RepositoryManager *GlobalGetRepositoryManager();

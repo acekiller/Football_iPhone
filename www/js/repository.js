@@ -106,19 +106,24 @@ function displaySchedule(reload, leagueId, season, round, lang, data){
 	if(lang == undefined){
 		lang = "";
 	}
+    var value = "";
 	if (reload) {
 		if (data != undefined) {
-			if (scheduleManager.readData(data) == false) {
-				return false;
+            value = scheduleManager.readData(data);
+			if (value == false) {
+				return "";
 			}
-		} else if (scheduleManager.requestDataFromServer(leagueId, season, round ,lang) == false){
-			return false;
-		}
+		} else {
+            value = scheduleManager.requestDataFromServer(leagueId, season, round ,lang);
+            if (value == false){
+                value = "";
+            }
+        }
 	}
 	DepositoryApp.scheduleView = getscheduleView();	
 	setCurrentView(DepositoryApp.scheduleView.mainPanel);	
 	DepositoryApp.scheduleView.updateView(scheduleManager);
-	return true;	
+	return value;	
 }
 
 function getScorerView()
