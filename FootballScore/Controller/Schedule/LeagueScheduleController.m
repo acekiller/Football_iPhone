@@ -71,9 +71,23 @@ enum {
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)initBarButton
+- (void)initButtons
 {
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
+    [self setNavigationRightButton:FNS(@"赛季") imageName:@"ss.png" action:@selector(showSeasonSelectionActionSheet)];
+    [self.pointButton setTag:POINT_BUTTON_TAG];
+    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
+    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
+    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
+    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
+    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
+    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
+    
+}
+
+- (void)initTitle
+{
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
 }
 
 - (void)initWebView
@@ -92,8 +106,8 @@ enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initBarButton];
-    [self buttonTagInit];
+    [self initButtons];
+    [self initTitle];
     [self initWebView];
     // Do any additional setup after loading the view from its nib.
 }
@@ -137,19 +151,6 @@ enum {
     [superController.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
-
-- (void)buttonTagInit
-{
-    [self.pointButton setTag:POINT_BUTTON_TAG];
-    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
-    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
-    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
-    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
-    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
-    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
-}
-
-
 
 - (void)setScoreCommand:(id<CommonCommandInterface>)command forKey:(int)Key
 {
@@ -222,6 +223,7 @@ enum {
 - (void)didSelectSeason:(int)index
 {
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
     [self updateRounds];
 }
 
