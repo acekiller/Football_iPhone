@@ -161,8 +161,33 @@ enum {
         
 }
 
+- (void)updateButtonState:(id)sender
+{
+    for (int i=POINT_BUTTON_TAG; i<=SHOOTER_RANKING_BUTTON_TAG; i++) {
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        UIButton* selectedButton = (UIButton*)sender;
+        if (button.tag == selectedButton.tag) {
+            [button setSelected:YES];
+        } else {
+            [button setSelected:NO];
+        }
+    }
+}
+
+- (void)updateDataWebViewState:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    if (button.tag == SCHEDULE_BUTTON_TAG) {
+        [self.dataWebView setFrame:CGRectMake(0, 70, 320, 297)];
+    } else {
+        [self.dataWebView setFrame:CGRectMake(0, 37, 320, 330)];
+    }
+}
+
 - (IBAction)buttonClick:(id)sender
 {
+    [self updateButtonState:(id)sender];
+    [self updateDataWebViewState:(id)sender];
     id<CommonCommandInterface> command = [self.buttonCommandsDict objectForKey:[NSNumber numberWithInt:[sender tag]]];
     if (command) {
         [command execute];
