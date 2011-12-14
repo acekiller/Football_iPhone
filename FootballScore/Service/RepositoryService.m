@@ -13,6 +13,7 @@
 
 #define UPDATE_Repository @"UPDATE_Repository"
 #define GET_GROUP_INFO    @"GET_GROUP_INFO"
+#define GET_ROUNDS_COUNT  @"GET_ROUNDS_COUNT"
 
 RepositoryService *service = nil;
 RepositoryService *GlobalGetRepositoryService()
@@ -84,6 +85,37 @@ RepositoryService *GlobalGetRepositoryService()
             
             if (aDelegate && [aDelegate respondsToSelector:@selector(getGroupInfoFinish:)]) {
                 [aDelegate getGroupInfoFinish:matchTypeArray];
+            }
+            
+        });                       
+    }];
+}
+
+
+- (void) getRoundsCountWithLeagueId:(NSString*)leagueId season:(NSString*)season Delegate:(id<RepositoryDelegate>)aDelegate
+{
+    NSOperationQueue* queue = [self getOperationQueue:GET_ROUNDS_COUNT];
+    if (aDelegate && [aDelegate respondsToSelector:@selector(willUpdateRepository)]) {
+        [aDelegate willUpdateRepository];
+    }
+    
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest getLeagueScheduleRoundsWithId:leagueId season:season];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSArray* roundsArray;
+            
+            if (output.resultCode == ERROR_SUCCESS){
+                
+                // parse score records and update match
+                RepositoryManager *manager = [RepositoryManager defaultManager];
+                roundsArray = [manager getLeagueScheduleRoundsCount:output.arrayData];
+            }
+            
+            if (aDelegate && [aDelegate respondsToSelector:@selector(getRoundsCountFinish:)]) {
+                [aDelegate getRoundsCountFinish:roundsArray];
             }
             
         });                       

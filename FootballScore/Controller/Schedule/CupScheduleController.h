@@ -37,7 +37,6 @@
 @property (retain, nonatomic) NSArray* matchTypesList;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
-- (void)buttonTagInit;
 - (void)initBarButton;
 - (void)selectSeason;
 - (void)updateView;

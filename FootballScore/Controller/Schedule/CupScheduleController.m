@@ -77,8 +77,28 @@ enum {
     }
     isGroupReady = YES;
     if (isWebViewReady) {
-        //[self updateView];
+        [self updateView];
     } 
+}
+
+enum {
+    MATCH_RESLUT_BUTTON_TAG = 20111209,
+    GROUP_POINT_BUTTON_TAG,
+    MATCH_TYPE_SELECT_BUTTON_TAG
+};
+- (void)initButtons
+{
+    [self.matchResultButton setTag:MATCH_RESLUT_BUTTON_TAG];
+    [self.groupPointsButton setTag:GROUP_POINT_BUTTON_TAG];
+    [self.matchTypeSelectButton setTag:MATCH_TYPE_SELECT_BUTTON_TAG];
+    [self.matchResultButton setHidden:YES];
+    [self.groupPointsButton setHidden:YES];
+    
+}
+
+- (void)initTitle
+{
+    [self.cupScheduleResultTitle setHidden:YES];
 }
 
 #pragma mark - View lifecycle
@@ -87,11 +107,11 @@ enum {
 {
     [super viewDidLoad];
     [self initGroup];
-    [self buttonTagInit];
+    [self initButtons];
+    [self initTitle];
     [self initWebView];
     [self initBarButton];
 
-    [self.dataWebView setHidden:NO];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -129,19 +149,6 @@ enum {
     [super dealloc];
 }
 
-enum {
-    MATCH_RESLUT_BUTTON_TAG = 20111209,
-    GROUP_POINT_BUTTON_TAG,
-    MATCH_TYPE_SELECT_BUTTON_TAG
-};
-
-- (void)buttonTagInit
-{
-    [self.matchResultButton setTag:MATCH_RESLUT_BUTTON_TAG];
-    [self.groupPointsButton setTag:GROUP_POINT_BUTTON_TAG];
-    [self.matchTypeSelectButton setTag:MATCH_TYPE_SELECT_BUTTON_TAG];
-}
-
 - (void)initWebView
 {
     [self loadWebViewByHtml:WEB_VIEW_URL];
@@ -158,6 +165,14 @@ enum {
 {
     UIButton* button = (UIButton*)sender;
     [button setSelected:YES];
+    if (button.tag == MATCH_RESLUT_BUTTON_TAG) {
+        UIButton* otherButton = (UIButton*)[self.view viewWithTag:GROUP_POINT_BUTTON_TAG];
+        [otherButton setSelected:NO];
+    } 
+    if (button.tag == GROUP_POINT_BUTTON_TAG) {
+        UIButton* otherButton = (UIButton*)[self.view viewWithTag:MATCH_RESLUT_BUTTON_TAG];
+        [otherButton setSelected:NO];
+    }
 }
 
 - (void)updateMatchResult
