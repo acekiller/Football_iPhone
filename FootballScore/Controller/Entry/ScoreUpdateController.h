@@ -36,4 +36,7 @@
 - (void)clickDone:(id)sender;
 - (void)clickRefresh:(id)sender;
 - (void)clickClear:(id)sender;
+
+- (NSDictionary*)getShowScoreList:(NSSet *)scoreUpdateSet;
+
 @end

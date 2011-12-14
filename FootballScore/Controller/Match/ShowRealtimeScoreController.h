@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+enum{
+    HOMETEAM_GOALS = 0,
+    AWAYTEAM_GOALS = 1,
+    BOTH_GOALS = 2
+};
+
+
 @class Match;
-@class ScoreUpdate;
 @interface ShowRealtimeScoreController : UIViewController
 {
     UILabel *leagueNameLabel;
@@ -20,7 +26,7 @@
     UILabel *homeTeamEventLabel;
     UILabel *awayTeamEventLabel;
     NSTimer *showTimer;
-    ScoreUpdate *scoreUpdate;
+    Match   *match;
     AVAudioPlayer	*player;
 }
 
@@ -32,23 +38,26 @@
 @property(nonatomic,retain)IBOutlet UILabel *awayTeamEventLabel;
 
 @property(nonatomic,retain) NSTimer *showTimer;
-@property(nonatomic,retain) ScoreUpdate *scoreUpdate;
+@property(nonatomic,retain) Match   *match;
 @property(nonatomic,retain) AVAudioPlayer *player;
 
 
-+ (void)show:(ScoreUpdate *)scoreUpdate 
++ (void)show:(Match *)newMatch 
+   goalsTeam:(int)goalsTeam
  isVibration:(BOOL)isVibration 
     hasSound:(BOOL)hasSound;
 
 + (void)show:(UIView*)superView 
- scoreUpdate:(ScoreUpdate *)newScoreUpdate
+ scoreUpdate:(Match *)newMatch
+   goalsTeam:(int)goalsTeam
  isVibration:(BOOL)isVibration 
     hasSound:(BOOL)hasSound;
 
-- (void)updateViewByScoreUpdate:(ScoreUpdate *)newScoreUpdate;
+- (void)updateViewByMatche:(Match *)newMatche;
 - (void)cancelDisplay;
 - (void)createHideTimer;
 - (void)removeFromSuperView;
 - (void)playeSound:(NSString*)soundFile;
+- (void)updateEventLabelColor:(int)goalsTeam;
 
 @end
