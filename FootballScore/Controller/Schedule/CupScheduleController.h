@@ -14,7 +14,10 @@
 @interface CupScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
     League* league;
     int currentSelection;
+    int loadCounter;
     BOOL isWebViewReady;
+    BOOL isGroupReady;
+    BOOL firstLoadWebView;
     NSString* currentSeason;
     NSString* currentCupMatchType;
     int actionSheetIndex;
@@ -24,6 +27,7 @@
 
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (id)initWithLeague:(League*)leagueValue;
+@property (retain, nonatomic) IBOutlet UILabel *cupScheduleResultTitle;
 @property (retain, nonatomic) IBOutlet UIButton *groupPointsButton;
 @property (retain, nonatomic) IBOutlet UIButton *matchTypeSelectButton;
 @property (retain, nonatomic) IBOutlet UIButton *matchResultButton;
@@ -36,6 +40,7 @@
 - (void)buttonTagInit;
 - (void)initBarButton;
 - (void)selectSeason;
+- (void)updateView;
 @end
 
 

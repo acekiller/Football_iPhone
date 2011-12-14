@@ -8,7 +8,9 @@
 
 #import "RetryManager.h"
 
-#define FOLLOW_UNFOLLOW_RETRYLIST  @"followUnfollowRetryList"
+#define FOLLOW_UNFOLLOW_RETRYLIST   @"followUnfollowRetryList"
+#define NEET_RETRY_PUSH_SET         @"needRetryPushSet"
+
 
 RetryManager* retryManager;
 
@@ -48,7 +50,6 @@ RetryManager* GlobalGetRetryManager()
     {
         NSMutableDictionary *list =[NSMutableDictionary dictionaryWithDictionary:
                                                   [[NSUserDefaults standardUserDefaults] objectForKey:FOLLOW_UNFOLLOW_RETRYLIST]];
-        
         [list removeObjectForKey:matchId];
         [[NSUserDefaults standardUserDefaults] setObject:list forKey:FOLLOW_UNFOLLOW_RETRYLIST];
     }
@@ -59,6 +60,16 @@ RetryManager* GlobalGetRetryManager()
     NSMutableDictionary *list =[NSMutableDictionary dictionaryWithDictionary:
                                 [[NSUserDefaults standardUserDefaults] objectForKey:FOLLOW_UNFOLLOW_RETRYLIST]];
     return list;
+}
+
+- (void)saveNeedRetryPushSet:(BOOL)isNeed
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isNeed forKey:NEET_RETRY_PUSH_SET];
+}
+
+- (BOOL)getNeedRetryPushSet
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:NEET_RETRY_PUSH_SET];
 }
 
 @end

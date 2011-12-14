@@ -169,17 +169,17 @@ enum {
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
-    loadCount ++; 
- 
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"<webView> didFailLoadWithError, error=%@", [error description]);
-}
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+//    NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
+//    loadCount ++; 
+// 
+//}
+//
+//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+//{
+//    NSLog(@"<webView> didFailLoadWithError, error=%@", [error description]);
+//}
 
 @end
 

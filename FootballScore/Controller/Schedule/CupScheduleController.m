@@ -24,6 +24,7 @@ enum {
     };
 
 @implementation CupScheduleController
+@synthesize cupScheduleResultTitle;
 @synthesize groupPointsButton;
 @synthesize matchTypeSelectButton;
 @synthesize dataWebView;
@@ -47,6 +48,7 @@ enum {
     self = [super init];
     if (self) {
         self.league = leagueValue;
+        self.currentSeason = [self.league.seasonList objectAtIndex:0];
     }
     return self;
 }
@@ -61,7 +63,7 @@ enum {
 
 - (void)initGroup
 {
-    [GlobalGetRepositoryService() getGroupInfo:0 leagueId:self.league.leagueId season:[self.league.seasonList objectAtIndex:0] Delegate:self];
+    [GlobalGetRepositoryService() getGroupInfo:0 leagueId:self.league.leagueId season:self.currentSeason Delegate:self];
 }
 
 - (void)getGroupInfoFinish:(NSArray *)GroupInfo
@@ -70,8 +72,13 @@ enum {
     for (CupMatchType* type in self.matchTypesList) {
         if ([type.isCurrentType isEqualToString:@"True"]) {
             [self.matchTypeSelectButton setTitle:type.matchTypeName forState:UIControlStateNormal];
+            self.currentCupMatchType = type.matchTypeId;
         }
     }
+    isGroupReady = YES;
+    if (isWebViewReady) {
+        //[self updateView];
+    } 
 }
 
 #pragma mark - View lifecycle
@@ -94,6 +101,7 @@ enum {
     [self setMatchTypeSelectButton:nil];
     [self setGroupPointsButton:nil];
     [self setMatchResultButton:nil];
+    [self setCupScheduleResultTitle:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -117,6 +125,7 @@ enum {
     [matchTypeSelectButton release];
     [groupPointsButton release];
     [matchResultButton release];
+    [cupScheduleResultTitle release];
     [super dealloc];
 }
 
@@ -155,7 +164,7 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupResult(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -167,7 +176,19 @@ enum {
 {
     //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
     //                        [LanguageManager getLanguage], eventDataString];    
-    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '%d', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupGroupPoints(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
+    PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
+    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
+    
+    self.dataWebView.hidden = NO;    
+    [self hideActivity];
+}
+
+- (void)updateScheduleResult
+{
+    //    NSString *jsCode = [NSString stringWithFormat:@"displayMatchEvent(true, null, %d, \"%@\");",
+    //                        [LanguageManager getLanguage], eventDataString];    
+    NSString *jsCode = [NSString stringWithFormat:@"displayCupScheduleResult(true, \"%@\", \"%@\", '%@', %d);", [self.league leagueId], self.currentSeason, self.currentCupMatchType, [LanguageManager getLanguage]];    
     PPDebug(@"<displayEvent> execute JS = %@",jsCode);    
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];    
     
@@ -190,6 +211,13 @@ enum {
     return YES;
 }
 
+- (BOOL)showScheduleResult:(BOOL)needReload
+{
+    
+    [self updateScheduleResult];
+    return YES;
+}
+
 - (void)trueShowWebView:(NSNumber*)needReloadValue
 {
     BOOL needReload = [needReloadValue boolValue];
@@ -202,6 +230,7 @@ enum {
             [self groupPoints:needReload];
             break;
         default:
+            [self showScheduleResult:needReload];
             break;
     }
     
@@ -220,7 +249,7 @@ enum {
 
 - (void)showWebViewByClick:(BOOL)needReload
 {
-    if (1){
+    if (isWebViewReady){
         [self showWebView:needReload];
     }
 }
@@ -251,7 +280,9 @@ enum {
     PPDebug(@"load webview url = %@", [request description]);
     if (request) {
         [self.dataWebView loadRequest:request];        
-    }        
+    }  
+    
+    [self showActivityWithText:FNS(@"加载中...")];
 }
 
 - (void)selectSeason
@@ -259,12 +290,14 @@ enum {
     actionSheetIndex = SEASON_SELECTOR;
     UIActionSheet* seasonSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛季选择") 
                                                                    delegate:self 
-                                                          cancelButtonTitle:FNS(@"cancel") 
+                                                          cancelButtonTitle:nil 
                                                      destructiveButtonTitle:nil 
                                                           otherButtonTitles:nil];
     for (NSString* title in self.league.seasonList) {
         [seasonSelector addButtonWithTitle:title];
     }
+    [seasonSelector addButtonWithTitle:FNS(@"返回")];
+    [seasonSelector setCancelButtonIndex:[self.league.seasonList count]];
     [seasonSelector showFromTabBar:self.tabBarController.tabBar];
     [seasonSelector release];
 }
@@ -274,12 +307,14 @@ enum {
     actionSheetIndex = MATCH_TYPE_SELECTOR;
     UIActionSheet* typeSelector = [[UIActionSheet alloc] initWithTitle:FNS(@"赛事类别选择") 
                                                                 delegate:self 
-                                                       cancelButtonTitle:FNS(@"cancel") 
+                                                       cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil 
                                                        otherButtonTitles:nil];
     for (CupMatchType* type in self.matchTypesList) {
         [typeSelector addButtonWithTitle:type.matchTypeName];
     }
+    [typeSelector addButtonWithTitle:FNS(@"返回")];
+    [typeSelector setCancelButtonIndex:[self.matchTypesList count]];
     [typeSelector showFromTabBar:self.tabBarController.tabBar];
     [typeSelector release];
 }
@@ -290,29 +325,120 @@ enum {
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
 }
 
-- (void)didSelectMatchType:(int)index
+- (void)didSelectMatchType:(int)index title:(NSString*)title
 {
-    self.currentCupMatchType = [self.matchTypesList objectAtIndex:index];
-    //[self updateMatchResult];
+    CupMatchType* currentType = [self.matchTypesList objectAtIndex:index];
+    self.currentCupMatchType = currentType.matchTypeId;
+    [self.matchTypeSelectButton setTitle:title forState:UIControlStateNormal];
+    [self updateView];
+    
+    
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)trueSelectButton:(NSNumber*)buttonIndexNumber
+{   
     switch (actionSheetIndex) {
         case SEASON_SELECTOR: {
-            [self didSelectSeason:actionSheetIndex];
+            [self didSelectSeason:[buttonIndexNumber intValue]];
         }
             break;
         case MATCH_TYPE_SELECTOR: {
-            [self didSelectMatchType:actionSheetIndex];
+            CupMatchType* type = [self.matchTypesList objectAtIndex:[buttonIndexNumber intValue]];
+            NSString* title = type.matchTypeName;
+            [self didSelectMatchType:[buttonIndexNumber intValue] title:title];
         }
             break;
         default:
             break;
+    }    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        return;
     }
+    
+    //NSString* title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    [self showActivityWithText:FNS(@"加载中...")];
+    [self performSelector:@selector(trueSelectButton:) 
+               withObject:[NSNumber numberWithInt:buttonIndex] 
+               afterDelay:0.5];
+    
 }
 
 
+- (void)updateView
+{
+    NSString* title = self.matchTypeSelectButton.titleLabel.text;
+    if ([title hasSuffix:@"组赛"]) {
+        [self updateMatchResult];
+        [self.matchResultButton setHidden:NO];
+        [self.groupPointsButton setHidden:NO];
+        [self.cupScheduleResultTitle setHidden:YES];
+    } else {
+        [self updateScheduleResult];
+        [self.matchResultButton setHidden:YES];
+        [self.groupPointsButton setHidden:YES];
+        [self.cupScheduleResultTitle setHidden:NO];
+    }
+    
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)isAppLaunched
+{
+    NSString *jsCode = [NSString stringWithFormat:@"isAppLaunched();"];    
+    PPDebug(@"<isAppLaunched> execute JS = %@",jsCode);    
+    NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
+    NSLog(@"result = %@", result);
+    if ([result intValue] == 1)
+        return YES;
+    else
+        return NO;
+}
+
+- (void)detectAppLaunch
+{
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(checkAppLaunched) userInfo:nil repeats:NO];
+}
+
+- (void)checkAppLaunched
+{
+    if ([self isAppLaunched]){
+        self.timer = nil;
+        firstLoadWebView = NO;
+        isWebViewReady = YES;
+        [self updateView];
+       // this is the first time, so need reload
+        return;
+    }
+    
+    // if not, continue to detect
+    [self detectAppLaunch];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{   
+    NSLog(@"webViewDidStartLoad, isLoading=%d", webView.loading); 
+       
+    
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidFinishLoad, isLoading=%d", webView.loading);
+    loadCounter ++; 
+    [self detectAppLaunch];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"<webView> didFailLoadWithError, error=%@", [error description]);
+}
 
 @end
 

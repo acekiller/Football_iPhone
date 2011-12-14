@@ -15,7 +15,9 @@ enum {
 };
 
 @interface CupMatchType : NSObject {
-    
+    NSString* matchTypeName;
+    NSString* isCurrentType;
+    NSString* matchTypeId;
 }
 @property (nonatomic, retain) NSString* matchTypeName;
 @property (nonatomic, retain) NSString* isCurrentType;

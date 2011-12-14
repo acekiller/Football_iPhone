@@ -12,6 +12,8 @@
 #define FOLLOW_MATCH_TYPE      @"true"
 #define UNFOLLOW_MATCH_TYPE    @"false"
 
+#define PUSH_SET_SUCCESS  @"成功"
+
 typedef void (^FootballNetworkResponseBlock)(NSString* data, CommonNetworkOutput* output);
 
 
@@ -61,7 +63,7 @@ enum{
 + (CommonNetworkOutput*)getMatchDaxiaoDetail:(NSString *)OddsId;
 + (CommonNetworkOutput*)getBetCompanyList;
 + (CommonNetworkOutput*)getRegisterUserId:(int)registerType token:(NSString*)token;
-+ (CommonNetworkOutput*)updateUserPushInfo:(int)userId pushType:(int)pushType token:(NSString*)token;
++ (CommonNetworkOutput*)updateUserPushInfo:(NSString*)userId pushType:(int)pushType token:(NSString*)token;
 + (CommonNetworkOutput*)getPlayersList:(NSString*)matchId lanaguage:(int)language;
 + (CommonNetworkOutput*)getRepository:(NSInteger)lang;
 + (CommonNetworkOutput*)getRealtimeOdds:(NSInteger)oddsType;

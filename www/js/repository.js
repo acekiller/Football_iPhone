@@ -2,7 +2,7 @@ DepositoryApp = new Ext.Application({
 
 //Ext.regApplication({
     
-    name: 'MatchDetailApp',
+    name: 'DepositoryApp',
     
     isLaunched: 0,
     
@@ -14,7 +14,7 @@ DepositoryApp = new Ext.Application({
        
         
         // set launched flag
-        MatchDetailApp.isLaunched = 1;
+        DepositoryApp.isLaunched = 1;
 
 //		测试联赛积分
 //		testDisplayJifenLocally();
@@ -38,6 +38,10 @@ DepositoryApp = new Ext.Application({
     }
 
 });
+
+function isAppLaunched(){
+	return DepositoryApp.isLaunched;
+}
 
 function hideView(view){
 	console.log("hide view " + view);

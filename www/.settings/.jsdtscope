@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="service/|view/|util/|model/" kind="src" path="js"/>
+	<classpathentry kind="src" path="js/model"/>
+	<classpathentry kind="src" path="js/service"/>
+	<classpathentry kind="src" path="js/util"/>
+	<classpathentry kind="src" path="js/view"/>
+	<classpathentry kind="src" path="lib/touch"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+</classpath>

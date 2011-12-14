@@ -12,14 +12,28 @@
 #import "LocaleConstants.h"
 #import "ConfigManager.h"
 #import "UserManager.h"
+#import "UserService.h"
+#import "PPApplication.h"
+
+#define TITLE_HEIGHT    36
+#define CONTENT_HEIGHT  52
+
+enum{
+    GOALS_TIPS_SECTION = 0,
+    PUSH_SCORE_SECTION = 1,
+    REFRESH_TIME_SECTION = 2
+};
+
+enum{
+    NOTPUSH_VALUE = 0,
+    PUSH_VALUE = 1
+};
 
 @implementation AlertController
+
 @synthesize pushType;
-
-
 @synthesize alertTitles;
 @synthesize alertGroupsInfor;
-
 @synthesize array;
 @synthesize dictionary;
 
@@ -32,20 +46,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        self.timeIntervalSlider = [[UISlider alloc] initWithFrame:CGRectMake(8, 0, 236, 52)];
-        timeIntervalSlider.minimumValue = 10;
-        timeIntervalSlider.maximumValue = 360;
-        timeIntervalSlider.value = [ConfigManager getRefreshInterval];
+        self.timeIntervalSlider = [[UISlider alloc] initWithFrame:CGRectMake(8, 0, 236, CONTENT_HEIGHT)];
         
-        self.sliderValueLable = [[UILabel alloc] initWithFrame:CGRectMake(245, 0, 30, 52)];
-        sliderValueLable.text = [[NSNumber numberWithFloat:timeIntervalSlider.value] stringValue];
-        [sliderValueLable setFont:[UIFont systemFontOfSize:15]];
-        [sliderValueLable setTextAlignment:UITextAlignmentRight];
-        [timeIntervalSlider addTarget:self action:@selector(timeIntervalSliderChange:) forControlEvents:UIControlEventValueChanged];
+        self.sliderValueLable = [[UILabel alloc] initWithFrame:CGRectMake(245, 0, 30, CONTENT_HEIGHT)];
         
-        self.secondLable = [[UILabel alloc] initWithFrame:CGRectMake(278, 0, 15, 52)];
-        secondLable.text = FNS(@"秒");
-        [secondLable setFont:[UIFont systemFontOfSize:15]];
+        self.secondLable = [[UILabel alloc] initWithFrame:CGRectMake(278, 0, 15, CONTENT_HEIGHT)];
+        
     }
     return self;
 }
@@ -58,8 +64,12 @@
     sliderValueLable.text = [[NSNumber numberWithFloat:sliderValue] stringValue];
 }
 
+- (NSString*)getDeviceToken
+{
+	return [[NSUserDefaults standardUserDefaults] objectForKey:kKeyDeviceToken];
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     
     static NSString *CellIdentifier =@"AlertSettings";
     
@@ -84,38 +94,47 @@
                   middleCellImage:@"bfsz_midd.png" 
                     lastCellImage:@"bfsz_bottom.png" 
                         cellWidth:290];
-
-       
-        
+    
+    
     if (indexPath.row == 0){    
         cell.textLabel.textColor = [ColorManager scoreAlertColor];
     }
     else{
-        
         cell.textLabel.textColor = [ColorManager soundsAlertColor];
     }
 
     
-    if (indexPath.section == 0) 
+    
+    if (indexPath.section == GOALS_TIPS_SECTION) 
     {
         if (indexPath.row == 1) 
         {
-            cell.detailTextLabel.text =@"进球时声音会提示";
             if ([ConfigManager getHasSound]) 
+            {
+                cell.detailTextLabel.text = FNS(@"进球时声音会提示");
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             else
+            {
+                cell.detailTextLabel.text = FNS(@"进球时声音不会提示");
                 cell.accessoryType = UITableViewCellAccessoryNone;
+            }
         }
         else if(indexPath.row == 2)
         {
-            cell.detailTextLabel.text = @"进球时手机会发出震动";
             if ([ConfigManager getIsVibration])
+            {
+                cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             else
+            {
+                cell.detailTextLabel.text = FNS(@"进球时手机不会发出震动");
                 cell.accessoryType = UITableViewCellAccessoryNone;
+            }
         }
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == PUSH_SCORE_SECTION)
     {
         if ([UserManager getIsPush])
         {
@@ -132,7 +151,7 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
-    else if (indexPath.section == 2 && indexPath.row == 1)
+    else if (indexPath.section == REFRESH_TIME_SECTION && indexPath.row == 1)
     {
         [cell.contentView addSubview:timeIntervalSlider];
         [cell.contentView addSubview:sliderValueLable];
@@ -146,10 +165,7 @@
     [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13]];   
     [cell.textLabel setFont:[UIFont boldSystemFontOfSize:15]];
     
-    
     return cell;
-
-    
 }
 
 
@@ -157,34 +173,51 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    if (indexPath.section == 0) 
+    // set goals tips 
+    if (indexPath.section == GOALS_TIPS_SECTION) 
     {
         if (cell.accessoryType == UITableViewCellAccessoryNone)
         {
             if (indexPath.row == 1)
+            {
                 [ConfigManager saveHasSound:YES];
+                cell.detailTextLabel.text = FNS(@"进球时声音会提示");
+            }
             else if (indexPath.row == 2)
+            {
                 [ConfigManager saveIsVibration:YES];
+                cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
+            }
             
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else
         {
             if (indexPath.row == 1)
+            {
                 [ConfigManager saveHasSound:NO];
+                cell.detailTextLabel.text = FNS(@"进球时声音不会提示");
+            }
             else if (indexPath.row == 2)
+            {
                 [ConfigManager saveIsVibration:NO];
+                cell.detailTextLabel.text = FNS(@"进球时手机不会发出震动");
+            }
+            
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
     
-    else if (indexPath.section == 1)
+    // set push 
+    else if (indexPath.section == PUSH_SCORE_SECTION)
     {
         if (indexPath.row == 1) 
         {
             if (cell.accessoryType == UITableViewCellAccessoryNone)
             {
                 [UserManager saveIsPush:NO];
+                UserService *userService = [[[UserService alloc] init] autorelease];
+                [userService updateUserPushInfo:[UserManager getUserId] pushType:NOTPUSH_VALUE token:[self getDeviceToken]];
                 
                 UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:indexPath.section]];
                 
@@ -197,6 +230,8 @@
             if (cell.accessoryType == UITableViewCellAccessoryNone)
             {
                 [UserManager saveIsPush:YES];
+                UserService *userService = [[[UserService alloc] init] autorelease];
+                [userService updateUserPushInfo:[UserManager getUserId] pushType:PUSH_VALUE token:[self getDeviceToken]];
                 
                 UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:indexPath.section]];
                 
@@ -225,35 +260,14 @@
 //return the height of the cell 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    
-    if (indexPath.section == 0  && indexPath.row ==0 ) {
-        
-        return 36; 
-    }
-    
-    
-    else if (indexPath.section == 1) {
-            
-            
-        return 36;
-        
-    }
-    
-    else if (indexPath.section == 2 && indexPath.row ==0){
-    
-        return 36;
-    }
-    
-    return 52;
-    
+    if (indexPath.row == 0 || indexPath.section == PUSH_SCORE_SECTION) 
+        return TITLE_HEIGHT; 
+    else
+        return CONTENT_HEIGHT;
 }
 
 
-
-
 //return the number of the  row in the sections 
-
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     NSString *scoreAlert =[alertGroupsInfor objectAtIndex: section];
@@ -261,19 +275,15 @@
     NSArray *TitlesSections =[alertTitles objectForKey:scoreAlert];
     
     return [TitlesSections count];
-    
-    
 }
 
 
 //return the number of the sections 
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return [alertGroupsInfor count];
     
 }
-
 
 
 - (void)didReceiveMemoryWarning
@@ -288,25 +298,38 @@
 
 - (void)viewDidLoad
 {
-    [self.navigationItem  setTitle:@"提示设置"];
+    [self.navigationItem  setTitle:FNS(@"比分设置")];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"MyAlertSettings" 
 													 ofType:@"plist"];	
-
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    
     self.alertTitles = dict;
 	[dict release];
-    
     
     //sort the array
      self.array = [[self.alertTitles allKeys] 
 					  sortedArrayUsingSelector:@selector(compare:)];
 
     self.alertGroupsInfor = self.array;
+    
 
+    timeIntervalSlider.minimumValue = REFRESH_INTERVAL_MIN;
+    timeIntervalSlider.maximumValue = REFRESH_INTERVAL_MAX;
+    timeIntervalSlider.value = [ConfigManager getRefreshInterval];
+    
+    
+    sliderValueLable.text = [[NSNumber numberWithFloat:timeIntervalSlider.value] stringValue];
+    sliderValueLable.textColor = [ColorManager soundsAlertColor];
+    [sliderValueLable setFont:[UIFont systemFontOfSize:15]];
+    [sliderValueLable setTextAlignment:UITextAlignmentRight];
+    [timeIntervalSlider addTarget:self action:@selector(timeIntervalSliderChange:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    secondLable.text = FNS(@"秒");
+    secondLable.textColor = [ColorManager soundsAlertColor];
+    [secondLable setFont:[UIFont systemFontOfSize:15]];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -323,10 +346,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)dealloc {
     
     [alertGroupsInfor release];
     [alertTitles release];
+    [array release];
+    [dictionary release];
     
     [timeIntervalSlider release];
     [sliderValueLable release];

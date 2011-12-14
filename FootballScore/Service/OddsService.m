@@ -373,7 +373,7 @@ enum OUPEI_INDEX {
         [self stopGetRealtimOddsTimer];
         
         // create new timer
-        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:YES];
+        self.realTimeOddsTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(getRealtimeOdds) userInfo:nil repeats:NO];
     }
 
 }

@@ -8,6 +8,7 @@
 
 #import "ConfigManager.h"
 
+
 @implementation ConfigManager
 
 //+ (NSString*)getValue:(NSString*)configKey
@@ -53,7 +54,7 @@
 {
     NSNumber* timeInterval = [[NSUserDefaults standardUserDefaults] objectForKey:REFRESH_INTERVAL];
     if (timeInterval == nil) 
-        return 10;  // default is 10 seconds
+        return REFRESH_INTERVAL_MIN;  
     else
         return [timeInterval doubleValue];
 }

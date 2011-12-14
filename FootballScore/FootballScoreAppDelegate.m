@@ -331,6 +331,7 @@ enum
 //    [appService startAppUpdate];
     RetryService *retryService = [[[RetryService alloc] init]autorelease];
     [retryService retryFollowUnfollowList:[UserManager getUserId]];
+    [retryService retryPushSet:[UserManager getUserId] token:[self getDeviceToken]];
 }
 
 
