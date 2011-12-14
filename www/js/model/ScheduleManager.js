@@ -2,6 +2,7 @@
 // constants
 
 var SCHEDULE_RECORD_SEG = 1;
+var SCHEDULE_ROUND_SEG = 0;
 var SCHEDULE_ROUND = 0;
 var SCHEDULE_PLAYING_TIME = 1;
 var SCHEDULE_SIMPLIFIED_HOMETEAM_NAME = 2;
@@ -49,7 +50,7 @@ ScheduleManager.prototype = {
 		}
 		
 		this.dataArray = new Array();
-		
+		var round = "";
 		for (var i = 0; i < len; i++) {
 			var record = seg2[i];
 			if (record != null && record.length >= SCHEDULE_COUNT) {			
@@ -60,13 +61,15 @@ ScheduleManager.prototype = {
                 record[SCHEDULE_HOMETEAM_HALF_SCORE], record[SCHEDULE_AWAY_HALF_SCORE]);				
 				this.dataArray.push(obj);
 				
+                
+                round = record[SCHEDULE_ROUND];
 			}
 			else {
 				console.log("<warning> readScheduleData, but field in record is null or field count not enough");
 			}
 		}
-						
-		return this.dataArray;
+        var ret = recordArray[SCHEDULE_ROUND_SEG][0]+"$$"+round;
+		return ret;
 	},
 	
 	clearData : function() {
@@ -79,9 +82,7 @@ ScheduleManager.prototype = {
 		var data = sendRequest(this.url + "ID=" + leagueId + "&Season=" +  season + "&Round=" +  round + "&lang=" + lang);
 		if (data == null)
 			return false;
-			
-		this.readData(data);
-		return true;
+		return this.readData(data);
 	}
 };
 
