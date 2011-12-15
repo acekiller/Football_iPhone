@@ -10,6 +10,7 @@
 #import "LocaleConstants.h"
 
 @implementation AboutController
+@synthesize versionLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,10 +38,15 @@
     self.navigationItem.title = FNS(@"关于彩客网站");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];
+    
+    NSString *versionString = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    versionLabel.text = [NSString stringWithFormat:@"版本:%@" , versionString];
+    
 }
 
 - (void)viewDidUnload
 {
+    [self setVersionLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -52,4 +58,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [versionLabel release];
+    [super dealloc];
+}
 @end
