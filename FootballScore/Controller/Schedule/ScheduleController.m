@@ -206,7 +206,7 @@
     switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
-            return [NSString stringWithFormat:@"%d.%d(%d.%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
+            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_MIDDLE:
             return FNS(@"中");
         case MATCH_STATUS_FINISH:
