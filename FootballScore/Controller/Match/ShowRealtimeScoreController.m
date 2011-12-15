@@ -171,9 +171,9 @@ goalsTeam:(int)goalsTeam
 
 - (void)updateEventLabelColor:(int)goalsTeam
 {
-    UIColor *goalsColor = [UIColor colorWithRed:(0x61)/255.0 
-                                       green:(0x18)/255.0
-                                        blue:(0x0A)/255.0
+    UIColor *goalsColor = [UIColor colorWithRed:(0xFF)/255.0 
+                                       green:(0x33)/255.0
+                                        blue:(0x00)/255.0
                                        alpha:1.0];
     
     if (goalsTeam == HOMETEAM_GOALS)
