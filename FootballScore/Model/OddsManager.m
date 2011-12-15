@@ -213,10 +213,14 @@ OddsManager* GlobleGetOddsManager()
 
 - (NSString*)getLeagueIdByMatchId:(NSString*)matchId
 {
+    NSInteger mId = [matchId integerValue];
     for (Match* match in matchArray) {
-        if ([match.matchId isEqualToString:matchId]) {
+        if (mId == [match.matchId integerValue]) {
             return match.leagueId;
         }
+//        if ([match.matchId isEqualToString:matchId]) {
+//            return match.leagueId;
+//        }
     }
     return nil;
 }
