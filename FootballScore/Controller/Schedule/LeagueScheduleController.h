@@ -10,8 +10,9 @@
 #import "RepositoryService.h"
 @class League;
 @protocol CommonCommandInterface <NSObject>
-
-- (void)execute;
+@optional
+- (void)updateCommand;
+- (NSString*)execute;
 
 @end
 
@@ -47,6 +48,7 @@
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
 - (void)showSeasonSelectionActionSheet;
+- (void)setCommand;
 @end
 
 
@@ -55,6 +57,8 @@
     NSString* jsCodeString;
     UIWebView* superControllerWebView;
 }
+@property (retain, nonatomic) NSString* jsCodeString;
+@property (retain, nonatomic) UIWebView* superControllerWebView;
 - (id)initWithJSCodeString:(NSString*)jsCode dataWebView:(UIWebView*)webView;
 
 

@@ -390,6 +390,13 @@ ul,li {
 	padding-top: 100px !important;
 }
 
+.noYapeidata{
+	color:#475F85;
+	font-size:14px;
+	margin-left: 110px !important;
+	padding-top: 100px !important;
+}
+
 .hide{
 	display:none
 }

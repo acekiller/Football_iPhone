@@ -48,7 +48,7 @@ ScheduleManager.prototype = {
 		{
 			return null;
 		}
-		
+		len = seg2.length;
 		this.dataArray = new Array();
 		var round = "";
 		for (var i = 0; i < len; i++) {
