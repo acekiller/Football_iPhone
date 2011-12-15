@@ -41,7 +41,7 @@ function pointsAction() {
 	}
 	
 	var pointsRankData = document.getElementById('pointsRankData');
-	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	if(pointsRankData==null || pointsRankData==""){
 		subtable.innerHTML = html;
 	}
@@ -60,7 +60,7 @@ function headtoheadActoin() {
 	}
 	
 	var headData = document.getElementById('headData');
-	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	if(headData==null || headData==""){
 		subtable.innerHTML = html;
 	}
@@ -78,7 +78,7 @@ function recordsAction() {
 	}
 	
 	var recordsData = document.getElementById('recordsData');
-	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	if(recordsData==null || recordsData==""){
 		subtable.innerHTML = html;
 	}
@@ -96,7 +96,7 @@ function near3gamesAction() {
 	}
 	
 	var Near3GamesData = document.getElementById('Near3GamesData');
-	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	if(Near3GamesData==null || v==""){
 		subtable.innerHTML = html;
 	}
@@ -119,7 +119,7 @@ function recommendAction() {
 
 function addNoDataTips(obj){
 	var v = obj.innerHTML.trim();
-	var html = '<div"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	if(v==null || v==""){
 		obj.innerHTML = html;
 	}
