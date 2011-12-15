@@ -11,7 +11,6 @@
 #import "LeagueManager.h"
 #import "MatchManager.h"
 #import "FootballScoreAppDelegate.h"
-#import "ScoreUpdate.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "LogUtil.h"
 
@@ -28,7 +27,7 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
 @synthesize homeTeamEventLabel;
 @synthesize awayTeamEventLabel;
 @synthesize showTimer;
-@synthesize scoreUpdate;
+@synthesize match;
 @synthesize player;
 
 
@@ -55,7 +54,7 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
 {
     //set color
 
-    [self updateViewByScoreUpdate:scoreUpdate];
+    [self updateViewByMatche:match];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -80,7 +79,8 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     }
 }
 
-+ (void)show:(ScoreUpdate *)scoreUpdate 
++ (void)show:(Match *)newMatch 
+   goalsTeam:(int)goalsTeam
  isVibration:(BOOL)isVibration 
     hasSound:(BOOL)hasSound
 {
@@ -89,7 +89,8 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     UIView *view = [controller view];
     if (view) {
         [ShowRealtimeScoreController show:view 
-                              scoreUpdate:scoreUpdate 
+                              scoreUpdate:newMatch 
+                                goalsTeam:goalsTeam
                               isVibration:isVibration
                                  hasSound:hasSound];
     }
@@ -97,7 +98,8 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
 }
 
 + (void)show:(UIView*)superView 
- scoreUpdate:(ScoreUpdate *)newScoreUpdate
+ scoreUpdate:(Match *)newMatch
+goalsTeam:(int)goalsTeam
  isVibration:(BOOL)isVibration 
     hasSound:(BOOL)hasSound
 {
@@ -115,7 +117,8 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     [superView addSubview:globalShowRealtimeScoreController.view];
     
     // set scoreUpdate
-    [globalShowRealtimeScoreController updateViewByScoreUpdate:newScoreUpdate];    
+    [globalShowRealtimeScoreController updateViewByMatche:newMatch];
+    [globalShowRealtimeScoreController updateEventLabelColor:goalsTeam];
     
     // schedule timer here 
     [globalShowRealtimeScoreController createHideTimer];
@@ -137,14 +140,14 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     [homeTeamEventLabel release];
     [awayTeamEventLabel release];
     [showTimer release];
-    [scoreUpdate release];
+    [match release];
     [player release];
     [super dealloc];
 }
 
-- (void)updateViewByScoreUpdate:(ScoreUpdate *)newScoreUpdate
+- (void)updateViewByMatche:(Match *)newMatche
 {
-    self.scoreUpdate = newScoreUpdate;
+    self.match = newMatche;
     
     UIColor *uicolor = [UIColor colorWithRed:(0x61)/255.0 
                                        green:(0x18)/255.0
@@ -157,27 +160,32 @@ ShowRealtimeScoreController* globalShowRealtimeScoreController;
     homeTeamEventLabel.textColor = uicolor;
     awayTeamEventLabel.textColor = uicolor;
     
-    if (newScoreUpdate.scoreUpdateType == HOMETEAMSCORE)
+    
+    leagueNameLabel.text = match.leagueId;
+    startTimeLabel.text = [[MatchManager defaultManager] matchMinutesString:match];
+    homeTeamLabel.text = match.homeTeamName;
+    awayTeamLabel.text = match.awayTeamName;
+    homeTeamEventLabel.text = match.homeTeamScore;
+    awayTeamEventLabel.text = match.awayTeamScore;
+}
+
+- (void)updateEventLabelColor:(int)goalsTeam
+{
+    UIColor *goalsColor = [UIColor colorWithRed:(0xFF)/255.0 
+                                       green:(0x33)/255.0
+                                        blue:(0x00)/255.0
+                                       alpha:1.0];
+    
+    if (goalsTeam == HOMETEAM_GOALS)
+        homeTeamEventLabel.textColor = goalsColor;
+    else if (goalsTeam == AWAYTEAM_GOALS)
+        awayTeamEventLabel.textColor = goalsColor;
+    else if (goalsTeam == BOTH_GOALS)
     {
-        homeTeamEventLabel.textColor = [UIColor colorWithRed:(0xFF)/255.0 
-                                                       green:(0x33)/255.0
-                                                        blue:(0x00)/255.0
-                                                       alpha:1.0];
-    }
-    else if (newScoreUpdate.scoreUpdateType == AWAYTEAMSCORE)
-    {
-        awayTeamEventLabel.textColor = [UIColor colorWithRed:(0xFF)/255.0 
-                                                       green:(0x33)/255.0
-                                                        blue:(0x00)/255.0
-                                                       alpha:1.0];
+        homeTeamEventLabel.textColor = goalsColor;
+        awayTeamEventLabel.textColor = goalsColor;
     }
     
-    leagueNameLabel.text = [[LeagueManager defaultManager] getNameById:scoreUpdate.match.leagueId];
-    startTimeLabel.text = [[MatchManager defaultManager] matchMinutesString:scoreUpdate.match];
-    homeTeamLabel.text = scoreUpdate.match.homeTeamName;
-    awayTeamLabel.text = scoreUpdate.match.awayTeamName;
-    homeTeamEventLabel.text = scoreUpdate.match.homeTeamScore;
-    awayTeamEventLabel.text = scoreUpdate.match.awayTeamScore;
 }
 
 - (void)createHideTimer

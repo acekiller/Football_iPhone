@@ -11,4 +11,7 @@
 
 @interface AboutController : PPViewController
 
+@property (retain, nonatomic) IBOutlet UILabel *versionLabel;
+
+
 @end

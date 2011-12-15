@@ -93,12 +93,13 @@ RepositoryManager *GlobalGetRepositoryManager()
         if ([leagueArray count] >= LEAGUE_INDEX_COUNT) {
             NSString *leagueId = [leagueArray objectAtIndex:LEAGUE_ID_INDEX];
             NSString *leagueName = [leagueArray objectAtIndex:LEAGUE_NAME_INDEX];
+            NSString *leagueShortName = [leagueArray objectAtIndex:LEAGUE_SHORT_NAME_INDEX];
             NSString *leagueCountryId = [leagueArray objectAtIndex:LEAGUE_COUNTRY_ID_INDEX];
             NSInteger leagueType = [[leagueArray objectAtIndex:LEAGUE_TYPE_INDEX]intValue];
             NSString *seasonListString = [leagueArray objectAtIndex:LEAGUE_LIST_INDEX];
             
             NSArray *seasonList = [seasonListString componentsSeparatedByString:@","];
-            League *league = [[League alloc]initWithLeagueId:leagueId leagueName:leagueName countryId:leagueCountryId leagueType:leagueType seasonList:seasonList];
+            League *league = [[League alloc]initWithLeagueId:leagueId leagueName:leagueName leagueShortName:leagueShortName countryId:leagueCountryId leagueType:leagueType seasonList:seasonList];
             [_leagueArray addObject:league];
             [league release];
         }

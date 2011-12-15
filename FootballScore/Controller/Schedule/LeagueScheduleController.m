@@ -71,9 +71,23 @@ enum {
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)initBarButton
+- (void)initButtons
 {
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
+    [self setNavigationRightButton:FNS(@"赛季") imageName:@"ss.png" action:@selector(showSeasonSelectionActionSheet)];
+    [self.pointButton setTag:POINT_BUTTON_TAG];
+    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
+    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
+    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
+    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
+    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
+    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
+    
+}
+
+- (void)initTitle
+{
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
 }
 
 - (void)initWebView
@@ -92,8 +106,8 @@ enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initBarButton];
-    [self buttonTagInit];
+    [self initButtons];
+    [self initTitle];
     [self initWebView];
     // Do any additional setup after loading the view from its nib.
 }
@@ -138,19 +152,6 @@ enum {
     [vc release];
 }
 
-- (void)buttonTagInit
-{
-    [self.pointButton setTag:POINT_BUTTON_TAG];
-    [self.scheduleButton setTag:SCHEDULE_BUTTON_TAG];
-    [self.rangQiuButton setTag:RANG_QIU_BUTTON_TAG];
-    [self.daxiaoButton setTag:DAXIAO_BUTTON_TAG];
-    [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
-    [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
-    [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
-}
-
-
-
 - (void)setScoreCommand:(id<CommonCommandInterface>)command forKey:(int)Key
 {
     if (buttonCommandsDict == nil) {
@@ -160,8 +161,33 @@ enum {
         
 }
 
+- (void)updateButtonState:(id)sender
+{
+    for (int i=POINT_BUTTON_TAG; i<=SHOOTER_RANKING_BUTTON_TAG; i++) {
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        UIButton* selectedButton = (UIButton*)sender;
+        if (button.tag == selectedButton.tag) {
+            [button setSelected:YES];
+        } else {
+            [button setSelected:NO];
+        }
+    }
+}
+
+- (void)updateDataWebViewState:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    if (button.tag == SCHEDULE_BUTTON_TAG) {
+        [self.dataWebView setFrame:CGRectMake(0, 70, 320, 297)];
+    } else {
+        [self.dataWebView setFrame:CGRectMake(0, 37, 320, 330)];
+    }
+}
+
 - (IBAction)buttonClick:(id)sender
 {
+    [self updateButtonState:(id)sender];
+    [self updateDataWebViewState:(id)sender];
     id<CommonCommandInterface> command = [self.buttonCommandsDict objectForKey:[NSNumber numberWithInt:[sender tag]]];
     if (command) {
         [command execute];
@@ -222,6 +248,7 @@ enum {
 - (void)didSelectSeason:(int)index
 {
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
     [self updateRounds];
 }
 

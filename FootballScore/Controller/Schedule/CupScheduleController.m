@@ -98,6 +98,7 @@ enum {
 
 - (void)initTitle
 {
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
     [self.cupScheduleResultTitle setHidden:YES];
 }
 
@@ -338,6 +339,7 @@ enum {
 {
     [GlobalGetRepositoryService() getGroupInfo:[LanguageManager getLanguage] leagueId:self.league.leagueId season:[self.league.seasonList objectAtIndex:index] Delegate:self];
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
+    [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
 }
 
 - (void)didSelectMatchType:(int)index title:(NSString*)title

@@ -16,6 +16,7 @@
 #import "ColorManager.h"
 #import "ShowRealtimeScoreController.h"
 #import "ConfigManager.h"
+#import "Match.h"
 
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
@@ -187,6 +188,39 @@
 }
 
 
+- (NSDictionary*)getShowScoreList:(NSSet *)scoreUpdateSet
+{
+    NSMutableDictionary *goalsTipsDictionary = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    for (ScoreUpdate *scoreUpdate in scoreUpdateSet) 
+    {
+        if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE) 
+        {
+            NSString *matchId = [NSString stringWithFormat:@"%@",scoreUpdate.match.matchId];
+            NSNumber *goalsTeam = [goalsTipsDictionary objectForKey:matchId];
+            
+            if (goalsTeam == nil)
+            {
+                [goalsTipsDictionary setValue:[NSNumber numberWithInt:HOMETEAM_GOALS] forKey:matchId];
+            }
+            else if ([goalsTeam intValue] == AWAYTEAM_GOALS)
+                [goalsTipsDictionary setValue:[NSNumber numberWithInt:BOTH_GOALS] forKey:matchId];
+        }
+        
+        else if(scoreUpdate.scoreUpdateType == AWAYTEAMSCORE)
+        {
+            NSString *matchId = [NSString stringWithFormat:@"%@",scoreUpdate.match.matchId];
+            NSNumber *goalsTeam = [goalsTipsDictionary objectForKey:matchId];
+            
+            if (goalsTeam == nil)
+                [goalsTipsDictionary setValue:[NSNumber numberWithInt:AWAYTEAM_GOALS] forKey:matchId ];
+            else if ([goalsTeam intValue] == HOMETEAM_GOALS)
+                [goalsTipsDictionary setValue:[NSNumber numberWithInt:BOTH_GOALS] forKey:matchId ];
+        }
+    }
+    
+    return  goalsTipsDictionary;
+}
 
 #pragma delegate
 - (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet
@@ -200,7 +234,7 @@
     }
     
     int count = [scoreUpdateManager insertScoreUpdateSet:scoreUpdateSet];
-    if (count) {
+    if (count) {  
         NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
         [self.dataTableView beginUpdates];
         self.dataList = [scoreUpdateManager scoreUpdateList];
@@ -212,15 +246,40 @@
         [self.dataTableView endUpdates];
         [indexPathArray release];
         
-        for (ScoreUpdate *scoreUpdate in scoreUpdateSet) {
-            if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE || scoreUpdate.scoreUpdateType == AWAYTEAMSCORE) {
-                //[ShowRealtimeScoreController show:scoreUpdate];  //增加了参数
-                [ShowRealtimeScoreController show:scoreUpdate 
-                                      isVibration:[ConfigManager getIsVibration]
-                                         hasSound:[ConfigManager getHasSound]];
-                break;
-            }
+        
+//        //测试数据  
+//        NSMutableSet *testSet = [[NSMutableSet alloc] init];
+//        
+//        MatchManager *manager = [MatchManager defaultManager];
+//        Match *match = [manager.matchArray objectAtIndex:2];
+//        ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
+//        [testSet addObject:update];
+//        [update release];
+//        
+//        update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
+//        [testSet addObject:update];
+//        [update release];
+//                
+//        NSDictionary *goalsTipsDictionary = [self getShowScoreList:testSet];
+//        //测试尾
+        
+                
+        NSDictionary *goalsTipsDictionary = [self getShowScoreList:scoreUpdateSet];
+        
+        NSEnumerator *enumerator = [goalsTipsDictionary keyEnumerator];
+        NSString *matchId;
+        NSNumber *type;
+        
+        while(matchId = [enumerator nextObject])
+        {
+            type = [goalsTipsDictionary objectForKey:matchId];
+            
+            [ShowRealtimeScoreController show:[[MatchManager defaultManager] getMathById:matchId]
+                                    goalsTeam:[type intValue] 
+                                  isVibration:[ConfigManager getIsVibration]
+                                     hasSound:[ConfigManager getHasSound]];
         }
+        
     }
     [self refleshCount];
 

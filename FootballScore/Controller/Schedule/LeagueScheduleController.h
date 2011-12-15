@@ -46,7 +46,6 @@
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
-- (void)buttonTagInit;
 - (void)showSeasonSelectionActionSheet;
 @end
 
