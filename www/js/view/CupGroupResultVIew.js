@@ -58,9 +58,14 @@ function CupGroupResultView(){
 		 };
 
     var cupGroupResultTemplate = Ext.XTemplate.from("cupGroupResult-template", helperFunctions);
+    var nodataTemplate = Ext.XTemplate.from("noCupGroupResult-template", helperFunctions);
     
     this.cupGroupResultPanel = new Ext.Panel({
         tpl: cupGroupResultTemplate
+    });
+    
+    this.nodataPanel = new Ext.Panel({
+        tpl: nodataTemplate
     });
     
     this.mainPanel = new Ext.Panel({
@@ -70,7 +75,8 @@ function CupGroupResultView(){
             align: 'top'
         },
         scroll: 'vertical',
-        items: [this.cupGroupResultPanel]
+        items: [this.cupGroupResultPanel,
+                this.nodataPanel]
     });
     
 }
@@ -80,7 +86,16 @@ CupGroupResultView.prototype = {
     
     updateView: function(manager){
     
-        this.cupGroupResultPanel.update(manager);
+	if(manager.CupFenzuResultArray == null || manager.CupFenzuResultArray.length == 0) {
+		this.cupGroupResultPanel.hide();
+		this.nodataPanel.show();
+		this.nodataPanel.update();
+	} else {
+		this.nodataPanel.hide();
+		this.cupGroupResultPanel.show();
+		this.cupGroupResultPanel.update(manager);
+	}
+       
         
     }
 };
