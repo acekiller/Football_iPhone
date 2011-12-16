@@ -52,18 +52,14 @@ enum cardType{
     NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"RealtimeScoreCell" owner:self options:nil];
     // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).  
     if (topLevelObjects == nil || [topLevelObjects count] <= 0){
-        NSLog(@"create <PPTableViewCell> but cannot find cell object from Nib");
+        NSLog(@"create <RealtimeScoreCell> but cannot find cell object from Nib");
         return nil;
     }
     
     RealtimeScoreCell * cell = ((RealtimeScoreCell *)[topLevelObjects objectAtIndex:0]);
     cell.delegate = delegate;        
-
-    UIImageView *bgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"kive_li2.png"]];
-    bgView.frame = cell.bounds;
-    cell.selectedBackgroundView = bgView;
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    [bgView release];
+    [cell.matchStatusLabel setAutomaticallyAddLinksForType:0];
+    [cell.matchStatusLabel setUnderlineLinks:NO];
     
     return cell;
 }
@@ -132,23 +128,29 @@ enum cardType{
 }
 
 - (void)updateStartTime:(Match*)match{   
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSString *dateString = [NSString stringWithFormat:@""];
-    [formatter setDateFormat:@"HH:mm"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
-    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+//    NSString *dateString = [NSString stringWithFormat:@""];
     NSDate* startDate;    
     if (match.firstHalfStartDate != nil)
         startDate = match.firstHalfStartDate;
     else
         startDate = match.date;
-    
-    if (nil !=[formatter stringFromDate:startDate]){
-        dateString = [formatter stringFromDate:startDate];
-    }
-    
-    startTimeLabel.text = dateString;
-    [formatter release];
+    startTimeLabel.text = dateToChineseStringByFormat(startDate, @"HH:mm");
+//    [formatter setDateFormat:@"HH:mm"];
+//    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
+//    
+//    NSDate* startDate;    
+//    if (match.firstHalfStartDate != nil)
+//        startDate = match.firstHalfStartDate;
+//    else
+//        startDate = match.date;
+//    
+//    if (nil !=[formatter stringFromDate:startDate]){
+//        dateString = [formatter stringFromDate:startDate];
+//    }
+//    
+//    startTimeLabel.text = dateString;
+//    [formatter release];
 }
 
 -(void)updateFollow:(Match*)match{

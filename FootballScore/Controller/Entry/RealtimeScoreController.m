@@ -181,6 +181,14 @@
 		cell = [RealtimeScoreCell createCell:self];				
 	}		
     
+    
+    UIImageView *bgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"kive_li2.png"]];
+    
+    bgView.frame = cell.bounds;
+    cell.selectedBackgroundView = bgView;
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    [bgView release];
+    
     cell.indexPath = indexPath;
 
     Match* match = [self.dataList objectAtIndex:indexPath.row];

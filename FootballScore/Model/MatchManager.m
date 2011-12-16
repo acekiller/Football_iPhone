@@ -156,12 +156,8 @@ MatchManager* GlobalGetMatchScheduleManager()
 {
     if (matchId == nil || followMatchList == nil)
         return NO;
-    if ([followMatchList objectForKey:matchId] == nil) {
-        return NO;
-    } else {
-        return YES;
-    }
 
+    return [followMatchList objectForKey:matchId] != nil;
 }
 
 #pragma INIT/DEALLOC
