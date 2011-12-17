@@ -10,9 +10,16 @@
 @class Match;
 
 @interface ScheduleController : PPTableViewController <ScheduleServiceDelegate, UIActionSheetDelegate>{
-    
+    @private
+    int _scheduleType;
+    int _dayDirection;
+    NSDate* _initDate;
+ 
 }
 @property (retain, nonatomic) IBOutlet UILabel *dateLabel;
+@property (assign, nonatomic) int scheduleType;
+@property (assign, nonatomic) int dayDirection;
+@property (retain, nonatomic) NSDate* initDate;
 
 + (void)showScheduleWithSuperController:(UIViewController*)superViewController;
 + (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController;
@@ -21,6 +28,7 @@
 - (NSString*)convertStatus:(Match*)match;
 - (void)initCell:(UITableViewCell*)cell;
 - (void)setCell:(UITableViewCell*)cell withMatch:(Match*)match;
+- (id)initWithType:(int)scheduleType initDate:(NSDate*)initDate title:(NSString*)title dayDirection:(int)dayDirection;
 @property (retain, nonatomic) IBOutlet UIButton *selectedDateButton;
 
 @end
