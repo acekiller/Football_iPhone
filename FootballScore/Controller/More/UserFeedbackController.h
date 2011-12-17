@@ -8,16 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PPViewController.h"
+#import "UserService.h"
 
-@protocol UserFeedbackControllerDelegate <NSObject>
+@interface UserFeedbackController : PPViewController <UserServiceDelegate>
 
-- (void)sendFeedbackMessage:(NSString*)message witchUserNick:(NSString*)userNick;
-@end
-
-@interface UserFeedbackController : PPViewController
-{    
-    id<UserFeedbackControllerDelegate> delegate;
-}
+@property (retain, nonatomic) IBOutlet UITextView *content;
+@property (retain, nonatomic) IBOutlet UITextField *contact;
 
 - (IBAction)clickOnSendButton:(id)sender;
 

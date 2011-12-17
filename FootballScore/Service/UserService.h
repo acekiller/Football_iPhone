@@ -16,7 +16,10 @@
 
 - (void)getVersionFinish:(int)result data:(NSString*)data;
 
+- (void)sendFeedbackFinish:(int)result data:(NSString*)data;
+
 @end
+
 
 @interface UserService : CommonService {
     
@@ -27,5 +30,10 @@
 - (void)getVersion:(id<UserServiceDelegate>)delegate;
 
 - (void)updateUserPushInfo:(NSString*)userId pushType:(int)pushType token:(NSString*)token;
+
+- (void)sendFeedback:(id<UserServiceDelegate>)delegate 
+              userId:(NSString*)userId 
+             content:(NSString*)content 
+             contact:(NSString*)contact;
 
 @end

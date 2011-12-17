@@ -77,4 +77,33 @@
     }];
 }
 
+- (void)sendFeedback:(id<UserServiceDelegate>)delegate 
+              userId:(NSString*)userId 
+             content:(NSString*)content 
+             contact:(NSString*)contact
+{
+    NSOperationQueue* queue = [self getOperationQueue:@"SEND_FEEDBACK"];
+    [queue addOperationWithBlock:^{
+        
+        CommonNetworkOutput* output = [FootballNetworkRequest sendFeedbackByUserId:userId content:content contact:contact];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if(output.resultCode == ERROR_SUCCESS)
+            {
+                PPDebug(@"<UserService>)send feekback success");
+            }
+            else
+            {
+                PPDebug(@"<UserService>)send feekback failed , error = %d",output.resultCode);
+            }
+            
+            if (delegate && [delegate respondsToSelector:@selector(sendFeedbackFinish: data:)]) {
+                [delegate sendFeedbackFinish:output.resultCode data:output.textData];
+            }
+            
+        });
+    }];
+}
+
 @end
