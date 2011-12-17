@@ -92,6 +92,7 @@ enum {
     [self.groupPointsButton setTag:GROUP_POINT_BUTTON_TAG];
     [self.matchTypeSelectButton setTag:MATCH_TYPE_SELECT_BUTTON_TAG];
     [self.matchResultButton setHidden:YES];
+    [self.matchResultButton setSelected:YES];
     [self.groupPointsButton setHidden:YES];
     
 }
@@ -393,6 +394,8 @@ enum {
         [self.matchResultButton setHidden:NO];
         [self.groupPointsButton setHidden:NO];
         [self.cupScheduleResultTitle setHidden:YES];
+        [self.matchResultButton setSelected:YES];
+        [self.groupPointsButton setSelected:NO];
     } else {
         [self updateScheduleResult];
         [self.matchResultButton setHidden:YES];
