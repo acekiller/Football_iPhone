@@ -9,7 +9,12 @@
 #import "UserFeedbackController.h"
 #import "LocaleConstants.h"
 #import "ColorManager.h"
+#import "UserService.h"
+#import "UserManager.h"
+
 @implementation UserFeedbackController
+@synthesize content;
+@synthesize contact;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +54,8 @@
 
 - (void)viewDidUnload
 {
+    [self setContent:nil];
+    [self setContact:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -61,13 +68,42 @@
 }
 
 - (void)dealloc {
+    [content release];
+    [contact release];
     [super dealloc];
 }
 
 
 - (IBAction)clickOnSendButton:(id)sender
 {
+    [content resignFirstResponder];
+    [contact resignFirstResponder];
     
+    NSString *contentString = content.text;
+    NSString *contactString = contact.text;
+    
+    if ([contentString length] == 0) {
+        [self popupHappyMessage:FNS(@"反馈内容不能为空") title:nil];
+    }
+    else
+    {
+        UserService *userService = [[[UserService alloc] init] autorelease];
+        [userService sendFeedback:self userId:[UserManager getUserId] content:contentString contact:contactString];
+    }
+}
+
+- (void)sendFeedbackFinish:(int)result data:(NSString *)data
+{
+    if (result == 0) {
+        content.text = @"";
+        contact.text = @"";
+        
+        [self popupHappyMessage:FNS(@"提交成功") title:nil];
+    }
+    else
+    {
+        [self popupUnhappyMessage:FNS(@"提交失败") title:nil];
+    }
 }
 
 @end
