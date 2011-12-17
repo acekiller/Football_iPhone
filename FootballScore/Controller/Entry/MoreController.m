@@ -254,12 +254,16 @@ typedef enum {
     }
     else if (RECOMMENDATION == whichAcctionSheet)
     {
+        NSString *bodyString_begin = FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是");
+        NSString *bodyString = [NSString stringWithFormat:@"%@%@", bodyString_begin, [UIUtils getAppLink:kAppId]];
+        
+        
         if (buttonIndex == actionSheet.cancelButtonIndex){
             return;
         }
         else if (buttonIndex == 0)
         {
-            [self sendSms:@"" body:FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx")];
+            [self sendSms:@"" body:bodyString];
         }
         else if (buttonIndex == 1)
         {
@@ -267,7 +271,7 @@ typedef enum {
                  ccRecipients:nil 
                 bccRecipients:nil 
                       subject:FNS(@"向你推荐彩客网的比分客户端") 
-                         body:FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是xxxxxxxxx") 
+                         body:bodyString 
                        isHTML:NO 
                      delegate:self];
         }
