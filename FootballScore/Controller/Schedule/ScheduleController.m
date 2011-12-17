@@ -39,14 +39,14 @@
 - (id)initWithType:(int)scheduleType initDate:(NSDate*)initDate title:(NSString*)title dayDirection:(int)dayDirection
 {
     self = [super init];
-    [self setTitle:title];
-    self.scheduleType = scheduleType;
-    self.initDate = initDate;
-    self.dayDirection = dayDirection;
-    
+    if (self) {
+        [self setTitle:title];
+        self.scheduleType = scheduleType;
+        self.initDate = initDate;
+        self.dayDirection = dayDirection;
+    }
     return self;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -62,7 +62,7 @@
 {
     [super viewDidLoad];
     [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(self.initDate), chineseWeekDayFromDate(self.initDate)]];
     [self.selectedDateButton setTitle:FNS(@" 选择日期") forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
@@ -157,7 +157,7 @@
 - (IBAction)clicksSelectDateButton:(id)sender
 {
     
-    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"一周赛事") 
+    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"选择日期")
                                                                 delegate:self 
                                                        cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil
@@ -245,8 +245,8 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 45, 30)];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 65, 30)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 30)];
     UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 30)];
     UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 30)];
     UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 30)];

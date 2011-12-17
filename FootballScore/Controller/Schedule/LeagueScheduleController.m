@@ -204,7 +204,7 @@ enum {
         NSString* result = [command execute];
         PPDebug(@"%@", result);
     }
-    [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"轮次:%d",currentRound] forState:UIControlStateNormal];
+    [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  轮次:%d",currentRound] forState:UIControlStateNormal];
     
 }
 
@@ -309,7 +309,7 @@ enum {
         }
             break;
         case ROUNDS_SELECTOR: {
-            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"轮次:%d", [buttonIndexNumber intValue]+1] forState:UIControlStateNormal];
+            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  轮次:%d", [buttonIndexNumber intValue]+1] forState:UIControlStateNormal];
             [self didSelectRound:[buttonIndexNumber intValue]];
         }
             break;
