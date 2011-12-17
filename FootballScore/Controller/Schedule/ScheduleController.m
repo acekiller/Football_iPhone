@@ -146,7 +146,7 @@
 + (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController
 {
     NSDate* yesterday = [NSDate dateWithTimeIntervalSinceNow:-24*60*60];
-    ScheduleController* vc = [[ScheduleController alloc] initWithType:COMPLETE_SCORE initDate:yesterday title:FNS(@"完整比分") dayDirection:BACKWARD_DAY];
+    ScheduleController* vc = [[ScheduleController alloc] initWithType:COMPLETE_SCORE initDate:yesterday title:FNS(@"完场比分") dayDirection:BACKWARD_DAY];
     [superViewController.navigationController pushViewController:vc animated:YES];
     [GlobalGetScheduleService() getSchedule:vc date:yesterday];
     [vc showActivityWithText:FNS(@"loading")];
@@ -219,11 +219,9 @@
     switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
-            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_MIDDLE:
-            return FNS(@"中");
         case MATCH_STATUS_FINISH:
-            return FNS(@"完");
+            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_PAUSE:
             return FNS(@"中断");
         case MATCH_STATUS_TBD:
@@ -294,7 +292,10 @@ enum {
     [dateAndStatus setTextColor:[UIColor grayColor]];
     [homeTeamName setTextColor:[ColorManager soundsAlertColor]];
     [awayTeamName setTextColor:[ColorManager soundsAlertColor]];
-    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || [match.status intValue] == MATCH_STATUS_SECOND_HALF) {
+    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || 
+        [match.status intValue] == MATCH_STATUS_SECOND_HALF ||
+        [match.status intValue] == MATCH_STATUS_FINISH ||
+        [match.status intValue] == MATCH_STATUS_MIDDLE) {
         [scoreLabel setTextColor:[UIColor redColor]];
     } else {
         [scoreLabel setTextColor:[UIColor blueColor]];
