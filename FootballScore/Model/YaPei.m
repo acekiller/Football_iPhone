@@ -7,6 +7,7 @@
 //
 
 #import "YaPei.h"
+#import "LogUtil.h"
 
 @implementation YaPei
 @synthesize chupan;
@@ -38,6 +39,8 @@
         self.instantOdds = [self getNumber:instantOddsValue];
         self.homeTeamOdds = [self getNumber:homeTeamOddsValue];
         self.awayTeamOdds = [self getNumber:awayTeamOddsValue];
+        
+        [self setLastModifyTime:time(0)];
     }
 
     return self;
@@ -79,7 +82,9 @@
     [self setAwayTeamOddsFlag:awayTeamFlag];
     [self setHomeTeamOddsFlag:homeTeamFlag];
     
-    if (instantFlag != 0 | homeTeamFlag != 0 | awayTeamFlag != 0) {
+    if (instantFlag != 0 || homeTeamFlag != 0 || awayTeamFlag != 0) {
+        PPDebug(@"Match(%@) Yapei Odds Changed, Instant(%d), Home(%d), Away(%d)", 
+                matchId, instantFlag, homeTeamFlag, awayTeamFlag);
         [self setLastModifyTime:time(0)];
     }
 
