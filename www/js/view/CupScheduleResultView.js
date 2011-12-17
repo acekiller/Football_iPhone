@@ -56,11 +56,16 @@ function CupScheduleResultView(){
 				}
 			}
 		 };
-
+	
     var cupScheduleResultTemplate = Ext.XTemplate.from("cupScheduleResult-template", helperFunctions);
-    
+	var nodataTemplate = Ext.XTemplate.from("noScheduleResult-template", helperFunctions);
+	
     this.cupScheduleResultPanel = new Ext.Panel({
         tpl: cupScheduleResultTemplate
+    });
+    
+    this.nodataPanel = new Ext.Panel({
+        tpl: nodataTemplate
     });
     
     this.mainPanel = new Ext.Panel({
@@ -70,7 +75,8 @@ function CupScheduleResultView(){
             align: 'top'
         },
         scroll: 'vertical',
-        items: [this.cupScheduleResultPanel]
+        items: [this.cupScheduleResultPanel,
+                this.nodataPanel]
     });
     
 }
@@ -80,7 +86,16 @@ CupScheduleResultView.prototype = {
     
     updateView: function(manager){
     
-        this.cupScheduleResultPanel.update(manager);
+	if(manager.matchResultArray == null || manager.matchResultArray.length == 0) {
+		this.cupScheduleResultPanel.hide();
+		this.nodataPanel.show();
+		this.nodataPanel.update();
+	} else {
+		this.nodataPanel.hide();
+		this.cupScheduleResultPanel.show();
+		this.cupScheduleResultPanel.update(manager);
+	}
+        
         
     }
 };

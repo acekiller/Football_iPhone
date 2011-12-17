@@ -63,11 +63,16 @@ function CupGroupPointsView(){
 				}
 			}
 		 };
-
+	
     var cupFenzuPointsTemplate = Ext.XTemplate.from("cupFenzuPoints-template", helperFunctions);
-    
+	var nodataTemplate = Ext.XTemplate.from("noCupFenzuPoints-template", helperFunctions);
+	
     this.cupFenzuPointsPanel = new Ext.Panel({
         tpl: cupFenzuPointsTemplate
+    });
+    
+    this.nodataPanel = new Ext.Panel({
+        tpl: nodataTemplate
     });
     
     this.mainPanel = new Ext.Panel({
@@ -77,7 +82,8 @@ function CupGroupPointsView(){
             align: 'top'
         },
         scroll: 'vertical',
-        items: [this.cupFenzuPointsPanel]
+        items: [this.cupFenzuPointsPanel,
+                this.nodataPanel]
     });
     
 }
@@ -87,7 +93,16 @@ CupGroupPointsView.prototype = {
     
     updateView: function(manager){
     
-        this.cupFenzuPointsPanel.update(manager);
+	if(manager.CupFenzuPointsArray == null || manager.CupFenzuPointsArray.length == 0) {
+		this.cupFenzuPointsPanel.hide();
+		this.nodataPanel.show();
+		this.nodataPanel.update();
+	} else {
+		this.nodataPanel.hide();
+		this.cupFenzuPointsPanel.show();
+		this.cupFenzuPointsPanel.update(manager);
+	}
+        
         
     }
 };
