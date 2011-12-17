@@ -81,7 +81,6 @@ enum{
 
 + (CommonNetworkOutput*)getVersion;
 + (CommonNetworkOutput*)getCupScheduleMatchInfo:(NSString*)leagueId season:(NSString*)season language:(int)language;
-+ (CommonNetworkOutput*)getLeagueScheduleRoundsWithId:(NSString*)leagueId season:(NSString*)season;
 
 + (CommonNetworkOutput*)sendFeedbackByUserId:(NSString*)userId 
                                      content:(NSString*)content 

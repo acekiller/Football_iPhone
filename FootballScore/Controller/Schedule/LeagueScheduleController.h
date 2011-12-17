@@ -16,7 +16,7 @@
 
 @end
 
-@interface LeagueScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
+@interface LeagueScheduleController : PPViewController <UIActionSheetDelegate>{
     NSMutableDictionary*  buttonCommandsDict;
     League* league;
     int currentSelection;

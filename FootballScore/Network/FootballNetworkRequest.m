@@ -709,28 +709,6 @@ enum{
                                         output:output]; 
 }
 
-+ (CommonNetworkOutput*)getLeagueScheduleRoundsWithId:(NSString*)leagueId season:(NSString*)season
-{
-    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
-    
-    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
-        
-        //set input parameters
-        NSString* str = [NSString stringWithString:baseURL];
-        str = [str stringByAddQueryParameter:@"ID" value:leagueId];        
-        str = [str stringByAddQueryParameter:@"Season" value:season];
-        return str;
-    };
-    
-    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
-        return;
-    }; 
-    
-    return [FootballNetworkRequest sendRequest:URL_GET_LEAGUE_SCHEDULE_ROUNDS
-                           constructURLHandler:constructURLHandler
-                               responseHandler:responseHandler
-                                        output:output]; 
-}
 
 + (CommonNetworkOutput*)sendFeedbackByUserId:(NSString*)userId 
                                      content:(NSString*)content 
