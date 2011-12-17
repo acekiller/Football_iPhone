@@ -48,7 +48,7 @@
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
 - (void)showSeasonSelectionActionSheet;
-- (void)setCommand;
+- (void)resetCommand;
 @end
 
 
