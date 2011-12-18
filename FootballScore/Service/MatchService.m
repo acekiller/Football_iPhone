@@ -63,7 +63,7 @@
     }
 }
 
-#define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
+//#define REALTIME_SCORE_TIMER_INTERVAL   10       // 10 seconds
 
 - (void)startRealtimeScoreUpdate
 {
@@ -73,7 +73,7 @@
     [self stopRealtimeScoreUpdate];
     
     // create new timer
-    self.realtimeScoreTimer = [NSTimer scheduledTimerWithTimeInterval:REALTIME_SCORE_TIMER_INTERVAL target:self selector:@selector(getRealtimeScore) userInfo:nil repeats:NO];
+    self.realtimeScoreTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(getRealtimeScore) userInfo:nil repeats:NO];
 }
 
 - (void)stopRealtimeMatchUpdate
@@ -90,6 +90,8 @@
 
 - (void)startRealtimeMatchUpdate
 {
+    static int MATCH_UPDATE_INTERVAL = 30*60;
+    
     //it used to update realtime match info every half an hour,for the match info may change during this time
     NSLog(@"<startRealtimeMatcheUpdate>");
     
@@ -97,11 +99,12 @@
     [self stopRealtimeMatchUpdate];
     
     // create new timer
-    self.realtimeMatchTimer = [NSTimer scheduledTimerWithTimeInterval:[ConfigManager getRefreshInterval] target:self selector:@selector(realtimeMatchUpdateTimerTask) userInfo:nil repeats:YES];
+    self.realtimeMatchTimer = [NSTimer scheduledTimerWithTimeInterval:MATCH_UPDATE_INTERVAL target:self selector:@selector(realtimeMatchUpdateTimerTask) userInfo:nil repeats:YES];
 }
 
 - (void)realtimeMatchUpdateTimerTask
 {
+    NSLog(@"<realtimeMatchUpdateTimer> Timer Task Fired");
     [self addRealtimeMatchUpdateToQueue:currentDelegate matchScoreType:currentScoreType];
 }
 

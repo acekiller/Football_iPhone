@@ -15,6 +15,7 @@
 #import "StringUtil.h"
 #import "ColorManager.h"
 #import "DataUtils.h"
+#import "LogUtil.h"
 
 @implementation ScoreIndexCell
 @synthesize companyName;
@@ -124,28 +125,37 @@
     if (odds && (time(0) - odds.lastModifyTime < 10)) {
         //home odds
         if ([odds homeTeamOddsFlag] == ODDS_INCREASE) {
+            PPDebug(@"Match(%@) Home Odds INCREASE", odds.matchId);
             [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
         }else if([odds homeTeamOddsFlag] == ODDS_DECREASE){
+            PPDebug(@"Match(%@) Home Odds DECREASE", odds.matchId);
             [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
         }else{
+            PPDebug(@"Match(%@) Home Odds UNCHANGED", odds.matchId);
             [self.home_homeWin_bigBall_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
         }
         
         //away odds
         if ([odds awayTeamOddsFlag] == ODDS_INCREASE) {
+            PPDebug(@"Match(%@) Away Odds INCREASE", odds.matchId);
             [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
         }else if([odds awayTeamOddsFlag] == ODDS_DECREASE){
+            PPDebug(@"Match(%@) Away Odds DECREASE", odds.matchId);
             [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
         }else{
+            PPDebug(@"Match(%@) Away Odds UNCHANGED", odds.matchId);
             [self.away_awayWin_smallBall_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
         }
         
         //pankou
         if ([odds pankouFlag] == ODDS_INCREASE) {
+            PPDebug(@"Match(%@) Pankou Odds INCREASE", odds.matchId);
             [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsIncreaseColor]];
         }else if([odds homeTeamOddsFlag] == ODDS_DECREASE){
+            PPDebug(@"Match(%@) Pankou Odds DECREASE", odds.matchId);
             [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsDecreaseColor]];
         }else{
+            PPDebug(@"Match(%@) Pankou Odds UNCHANGED", odds.matchId);            
             [self.pankou_draw_instant setBackgroundColor:[ColorManager oddsUnchangeColor]];
         }
         

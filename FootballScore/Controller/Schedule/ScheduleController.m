@@ -14,9 +14,17 @@
 #import "TimeUtils.h"
 #import "ColorManager.h"
 
+#define COMPLETE_SCORE  120111217
+#define WEEKLY_SCHEDULE 220111217
+#define FORWARD_DAY   1
+#define BACKWARD_DAY -1
+
 @implementation ScheduleController
 @synthesize selectedDateButton;
 @synthesize dateLabel;
+@synthesize scheduleType = _scheduleType;
+@synthesize dayDirection = _dayDirection;
+@synthesize initDate = _initDate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +36,17 @@
     return self;
 }
 
+- (id)initWithType:(int)scheduleType initDate:(NSDate*)initDate title:(NSString*)title dayDirection:(int)dayDirection
+{
+    self = [super init];
+    if (self) {
+        [self setTitle:title];
+        self.scheduleType = scheduleType;
+        self.initDate = initDate;
+        self.dayDirection = dayDirection;
+    }
+    return self;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -43,8 +62,8 @@
 {
     [super viewDidLoad];
     [self.dataTableView setBackgroundColor:[ColorManager indexTableViewBackgroundColor]];
-    [self setNavigationLeftButton:FNS(@"返回") action:@selector(clickBack:)];
-    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString([NSDate dateWithTimeIntervalSinceNow:0]), chineseWeekDayFromDate([NSDate dateWithTimeIntervalSinceNow:0])]];
+    [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
+    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(self.initDate), chineseWeekDayFromDate(self.initDate)]];
     [self.selectedDateButton setTitle:FNS(@" 选择日期") forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
 }
@@ -111,14 +130,13 @@
 {
     [self hideActivity];
     self.dataList = [[MatchManager defaultMatchScheduleManager] matchArray];
-    //[self.dateLabel setText:dateToString([MatchManager defaultMatchScheduleManager].serverDate)];
     [self.dataTableView reloadData];
 }
 
 + (void)showScheduleWithSuperController:(UIViewController*)superViewController
 {
-    ScheduleController* vc = [[ScheduleController alloc] init];
-    [vc setTitle:FNS(@"一周赛程")];
+    NSDate* today = [NSDate dateWithTimeIntervalSinceNow:0];
+    ScheduleController* vc = [[ScheduleController alloc] initWithType:WEEKLY_SCHEDULE initDate:today title:FNS(@"一周赛程") dayDirection:FORWARD_DAY];
     [superViewController.navigationController pushViewController:vc animated:YES];
     [GlobalGetScheduleService() getSchedule:vc date:nil];
     [vc showActivityWithText:FNS(@"loading")];
@@ -127,38 +145,31 @@
 
 + (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController
 {
-    ScheduleController* vc = [[ScheduleController alloc] init];
+    NSDate* yesterday = [NSDate dateWithTimeIntervalSinceNow:-24*60*60];
+    ScheduleController* vc = [[ScheduleController alloc] initWithType:COMPLETE_SCORE initDate:yesterday title:FNS(@"完场比分") dayDirection:BACKWARD_DAY];
     [superViewController.navigationController pushViewController:vc animated:YES];
+    [GlobalGetScheduleService() getSchedule:vc date:yesterday];
+    [vc showActivityWithText:FNS(@"loading")];
     [vc release];
 }
 
 #define WEEK_DAY_COUNT 7
 - (IBAction)clicksSelectDateButton:(id)sender
 {
-    NSDate *date = [NSDate date];
-    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
-    [df setDateFormat:@"yyyy-MM-dd"];
     
-    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"一周赛事") 
+    UIActionSheet *dateActionSheet = [[UIActionSheet alloc]initWithTitle:FNS(@"选择日期")
                                                                 delegate:self 
                                                        cancelButtonTitle:nil
                                                   destructiveButtonTitle:nil
                                                        otherButtonTitles:nil];
     
-    int i;
-    NSTimeInterval interval;
-    NSString *dateString = nil;
-    NSDate *beforeDate=[NSDate date];
+    NSTimeInterval oneDayInterval= 24*60*60;
+          for (int i=0; i<WEEK_DAY_COUNT; i++) {
+            NSDate* date = [NSDate dateWithTimeInterval:i*oneDayInterval*self.dayDirection sinceDate:self.initDate];
+            NSString* title = dateToString(date);
+            [dateActionSheet addButtonWithTitle:title];
+          }
 
-    for (i = 0 ; i<WEEK_DAY_COUNT ;i++)
-    {
-        interval = 24*60*60*i;
-        beforeDate = [date dateByAddingTimeInterval:interval];
-        dateString = [df stringFromDate:beforeDate];
-        int b = [dateActionSheet addButtonWithTitle: dateString];
-        b = b;
-    }
-    
     [dateActionSheet addButtonWithTitle:FNS(@"返回")];
     [dateActionSheet setCancelButtonIndex:WEEK_DAY_COUNT];
     
@@ -169,10 +180,12 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSDate* date;
+    NSTimeInterval oneDayInterval= 24*60*60;
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         return;
     }
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:24*60*60*(buttonIndex)];
+        date = [NSDate dateWithTimeInterval:self.dayDirection*buttonIndex*oneDayInterval sinceDate:self.initDate];
     [GlobalGetScheduleService() getSchedule:self date:date];
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(date), chineseWeekDayFromDate(date)]];
     [self showActivityWithText:FNS(@"loading")];
@@ -206,11 +219,9 @@
     switch ([match.status intValue]) {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
-            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_MIDDLE:
-            return FNS(@"中");
         case MATCH_STATUS_FINISH:
-            return FNS(@"完");
+            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
         case MATCH_STATUS_PAUSE:
             return FNS(@"中断");
         case MATCH_STATUS_TBD:
@@ -232,8 +243,8 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 45, 30)];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 65, 30)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 30)];
     UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 30)];
     UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 30)];
     UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 30)];
@@ -281,7 +292,10 @@ enum {
     [dateAndStatus setTextColor:[UIColor grayColor]];
     [homeTeamName setTextColor:[ColorManager soundsAlertColor]];
     [awayTeamName setTextColor:[ColorManager soundsAlertColor]];
-    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || [match.status intValue] == MATCH_STATUS_SECOND_HALF) {
+    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || 
+        [match.status intValue] == MATCH_STATUS_SECOND_HALF ||
+        [match.status intValue] == MATCH_STATUS_FINISH ||
+        [match.status intValue] == MATCH_STATUS_MIDDLE) {
         [scoreLabel setTextColor:[UIColor redColor]];
     } else {
         [scoreLabel setTextColor:[UIColor blueColor]];

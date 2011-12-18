@@ -16,7 +16,7 @@
 
 @end
 
-@interface LeagueScheduleController : PPViewController <UIActionSheetDelegate, RepositoryDelegate>{
+@interface LeagueScheduleController : PPViewController <UIActionSheetDelegate>{
     NSMutableDictionary*  buttonCommandsDict;
     League* league;
     int currentSelection;
@@ -48,7 +48,7 @@
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
 - (void)showSeasonSelectionActionSheet;
-- (void)setCommand;
+- (void)resetCommand;
 @end
 
 

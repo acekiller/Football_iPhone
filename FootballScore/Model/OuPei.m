@@ -7,6 +7,7 @@
 //
 
 #import "OuPei.h"
+#import "LogUtil.h"
 
 @implementation OuPei
 
@@ -38,6 +39,9 @@
         self.homeWinInstantOdds = [self getNumber:homeWinInstantOddsValue];
         self.drawInstantOdds = [self getNumber:drawInstantOddsValue];
         self.awayWinInstantsOdds = [self getNumber:awayWinInstantOddsValue];
+        
+        // add by Benson, init data
+        [self setLastModifyTime:time(0)];
     }
 
     return self;
@@ -81,7 +85,9 @@
     [self setAwayTeamOddsFlag:awayTeamFlag];
     [self setHomeTeamOddsFlag:homeTeamFlag];
     
-    if (instantFlag != 0 | homeTeamFlag != 0 | awayTeamFlag != 0) {
+    if (instantFlag != 0 || homeTeamFlag != 0 || awayTeamFlag != 0) {
+        PPDebug(@"Match(%@) Oupei Odds Changed, Instant(%d), Home(%d), Away(%d)", 
+                matchId, instantFlag, homeTeamFlag, awayTeamFlag);        
         [self setLastModifyTime:time(0)];
     }    
 }

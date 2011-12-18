@@ -171,17 +171,12 @@ CupScheduleManager.prototype = {
 						this.CupFenzuResultArray.push(fenzu);
 					}
 					
-//					if(fenzu.length == 0) {
-//						this.CupFenzuResultArray = this.matchResultArray;
-//					}
-		
 					this.matchResultArray.push(obj);
 				}
 				else{
 					console.log("warning, read cupScheduleResult data but field count not enough, i="+i+", field count = "+record.length);
 				}
 			}
-			console.log("*********" + this.CupFenzuResultArray.length);
 			for (var i=0; i<this.CupFenzuResultArray.length; i++){
 				console.log(this.CupFenzuResultArray[i].length);
 			}
