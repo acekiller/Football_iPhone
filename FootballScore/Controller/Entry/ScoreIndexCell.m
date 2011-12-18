@@ -122,7 +122,7 @@
             break;
     }
     
-    if (odds && (time(0) - odds.lastModifyTime < 10)) {
+    if (odds && (time(0) - odds.lastModifyTime < 20)) {
         //home odds
         if ([odds homeTeamOddsFlag] == ODDS_INCREASE) {
             PPDebug(@"Match(%@) Home Odds INCREASE", odds.matchId);

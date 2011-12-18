@@ -8,6 +8,8 @@
 
 #import "OuPei.h"
 #import "LogUtil.h"
+#import "Match.h"
+#import "MatchManager.h"
 
 @implementation OuPei
 
@@ -89,6 +91,11 @@
         PPDebug(@"Match(%@) Oupei Odds Changed, Instant(%d), Home(%d), Away(%d)", 
                 matchId, instantFlag, homeTeamFlag, awayTeamFlag);        
         [self setLastModifyTime:time(0)];
+        
+        Match *match = [[MatchManager defaultMatchIndexManger] getMathById:matchId];
+
+        NSString *vsString = [NSString stringWithFormat:@"%@ vs %@ ",match.homeTeamName,match.awayTeamName];
+        PPDebug(@"Match title:%@", vsString);
     }    
 }
 
