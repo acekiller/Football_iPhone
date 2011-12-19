@@ -104,6 +104,15 @@ enum {
     [self.cupScheduleResultTitle setHidden:YES];
 }
 
+- (void)resetWithLeague:(League *)leagueValue
+{
+    self.league = leagueValue;
+    self.currentSeason = [self.league.seasonList objectAtIndex:0];
+    [self initGroup];
+    [self initButtons];
+    [self initTitle];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad

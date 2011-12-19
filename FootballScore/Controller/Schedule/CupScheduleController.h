@@ -24,9 +24,6 @@
     
 }
 @property (retain, nonatomic) League* league;
-
-+ (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
-- (id)initWithLeague:(League*)leagueValue;
 @property (retain, nonatomic) IBOutlet UILabel *cupScheduleResultTitle;
 @property (retain, nonatomic) IBOutlet UIButton *groupPointsButton;
 @property (retain, nonatomic) IBOutlet UIButton *matchTypeSelectButton;
@@ -35,6 +32,10 @@
 @property (retain, nonatomic) NSString* currentSeason;
 @property (retain, nonatomic) NSString* currentCupMatchType;
 @property (retain, nonatomic) NSArray* matchTypesList;
+
++ (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
+- (id)initWithLeague:(League*)leagueValue;
+- (void)resetWithLeague:(League*)leagueValue;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
 - (void)initBarButton;

@@ -15,6 +15,8 @@
 #import "LogUtil.h"
 
 @implementation LeagueController
+@synthesize scheduleController = _scheduleController;
+@synthesize cupScheduleController = _cupScheduleController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -115,11 +117,27 @@
 {
     League* league = [self.dataList objectAtIndex:indexPath.row];
     switch (league.leagueType) {
-        case LEAGUE_MATCH:
-            [LeagueScheduleController showWithSuperController:self League:league];
+        case LEAGUE_MATCH: {
+            if (self.scheduleController == nil) {
+                LeagueScheduleController* vc = [[LeagueScheduleController alloc] initWithLeague:league];
+                self.scheduleController = vc;
+                [vc release];
+            } else {
+                [self.scheduleController resetWithLeague:league];
+            }
+            [self.navigationController pushViewController:self.scheduleController animated:YES];
+        }
             break;
-        case CUP_MATCH:
-            [CupScheduleController showWithSuperController:self League:league];
+        case CUP_MATCH: {
+            if (self.cupScheduleController == nil) {
+                CupScheduleController* vc = [[CupScheduleController alloc] initWithLeague:league];
+                self.cupScheduleController = vc;
+                [vc release];
+            } else {
+                [self.cupScheduleController resetWithLeague:league];
+            }
+            [self.navigationController pushViewController:self.cupScheduleController animated:YES];
+        }
             break;
         default:
             PPDebug(@"<LeagueController> Unrecongnized league type:%d", league.leagueType);

@@ -44,6 +44,8 @@
 
 - (void)setScoreCommand:(id<CommonCommandInterface>)command forKey:(int)Key; 
 - (id)initWithLeague:(League*)leagueValue;
+- (void)resetWithLeague:(League *)leagueValue;
+- (void)resetSelection;
 + (void)showWithSuperController:(UIViewController*)superController League:(League*)league;
 - (void)loadWebViewByHtml:(NSString*)html;
 - (void)initWebView;
