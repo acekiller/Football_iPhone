@@ -26,6 +26,7 @@
 #import "Match.h"
 
 #define SECOND_LEVEL_LEAGUE 0
+#define TOP_LEVEL_LEAGUE 1
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -127,7 +128,7 @@
         // Benson: always crash here
         [manager selectCompanyById:str];
     }
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
@@ -151,7 +152,7 @@
     if (self.oddsType < 1 || self.oddsType > 3) {
         return;
     }
-    [self updateAllOddsData];
+    [self updateAllOddsData:NO];
 }
 
 
@@ -391,7 +392,9 @@
     [self hideActivity];
     [self dataSourceDidFinishLoadingNewData];
     OddsManager* manager = [OddsManager defaultManager];
-    [manager selectAllLeague];
+    if (isReloaded_) {
+        [manager selectTopLeague];
+    }
     self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
     self.dataList = [matchOddsList allKeys];
     [self.hideSectionSet removeAllObjects];
@@ -415,7 +418,7 @@
         return;
     }
     self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -430,12 +433,13 @@
 {
     [self refleshOddsType];
     [self refleshCompanyIdArray];
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
 }
 
-- (void)updateAllOddsData
+- (void)updateAllOddsData:(BOOL)isReloaded
 {
+    isReloaded_ = isReloaded;
     OddsService* service = GlobalGetOddsService();
     [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
     [self showActivityWithText:FNS(@"加载中...")];
