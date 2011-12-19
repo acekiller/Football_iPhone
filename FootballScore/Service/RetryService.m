@@ -23,9 +23,7 @@
 
 - (void)retryFollowMatch:(NSString*)userId matchId:(NSString*)matchId 
 {
-    NSOperationQueue* queue = [self getOperationQueue:RETRY_FOLLOW_MATCH];
-    
-    [queue addOperationWithBlock:^{
+   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         CommonNetworkOutput* output = [FootballNetworkRequest followUnfollowMatch:userId matchId:matchId type:FOLLOW_MATCH_TYPE];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -39,15 +37,13 @@
                 PPDebug(@"Retry follow match (%@) fail,error = %d",matchId,output.resultCode);
             }
         });
-    }];
+    });
 
 }
 
 - (void)retryUnfollowMatch:(NSString*)userId matchId:(NSString*)matchId 
 {
-    NSOperationQueue* queue = [self getOperationQueue:RETRY_UNFOLLOW_MATCH];
-    
-    [queue addOperationWithBlock:^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         CommonNetworkOutput* output = [FootballNetworkRequest followUnfollowMatch:userId matchId:matchId type:UNFOLLOW_MATCH_TYPE];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -61,7 +57,7 @@
                 PPDebug(@"Retry unfollow match (%@) fail,error = %d",matchId,output.resultCode);
             }
         });
-    }];
+    });
     
 }
 
@@ -92,9 +88,7 @@
 {
     if ([[RetryManager defaultManager] getNeedRetryPushSet])
     {
-        NSOperationQueue* queue = [self getOperationQueue:@"UPDATE_PUSH_SET"];
-        
-        [queue addOperationWithBlock:^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
             
             CommonNetworkOutput* output = [FootballNetworkRequest updateUserPushInfo:userId pushType:[UserManager getIsPush] token:token];
             
@@ -109,7 +103,7 @@
                     PPDebug(@"<RetryServicee>)Retry push set failed");
                 }
             });
-        }];
+        });
 
     }
 }
