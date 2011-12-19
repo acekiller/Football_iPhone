@@ -414,7 +414,8 @@ enum {
 {  
     NSString* string;
     PPDebug(@"<displayEvent> execute JS = %@",jsCodeString);    
-    string = [[superControllerWebView stringByEvaluatingJavaScriptFromString:jsCodeString] autorelease];  
+    // change by Benson, no autorelease here
+    string = [superControllerWebView stringByEvaluatingJavaScriptFromString:jsCodeString];  
     return string;
 }
 

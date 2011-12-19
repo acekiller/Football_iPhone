@@ -124,6 +124,7 @@
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
     [manager setSelectedOddsType:ODDS_TYPE_YAPEI];
     for (NSString* str in companyIdArray) {
+        // Benson: always crash here
         [manager selectCompanyById:str];
     }
     [self updateAllOddsData];

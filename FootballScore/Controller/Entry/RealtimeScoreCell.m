@@ -128,29 +128,12 @@ enum cardType{
 }
 
 - (void)updateStartTime:(Match*)match{   
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-//    NSString *dateString = [NSString stringWithFormat:@""];
     NSDate* startDate;    
     if (match.firstHalfStartDate != nil)
         startDate = match.firstHalfStartDate;
     else
         startDate = match.date;
     startTimeLabel.text = dateToChineseStringByFormat(startDate, @"HH:mm");
-//    [formatter setDateFormat:@"HH:mm"];
-//    [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
-//    
-//    NSDate* startDate;    
-//    if (match.firstHalfStartDate != nil)
-//        startDate = match.firstHalfStartDate;
-//    else
-//        startDate = match.date;
-//    
-//    if (nil !=[formatter stringFromDate:startDate]){
-//        dateString = [formatter stringFromDate:startDate];
-//    }
-//    
-//    startTimeLabel.text = dateString;
-//    [formatter release];
 }
 
 -(void)updateFollow:(Match*)match{
