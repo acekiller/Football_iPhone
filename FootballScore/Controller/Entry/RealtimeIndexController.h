@@ -19,7 +19,7 @@
     int oddsType;
     int matchType;
     NSMutableSet *hideSectionSet;
-    BOOL isReloaded_;
+    BOOL _isReloaded;
 }
 @property (nonatomic, retain) NSMutableDictionary* matchOddsList;
 @property (nonatomic, retain) NSMutableArray* companyIdArray;

@@ -392,7 +392,7 @@
     [self hideActivity];
     [self dataSourceDidFinishLoadingNewData];
     OddsManager* manager = [OddsManager defaultManager];
-    if (isReloaded_) {
+    if (_isReloaded) {
         [manager selectTopLeague];
     }
     self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
@@ -439,7 +439,7 @@
 
 - (void)updateAllOddsData:(BOOL)isReloaded
 {
-    isReloaded_ = isReloaded;
+    _isReloaded = isReloaded;
     OddsService* service = GlobalGetOddsService();
     [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
     [self showActivityWithText:FNS(@"加载中...")];
