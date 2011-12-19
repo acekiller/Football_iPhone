@@ -27,7 +27,7 @@
 
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 
-- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet;
+- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet resultCode:(NSInteger) resultCode;
 
 - (void)getMatchDetailHeaderFinish:(NSArray*)headerInfo;
 

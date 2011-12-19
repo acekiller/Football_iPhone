@@ -28,7 +28,7 @@
     UIButton *scoreTypeButton;
     UIButton *filterBarButton;
         
-        
+    BOOL hasClickedRefresh;    
 }
 
 @property (nonatomic,retain) NSTimer *matchSecondTimer;
@@ -36,7 +36,7 @@
 - (IBAction)clickSelectMatchStatus:(id)sender;
 - (void)setRightBarButtons;
 - (void)setLeftBarButtons;
-- (void)clickRefleshButton;
+- (void)clickRefreshButton;
 - (void)myFollowCountBadgeViewInit;
 - (void)reloadMyFollowCount;
 - (void)reloadMyFollowList;

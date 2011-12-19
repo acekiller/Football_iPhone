@@ -11,7 +11,6 @@
 #import "PPApplication.h"
 #import "MobClick.h"
 #import "ScoreUpdateController.h"
-
 @class PPTabBarController;
 
 // TODO remove all depedency class header files
@@ -21,6 +20,7 @@
 @class RealtimeScoreController;
 @class OddsService;
 @class ScheduleService;
+@class NetworkDetector;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -39,6 +39,8 @@
     MatchService            *matchService;
     RealtimeScoreController *matchController;
     UIBackgroundTaskIdentifier backgroundTask;
+
+    NetworkDetector *_networkDetector;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow				*window;

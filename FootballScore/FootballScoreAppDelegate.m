@@ -34,6 +34,8 @@
 #import "RetryService.h"
 #import "ScheduleService.h"
 
+#import "NetworkDetector.h"
+
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
 
@@ -198,6 +200,14 @@ enum
     scheduleService = [[ScheduleService alloc] init];
 }
 
+- (void)initNetworkDetector
+{
+    _networkDetector = [[NetworkDetector alloc] 
+                        initWithErrorMsg:FNS(@"系统发现网络连接失效，请检测网络连接设置。") 
+                        detectInterval:10];
+    [_networkDetector start];
+}
+
 - (void)userRegister
 {
     if (![UserManager isUserExisted]) {
@@ -238,6 +248,8 @@ enum
     [self initImageCacheManager];    
     [self initTabViewControllers];
     
+    [self initNetworkDetector];
+    
     [window addSubview:tabBarController.view];
     [window makeKeyAndVisible];
 	
@@ -250,6 +262,8 @@ enum
     if (![self isPushNotificationEnable]){
 //        [self bindDevice];
     }
+    
+
     
     return YES;
 }
@@ -287,13 +301,10 @@ enum
 	
 	NSLog(@"applicationDidEnterBackground");	
 	
-    NSLog(@"application stop update data");
-    [self.matchService stopAllUpdates];
-    [self.matchService stopRealtimeMatchUpdate];
+
+    //stop the
     [[MatchManager defaultManager] saveFollowMatchList];
-    
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[self releaseResourceForAllViewControllers];	
 	[self stopAudioPlayer];
     
     backgroundTask = [application beginBackgroundTaskWithExpirationHandler: ^{
@@ -301,6 +312,11 @@ enum
             if (UIBackgroundTaskInvalid != backgroundTask) {
                 [application endBackgroundTask:backgroundTask];
                 backgroundTask = UIBackgroundTaskInvalid;
+                NSLog(@"application stop update data");
+                [self.matchService stopAllUpdates];	
+                [oddsService stopGetRealtimOddsTimer];
+                [[MatchManager defaultManager] saveFollowMatchList];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         });
     }];
