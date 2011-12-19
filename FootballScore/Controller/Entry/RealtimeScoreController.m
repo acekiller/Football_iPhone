@@ -19,7 +19,7 @@
 #import "ShowAlertTextViewController.h"
 #import "UserManager.h"
 #import "ColorManager.h"
-
+#import "PPNetworkRequest.h"
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
 @synthesize myFollowCountView;
@@ -113,7 +113,7 @@
 {
     int UPDATE_TIME_INTERVAL = 2;
     self.supportRefreshHeader = YES;
-    
+    hasClickedRefresh = NO;
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
                                                              target:self 
                                                            selector:@selector(updateMatchTimeDisplay) 
@@ -138,6 +138,7 @@
     
     [self loadMatch:MATCH_SCORE_TYPE_FIRST isSelectAll:YES];
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)viewDidUnload
@@ -224,24 +225,31 @@
 {
     [self hideActivity];
     [self hideTipsOnTableView];
-    if (result == 0 && updateMatchArray == nil) {
-        [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
-    }
-    [self dataSourceDidFinishLoadingNewData];
-
-    self.dataList = [[MatchManager defaultManager] filterMatch];
-    if (self.dataList == nil || [self.dataList count] == 0) 
-    {
-        if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW ) 
-            [self showTipsOnTableView:FNS(@"您还没有选择关注的赛事")];
-        else
-            [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
+    
+    if (result == ERROR_SUCCESS) {
+        if (result == 0 && updateMatchArray == nil) {
+            [self popupMessage:FNS(@"今天没有比赛更新") title:@""];
+        }
+        self.dataList = [[MatchManager defaultManager] filterMatch];
+        if (self.dataList == nil || [self.dataList count] == 0) 
+        {
+            if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW ) 
+                [self showTipsOnTableView:FNS(@"您还没有选择关注的赛事")];
+            else
+                [self showTipsOnTableView:FNS(@"暂时没有相关的比赛")];
+        } 
+//        else 
+//        {
+//            [self hideTipsOnTableView];
+//        }
     } 
-    else 
+    else if(hasClickedRefresh)
     {
-        [self hideTipsOnTableView];
+        [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
     
+    hasClickedRefresh = NO;
+    [self dataSourceDidFinishLoadingNewData];
     [self.dataTableView reloadData];   
 }
 
@@ -477,20 +485,20 @@
 {
     float buttonHigh = 27.5;
     float buttonLen = 47.5;
-    float refeshButtonLen = 32.5;
+    float refreshButtonLen = 32.5;
     float seporator = 5;
     float leftOffest = 20;
     UIFont *font = [UIFont systemFontOfSize:14];
     
     UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
     
-    UIButton *refleshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refeshButtonLen, buttonHigh)];
-    [refleshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
-    [refleshButton setTitle:@"" forState:UIControlStateNormal];
-    [refleshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [refleshButton addTarget:self action:@selector(clickRefleshButton) forControlEvents:UIControlEventTouchUpInside];
-    [rightButtonView addSubview:refleshButton];
-    [refleshButton release];
+    UIButton *refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refreshButtonLen, buttonHigh)];
+    [refreshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    [refreshButton setTitle:@"" forState:UIControlStateNormal];
+    [refreshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:@selector(clickRefreshButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:refreshButton];
+    [refreshButton release];
     
     
     
@@ -514,7 +522,8 @@
     [rightButtonView addSubview:filterBarButton];
     [filterBarButton release];
 
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] 
+                                       initWithCustomView:rightButtonView];
 
     [rightButtonView release];
     
@@ -540,8 +549,9 @@
 }
 
 
-- (void)clickRefleshButton
+- (void)clickRefreshButton
 {
+    hasClickedRefresh = YES;
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
         return;
     
@@ -586,9 +596,7 @@
 
 - (void) reloadTableViewDataSource
 {
-//	NSLog(@"Please override reloadTableViewDataSource");    
-//    [self clickRefleshButton];
-    
+    hasClickedRefresh = YES;
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) {
         return;
     }

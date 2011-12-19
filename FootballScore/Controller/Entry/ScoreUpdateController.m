@@ -17,6 +17,7 @@
 #import "ShowRealtimeScoreController.h"
 #import "ConfigManager.h"
 #import "Match.h"
+#import "PPNetworkRequest.h"
 
 @implementation ScoreUpdateController
 @synthesize dateTimeLabel;
@@ -69,6 +70,7 @@
     [self.dataTableView setEditing:NO];
     [self setDeleteFlag:NO];
     
+    hasClickedRefresh = NO;
     
     
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
@@ -79,40 +81,8 @@
     
     
     self.dateTimeLabel.text = [self getDateString];
-//    UIColor *dateTimeTextColor=[UIColor colorWithRed:0x1B/255.0 green:0x4A/255.0 blue:0x6D/255.0 alpha:1];
-    self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor];
-        
-    //  假数据，调试使用。
-/*
-    MatchManager *manager = [MatchManager defaultManager];
-    Match *match = [manager.matchArray objectAtIndex:2];
-    ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
-    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [update release];
-     
-    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
-    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [update release];
-    
-    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMRED];
-    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [update release];
-    
-    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
-    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [update release];
-    
-    
-    update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
-    [[[ScoreUpdateManager defaultManager]scoreUpdateList] addObject:update];
-    self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [update release];
-*/    
-    [self refleshCount];
+    self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor]; 
+    [self refreshCount];
 
 }
 
@@ -223,66 +193,58 @@
 }
 
 #pragma delegate
-- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet
+- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet resultCode:(NSInteger)resultCode
 {
-    ScoreUpdateManager *scoreUpdateManager = [ScoreUpdateManager defaultManager];
     
-    // according to the score update type set the hometeam data count and awayteam data count
     
-    for (ScoreUpdate *update in scoreUpdateSet) {
-        [update calculateAndSetData];
-    }
-    
-    int count = [scoreUpdateManager insertScoreUpdateSet:scoreUpdateSet];
-    if (count) {  
-        NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
-        [self.dataTableView beginUpdates];
-        self.dataList = [scoreUpdateManager scoreUpdateList];
-        for (int i = 0; i < count; ++ i) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            [indexPathArray addObject:indexPath];
+    if (resultCode == ERROR_SUCCESS) {
+        ScoreUpdateManager *scoreUpdateManager = [ScoreUpdateManager defaultManager];
+        
+        // according to the score update type set the hometeam data count and awayteam data count
+        
+        for (ScoreUpdate *update in scoreUpdateSet) {
+            [update calculateAndSetData];
         }
-        [self.dataTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:YES];
-        [self.dataTableView endUpdates];
-        [indexPathArray release];
         
-        
-//        //测试数据  
-//        NSMutableSet *testSet = [[NSMutableSet alloc] init];
-//        
-//        MatchManager *manager = [MatchManager defaultManager];
-//        Match *match = [manager.matchArray objectAtIndex:2];
-//        ScoreUpdate *update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMYELLOW];
-//        [testSet addObject:update];
-//        [update release];
-//        
-//        update = [[ScoreUpdate alloc] initWithMatch:match ScoreUpdateType:HOMETEAMSCORE];
-//        [testSet addObject:update];
-//        [update release];
-//                
-//        NSDictionary *goalsTipsDictionary = [self getShowScoreList:testSet];
-//        //测试尾
-        
-                
-        NSDictionary *goalsTipsDictionary = [self getShowScoreList:scoreUpdateSet];
-        
-        NSEnumerator *enumerator = [goalsTipsDictionary keyEnumerator];
-        NSString *matchId;
-        NSNumber *type;
-        
-        while(matchId = [enumerator nextObject])
-        {
-            type = [goalsTipsDictionary objectForKey:matchId];
+        int count = [scoreUpdateManager insertScoreUpdateSet:scoreUpdateSet];
+        if (count) {  
+            NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
+            [self.dataTableView beginUpdates];
+            self.dataList = [scoreUpdateManager scoreUpdateList];
+            for (int i = 0; i < count; ++ i) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [indexPathArray addObject:indexPath];
+            }
+            [self.dataTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:YES];
+            [self.dataTableView endUpdates];
+            [indexPathArray release];
             
-            [ShowRealtimeScoreController show:[[MatchManager defaultManager] getMathById:matchId]
-                                    goalsTeam:[type intValue] 
-                                  isVibration:[ConfigManager getIsVibration]
-                                     hasSound:[ConfigManager getHasSound]];
+            
+            NSDictionary *goalsTipsDictionary = [self getShowScoreList:scoreUpdateSet];
+            
+            NSEnumerator *enumerator = [goalsTipsDictionary keyEnumerator];
+            NSString *matchId;
+            NSNumber *type;
+            
+            while(matchId = [enumerator nextObject])
+            {
+                type = [goalsTipsDictionary objectForKey:matchId];
+                
+                [ShowRealtimeScoreController show:[[MatchManager defaultManager] getMathById:matchId]
+                                        goalsTeam:[type intValue] 
+                                      isVibration:[ConfigManager getIsVibration]
+                                         hasSound:[ConfigManager getHasSound]];
+            }
+            
         }
-        
-    }
-    [self refleshCount];
+        [self refreshCount];
+    }else if(hasClickedRefresh)
+    {
+        [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
 
+    }
+
+    hasClickedRefresh = NO;
 }
 
 
@@ -311,7 +273,7 @@
             [self clickDone:nil];
         }
     }
-    [self refleshCount];
+    [self refreshCount];
 }
 #pragma action selector
 
@@ -329,11 +291,12 @@
     [self setNavigationRightButtonWithSystemStyle:UIBarButtonSystemItemRefresh action:@selector(clickRefresh:)];
     [self setNavigationRightButton:nil imageName:@"refresh.png" action:@selector(clickRefresh:)];
     [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
-    [self refleshCount];
+    [self refreshCount];
     [self.dataTableView reloadData];    
 }
 - (void)clickRefresh:(id)sender
 {
+    hasClickedRefresh = YES;
     [GlobalGetMatchService() getRealtimeScore];
 }
 - (void)clickClear:(id)sender
@@ -344,11 +307,11 @@
     [self setNavigationLeftButton:FNS(@"编辑") imageName:@"ss.png" action:@selector(clickEdit:)];
     [[ScoreUpdateManager defaultManager] removeAllScoreUpdates];
     self.dataList = [[ScoreUpdateManager defaultManager] scoreUpdateList];
-    [self refleshCount];
+    [self refreshCount];
     [self.dataTableView reloadData];
 }
 
-- (void)refleshCount
+- (void)refreshCount
 {
     if (self.ScoreUpdateControllerDelegate && [self.ScoreUpdateControllerDelegate respondsToSelector:@selector(updateScoreMessageCount:)]) {
         [self.ScoreUpdateControllerDelegate updateScoreMessageCount:[self.dataList count]];

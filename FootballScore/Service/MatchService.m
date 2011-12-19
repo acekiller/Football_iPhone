@@ -159,8 +159,8 @@
             }
             
             if (scoreUpdateControllerDelegate && [scoreUpdateControllerDelegate 
-                                                  respondsToSelector:@selector(getScoreUpdateFinish:)]){
-                [scoreUpdateControllerDelegate getScoreUpdateFinish:scoreUpdateSet];
+                                                  respondsToSelector:@selector(getScoreUpdateFinish:resultCode:)]){
+                [scoreUpdateControllerDelegate getScoreUpdateFinish:scoreUpdateSet resultCode:output.resultCode];
             }
             
 //            if (delegate && [delegate respondsToSelector:

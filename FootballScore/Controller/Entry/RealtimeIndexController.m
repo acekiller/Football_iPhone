@@ -24,6 +24,7 @@
 #import "MatchManager.h"
 #import "LanguageManager.h"
 #import "Match.h"
+#import "PPNetworkRequest.h"
 
 #define SECOND_LEVEL_LEAGUE 0
 #define TOP_LEVEL_LEAGUE 1
@@ -117,6 +118,7 @@
 {
     
     supportRefreshHeader = YES;
+    hasClickedRefresh = NO;
     [super viewDidLoad];
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0 - self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
     [self setLeftBarLogo];
@@ -152,6 +154,7 @@
     if (self.oddsType < 1 || self.oddsType > 3) {
         return;
     }
+    hasClickedRefresh = YES;
     [self updateAllOddsData:NO];
 }
 
@@ -159,6 +162,7 @@
 #pragma setRightBarButtons and selector
 - (void)setRightBarButtons
 {
+
     float buttonHigh = 27.5;
     float buttonLen = 47.5;
     float seporator = 10;
@@ -391,6 +395,20 @@
 {
     [self hideActivity];
     [self dataSourceDidFinishLoadingNewData];
+    if (reslutCode == ERROR_SUCCESS) {
+        OddsManager* manager = [OddsManager defaultManager];
+        [manager selectAllLeague];
+        self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
+        self.dataList = [matchOddsList allKeys];
+        [self.hideSectionSet removeAllObjects];
+        [self updateHeaderMatch];
+        [self.dataTableView reloadData];
+    }
+    else if(hasClickedRefresh)
+    {
+        [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
+    }
+    hasClickedRefresh = NO;
     OddsManager* manager = [OddsManager defaultManager];
     if (_isReloaded) {
         [manager selectTopLeague];
@@ -400,7 +418,6 @@
     [self.hideSectionSet removeAllObjects];
     [self updateHeaderMatch];
     [self.dataTableView reloadData];
-    
     
 }
 

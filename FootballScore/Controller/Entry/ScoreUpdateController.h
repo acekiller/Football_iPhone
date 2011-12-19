@@ -21,15 +21,17 @@
     BOOL deleteFlag;
     UILabel *dateTimeLabel;
     id<ScoreUpdateControllerDelegate> ScoreUpdateControllerDelegate;
+    BOOL hasClickedRefresh;    
+
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *dateTimeLabel;
 @property (nonatomic, assign) BOOL deleteFlag;
 @property (nonatomic, assign) id<ScoreUpdateControllerDelegate> ScoreUpdateControllerDelegate;
-- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet;
+- (void)getScoreUpdateFinish:(NSSet *)scoreUpdateSet resultCode:(NSInteger)resultCode;
 - (void)getRealtimeScoreFinish:(NSSet*)updateMatchSet;
 - (void)endClickDeleteButton:(NSIndexPath *)indexPath;
-- (void)refleshCount;
+- (void)refreshCount;
 - (id)initWithDelegate:(id<ScoreUpdateControllerDelegate>)delegate;
 
 - (void)clickEdit:(id)sender;
