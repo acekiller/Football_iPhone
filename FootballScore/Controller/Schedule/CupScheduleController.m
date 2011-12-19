@@ -38,6 +38,7 @@ enum {
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        firstLoadWebView = YES;
         // Custom initialization
     }
     return self;

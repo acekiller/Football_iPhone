@@ -302,4 +302,12 @@ OddsManager* GlobleGetOddsManager()
     }
 }
 
+- (void)selectTopLeague
+{
+    for (League* league in leagueArray) {
+        if ([league isTop])
+        [self.filterLeagueIdList addObject:league.leagueId];
+    }
+}
+
 @end

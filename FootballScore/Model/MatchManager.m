@@ -858,8 +858,15 @@ NSComparisonResult doubleCmp(double a ,double b)
         Match* match1 = (Match*)obj1;
         Match* match2 = (Match*)obj2;
         
-        return [match1.date compare:match2.date];
+        NSComparisonResult result = [match1.status compare:match2.status];
+        if (result == NSOrderedSame) {
+            result = [match1.date compare:match2.date];
+            return result;
+        }
+        return -result;
+
     }];
+
     
    return sortedArray;
                  

@@ -41,9 +41,8 @@
 
 - (void)getVersion:(id<UserServiceDelegate>)delegate;
 {
-    NSOperationQueue* queue = [self getOperationQueue:@"GET_VERSION"];
-    
-    [queue addOperationWithBlock:^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),  
+     ^{
         CommonNetworkOutput* output = [FootballNetworkRequest getVersion];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -52,13 +51,12 @@
                 [delegate getVersionFinish:output.resultCode data:output.textData];
             }
         });
-    }];
+    });
 }
 
 - (void)updateUserPushInfo:(NSString*)userId pushType:(int)pushType token:(NSString*)token
 {
-    NSOperationQueue* queue = [self getOperationQueue:@"UPDATE_PUSH_SET"];
-    [queue addOperationWithBlock:^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         
         CommonNetworkOutput* output = [FootballNetworkRequest updateUserPushInfo:userId pushType:pushType token:token];
         
@@ -74,7 +72,7 @@
                 PPDebug(@"<UserService>)update push set failed");
             }
         });
-    }];
+    });
 }
 
 - (void)sendFeedback:(id<UserServiceDelegate>)delegate 
@@ -82,8 +80,7 @@
              content:(NSString*)content 
              contact:(NSString*)contact
 {
-    NSOperationQueue* queue = [self getOperationQueue:@"SEND_FEEDBACK"];
-    [queue addOperationWithBlock:^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         
         CommonNetworkOutput* output = [FootballNetworkRequest sendFeedbackByUserId:userId content:content contact:contact];
 
@@ -103,7 +100,7 @@
             }
             
         });
-    }];
+    });
 }
 
 @end

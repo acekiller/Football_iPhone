@@ -27,6 +27,7 @@
 #import "PPNetworkRequest.h"
 
 #define SECOND_LEVEL_LEAGUE 0
+#define TOP_LEVEL_LEAGUE 1
 
 @implementation RealtimeIndexController
 @synthesize matchOddsList;
@@ -129,7 +130,7 @@
         // Benson: always crash here
         [manager selectCompanyById:str];
     }
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
     // Do any additional setup after loading the view from its nib.
 }
@@ -154,7 +155,7 @@
         return;
     }
     hasClickedRefresh = YES;
-    [self updateAllOddsData];
+    [self updateAllOddsData:NO];
 }
 
 
@@ -408,6 +409,16 @@
         [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
     hasClickedRefresh = NO;
+    OddsManager* manager = [OddsManager defaultManager];
+    if (_isReloaded) {
+        [manager selectTopLeague];
+    }
+    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
+    self.dataList = [matchOddsList allKeys];
+    [self.hideSectionSet removeAllObjects];
+    [self updateHeaderMatch];
+    [self.dataTableView reloadData];
+    
 }
 
 - (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
@@ -424,7 +435,7 @@
         return;
     }
     self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:-24*60*60*buttonIndex];
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -439,12 +450,13 @@
 {
     [self refleshOddsType];
     [self refleshCompanyIdArray];
-    [self updateAllOddsData];
+    [self updateAllOddsData:YES];
     [GlobalGetOddsService() startGetRealtimOddsTimer:self.oddsType delegate:self];
 }
 
-- (void)updateAllOddsData
+- (void)updateAllOddsData:(BOOL)isReloaded
 {
+    _isReloaded = isReloaded;
     OddsService* service = GlobalGetOddsService();
     [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
     [self showActivityWithText:FNS(@"加载中...")];
