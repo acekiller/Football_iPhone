@@ -108,11 +108,19 @@ enum OUPEI_INDEX {
             
             if (output.resultCode == ERROR_SUCCESS){
                 if ([output.arrayData count] > 0) {
-                    [manager.allCompany removeAllObjects];
                     NSArray* segment = [output.arrayData objectAtIndex:0];
                     if ([segment count] > 0) {
+                        BOOL hasCleanData = NO;             // add by Benson, flag to remove data before adding new
                         for (NSArray* data in segment) {
                             if ([data count] == 5) {
+                                
+                                if (!hasCleanData){
+                                    // add by Benson
+                                    // this is to secure the data is only removed when there is at least one new record
+                                    [manager.allCompany removeAllObjects];
+                                    hasCleanData = YES;
+                                }
+                                
                                 NSString* companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID];
                                 NSString* companyName = [data objectAtIndex:INDEX_OF_COMPANY_NAME];
                                 NSString* asianOdds = [data objectAtIndex:INDEX_OF_ASIAN_ODDS];
@@ -125,7 +133,7 @@ enum OUPEI_INDEX {
                                                                      europeBet:[europeOdds boolValue] 
                                                                         daXiao:[daXiao boolValue]];
                                 [manager addCompany:company];
-                                [company release];
+                                [company release];                                
                             } else {
                                 continue;
                             }

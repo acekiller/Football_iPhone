@@ -7,6 +7,7 @@
 //
 
 #import "DaXiao.h"
+#import "LogUtil.h"
 
 @implementation DaXiao
 @synthesize chupan;
@@ -37,6 +38,9 @@
         self.instantOdds = [self getNumber:instantOddsValue];
         self.bigBallOdds = [self getNumber:bigBallOddsValue];
         self.smallBallOdds = [self getNumber:smallBallOddsValue];
+        
+        // add by Benson, init data
+        [self setLastModifyTime:time(0)];        
     }
 
     return self;
@@ -79,6 +83,8 @@
     [self setHomeTeamOddsFlag:homeTeamFlag];  
     
     if (instantFlag != 0 | homeTeamFlag != 0 | awayTeamFlag != 0) {
+        PPDebug(@"Match(%@) Daxiao Odds Changed, Instant(%d), Home(%d), Away(%d)", 
+                matchId, instantFlag, homeTeamFlag, awayTeamFlag);        
         [self setLastModifyTime:time(0)];
     }    
 }

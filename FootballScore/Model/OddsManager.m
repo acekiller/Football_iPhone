@@ -147,6 +147,8 @@ OddsManager* GlobleGetOddsManager()
         oddsArray = oupeiArray;
     }else if(oddsType == ODDS_TYPE_DAXIAO){
         oddsArray = daxiaoArray;
+    }else{
+        return nil;
     }
     for (Odds *odds in oddsArray){
         if ([odds.matchId isEqualToString:matchId] && [odds.commpanyId isEqualToString:companyId]) {
@@ -201,12 +203,18 @@ OddsManager* GlobleGetOddsManager()
                         break;
                 }
  
-                if (odds.homeTeamOddsFlag != 0 | odds.awayTeamOddsFlag != 0 | odds.pankouFlag != 0) {
+                if (odds.homeTeamOddsFlag != 0 || 
+                    odds.awayTeamOddsFlag != 0 || 
+                    odds.pankouFlag != 0) {
                     [retSet addObject:odds];
                 }
             }
             
         }
+    }
+    NSInteger count = [retSet count];
+    if (count != 0) {
+        PPDebug(@"get update objects, count = %d", count);
     }
     return retSet;
 }
@@ -218,9 +226,6 @@ OddsManager* GlobleGetOddsManager()
         if (mId == [match.matchId integerValue]) {
             return match.leagueId;
         }
-//        if ([match.matchId isEqualToString:matchId]) {
-//            return match.leagueId;
-//        }
     }
     return nil;
 }

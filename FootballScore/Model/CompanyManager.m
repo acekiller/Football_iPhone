@@ -9,6 +9,7 @@
 #import "CompanyManager.h"
 #import "Company.h"
 #import "FootballNetworkRequest.h"
+#import "LogUtil.h"
 
 CompanyManager* companyManager;
 
@@ -61,7 +62,12 @@ CompanyManager* GlobalGetCompanyManager()
 - (void)selectCompanyById:(NSString *)companyId
 {
     Company* company = [self getCompanyById:companyId];
-    [self.selectedCompany addObject:company];
+    if (company != nil){
+        [self.selectedCompany addObject:company];
+    }
+    else{
+        PPDebug(@"WARNING <selectCompanyById> but no company id(%@) found!", companyId);
+    }
 }
 
 - (void)unselectCompanyById:(NSString *)companyId
