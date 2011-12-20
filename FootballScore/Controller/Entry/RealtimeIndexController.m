@@ -397,7 +397,9 @@
     [self dataSourceDidFinishLoadingNewData];
     if (reslutCode == ERROR_SUCCESS) {
         OddsManager* manager = [OddsManager defaultManager];
-        [manager selectAllLeague];
+        if (_isReloaded) {
+            [manager selectTopLeague];
+        }
         self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
         self.dataList = [matchOddsList allKeys];
         [self.hideSectionSet removeAllObjects];
@@ -409,16 +411,7 @@
         [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
     hasClickedRefresh = NO;
-    OddsManager* manager = [OddsManager defaultManager];
-    if (_isReloaded) {
-        [manager selectTopLeague];
-    }
-    self.matchOddsList = [manager filterOddsByOddsType:self.oddsType date:self.oddsDate];
-    self.dataList = [matchOddsList allKeys];
-    [self.hideSectionSet removeAllObjects];
-    [self updateHeaderMatch];
-    [self.dataTableView reloadData];
-    
+
 }
 
 - (void)getRealtimeOddsFinish:(NSSet *)oddsSet oddsType:(ODDS_TYPE)oddsType
