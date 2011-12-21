@@ -54,7 +54,7 @@
 {
     NSString *numberString = [oddsNumber stringValue];
     
-    if ([numberString length] == 1)
+    if ([numberString length] == 1 || [numberString length] == 2)
         return [NSString stringWithFormat:@"%@.0",numberString];
     else
         return numberString;
