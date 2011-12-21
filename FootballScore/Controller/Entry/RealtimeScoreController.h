@@ -18,7 +18,7 @@
 @interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate, 
     UIActionSheetDelegate, SelectLeagueControllerDelegate> {
     
-    int matchScoreType;
+    int _matchScoreType;
     int matchSelectStatus;   
         
     NSTimer *matchSecondTimer;
@@ -32,6 +32,7 @@
 }
 
 @property (nonatomic,retain) NSTimer *matchSecondTimer;
+@property (nonatomic, assign) int matchScoreType;
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
 - (void)setRightBarButtons;
@@ -40,7 +41,7 @@
 - (void)myFollowCountBadgeViewInit;
 - (void)reloadMyFollowCount;
 - (void)reloadMyFollowList;
--(void)setScoreButtonTitle:(NSInteger)buttonIndex;
+- (void)resetScoreButtonTitle;
 
 @property (nonatomic, retain) IBOutlet UIButton *myFollowButton;
 @property (nonatomic, retain) UIButton *scoreTypeButton;

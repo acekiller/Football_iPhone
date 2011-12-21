@@ -27,13 +27,14 @@
 @synthesize matchSecondTimer;
 @synthesize matchDetailController;
 @synthesize filterBarButton;
+@synthesize matchScoreType = _matchScoreType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        matchScoreType = MATCH_SCORE_TYPE_FIRST;
+        self.matchScoreType = MATCH_SCORE_TYPE_FIRST;
     }
     return self;
 }
@@ -125,8 +126,8 @@
     [self setLeftBarButtons];//等 logo完成之后，这个取消注释
     [self myFollowCountBadgeViewInit];
 
-    
-    [self setScoreButtonTitle:[self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST]];
+    self.matchScoreType = [self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST];
+    [self resetScoreButtonTitle];
     
     self.view.backgroundColor = [ColorManager realTimeScoreControllerTableViewBackgroundColor];
     [self.tipsLabel setTextColor:[ColorManager leageNameColor]];
@@ -321,20 +322,20 @@
 //        // same type, no change, return directly
 //        return;
 //    }
-    matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
+    self.matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
         
        // reload data
-    [self loadMatch:matchScoreType isSelectAll:YES];
+    [self loadMatch:self.matchScoreType isSelectAll:YES];
    
     // update score type button display   
     
-    [self setScoreButtonTitle:buttonIndex];
+    [self resetScoreButtonTitle];
       
 }
 
--(void)setScoreButtonTitle:(NSInteger)buttonIndex{
-    NSInteger type = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
-    switch (type) {
+-(void)resetScoreButtonTitle
+{
+    switch (self.matchScoreType) {
         case MATCH_SCORE_TYPE_ALL:
             [scoreTypeButton setTitle:FNS(@"全部") forState:UIControlStateNormal];
             break;
@@ -555,7 +556,7 @@
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
         return;
     
-    [self loadMatch:matchScoreType];
+    [self loadMatch:self.matchScoreType];
     
 }
 
@@ -600,7 +601,7 @@
     if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) {
         return;
     }
-    [self loadMatch:matchScoreType];
+    [self loadMatch:self.matchScoreType];
     
     
     // after finish loading data, please call the following codes
