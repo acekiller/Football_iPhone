@@ -105,6 +105,8 @@
     //acoording to the language setting, show the team names.
     [self setTeamNameLable:self.homeTeamName name:self.match.homeTeamName];
     [self setTeamNameLable:self.awayTeamName name:self.match.awayTeamName];
+    [self.homeTeamRank setHidden:YES];
+    [self.awayTeamRank setHidden:YES];
  
 }
 
@@ -459,6 +461,7 @@
     }
     
     [label setText:rank];
+    [label setHidden:NO];
 }
 
 - (void) setHeaderInfo:(DetailHeader *)header

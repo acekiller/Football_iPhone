@@ -339,6 +339,9 @@ enum
     if (matchFilterStatus != MATCH_SELECT_STATUS_MYFOLLOW) {
         [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
         [self.matchService updateLatestFollowMatch];
+        //fix the bug that when return to foreground,the score type button do not show correctly
+        [self.matchController setMatchScoreType:matchScoreType];
+        [self.matchController resetScoreButtonTitle];
 	}
     
     [MobClick appLaunched];
