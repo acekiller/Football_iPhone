@@ -178,6 +178,13 @@
     [dateActionSheet release];
 }
 
+- (void)trueSelectDate:(NSDate*)date
+{
+    [GlobalGetScheduleService() getSchedule:self date:date];
+    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(date), chineseWeekDayFromDate(date)]];
+    
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSDate* date;
@@ -185,10 +192,9 @@
     if (buttonIndex == [actionSheet cancelButtonIndex]) {
         return;
     }
-        date = [NSDate dateWithTimeInterval:self.dayDirection*buttonIndex*oneDayInterval sinceDate:self.initDate];
-    [GlobalGetScheduleService() getSchedule:self date:date];
-    [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@", dateToString(date), chineseWeekDayFromDate(date)]];
-    [self showActivityWithText:FNS(@"loading")];
+    date = [NSDate dateWithTimeInterval:self.dayDirection*buttonIndex*oneDayInterval sinceDate:self.initDate];
+    [self performSelector:@selector(trueSelectDate:) withObject:date afterDelay:0.5];
+    [self showActivityWithText:FNS(@"加载中...")];
 }
 
 - (void)dealloc {
