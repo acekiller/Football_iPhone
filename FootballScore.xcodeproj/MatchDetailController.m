@@ -85,7 +85,9 @@
         || status == MATCH_STATUS_PAUSE) 
     {
         //score text
-        NSString *title = [NSString stringWithFormat:@"%d : %d",self.match.homeTeamScore,self.match.awayTeamScore];
+        NSString *title = [NSString stringWithFormat:@"%d : %d",
+                           [self.match.homeTeamScore intValue],
+                           [self.match.awayTeamScore intValue]];
         [self.scoreButton setTitle:title forState:UIControlStateNormal];
         [self.scoreButton setImage:nil forState:UIControlStateNormal];
     }else{
