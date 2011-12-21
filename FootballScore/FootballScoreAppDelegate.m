@@ -235,8 +235,7 @@ enum
         GlobalSetNavBarBackground(@"top_live.png");        
     }
     
-    [tabBarController setBarBackground:@"bottom_bg.png"];
-    
+    [tabBarController setBarBackground:@"bottom_bg.png"];    
 
     // init all service 
     [self initMatchService];
