@@ -161,7 +161,7 @@ goalsTeam:(int)goalsTeam
     awayTeamEventLabel.textColor = uicolor;
     
     
-    leagueNameLabel.text = match.leagueId;
+    leagueNameLabel.text =[[MatchManager defaultManager] getLeagueNameByMatchId:match.matchId];
     startTimeLabel.text = [[MatchManager defaultManager] matchMinutesString:match];
     homeTeamLabel.text = match.homeTeamName;
     awayTeamLabel.text = match.awayTeamName;
