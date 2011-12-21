@@ -79,6 +79,35 @@ CompanyManager* GlobalGetCompanyManager()
     }
 }
 
+- (BOOL)hasCompanyData
+{
+    if ([allCompany count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
+- (BOOL)hasInitSelectCompany
+{
+    if ([selectedCompany count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
+- (void)initSelectCompany
+{
+    int initMaxCount = 4;
+    int count = 0;
+    for (Company* company in allCompany){
+        [selectedCompany addObject:company];
+        count ++;
+        if (count >= initMaxCount){
+            break;
+        }
+    }
+}
+
 - (id)init
 {
     self = [super init];    

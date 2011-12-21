@@ -283,6 +283,8 @@
     int lang = [LanguageManager getLanguage]; 
     NSOperationQueue* queue = [self getOperationQueue:GET_REALTIME_MATCH];
     
+    BOOL hasLeagueData = [[LeagueManager defaultManager] hasLeaguageData];
+    
     [queue addOperationWithBlock:^{
         
         CommonNetworkOutput* output = [FootballNetworkRequest getRealtimeMatch:lang
@@ -312,13 +314,18 @@
                 [[MatchManager defaultManager] updateAllMatchArray:updateMatchArray];
             }
             
+            if (!hasLeagueData){
+                PPDebug(@"First time to create leaguage data, select all league");
+                [[MatchManager defaultManager] selectAllLeague];
+            }
+            
             // step 2 : update UI
             if (delegate && [delegate respondsToSelector:
                                     @selector(getRealtimeMatchFinish:serverDate:leagueArray:updateMatchArray:)]){
                 [delegate getRealtimeMatchFinish:output.resultCode
                                              serverDate:serverDate leagueArray:leagueArray updateMatchArray:updateMatchArray];
             }
-            
+                        
             [self startRealtimeScoreUpdate];
             
         });                        

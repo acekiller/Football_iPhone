@@ -26,6 +26,7 @@
 @property (nonatomic, assign) id<OddsServiceDelegate> delegate;
 @property (nonatomic, assign) ODDS_TYPE realTimeOddsType;
 @property (nonatomic, retain) NSTimer *realTimeOddsTimer;
+@property (nonatomic, retain) NSTimer *retryOddsCompanyTimer;
 
 - (void)updateAllBetCompanyList;
 - (void)getOddsListByDate:(NSDate*)date 

@@ -84,6 +84,7 @@ ScheduleService *GlobalGetScheduleService()
 @synthesize matchController;
 @synthesize oddsService;
 @synthesize scheduleService;
+@synthesize retryService;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -192,7 +193,6 @@ enum
 - (void)initOddsSerivce
 {
     oddsService = [[OddsService alloc] init];
-    [self.oddsService updateAllBetCompanyList];
 }
 
 - (void)initScheduleService
@@ -200,10 +200,15 @@ enum
     scheduleService = [[ScheduleService alloc] init];
 }
 
+- (void)initRetryService
+{
+    retryService = [[RetryService alloc] init];
+}
+
 - (void)initNetworkDetector
 {
     _networkDetector = [[NetworkDetector alloc] 
-                        initWithErrorMsg:FNS(@"系统发现网络连接失效，请检测网络连接设置。") 
+                        initWithErrorMsg:FNS(@"应用检测到无法连接到互联网，请检查您的网络连接设置。") 
                         detectInterval:10];
     [_networkDetector start];
 }
@@ -242,7 +247,8 @@ enum
     [self userRegister];
     [self initOddsSerivce];
     [self initScheduleService];
-
+    [self initRetryService];
+    
 	[self initMobClick];
     [self initImageCacheManager];    
     [self initTabViewControllers];
@@ -326,12 +332,10 @@ enum
     }		
 }
 
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    /*
-     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
-     */
-	
+- (void)commonLaunchActions
+{
+    [self.oddsService updateAllBetCompanyList];
+    
 	NSLog(@"applicationWillEnterForeground");	
     int matchFilterStatus = [[MatchManager defaultManager] filterMatchStatus];
     int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
@@ -343,10 +347,18 @@ enum
     [MobClick appLaunched];
     [self userRegister];
     [self.matchService startRealtimeMatchUpdate];
-//    [appService startAppUpdate];
-    RetryService *retryService = [[[RetryService alloc] init]autorelease];
-    [retryService retryFollowUnfollowList:[UserManager getUserId]];
-    [retryService retryPushSet:[UserManager getUserId] token:[self getDeviceToken]];
+    //    [appService startAppUpdate];
+    
+    [self.retryService retryFollowUnfollowList:[UserManager getUserId]];
+    [self.retryService retryPushSet:[UserManager getUserId] token:[self getDeviceToken]];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    /*
+     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
+     */
+	
+    [self commonLaunchActions];
 }
 
 
@@ -356,7 +368,7 @@ enum
      */
 	
 	NSLog(@"applicationDidBecomeActive");	
-	
+	[self commonLaunchActions];
 }
 
 
@@ -426,6 +438,8 @@ enum
     [matchService release];
 	[matchController release];
     [oddsService release];
+    [scheduleService release];
+    [retryService release];
 
     [super dealloc];
 }

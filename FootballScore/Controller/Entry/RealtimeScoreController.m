@@ -216,7 +216,7 @@
 }
 
 #pragma remote request delegate
-#pragma -
+#pragma mark -
 
 - (void)getRealtimeMatchFinish:(int)result
                     serverDate:(NSDate*)serverDate

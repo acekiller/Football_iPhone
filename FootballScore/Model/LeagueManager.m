@@ -108,6 +108,13 @@ enum{
     return retArray;
 }
 
+- (BOOL)hasLeaguageData
+{
+    if ([leagueArray count] > 0)
+        return YES;
+    else
+        return NO;
+}
 
 //for index 
 +(NSArray*)fromIndexString:(NSArray*)stringArray

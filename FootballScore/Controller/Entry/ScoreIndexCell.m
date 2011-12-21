@@ -63,7 +63,13 @@
 - (void)setCellInfo:(Odds*)odds company:(Company*)company
 {
     [self.contentView setBackgroundColor:[ColorManager scoreIndexCellBackgroundColor]];
-    [self.companyName setTitle:[NSString stringWithFormat:@"%@", company.companyName] forState:UIControlStateNormal];
+    
+    NSString* displayComanyName = @"";
+    if (company && company.companyName){
+        displayComanyName = company.companyName;
+    }
+    
+    [self.companyName setTitle:[NSString stringWithFormat:@"%@", displayComanyName] forState:UIControlStateNormal];
     if (odds == nil) {
         return;
     }

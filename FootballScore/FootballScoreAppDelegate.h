@@ -21,6 +21,7 @@
 @class OddsService;
 @class ScheduleService;
 @class NetworkDetector;
+@class RetryService;
 
 #define _THREE20_		1
 #define kAppId			@"456494464"					// To be changed for each project
@@ -51,6 +52,7 @@
 @property (nonatomic, retain) RealtimeScoreController       *matchController;
 @property (nonatomic, retain) OddsService                   *oddsService;
 @property (nonatomic, retain) ScheduleService               *scheduleService;
+@property (nonatomic, retain) RetryService                  *retryService;
 
 - (UIViewController *)currentViewController;
 @end

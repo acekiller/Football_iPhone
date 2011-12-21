@@ -91,11 +91,48 @@ enum OUPEI_INDEX {
 
 
 @implementation OddsService
+
 @synthesize delegate;
 @synthesize realTimeOddsType;
 @synthesize realTimeOddsTimer;
+@synthesize retryOddsCompanyTimer;
+
+-(void)dealloc
+{
+    [realTimeOddsTimer release];
+    [retryOddsCompanyTimer release];
+    [super dealloc];
+}
+
+#define RETRY_ODDS_COMPANY_TIMER_INTERVAL 5
+
+- (void)startOddsCompanyTimer
+{
+    PPDebug(@"startOddsCompanyTimer after %d seconds", 
+            RETRY_ODDS_COMPANY_TIMER_INTERVAL);
+    
+    self.retryOddsCompanyTimer = 
+    [NSTimer scheduledTimerWithTimeInterval:RETRY_ODDS_COMPANY_TIMER_INTERVAL                                                                   
+                                     target:self 
+                                   selector:@selector(updateAllBetCompanyList) 
+                                   userInfo:nil 
+                                    repeats:NO];
+}
+
+- (void)clearOddsCompanyTimer
+{
+    PPDebug(@"clearOddsCompanyTimer");
+    if (self.retryOddsCompanyTimer && [self.retryOddsCompanyTimer isValid]){
+        [self.retryOddsCompanyTimer invalidate];
+    }
+    
+    self.retryOddsCompanyTimer = nil;
+}
+
 - (void)updateAllBetCompanyList
 {
+    [self clearOddsCompanyTimer];
+    
     NSOperationQueue* queue = [self getOperationQueue:GET_COMPANY_LIST];
     
     [queue addOperationWithBlock:^{
@@ -151,6 +188,17 @@ enum OUPEI_INDEX {
                 }                
             }
 
+            if ([manager hasCompanyData] == NO){
+                // if no data got, need to retry again and again
+                PPDebug(@"WARN : <updateAllBetCompanyList> but no odds company data yet");
+                [self startOddsCompanyTimer];
+            }
+            else{
+                if ([manager hasInitSelectCompany] == NO){
+                    [manager initSelectCompany];
+                }
+            }
+            
         });                        
     }];
 
@@ -397,10 +445,5 @@ enum OUPEI_INDEX {
     } 
 }
 
--(void)dealloc
-{
-    [realTimeOddsTimer release];
-    [super dealloc];
-}
 
 @end

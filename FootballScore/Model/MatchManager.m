@@ -83,6 +83,8 @@ MatchManager* GlobalGetMatchScheduleManager()
 #pragma LOAD/SAVE FILTER LEAGUE
 #pragma mark
 
+
+
 - (void)saveFilterLeagueIdList
 {
     if (filterLeagueIdList == nil || [filterLeagueIdList count] == 0)
@@ -177,6 +179,8 @@ MatchManager* GlobalGetMatchScheduleManager()
         
         filterMatchStatus = MATCH_SELECT_STATUS_ALL;
         filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
+        
+//        isSelectAll = YES;
     }
 
     

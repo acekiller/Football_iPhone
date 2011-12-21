@@ -41,6 +41,8 @@
 // update league data (array/dict)
 - (void)updateLeague:(NSArray*)updateArray;
 
+- (BOOL)hasLeaguageData;
+
 // get league name by league ID
 - (NSString*)getNameById:(NSString*)leagueId;
 

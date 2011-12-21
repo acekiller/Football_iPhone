@@ -26,5 +26,8 @@
 - (void )addCompany:(Company*)company;
 - (void)selectCompanyById:(NSString*)companyId;
 - (void)unselectCompanyById:(NSString*)companyId;
+- (BOOL)hasCompanyData;
+- (BOOL)hasInitSelectCompany;
+- (void)initSelectCompany;
 
 @end
