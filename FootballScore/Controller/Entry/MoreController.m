@@ -374,7 +374,7 @@ typedef enum {
 - (void)quitApplication
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                   message:FNS(@"确定退出客户端吗?") 
+                                                   message:FNS(@"确定退出客户端吗") 
                                                   delegate:self 
                                          cancelButtonTitle:FNS(@"取消")  
                                          otherButtonTitles:FNS(@"确定") , nil];
