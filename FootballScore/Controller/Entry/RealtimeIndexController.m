@@ -452,7 +452,7 @@
     _isReloaded = isReloaded;
     OddsService* service = GlobalGetOddsService();
     [service getOddsListByDate:oddsDate companyIdArray:companyIdArray language:[LanguageManager getLanguage] matchType:matchType oddsType:self.oddsType delegate:self];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
 
 }
 

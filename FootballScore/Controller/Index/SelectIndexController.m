@@ -27,17 +27,10 @@ typedef enum ODDS_TYPE {
 @synthesize buttonEuropeBwin;
 @synthesize buttonBigandSmall;
 @synthesize delegate;
-@synthesize selectedCompanySet;
+@synthesize yapeiSelectedCompanySet = _yapeiSelectedCompanySet;
+@synthesize oupeiSelectedCompanySet = _oupeiSelectedCompanySet;
+@synthesize daxiaoSelectedCompanySet = _daxiaoSelectedCompanySet;
 @synthesize selectedOddsType;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)init
 {
@@ -46,7 +39,9 @@ typedef enum ODDS_TYPE {
         asianBwinArray = [[NSMutableArray alloc] init];
         europeBwinArray = [[NSMutableArray alloc] init];
         bigandSmallArray = [[NSMutableArray alloc] init];
-        selectedCompanySet = [[NSMutableSet alloc] init];  
+        _yapeiSelectedCompanySet = [[NSMutableSet alloc] init];  
+        _oupeiSelectedCompanySet = [[NSMutableSet alloc] init];
+        _daxiaoSelectedCompanySet = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -59,9 +54,21 @@ typedef enum ODDS_TYPE {
     [asianBwinArray release];
     [europeBwinArray release];
     [bigandSmallArray release];
-    [selectedCompanySet release];
-
+    [_yapeiSelectedCompanySet release];
+    [_oupeiSelectedCompanySet release];
+    [_daxiaoSelectedCompanySet release];
+    
     [super dealloc];
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,10 +85,6 @@ typedef enum ODDS_TYPE {
     
     //backup the company manager data
     self.selectedOddsType = manager.selectedOddsType;
-    [self.selectedCompanySet removeAllObjects];
-    for (Company* company in [manager.selectedCompany allObjects]) {
-        [self.selectedCompanySet addObject:company];
-    }
     for (Company* company in manager.allCompany) {
         if (company.hasAsianOdds) {
             [asianBwinArray addObject:company];
@@ -97,15 +100,30 @@ typedef enum ODDS_TYPE {
     switch (manager.selectedOddsType) {
         case ODDS_TYPE_YAPEI:
             [buttonAsianBwin setSelected:YES];
-            [self createButtonsByArray:asianBwinArray];
+            contentType = ASIANBWIN;
+            [self.yapeiSelectedCompanySet removeAllObjects];
+            for (Company* company in [manager.selectedCompany allObjects]) {
+                [self.yapeiSelectedCompanySet addObject:company];
+            }
+            [self createButtonsByArray:asianBwinArray selectedCompanySet:self.yapeiSelectedCompanySet];
             break;
         case ODDS_TYPE_DAXIAO:
             [buttonBigandSmall setSelected:YES];
-            [self createButtonsByArray:bigandSmallArray];
+            contentType = BIGANDSMALL;
+            [self.daxiaoSelectedCompanySet removeAllObjects];
+            for (Company* company in [manager.selectedCompany allObjects]) {
+                [self.daxiaoSelectedCompanySet addObject:company];
+            }
+            [self createButtonsByArray:bigandSmallArray selectedCompanySet:self.daxiaoSelectedCompanySet];
             break;
         case ODDS_TYPE_OUPEI:
+            [self.oupeiSelectedCompanySet removeAllObjects];
+            for (Company* company in [manager.selectedCompany allObjects]) {
+                [self.oupeiSelectedCompanySet addObject:company];
+            }
             [buttonEuropeBwin setSelected:YES];
-            [self createButtonsByArray:europeBwinArray];
+            contentType = EUROPEBWIN;
+            [self createButtonsByArray:europeBwinArray selectedCompanySet:self.oupeiSelectedCompanySet];
             break;
         default:
             break;
@@ -117,18 +135,15 @@ typedef enum ODDS_TYPE {
 
 - (void)viewDidLoad
 {   
-    
+    [super viewDidLoad];
     [self.navigationItem setTitle:@"内容筛选"];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"  action:@selector(clickBack:)];
     [self setNavigationRightButton:FNS(@"完成") imageName:@"ss.png" action:@selector(clickDone:)];
     [buttonAsianBwin setTag:ASIANBWIN];
     [buttonEuropeBwin setTag:EUROPEBWIN];
     [buttonBigandSmall setTag:BIGANDSMALL];
-    
     [self contentTypeButtonInit];
-
     [self.view setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
-    [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -163,7 +178,6 @@ typedef enum ODDS_TYPE {
 - (IBAction)clickContentTypeButton:(id)sender
 {
     contentType = [sender tag];
-    [self.selectedCompanySet removeAllObjects];
     [self setSelectedOddsType:(contentType-CONTENT_TYPE_OFFSET)];
     for (int i = ASIANBWIN; i <= BIGANDSMALL; i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
@@ -177,15 +191,15 @@ typedef enum ODDS_TYPE {
     }  
     switch (contentType) {
         case ASIANBWIN: {
-            [self createButtonsByArray:asianBwinArray];
+            [self createButtonsByArray:asianBwinArray selectedCompanySet:self.yapeiSelectedCompanySet];
             break;
         }
         case EUROPEBWIN: {
-            [self createButtonsByArray:europeBwinArray];
+            [self createButtonsByArray:europeBwinArray selectedCompanySet:self.oupeiSelectedCompanySet];
             break;
         }
         case BIGANDSMALL: {
-            [self createButtonsByArray:bigandSmallArray];
+            [self createButtonsByArray:bigandSmallArray selectedCompanySet:self.daxiaoSelectedCompanySet];
             break;
         }
         default:
@@ -193,31 +207,62 @@ typedef enum ODDS_TYPE {
     }
 }
 
-
-- (IBAction)buttonClicked:(id)sender 
+#define OVER_SELECT -1
+#define SUCCESS_SELECT 0
+- (int)selectCompanyToSet:(NSMutableSet*)selectedCompanySet companyId:(int)companyId
 {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    UIButton *button = (UIButton*)sender;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FNS(@"最多只能选四个") 
                                                     message:FNS(@"") 
                                                    delegate:nil 
                                           cancelButtonTitle:FNS(@"好了，我知道了") 
                                           otherButtonTitles: nil];
-    
-    if ([self.selectedCompanySet containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]]) {
-        [button setSelected:NO];
-        [self.selectedCompanySet removeObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]];
-
+    if ([selectedCompanySet containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]]) {
+        [selectedCompanySet removeObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]];
+        
     }
     else {
-        if ([[self selectedCompanySet] count] >= 4) {
+        if ([selectedCompanySet count] >= 4) {
             [alert show];
             [alert release];
-            return;
+            return OVER_SELECT;
         }
-        [button setSelected:YES];
-        [self.selectedCompanySet addObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", button.tag - COMPANY_ID_BUTTON_OFFSET]]];
+        [selectedCompanySet addObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]];
     }
+    return SUCCESS_SELECT;
+}
+
+
+- (IBAction)buttonClicked:(id)sender 
+{
+    UIButton *button = (UIButton*)sender;
+    int companyId = button.tag - COMPANY_ID_BUTTON_OFFSET;
+    int result; 
+    switch (contentType) {
+        case ASIANBWIN: {
+            result = [self selectCompanyToSet:self.yapeiSelectedCompanySet companyId:companyId];
+            break;
+        }
+        case EUROPEBWIN: {
+            result = [self selectCompanyToSet:self.oupeiSelectedCompanySet companyId:companyId];
+            break;
+        }
+        case BIGANDSMALL: {
+            result = [self selectCompanyToSet:self.daxiaoSelectedCompanySet companyId:companyId];
+            break;
+        }
+        default:
+            break;
+    }
+    if (result == OVER_SELECT) {
+        return;
+    }
+    if ([button isSelected]) {
+        [button setSelected:NO];
+    } else {
+        [button setSelected:YES];
+    }
+    
 }
 
 - (void)clickBack:(id)sender
@@ -228,12 +273,28 @@ typedef enum ODDS_TYPE {
 - (void)clickDone:(id)sender
 {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
-    if ([[self selectedCompanySet] count] <= 0) {  
+    
+    manager.selectedOddsType = self.selectedOddsType;
+    switch (contentType) {
+        case ASIANBWIN: {
+            manager.selectedCompany = self.yapeiSelectedCompanySet;
+            break;
+        }
+        case EUROPEBWIN: {
+            manager.selectedCompany = self.oupeiSelectedCompanySet;
+            break;
+        }
+        case BIGANDSMALL: {
+            manager.selectedCompany = self.daxiaoSelectedCompanySet;
+            break;
+        }
+        default:
+            break;
+    }
+    if ([[manager selectedCompany] count] <= 0) {  
         [self popupMessage:@"至少选择一间赔率公司" title:nil];
         return;
     }
-    manager.selectedOddsType = self.selectedOddsType;
-    manager.selectedCompany = self.selectedCompanySet;
     if (delegate && [delegate respondsToSelector:@selector(SelectCompanyFinish)]) {
         [delegate SelectCompanyFinish];
     }
@@ -297,7 +358,7 @@ typedef enum ODDS_TYPE {
 
 
 
-- (void)createButtonsByArray:(NSArray*)array
+- (void)createButtonsByArray:(NSArray*)array selectedCompanySet:(NSMutableSet*)selectedCompanySet
 {
     NSMutableArray* buttonArray = [[NSMutableArray alloc] init];
     for (Company* company in array) {
@@ -311,7 +372,7 @@ typedef enum ODDS_TYPE {
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [button setTag:([company.companyId intValue] + COMPANY_ID_BUTTON_OFFSET)];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        if ([self.selectedCompanySet containsObject:company]) {
+        if ([selectedCompanySet containsObject:company]) {
             [button setSelected:YES];
         }
         else {

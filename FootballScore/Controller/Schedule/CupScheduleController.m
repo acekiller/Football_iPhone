@@ -267,7 +267,7 @@ enum {
 
 - (void)showWebView:(BOOL)needReload
 {
-    [self showActivityWithText:FNS(@"加载数据中....")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [self performSelector:@selector(trueShowWebView:) 
                withObject:[NSNumber numberWithBool:needReload] 
                afterDelay:0.0f];
@@ -309,7 +309,7 @@ enum {
         [self.dataWebView loadRequest:request];        
     }  
     
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
 }
 
 - (void)selectSeason
@@ -388,7 +388,7 @@ enum {
     }
     
     //NSString* title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中....")];
     [self performSelector:@selector(trueSelectButton:) 
                withObject:[NSNumber numberWithInt:buttonIndex] 
                afterDelay:0.5];

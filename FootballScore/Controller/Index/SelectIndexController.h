@@ -32,7 +32,9 @@ enum {
     NSMutableArray *europeBwinArray;
     NSMutableArray *bigandSmallArray;
     
-    NSMutableSet *selectedCompanySet;
+    NSMutableSet* _yapeiSelectedCompanySet;
+    NSMutableSet* _oupeiSelectedCompanySet;
+    NSMutableSet* _daxiaoSelectedCompanySet;
     int           selectedOddsType;
 
     id<SeclectIndexControllerDelegate> delegate;
@@ -45,12 +47,14 @@ enum {
 @property (nonatomic, retain) IBOutlet UIButton *buttonEuropeBwin;
 @property (nonatomic, retain) IBOutlet UIButton *buttonBigandSmall;
 @property (nonatomic, assign) id<SeclectIndexControllerDelegate> delegate;
-@property (nonatomic, retain) NSMutableSet *selectedCompanySet;
+@property (nonatomic, retain) NSMutableSet *yapeiSelectedCompanySet;
+@property (nonatomic, retain) NSMutableSet* oupeiSelectedCompanySet;
+@property (nonatomic, retain) NSMutableSet* daxiaoSelectedCompanySet;
 @property (nonatomic, assign) int selectedOddsType;
 
 - (IBAction)clickContentTypeButton:(id)sender;
 - (void)buttonClicked:(id)sender;
-- (void)createButtonsByArray:(NSArray*)array;
+- (void)createButtonsByArray:(NSArray*)array selectedCompanySet:(NSMutableSet*)selectedCompanySet;
 
 + (SelectIndexController*)show:(UIViewController<SeclectIndexControllerDelegate>*)superController;
 

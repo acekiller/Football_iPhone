@@ -219,6 +219,7 @@ enum OUPEI_INDEX {
          dispatch_async(dispatch_get_main_queue(), ^{
              
              OddsManager* manager = [OddsManager defaultManager];
+             BOOL hasLeagueData = [manager hasLeagueData];
              
              if (output.resultCode == ERROR_SUCCESS){
                  if ([output.arrayData count] > 0) {
@@ -240,6 +241,9 @@ enum OUPEI_INDEX {
                              [league release];
                          }
                          PPDebug(@"<OddsService>getOddsList: Get OddsList success,totally %d leagues get,%d are added", [leagueArray count], [manager.leagueArray count]);
+                         if (hasLeagueData == NO) {
+                             [manager selectTopLeague];
+                         }
                      }
                      else {
                          PPDebug(@"<OddsService>getOddsList: Update league info failed,because no league array is got");

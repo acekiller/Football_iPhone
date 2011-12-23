@@ -297,6 +297,7 @@ OddsManager* GlobleGetOddsManager()
 
 - (void)selectAllLeague
 {
+    [self.filterLeagueIdList removeAllObjects];
     for (League* league in leagueArray) {
         [self.filterLeagueIdList addObject:league.leagueId];
     }
@@ -304,9 +305,19 @@ OddsManager* GlobleGetOddsManager()
 
 - (void)selectTopLeague
 {
+    [self.filterLeagueIdList removeAllObjects];
     for (League* league in leagueArray) {
         if ([league isTop])
         [self.filterLeagueIdList addObject:league.leagueId];
+    }
+}
+
+- (BOOL)hasLeagueData
+{
+    if ([self.leagueArray count] > 0) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 

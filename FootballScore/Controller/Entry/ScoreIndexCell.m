@@ -82,8 +82,9 @@
             NSNumber *chupan = [NSNumber numberWithFloat:[yapei.chupan floatValue]];
             [self.chupan_draw_init setTitle:[DataUtils toChuPanString:chupan] forState:UIControlStateNormal];
             
-            
             [self.away_awayWin_smallBall_init setTitle:[self oddsNumberDisplay:yapei.awayTeamChupan] forState:UIControlStateNormal];
+            
+            
             
             [self.home_homeWin_bigBall_instant setTitle:[self oddsNumberDisplay:yapei.homeTeamOdds] forState:UIControlStateNormal];
             
@@ -101,6 +102,9 @@
             [self.chupan_draw_init setTitle:[self oddsNumberDisplay:oupei.drawInitOdds] forState:UIControlStateNormal];;
             
             [self.away_awayWin_smallBall_init setTitle:[self oddsNumberDisplay:oupei.awayWinInitOdds] forState:UIControlStateNormal];
+            
+            
+            
             [self.home_homeWin_bigBall_instant setTitle:[self oddsNumberDisplay:oupei.homeWinInstantOdds] forState:UIControlStateNormal];
             
             [self.pankou_draw_instant setTitle:[self oddsNumberDisplay:oupei.drawInstantOdds] forState:UIControlStateNormal];
@@ -113,12 +117,15 @@
             DaXiao* daxiao = (DaXiao*)odds;
             [self.home_homeWin_bigBall_init setTitle:[self oddsNumberDisplay:daxiao.bigBallChupan] forState:UIControlStateNormal];
             
-            [self.chupan_draw_init setTitle:[self oddsNumberDisplay:daxiao.chupan] forState:UIControlStateNormal];
+            [self.chupan_draw_init setTitle:[DataUtils toDaxiaoPanKouString:daxiao.chupan] forState:UIControlStateNormal];
             
             [self.away_awayWin_smallBall_init setTitle:[self oddsNumberDisplay:daxiao.smallBallChupan] forState:UIControlStateNormal];
+            
+            
+            
             [self.home_homeWin_bigBall_instant setTitle:[self oddsNumberDisplay:daxiao.bigBallOdds] forState:UIControlStateNormal];
             
-            [self.pankou_draw_instant setTitle:[self oddsNumberDisplay:daxiao.instantOdds] forState:UIControlStateNormal];
+            [self.pankou_draw_instant setTitle:[DataUtils toDaxiaoPanKouString:daxiao.instantOdds] forState:UIControlStateNormal];
 
             [self.away_awayWin_smallBall_instant setTitle:[self oddsNumberDisplay:daxiao.smallBallOdds] forState:UIControlStateNormal];
             
