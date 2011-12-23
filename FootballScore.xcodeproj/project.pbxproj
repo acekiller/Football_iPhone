@@ -2436,6 +2436,9 @@
 /* Begin PBXProject section */
 		CAF4CC34142ECFCB001D5B4A /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = CAF4CC37142ECFCB001D5B4A /* Build configuration list for PBXProject "FootballScore" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -3041,6 +3044,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballScore/FootballScore-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "FootballScore/FootballScore-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3064,6 +3068,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballScore/FootballScore-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "FootballScore/FootballScore-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3088,6 +3093,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballScoreTests/FootballScoreTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "FootballScoreTests/FootballScoreTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3110,6 +3116,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballScoreTests/FootballScoreTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "FootballScoreTests/FootballScoreTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",

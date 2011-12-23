@@ -92,10 +92,10 @@
                 matchId, instantFlag, homeTeamFlag, awayTeamFlag);        
         [self setLastModifyTime:time(0)];
         
-        Match *match = [[MatchManager defaultMatchIndexManger] getMathById:matchId];
+//        Match *match = [[MatchManager defaultMatchIndexManger] getMathById:matchId];
 
-        NSString *vsString = [NSString stringWithFormat:@"%@ vs %@ ",match.homeTeamName,match.awayTeamName];
-        PPDebug(@"Match title:%@", vsString);
+//        NSString *vsString = [NSString stringWithFormat:@"%@ vs %@ ",match.homeTeamName,match.awayTeamName];
+//        PPDebug(@"Match title:%@", vsString);
     }    
 }
 
