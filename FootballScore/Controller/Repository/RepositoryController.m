@@ -193,7 +193,7 @@
 
 - (void)willUpdateRepository
 {
-    [self showActivityWithText:FNS(@"加载数据中......")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
 }
 - (void)didUpdateRepository:(NSInteger)errorCode
 {

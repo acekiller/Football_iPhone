@@ -11,6 +11,9 @@
 
 @implementation AboutController
 @synthesize versionLabel;
+@synthesize customerServiceLabel;
+@synthesize webSiteAddressLabel;
+@synthesize copyrightLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,18 +38,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = FNS(@"关于彩客网站");	
+    self.navigationItem.title = FNS(@"关于彩客网");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];
     
     NSString *versionString = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    versionLabel.text = [NSString stringWithFormat:@"版本:%@" , versionString];
+    NSString *versionTitle = FNS(@"版本");
+    versionLabel.text = [NSString stringWithFormat:@"%@:%@" , versionTitle,versionString];
     
+    NSString *customerServiceTitle = FNS(@"客服电话");
+    customerServiceLabel.text  = [NSString stringWithFormat:@"%@:400-887-5138",customerServiceTitle];
+    
+    NSString *webSiteAddressTitle = FNS(@"网站网址");
+    webSiteAddressLabel.text = [NSString stringWithFormat:@"%@:www.310win.com",webSiteAddressTitle];
+    
+    copyrightLabel.text = FNS(@"版权所有:肇庆市创威发展有限公司");
 }
 
 - (void)viewDidUnload
 {
     [self setVersionLabel:nil];
+    [self setCustomerServiceLabel:nil];
+    [self setWebSiteAddressLabel:nil];
+    [self setCopyrightLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -60,6 +74,9 @@
 
 - (void)dealloc {
     [versionLabel release];
+    [customerServiceLabel release];
+    [webSiteAddressLabel release];
+    [copyrightLabel release];
     [super dealloc];
 }
 @end

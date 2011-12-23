@@ -207,7 +207,7 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     NSString *dateString = [[[NSString alloc] init] autorelease];
-    [formatter setDateFormat:@"HH:mm"];
+    [formatter setDateFormat:@"dd日 HH:mm"];
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
 
     
@@ -249,11 +249,11 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 65, 30)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 30)];
-    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 85, 30)];
-    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 0, 40, 30)];
-    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 85, 30)];
+    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 60, 30)];
+    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 55, 30)];
+    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 80, 30)];
+    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 40, 30)];
+    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 80, 30)];
     [leagueName setFont:[UIFont systemFontOfSize:12]];
     [dateAndStatus setFont:[UIFont systemFontOfSize:11]];
     [homeTeamName setFont:[UIFont systemFontOfSize:12]];
