@@ -228,7 +228,7 @@ enum
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
+	[UIApplication sharedApplication].idleTimerDisabled = YES;//disable autolocking screen
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
@@ -305,7 +305,7 @@ enum
      */
 	
 	NSLog(@"applicationDidEnterBackground");	
-	
+	[UIApplication sharedApplication].idleTimerDisabled = NO;
 
     //stop the
     [[MatchManager defaultManager] saveFollowMatchList];
@@ -360,7 +360,7 @@ enum
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
-	
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
     [self commonLaunchActions];
 }
 

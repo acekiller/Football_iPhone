@@ -126,8 +126,7 @@
     [self setLeftBarButtons];//等 logo完成之后，这个取消注释
     [self myFollowCountBadgeViewInit];
 
-    self.matchScoreType = [self toMatchScoreTypeFromSheetIndex: MATCH_SCORE_TYPE_FIRST];
-    [self resetScoreButtonTitle];
+    
     
     self.view.backgroundColor = [ColorManager realTimeScoreControllerTableViewBackgroundColor];
     [self.tipsLabel setTextColor:[ColorManager leageNameColor]];
@@ -135,9 +134,10 @@
     [super viewDidLoad];
     
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
-
     
-    [self loadMatch:MATCH_SCORE_TYPE_FIRST isSelectAll:YES];
+    self.matchScoreType = MATCH_SCORE_TYPE_FIRST;
+    [self resetScoreButtonTitle];
+    [self loadMatch:self.matchScoreType isSelectAll:YES];
     // Do any additional setup after loading the view from its nib.
     
 }
