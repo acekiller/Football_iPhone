@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.orange.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.gancheng.football</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>57.png</string>
