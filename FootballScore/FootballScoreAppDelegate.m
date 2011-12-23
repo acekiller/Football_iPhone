@@ -171,7 +171,7 @@ enum
 	
 	tabBarController.viewControllers = controllers;
     tabBarController.selectedIndex = TAB_REALTIME_SCORE;
-	
+    
 	[controllers release];
 }
 
@@ -228,7 +228,7 @@ enum
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	 
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
