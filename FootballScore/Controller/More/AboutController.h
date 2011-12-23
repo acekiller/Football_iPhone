@@ -12,6 +12,9 @@
 @interface AboutController : PPViewController
 
 @property (retain, nonatomic) IBOutlet UILabel *versionLabel;
+@property (retain, nonatomic) IBOutlet UILabel *customerServiceLabel;
+@property (retain, nonatomic) IBOutlet UILabel *webSiteAddressLabel;
+@property (retain, nonatomic) IBOutlet UILabel *copyrightLabel;
 
 
 @end
