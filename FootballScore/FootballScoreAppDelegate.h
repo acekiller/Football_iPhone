@@ -55,6 +55,8 @@
 @property (nonatomic, retain) RetryService                  *retryService;
 
 - (UIViewController *)currentViewController;
+- (void)commonLaunchActions:(BOOL)loadAllMatch;
+
 @end
 
 

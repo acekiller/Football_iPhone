@@ -178,7 +178,7 @@ MatchManager* GlobalGetMatchScheduleManager()
         serverDate = [[NSDate date] retain];
         
         filterMatchStatus = MATCH_SELECT_STATUS_ALL;
-        filterMatchScoreType = MATCH_SCORE_TYPE_ALL;
+        filterMatchScoreType = MATCH_SCORE_TYPE_FIRST;
         
 //        isSelectAll = YES;
     }

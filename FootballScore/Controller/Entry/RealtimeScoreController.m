@@ -112,7 +112,7 @@
 
 - (void)viewDidLoad
 {
-    int UPDATE_TIME_INTERVAL = 2;
+    int UPDATE_TIME_INTERVAL = 1;
     self.supportRefreshHeader = YES;
     hasClickedRefresh = NO;
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
@@ -135,7 +135,7 @@
     
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
     
-    self.matchScoreType = MATCH_SCORE_TYPE_FIRST;
+    self.matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
     [self resetScoreButtonTitle];
     [self loadMatch:self.matchScoreType isSelectAll:YES];
     // Do any additional setup after loading the view from its nib.
@@ -323,6 +323,7 @@
 //        return;
 //    }
     self.matchScoreType = [self toMatchScoreTypeFromSheetIndex:buttonIndex];
+    [[MatchManager defaultManager] setFilterMatchScoreType:self.matchScoreType];
         
        // reload data
     [self loadMatch:self.matchScoreType isSelectAll:YES];

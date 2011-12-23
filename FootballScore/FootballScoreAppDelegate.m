@@ -221,7 +221,7 @@ enum
         [registerService release];
     }
     else {
-        NSLog(@"User existed,User ID is <%@>",[UserManager getUserId]);
+        NSLog(@"User exist,User ID is <%@>, Skip Registration",[UserManager getUserId]);
     }
 }
 
@@ -268,8 +268,7 @@ enum
 //        [self bindDevice];
     }
     
-
-    
+	[self commonLaunchActions:NO];    
     return YES;
 }
 
@@ -332,36 +331,51 @@ enum
     }		
 }
 
-- (void)commonLaunchActions
+- (void)commonLaunchActions:(BOOL)loadAllMatch
 {
     [self.oddsService updateAllBetCompanyList];
     
-	NSLog(@"applicationWillEnterForeground");	
     int matchFilterStatus = [[MatchManager defaultManager] filterMatchStatus];
     int matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
     if (matchFilterStatus != MATCH_SELECT_STATUS_MYFOLLOW) {
-        [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+        if (loadAllMatch){
+            // update all match by given match score type
+            [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
+            
+            // TODO : also update all index data
+        }
         [self.matchService updateLatestFollowMatch];
         //fix the bug that when return to foreground,the score type button do not show correctly
         [self.matchController setMatchScoreType:matchScoreType];
         [self.matchController resetScoreButtonTitle];
 	}
     
+    // MobClick, for statistic
     [MobClick appLaunched];
-    [self userRegister];
-    [self.matchService startRealtimeMatchUpdate];
-    //    [appService startAppUpdate];
     
+    // register user if needed
+    [self userRegister];
+    
+    // start to update score
+    [self.matchService startRealtimeMatchUpdate];
+    
+    // TODO : start to update realtime index timer   
+
+    // retry to send follow/unfollow match request
     [self.retryService retryFollowUnfollowList:[UserManager getUserId]];
     [self.retryService retryPushSet:[UserManager getUserId] token:[self getDeviceToken]];
+    
+    // forbid locking the screen
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
-    [self commonLaunchActions];
+	NSLog(@"applicationWillEnterForeground");	
+
+    [self commonLaunchActions:YES];
 }
 
 
@@ -371,7 +385,6 @@ enum
      */
 	
 	NSLog(@"applicationDidBecomeActive");	
-	[self commonLaunchActions];
 }
 
 
