@@ -101,6 +101,11 @@
     
     float panKouFloat = panKou.floatValue;
     
+    if (panKouFloat > 14)
+    {
+        return [panKou stringValue];
+    }
+    
     if (panKouFloat >=0 ) {
         return [goalCn objectAtIndex:(int)(panKouFloat*4)];
     }
