@@ -97,7 +97,7 @@ enum {
 - (void)initWebView
 {
     [self loadWebViewByHtml:REPOSITORY_URL];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
 }
 
 - (void)resetWithLeague:(League *)leagueValue
@@ -199,7 +199,7 @@ enum {
 
 - (void)showSchedule
 {
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
     NSString* jsCodeString = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]];
     [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCodeString];
     PPDebug(@"<displayEvent> execute JS = %@",jsCodeString); 
@@ -214,7 +214,7 @@ enum {
     UIButton* button = (UIButton*)[self.view viewWithTag:SCHEDULE_BUTTON_TAG];
     [self updateButtonState:(id)button];
     [self updateDataWebViewState:(id)button];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
     NSString* jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '', %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
     PPDebug(@"<displayEvent>%@", jsCode);
@@ -225,7 +225,8 @@ enum {
             NSString* currentRoundString = [resultArray objectAtIndex:CURRENT_ROUND_INDEX];
             roundsCount = [roundsCountString intValue];
             currentRound = [currentRoundString intValue];
-            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  轮次:%d", currentRound] forState:UIControlStateNormal];
+            NSString *titleString = FNS(@"轮次");
+            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString,currentRound] forState:UIControlStateNormal];
         }
     }
     [self hideActivity];
@@ -252,7 +253,7 @@ enum {
     [self performSelector:@selector(trueClickButton:) 
                withObject:(UIButton *)sender
                afterDelay:0];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
 }
 
 - (IBAction)clickShowScheduleButton:(id)sender
@@ -304,7 +305,9 @@ enum {
                                                   destructiveButtonTitle:nil 
                                                        otherButtonTitles:nil];
     for (int i=1; i<=roundsCount; i++) {
-        [roundsSelector addButtonWithTitle:[NSString stringWithFormat:@"第%d轮", i]];
+        NSString *before = FNS(@"第");
+        NSString *after = FNS(@"轮");
+        [roundsSelector addButtonWithTitle:[NSString stringWithFormat:@"%@%d%@",before,i,after]];
     }
     [roundsSelector addButtonWithTitle:FNS(@"返回")];
     [roundsSelector setCancelButtonIndex:roundsCount];
@@ -336,7 +339,8 @@ enum {
         }
             break;
         case ROUNDS_SELECTOR: {
-            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  轮次:%d", [buttonIndexNumber intValue]+1] forState:UIControlStateNormal];
+            NSString *titleString = FNS(@"轮次");
+            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString,[buttonIndexNumber intValue]+1] forState:UIControlStateNormal];
             [self didSelectRound:[buttonIndexNumber intValue]];
         }
             break;
@@ -353,7 +357,7 @@ enum {
     [self performSelector:@selector(trueSelectButton:) 
                withObject:[NSNumber numberWithInt:buttonIndex] 
                afterDelay:0.0];
-    [self showActivityWithText:FNS(@"加载中...")];
+    [self showActivityWithText:FNS(@"加载数据中...")];
     
 }
 
