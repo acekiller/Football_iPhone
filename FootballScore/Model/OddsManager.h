@@ -55,5 +55,6 @@ enum ODDS_REALTIME_INDEX {
 - (void)selectTopLeague;
 
 - (BOOL)canDisplayOdds:(Odds*)odds date:(NSDate*)filterDate;
+- (BOOL)hasLeagueData;
 
 @end

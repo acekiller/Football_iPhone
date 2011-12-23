@@ -100,8 +100,10 @@ CompanyManager* GlobalGetCompanyManager()
     int initMaxCount = 4;
     int count = 0;
     for (Company* company in allCompany){
-        [selectedCompany addObject:company];
-        count ++;
+        if (company.hasAsianOdds == YES) {
+            [selectedCompany addObject:company];
+            count ++;
+        }
         if (count >= initMaxCount){
             break;
         }
