@@ -170,28 +170,25 @@ MatchDetailView.prototype = {
 	constructor : MatchDetailView,
 	updateView : function(manager){
 		
-		if (manager.eventArray == null || manager.eventArray.length == 0) {
-			this.eventPanel.hide();
-			this.statPanel.hide();
-			this.noEventPanel.show();
-			this.noEventPanel.update();
-		}
-		else{
-			this.noEventPanel.hide();
-			this.eventPanel.show();
-			this.eventPanel.update(manager.eventArray);
+	if (manager.eventArray == null || manager.eventArray.length == 0) {
+		this.eventPanel.hide();
+		this.noEventPanel.show();
+		this.noEventPanel.update();
+	}
+	else{
+		this.noEventPanel.hide();
+		this.eventPanel.show();
+		this.eventPanel.update(manager.eventArray);
 
-		}
-		
-		if (manager.statArray == null || manager.statArray.length == 0) {
-			this.eventPanel.hide();
-			this.statPanel.hide();
-		}
-		else {
-			this.noEventPanel.hide();
-			this.statPanel.show();
-			this.statPanel.update(manager.statArray);
-		}
+	}
+	
+	if (manager.statArray == null || manager.statArray.length == 0) {
+		this.statPanel.hide();
+	}
+	else {
+		this.statPanel.show();
+		this.statPanel.update(manager.statArray);
+	}
 	}
 };
 
