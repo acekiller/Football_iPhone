@@ -56,7 +56,11 @@
 
 - (UIViewController *)currentViewController;
 - (void)commonLaunchActions:(BOOL)loadAllMatch;
-
+- (void) setSeletedTabbarIndex:(NSInteger)index;
 @end
 
 
+enum
+{
+    TAB_REALTIME_SCORE = 1,
+};
