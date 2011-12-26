@@ -168,7 +168,7 @@ OddsManager* GlobleGetOddsManager()
     NSMutableSet *retSet = [[[NSMutableSet alloc] init] autorelease];
     
     for (NSArray * data in realtimeOddsArray) {
-        if (data && [data count] == ODDS_REALTIME_INDEX_COUNT) {
+        if (data && [data count] >= ODDS_REALTIME_INDEX_COUNT) {
             NSString *matchId = [data objectAtIndex:INDEX_OF_MATCH_ID_ODDS];
             NSString *companyId = [data objectAtIndex:INDEX_OF_COMPANY_ID_ODDS];
             NSString *awayTeamOdds = [data objectAtIndex:INDEX_OF_AWAY_ODDS];
@@ -213,9 +213,7 @@ OddsManager* GlobleGetOddsManager()
         }
     }
     NSInteger count = [retSet count];
-    if (count != 0) {
-        PPDebug(@"get update objects, count = %d", count);
-    }
+    PPDebug(@"<Odds Update>, total updated count = %d", count);
     return retSet;
 }
 
