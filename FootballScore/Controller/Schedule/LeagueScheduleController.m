@@ -86,6 +86,7 @@ enum {
     [self.shooterRankingButton setTag:SHOOTER_RANKING_BUTTON_TAG];
     [self.seasonSelectionButton setTag:SEASON_SELECTION_BUTTON_TAG];
     [self.roundSelectionButton setTag:ROUND_SELECTION_BUTTON_TAG];
+    [self.roundSelectionButton setHidden:YES];
     
 }
 
@@ -197,23 +198,11 @@ enum {
     }
 }
 
-- (void)showSchedule
-{
-    [self showActivityWithText:FNS(@"加载数据中...")];
-    NSString* jsCodeString = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]];
-    [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCodeString];
-    PPDebug(@"<displayEvent> execute JS = %@",jsCodeString); 
-    [self hideActivity];
-}
-
 #define ROUND_SEGMENT_SEPARATOR @"$$"
 #define TOTAL_ROUND_INDEX 0
 #define CURRENT_ROUND_INDEX 1
-- (void)resetSelection
+- (void)showSchedule
 {
-    UIButton* button = (UIButton*)[self.view viewWithTag:SCHEDULE_BUTTON_TAG];
-    [self updateButtonState:(id)button];
-    [self updateDataWebViewState:(id)button];
     [self showActivityWithText:FNS(@"加载数据中...")];
     NSString* jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '', %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
@@ -230,7 +219,6 @@ enum {
         }
     }
     [self hideActivity];
-    
 }
 
 - (void)trueClickButton:(UIButton*)sender
@@ -260,7 +248,15 @@ enum {
 {
     [self updateButtonState:(id)sender];
     [self updateDataWebViewState:(id)sender];
+    [self.roundSelectionButton setHidden:NO];
     [self showSchedule];
+    
+}
+
+- (void)resetSelection
+{
+    UIButton* button = (UIButton*)[self.view viewWithTag:POINT_BUTTON_TAG];
+    [self trueClickButton:button];
     
 }
 
