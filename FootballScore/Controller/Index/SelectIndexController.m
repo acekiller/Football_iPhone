@@ -87,13 +87,13 @@ typedef enum ODDS_TYPE {
     self.selectedOddsType = manager.selectedOddsType;
     for (Company* company in manager.allCompany) {
         if (company.hasAsianOdds) {
-            [asianBwinArray addObject:company];
+            [asianBwinArray addObject:company.companyId];
         }
         if (company.hasEuropeOdds) {
-            [europeBwinArray addObject:company];
+            [europeBwinArray addObject:company.companyId];
         }
         if (company.hasDaXiao) {
-            [bigandSmallArray addObject:company];
+            [bigandSmallArray addObject:company.companyId];
         }
     }
     
@@ -103,7 +103,7 @@ typedef enum ODDS_TYPE {
             contentType = ASIANBWIN;
             [self.yapeiSelectedCompanySet removeAllObjects];
             for (Company* company in [manager.selectedCompany allObjects]) {
-                [self.yapeiSelectedCompanySet addObject:company];
+                [self.yapeiSelectedCompanySet addObject:company.companyId];
             }
             [self createButtonsByArray:asianBwinArray selectedCompanySet:self.yapeiSelectedCompanySet];
             break;
@@ -112,14 +112,14 @@ typedef enum ODDS_TYPE {
             contentType = BIGANDSMALL;
             [self.daxiaoSelectedCompanySet removeAllObjects];
             for (Company* company in [manager.selectedCompany allObjects]) {
-                [self.daxiaoSelectedCompanySet addObject:company];
+                [self.daxiaoSelectedCompanySet addObject:company.companyId];
             }
             [self createButtonsByArray:bigandSmallArray selectedCompanySet:self.daxiaoSelectedCompanySet];
             break;
         case ODDS_TYPE_OUPEI:
             [self.oupeiSelectedCompanySet removeAllObjects];
             for (Company* company in [manager.selectedCompany allObjects]) {
-                [self.oupeiSelectedCompanySet addObject:company];
+                [self.oupeiSelectedCompanySet addObject:company.companyId];
             }
             [buttonEuropeBwin setSelected:YES];
             contentType = EUROPEBWIN;
@@ -132,6 +132,8 @@ typedef enum ODDS_TYPE {
 }
 
 #pragma mark - View lifecycle
+
+
 
 - (void)viewDidLoad
 {   
@@ -209,16 +211,17 @@ typedef enum ODDS_TYPE {
 
 #define OVER_SELECT -1
 #define SUCCESS_SELECT 0
-- (int)selectCompanyToSet:(NSMutableSet*)selectedCompanySet companyId:(int)companyId
+- (int)selectCompanyToSet:(NSMutableSet*)selectedCompanySet companyId:(int)companyIdInt
 {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
+    Company* company = [manager getCompanyById:[NSString stringWithFormat:@"%d", companyIdInt]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FNS(@"最多只能选四个") 
                                                     message:FNS(@"") 
                                                    delegate:nil 
                                           cancelButtonTitle:FNS(@"好了，我知道了") 
                                           otherButtonTitles: nil];
-    if ([selectedCompanySet containsObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]]) {
-        [selectedCompanySet removeObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]];
+    if ([selectedCompanySet containsObject:company.companyId]) {
+        [selectedCompanySet removeObject:company.companyId];
         
     }
     else {
@@ -227,7 +230,7 @@ typedef enum ODDS_TYPE {
             [alert release];
             return OVER_SELECT;
         }
-        [selectedCompanySet addObject:[manager getCompanyById:[NSString stringWithFormat:@"%d", companyId]]];
+        [selectedCompanySet addObject:company.companyId];
     }
     return SUCCESS_SELECT;
 }
@@ -236,19 +239,19 @@ typedef enum ODDS_TYPE {
 - (IBAction)buttonClicked:(id)sender 
 {
     UIButton *button = (UIButton*)sender;
-    int companyId = button.tag - COMPANY_ID_BUTTON_OFFSET;
+    int companyIdInt = button.tag - COMPANY_ID_BUTTON_OFFSET;
     int result; 
     switch (contentType) {
         case ASIANBWIN: {
-            result = [self selectCompanyToSet:self.yapeiSelectedCompanySet companyId:companyId];
+            result = [self selectCompanyToSet:self.yapeiSelectedCompanySet companyId:companyIdInt];
             break;
         }
         case EUROPEBWIN: {
-            result = [self selectCompanyToSet:self.oupeiSelectedCompanySet companyId:companyId];
+            result = [self selectCompanyToSet:self.oupeiSelectedCompanySet companyId:companyIdInt];
             break;
         }
         case BIGANDSMALL: {
-            result = [self selectCompanyToSet:self.daxiaoSelectedCompanySet companyId:companyId];
+            result = [self selectCompanyToSet:self.daxiaoSelectedCompanySet companyId:companyIdInt];
             break;
         }
         default:
@@ -275,17 +278,27 @@ typedef enum ODDS_TYPE {
     CompanyManager* manager = [CompanyManager defaultCompanyManager];
     
     manager.selectedOddsType = self.selectedOddsType;
+    [manager.selectedCompany removeAllObjects];
     switch (contentType) {
         case ASIANBWIN: {
-            manager.selectedCompany = self.yapeiSelectedCompanySet;
+            for (NSString* companyId in [self.yapeiSelectedCompanySet allObjects]) {
+                Company* company = [manager getCompanyById:companyId];
+                [manager.selectedCompany addObject:company];
+            }
             break;
         }
         case EUROPEBWIN: {
-            manager.selectedCompany = self.oupeiSelectedCompanySet;
+            for (NSString* companyId in [self.oupeiSelectedCompanySet allObjects]) {
+                Company* company = [manager getCompanyById:companyId];
+                [manager.selectedCompany addObject:company];
+            }
             break;
         }
         case BIGANDSMALL: {
-            manager.selectedCompany = self.daxiaoSelectedCompanySet;
+            for (NSString* companyId in [self.daxiaoSelectedCompanySet allObjects]) {
+                Company* company = [manager getCompanyById:companyId];
+                [manager.selectedCompany addObject:company];
+            }
             break;
         }
         default:
@@ -357,12 +370,12 @@ typedef enum ODDS_TYPE {
 #pragma mark these codes used to draw scrollView 
 
 
-
 - (void)createButtonsByArray:(NSArray*)array selectedCompanySet:(NSMutableSet*)selectedCompanySet
 {
     NSMutableArray* buttonArray = [[NSMutableArray alloc] init];
-    for (Company* company in array) {
+    for (NSString* companyId in array) {
         UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(160, 160, 72, 32)];
+        Company* company = [[CompanyManager defaultCompanyManager] getCompanyById:companyId];
         [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [button setTitle:company.companyName forState:UIControlStateNormal];
         [button setTitle:company.companyName forState:UIControlStateSelected];
@@ -372,7 +385,7 @@ typedef enum ODDS_TYPE {
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [button setTag:([company.companyId intValue] + COMPANY_ID_BUTTON_OFFSET)];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        if ([selectedCompanySet containsObject:company]) {
+        if ([selectedCompanySet containsObject:company.companyId]) {
             [button setSelected:YES];
         }
         else {

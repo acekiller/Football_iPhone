@@ -89,10 +89,7 @@ ScheduleService *GlobalGetScheduleService()
 #pragma mark -
 #pragma mark Application lifecycle
 
-enum
-{
-    TAB_REALTIME_SCORE = 1,
-};
+
 
 
 
@@ -548,6 +545,12 @@ enum
 {
     UINavigationController *vc = [self.tabBarController.viewControllers objectAtIndex:tabBarController.selectedIndex];
     return [vc visibleViewController];
+}
+
+- (void) setSeletedTabbarIndex:(NSInteger)index
+{
+    UIButton *button = [tabBarController.buttons objectAtIndex:index];
+    [tabBarController selectedTab:button];
 }
 
 @end
