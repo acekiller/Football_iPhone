@@ -22,6 +22,8 @@
 
 }
 
+- (NSArray *)getLocalRepositoryData;
+- (void)dealWithOutputArray:(NSArray *)outputArray delegate:(id<RepositoryDelegate>)aDelegate;
 - (void) updateRepository:(NSInteger)language delegate:(id<RepositoryDelegate>)aDelegate;
 - (void) getGroupInfo:(int)language leagueId:(NSString*)leagueId season:(NSString*)season Delegate:(id<RepositoryDelegate>)aDelegate;
 @end

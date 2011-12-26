@@ -27,6 +27,15 @@ function CupScheduleResultView(){
 	            }
 				return false;
 			},
+			
+			getShortName: function(name) {
+				if (name.length > 6) {
+					return name.substring(0,6);
+				} else {
+					return name;
+				}
+			},
+			
 			getStateString : function(state){
 
 	            //0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消

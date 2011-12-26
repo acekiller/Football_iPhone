@@ -28,6 +28,18 @@ function resultAction(obj) {
 }
 
 //分析
+//字符串是否包含数字
+function isIncludeNumber(theNum) {
+	if (theNum == "")
+		return false;
+	
+	for ( var i = 0; i < theNum.length; i++) {
+		oneNum = theNum.substring(i, i + 1);
+		if (oneNum > "0" && oneNum < "9")
+			return true;
+	}
+	return false;
+} 
 
 function pointsAction() {
 	var subtable = document.getElementById('table_points');
@@ -42,10 +54,12 @@ function pointsAction() {
 	
 	var pointsRankData = document.getElementById('pointsRankData');
 	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
-	if(pointsRankData==null || pointsRankData==""){
-		subtable.innerHTML = html;
+	var tt = document.getElementById('homePointsList');
+	if(pointsRankData==null || pointsRankData=="" || !isIncludeNumber(pointsRankData.innerHTML)){
+		
+//		tt.style.display='none';
+		tt.innerHTML = html;
 	}
-	
 }
 
 function headtoheadActoin() {
@@ -125,4 +139,7 @@ function addNoDataTips(obj){
 	}
 }
 
-
+function changbg(){
+	var objId = document.getElementById("abc");
+	objId.style.backgroundColor = '#FF0000';
+}

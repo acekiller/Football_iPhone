@@ -284,7 +284,18 @@
     [self setLeftBarLogo];
     [self setRightBarButton];
     selectedContinent = -1;
-    [self clickRefresh];
+    
+    RepositoryService *service = GlobalGetRepositoryService();
+    NSArray *data = [service getLocalRepositoryData];
+    if (data) {
+        NSLog(@"<RepositoryController>:get storage repository data");
+        [service dealWithOutputArray:data delegate:self];
+    }else{
+        NSLog(@"<RepositoryController>:local repository data is empty or timeout, update remote");
+        NSInteger lang = [LanguageManager getLanguage];
+        [service updateRepository:lang delegate:self];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated

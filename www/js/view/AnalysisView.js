@@ -10,20 +10,34 @@ function AnalysisView(){
 		},
 		
 		formateDate: function(date) {
-			return date.substring(0,4) +"/" + date.substring(4,6) +"/" + date.substring(6,8);
+			return date.substring(2,4) +"/" + date.substring(4,6) +"/" + date.substring(6,8);
+		},
+		
+		getScoreEarn: function(score,scoreAgainst) {
+			if(score!="" && scoreAgainst!="") {
+				return score-scoreAgainst;
+			} else {
+				return "";
+			}
+		},
+		
+		getShortName: function(name) {
+			if (name.length > 5) {
+				return name.substring(0,5);
+			} else {
+				return name;
+			}
 		}
 	};
 
     var analysisTemplate = Ext.XTemplate.from("analysis-template", helperFunctions);
-  
+    
+    
     
     this.analysisPanel = new Ext.Panel({
         tpl: analysisTemplate
     });
     
-	
-	
-	
     
     this.mainPanel = new Ext.Panel({
         fullscreen: true,
@@ -42,7 +56,11 @@ AnalysisView.prototype = {
     
     updateView: function(manager){
     
-     this.analysisPanel.update(manager);
+	if (manager.homePointsArray[0].games = "") {
+		alert("!!!");
+	}
+		
+    this.analysisPanel.update(manager);
         
     }
 };

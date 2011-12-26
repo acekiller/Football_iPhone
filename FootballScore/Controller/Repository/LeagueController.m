@@ -50,6 +50,15 @@
     NSString * leftButtonName = @"ss.png";    
     [self setNavigationLeftButton:FNS(@"返回") imageName:leftButtonName action:@selector(clickBack:)];
     [self.view setBackgroundColor:[ColorManager blackGroundColor]];
+    
+    if (dataList == nil || [dataList count] == 0) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 320, 40)];
+        [label setText:@"未能搜索到相关信息"];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [label setTextAlignment:UITextAlignmentCenter];
+        [self.view addSubview:label];
+        [label release];
+    }
 }
 
 - (void)viewDidUnload

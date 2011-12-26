@@ -62,7 +62,16 @@
 								<tpl if="!this.isOutlet(color)">
 									<tr class="date_td1">
 								</tpl>
-								<td>{rank}</td><td>{simplifiedTeamName}</td><td>{matches}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{scoreAgainst}</td><td>{scoreEarn}</td><td>{points}</td>
+								<td>{rank}</td>
+								<td>{[this.getShortName(values.simplifiedTeamName)]}</td>
+								<td>{matches}</td>
+								<td>{win}</td>
+								<td>{draw}</td>
+								<td>{lose}</td>
+								<td>{score}</td>
+								<td>{scoreAgainst}</td>
+								<td>{scoreEarn}</td>
+								<td>{points}</td>
 								</tr>
 							</tpl>
 							</tbody>
@@ -93,7 +102,7 @@
 							<tr class="date_td2">
 			  </tpl>
 		      <td><span class="data_time2">{[this.scheduleDateString(values.matchTime)]}</span></td>
-		      <td>{simplifiedHomeName}</td>
+		      <td>{[this.getShortName(values.simplifiedHomeName)]}</td>
 		      
 		      <tpl if="this.isFinished(state)">
 	      		<td>{homeScore}:{awayScore}({homeHalfScore}:{awayHalfScore})</td>
@@ -103,7 +112,7 @@
 	      		<td>未</td> 
 			  </tpl>
 			  		    
-		      <td>{simplifiedAwayName}</td>
+		      <td>{[this.getShortName(values.simplifiedAwayName)]}</td>
 		    </tr>
 		    </tpl>
 		  </table>
@@ -129,7 +138,7 @@
 							<tr class="date_td2">
 			  </tpl>
 		      <td><span class="data_time2">{[this.scheduleDateString(values.matchTime)]}</span></td>
-		      <td>{simplifiedHomeName}</td>
+		      <td>{[this.getShortName(values.simplifiedHomeName)]}</td>
 		      
 		      <tpl if="this.isFinished(state)">
 	      		<td>{homeScore}:{awayScore}({homeHalfScore}:{awayHalfScore})</td>
@@ -139,7 +148,7 @@
 	      		<td>未</td> 
 			  </tpl>
 			  		    
-		      <td>{simplifiedAwayName}</td>
+		      <td>{[this.getShortName(values.simplifiedAwayName)]}</td>
 		    </tr>
 		    </tpl>
 		  </table>
