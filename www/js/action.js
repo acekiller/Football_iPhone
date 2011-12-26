@@ -53,12 +53,16 @@ function pointsAction() {
 	}
 	
 	var pointsRankData = document.getElementById('pointsRankData');
-	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
-	var tt = document.getElementById('homePointsList');
+//	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	var html = '<tr><td style = "height:30px"><span style = "margin-left: 10px;">暂无相关数据</span></td></tr>';
+	var home = document.getElementById('homePointsList');
+	var away = document.getElementById('awayPointsList');
 	if(pointsRankData==null || pointsRankData=="" || !isIncludeNumber(pointsRankData.innerHTML)){
-		
-//		tt.style.display='none';
-		tt.innerHTML = html;
+		home.innerHTML = html;
+	}
+	
+	if(pointsRankData2==null || pointsRankData2=="" || !isIncludeNumber(pointsRankData2.innerHTML)){
+		away.innerHTML = html;
 	}
 }
 

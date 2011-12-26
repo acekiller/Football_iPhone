@@ -244,25 +244,25 @@
 <!--积分排名-->					
 						<div id="pointsRankTitle" class="fx_title2" onclick="pointsAction()">积分排名</div>
 							<div id ="table_points" style="display:none;">
-								<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+								<div class="fx_2title" style="width:320px" ><span>{hometeam} 全场</span></div>	
+								<table id="homePointsList" width="100%" border="0" cellpadding="0" cellspacing="0" >
 									<tbody>
-									<tr><td class="fx_2title" colspan="11">{hometeam} 全场</td></tr>	
-									<div id="homePointsList">
 									<tr class="o_title">
 	                    				<td>全场</td><td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
 	                				</tr>
+	                				
 									<tpl for="homePointsArray" >
 										<tr id="pointsRankData" class="fx_col">
 										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{[this.getScoreEarn(values.score,values.score_against)]}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
-									</div>
+									
 									</tbody>
 								</table>
 								
-								<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+								<div class="fx_2title" style="width:320px" ><span>{awayteam} 全场</span></div>	
+								<table id="awayPointsList" width="100%" border="0" cellpadding="0" cellspacing="0" >
 									<tbody>
-									<tr><td class="fx_2title" colspan="11">{awayteam} 全场</td></tr>	
 									<tr class="o_title">
 	                    				<td>全场</td><td>赛</td><td>胜</td><td>平</td><td>负</td><td>得</td><td>失</td><td>净</td><td>得分</td><td>排名</td><td>胜率</td>
 	                				</tr>
