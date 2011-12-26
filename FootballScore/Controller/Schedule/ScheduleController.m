@@ -300,10 +300,13 @@ enum {
     [awayTeamName setTextColor:[ColorManager soundsAlertColor]];
     if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || 
         [match.status intValue] == MATCH_STATUS_SECOND_HALF ||
-        [match.status intValue] == MATCH_STATUS_FINISH ||
-        [match.status intValue] == MATCH_STATUS_MIDDLE) {
+        [match.status intValue] == MATCH_STATUS_FINISH) {
         [scoreLabel setTextColor:[UIColor redColor]];
-    } else {
+    }
+    else if([match.status intValue] == MATCH_STATUS_MIDDLE){
+        [scoreLabel setTextColor:[ColorManager soundsAlertColor]];
+    }
+    else {
         [scoreLabel setTextColor:[UIColor blueColor]];
     }
 }
