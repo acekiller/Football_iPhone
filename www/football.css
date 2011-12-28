@@ -410,6 +410,22 @@ ul,li {
 	display:none
 }
 
+.oddsGreen{
+	color:#00FF00
+}
+
+.oddsRed{
+	color:#FF0000
+}
+
+.oddsBlue{
+	color:#0000FF
+}
+
+.teamNameGreen{
+	color:#00EE44
+}
+
 .text_break{
 	
 	word-wrap:break-word;word-break:break-all;

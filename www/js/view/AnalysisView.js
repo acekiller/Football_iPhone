@@ -27,6 +27,22 @@ function AnalysisView(){
 			} else {
 				return name;
 			}
+		},
+		
+		nameColor: function(home,random) {
+			if (home == random) {
+				return "teamNameGreen";
+			}
+		},
+		
+		oddsColor: function(odds) {
+			if (odds == "输"){
+				return "oddsGreen";
+			} else if(odds == "赢") {
+				return "oddsRed";
+			} else if(odds == "走" ){
+				return "oddsBlue";
+			}
 		}
 	};
 
