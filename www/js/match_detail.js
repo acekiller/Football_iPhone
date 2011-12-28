@@ -261,12 +261,12 @@ function displayAnalysis(reload, matchId, homeTeam, awayTeam, lang, data) {
 	setCurrentView(MatchDetailApp.analysisView.mainPanel);
 	MatchDetailApp.analysisView.updateView(analysisManager);
 	
-	
+	pointsAction();
 	recordsAction();
 	near3gamesAction();
 	recommendAction();
 	headtoheadActoin();
-	pointsAction();
+	
 	
 	
 	return true;
