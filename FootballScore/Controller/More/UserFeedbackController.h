@@ -24,5 +24,6 @@
 @property (retain, nonatomic) IBOutlet UIButton *updateAppButton;
 
 - (IBAction)clickOnSendButton:(id)sender;
+- (IBAction)clickUpdateAppButton:(id)sender;
 
 @end
