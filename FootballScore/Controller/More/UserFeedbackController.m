@@ -11,6 +11,8 @@
 #import "ColorManager.h"
 #import "UserService.h"
 #import "UserManager.h"
+#import "UIUtils.h"
+#import "FootballScoreAppDelegate.h"
 
 @implementation UserFeedbackController
 @synthesize content;
@@ -68,10 +70,6 @@
     versionLabel.textColor = [UIColor grayColor];
     
     
-    //NSString *updateAppTitle = FNS(@"");
-    //updateAppButton.titleLabel.text = 
-    
-    
     NSString *telephoneTitle = FNS(@"联系电话");
     telephoneLabel.text = [NSString stringWithFormat:@"%@ : 0758-2512562",telephoneTitle];
     telephoneLabel.textColor = [UIColor grayColor];
@@ -82,9 +80,39 @@
     copyrightLabel.textColor = [UIColor grayColor];
     
     
-    disclaimerLabel.text = FNS(@"免责声明 : 仅供体育爱好者参考之用;任何人不得用于非法用途,否则责任自负。");
+    disclaimerLabel.text = FNS(@"免责声明 : 仅供体育爱好者参考之用；任何人不得用于非法用途，否则责任自负。");
     disclaimerLabel.textColor= [UIColor grayColor];
+    
+    updateAppButton.hidden = YES;
+    UserService *userService = [[[UserService alloc] init] autorelease];
+    [userService getVersion:self];
 }
+
+- (void)getVersionFinish:(int)result data:(NSString*)data
+{
+    if (0 == result) 
+    {
+        NSString *latestVersion = data;
+        NSString *localVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        if ([latestVersion isEqualToString:localVersion]) 
+        {
+            updateAppButton.hidden = YES;
+        }
+        else
+        {
+            updateAppButton.hidden = NO;
+            NSString *updateAppTitle = FNS(@"升级至");
+            [updateAppButton setTitle:[NSString stringWithFormat:@"%@V%@",updateAppTitle,latestVersion] forState:UIControlStateNormal];
+        }
+    }
+
+}
+
+- (IBAction)clickUpdateAppButton:(id)sender
+{
+    [UIUtils openApp:kAppId];  //跳到更新页面
+}
+
 
 - (void)viewDidUnload
 {
