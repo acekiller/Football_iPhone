@@ -80,4 +80,48 @@ function parseRequestStringWithSegment(inputString){
 	return retArray;	
 }
 
+// 0:未开,1:上半场,2:中场,3:下半场,-11:待定,-12:腰斩,-13:中断,-14:推迟,-1:完场，-10取消
+
+var MATCH_STATUS_NOT_STARTED = 0;
+var MATCH_STATUS_FIRST_HALF = 1;
+var MATCH_STATUS_MIDDLE = 2;
+var MATCH_STATUS_SECOND_HALF = 3;
+var MATCH_STATUS_TBD = -11;
+var MATCH_STATUS_KILL = -12;
+var MATCH_STATUS_PAUSE = -13;
+var MATCH_STATUS_POSTPONE = -14;
+var MATCH_STATUS_FINISH = -1;
+var MATCH_STATUS_CANCEL = -10;
+
+function getStatusString(status)
+{
+//    alert(status);
+
+    switch(status - 0)
+    {
+        case MATCH_STATUS_NOT_STARTED:
+            return "未";
+        case MATCH_STATUS_FIRST_HALF:
+            return "上半场";
+        case MATCH_STATUS_MIDDLE:
+            return "中";
+        case MATCH_STATUS_SECOND_HALF:
+            return "下半场";
+        case MATCH_STATUS_TBD:
+            return "待定";
+        case MATCH_STATUS_KILL:
+            return "腰斩";
+        case MATCH_STATUS_PAUSE:
+            return "中断";
+        case MATCH_STATUS_POSTPONE:
+            return "推迟";
+        case MATCH_STATUS_FINISH:
+            return "完";
+        case MATCH_STATUS_CANCEL:
+            return "取消";  
+        default:
+            return "未";
+    }
+}
+
 
