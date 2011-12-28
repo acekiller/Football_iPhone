@@ -25,7 +25,6 @@
 + (void)showFinishedMatchWithSuperController:(UIViewController*)superViewController;
 - (IBAction)clicksSelectDateButton:(id)sender;
 - (NSString*)convertMatchStartTime:(NSDate*)date;
-- (NSString*)convertStatus:(Match*)match;
 - (void)initCell:(UITableViewCell*)cell;
 - (void)setCell:(UITableViewCell*)cell withMatch:(Match*)match;
 - (id)initWithType:(int)scheduleType initDate:(NSDate*)initDate title:(NSString*)title dayDirection:(int)dayDirection;
