@@ -13,7 +13,7 @@
 #define REFRESH_INTERVAL @"REFRESH_INTERVAL"
 
 #define REFRESH_INTERVAL_MIN 10
-#define REFRESH_INTERVAL_MAX 360
+#define REFRESH_INTERVAL_MAX 60
 
 @interface ConfigManager : NSObject {
     
