@@ -143,11 +143,17 @@
 		      <tpl if="this.isFinished(state)">
 	      		<td><span style="color:#FF0000">{homeScore}:{awayScore}</span>({homeHalfScore}:{awayHalfScore})</td>
 			  </tpl>
-						
-			  <tpl if="!this.isFinished(state)">
-	      		<td>未</td> 
-			  </tpl>
-			  		    
+				
+			 <tpl if="!this.isFinished(state)">					  
+			  <tpl if="this.statusHilight(state)">		           
+                     <font color="#FF0000">
+                          <td>{[getStatusString(values.state)]}</td> 
+                     </font>
+               </tpl>
+               <tpl if="!this.statusHilight(state)">	
+                          <td>{[getStatusString(values.state)]}</td> 
+               </tpl>
+			  </tpl>		    
 		      <td>{[this.getShortName(values.simplifiedAwayName)]}</td>
 		    </tr>
 		    </tpl>
