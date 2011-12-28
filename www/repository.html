@@ -119,13 +119,13 @@
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr class="data_title">
 				      <td width="111">球队</td>
-				      <td width="27">赛</td>
-				      <td width="27">大</td>
-				      <td width="27">走</td>
-				      <td width="31">小</td>
-				      <td width="30">大%</td>
-				      <td width="30">小%</td>
-				      <td width="37">走%</td>
+				      <td width="22">赛</td>
+				      <td width="22">大</td>
+				      <td width="22">走</td>
+				      <td width="22">小</td>
+				      <td width="40">大%</td>
+                      <td width="40">走%</td>
+				      <td width="40">小%</td>
 				</tr>
 				<tpl for="dataArray">
 					<tpl if="xindex % 2 === 0">
@@ -140,8 +140,8 @@
                     <td>{zou}</td>
 					<td>{small}</td>
                     <td>{daqiulv}</td>
-                    <td>{xiaoqiulv}</td>
                     <td>{zoulv}</td>
+                    <td>{xiaoqiulv}</td>
 				</tr>
 				</tpl>
 			</table>
@@ -180,11 +180,11 @@
 			<div id="data">
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
 			    <tr class="data_title">
-			      <td width="63">时间</td>
+			      <td width="50">时间</td>
 			      <td width="40">&nbsp;</td>
-			      <td width="82">主队</td>
-			      <td width="57">比分</td>
-			      <td width="78">客队</td>
+			      <td width="86">主队</td>
+			      <td width="58">比分</td>
+			      <td width="86">客队</td>
 				</tr>
 				
 				<tpl for="dataArray">
@@ -206,9 +206,9 @@
                         </tpl>
                         <tpl if="!this.statusHilight(state)">		                        {[getStatusString(values.state)]}
                         </tpl>
-
                     </td>
-					    <td>{[getShortString(values.simplifiedHomeTeamName,6)]}</td>
+                    
+					    <td>{[getShortString(values.simplifiedHomeTeamName,7)]}</td>
 						
 						<tpl if="this.scoreNormal(state)">
 	      					<td>{homeTeamScore}:{awayTeamScore}({homeTeamHalfScore}:{awayTeamHalfScore})
@@ -227,7 +227,7 @@
 	      					<td>VS</td> 
 						</tpl>
 	      				
-	      				<td>{[getShortString(values.simplifiedAwayTeamName,6)]}</td>
+	      				<td>{[getShortString(values.simplifiedAwayTeamName,7)]}</td>
 					
 					</tr>
 				</tpl>
