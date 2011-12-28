@@ -125,3 +125,13 @@ function getStatusString(status)
 }
 
 
+function getShortString(string,size)
+{
+    if (string.length > size) {
+        return string.substring(0,size);
+    } else {
+        return string;
+    }
+}
+
+

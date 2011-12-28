@@ -62,7 +62,15 @@
 					<tpl if="xindex % 2 !== 0">
 						<tr class="date_td2">
 					</tpl>
-					<td>{rank}</td><td>{simplifiedTeamName}</td><td>{matches}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{goals}</td><td>{goalsAgainst}</td><td>{points}</td>
+					<td>{rank}</td>
+                    <td>{[getShortString(values.simplifiedTeamName,8)]}</td>
+                    <td>{matches}</td>
+                    <td>{win}</td>
+                    <td>{draw}</td>
+                    <td>{lose}</td>
+                    <td>{goals}</td>
+                    <td>{goalsAgainst}</td>
+                    <td>{points}</td>
 				</tr>
 				</tpl>
 			</table>
@@ -91,9 +99,16 @@
 					<tpl if="xindex % 2 !== 0">
 						<tr class="date_td2">
 					</tpl>
-					<td>{simplifiedTeamName}</td><td>{matches}</td><td>{up}</td><td>{draw}</td>
-					<td>{down}</td><td>{win}</td><td>{zou}</td><td>{lose}</td><td>{scoreEarn}</td>
-				</tr>
+                        <td>{[getShortString(values.simplifiedTeamName,8)]}</td>
+                        <td>{matches}</td>
+                        <td>{up}</td>
+                        <td>{draw}</td>
+                        <td>{down}</td>
+                        <td>{win}</td>
+                        <td>{zou}</td>
+                        <td>{lose}</td>
+                        <td>{scoreEarn}</td>
+                    </tr>
 				</tpl>
 			</table>
 			</div>
@@ -119,8 +134,14 @@
 					<tpl if="xindex % 2 !== 0">
 						<tr class="date_td2">
 					</tpl>
-					<td>{simplifiedTeamName}</td><td>{matches}</td><td>{big}</td><td>{zou}</td>
-					<td>{small}</td><td>{daqiulv}</td><td>{xiaoqiulv}</td><td>{zoulv}</td>
+					<td>{[getShortString(values.simplifiedTeamName,8)]}</td>
+                    <td>{matches}</td>
+                    <td>{big}</td>
+                    <td>{zou}</td>
+					<td>{small}</td>
+                    <td>{daqiulv}</td>
+                    <td>{xiaoqiulv}</td>
+                    <td>{zoulv}</td>
 				</tr>
 				</tpl>
 			</table>
@@ -144,7 +165,11 @@
 					<tpl if="xindex % 2 !== 0">
 						<tr class="date_td2">
 					</tpl>
-					<td>{simplifiedScorerName}</td><td>{simplifiedTeamName}</td><td>{scoreCount}</td><td>{homeScoreCount}</td><td>{awayScoreCount}</td>
+					<td>{[getShortString(values.simplifiedScorerName,9)]}</td>
+                    <td>{[getShortString(values.simplifiedTeamName,7)]}</td>
+                    <td>{scoreCount}</td>
+                    <td>{homeScoreCount}</td>
+                    <td>{awayScoreCount}</td>
 				</tr>
 				</tpl>
 			</table>
@@ -179,11 +204,12 @@
                                 {[getStatusString(values.state)]}
                             </font>
                         </tpl>
-                        <tpl if="!this.statusHilight(state)">		                        {[getStatusString(values.state)]}
+                        <tpl if="!this.statusHilight(state)">	
+                        	   {[getStatusString(values.state)]}
                         </tpl>
 
                     </td>
-					    <td>{simplifiedHomeTeamName}</td>
+					    <td>{[getShortString(values.simplifiedHomeTeamName,6)]}</td>
 						
 						<tpl if="this.scoreNormal(state)">
 	      					<td>{homeTeamScore}:{awayTeamScore}({homeTeamHalfScore}:{awayTeamHalfScore})
@@ -202,7 +228,7 @@
 	      					<td>VS</td> 
 						</tpl>
 	      				
-	      				<td>{simplifiedAwayTeamName}</td>
+	      				<td>{[getShortString(values.simplifiedAwayTeamName,6)]}</td>
 					
 					</tr>
 				</tpl>

@@ -21,7 +21,7 @@ DepositoryApp = new Ext.Application({
 //      testDisplayJifenRemote();
 
 //        测试赛程
-      testDisplayScheduleLocally();
+//      testDisplayScheduleLocally();
 //      testDisplayScheduleRemote();
 
 //		测试射手榜
