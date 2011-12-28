@@ -105,7 +105,7 @@
 		      <td>{[this.getShortName(values.simplifiedHomeName)]}</td>
 		      
 		      <tpl if="this.isFinished(state)">
-	      		<td>{homeScore}:{awayScore}({homeHalfScore}:{awayHalfScore})</td>
+	      		<td><span style="color:#FF0000">{homeScore}:{awayScore}</span>({homeHalfScore}:{awayHalfScore})</td>
 			  </tpl>
 						
 			  <tpl if="!this.isFinished(state)">
@@ -141,7 +141,7 @@
 		      <td>{[this.getShortName(values.simplifiedHomeName)]}</td>
 		      
 		      <tpl if="this.isFinished(state)">
-	      		<td>{homeScore}:{awayScore}({homeHalfScore}:{awayHalfScore})</td>
+	      		<td><span style="color:#FF0000">{homeScore}:{awayScore}</span>({homeHalfScore}:{awayHalfScore})</td>
 			  </tpl>
 						
 			  <tpl if="!this.isFinished(state)">
