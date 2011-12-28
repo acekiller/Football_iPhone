@@ -7,7 +7,10 @@ function DaxiaoView(type){
 	 };
 
     var daxiaoTemplate = Ext.XTemplate.from("daxiao-template", helperFunctions);
-
+	var noDataTemplate = Ext.XTemplate.from("noData-template", helperFunctions);
+	this.noDataPanel = new Ext.Panel({
+                                     tpl : noDataTemplate
+                                     });	
     this.daxiaoPanel = new Ext.Panel({            
         tpl : daxiaoTemplate,
         margin: '0 0 0 0',
@@ -23,7 +26,7 @@ function DaxiaoView(type){
             align: 'stretch'
         },
         scroll : 'vertical',
-        items: [this.daxiaoPanel]            
+        items: [this.daxiaoPanel,this.noDataPanel]            
     });	
 	
 	this.manager = null;
@@ -32,8 +35,18 @@ function DaxiaoView(type){
 DaxiaoView.prototype = {
 	constructor : DaxiaoView,
 	updateView : function(manager) {
-		this.manager = manager;
-		this.daxiaoPanel.update(manager);
+    	if (manager.dataArray == null || manager.dataArray.length == 0) {
+            this.daxiaoPanel.hide();
+            this.noDataPanel.show();
+            this.noDataPanel.update();
+        }
+        else{
+            this.noDataPanel.hide();
+            this.daxiaoPanel.show();
+            this.manager = manager;
+            this.daxiaoPanel.update(manager);
+            
+        }
 	}
 };
 

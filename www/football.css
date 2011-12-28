@@ -383,6 +383,15 @@ ul,li {
 	
 }
 
+.repository-nodata{
+	color:#000000;
+	font-size:14px;
+	margin-left: 100px !important;
+	padding-top: 120px !important;
+
+	
+}
+
 .noEventdata{
 	color:#475F85;
 	font-size:14px;

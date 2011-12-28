@@ -7,7 +7,10 @@ function JifenView(type){
 	 };
 
     var jifenTemplate = Ext.XTemplate.from("jifen-template", helperFunctions);
-
+	var noDataTemplate = Ext.XTemplate.from("noData-template", helperFunctions);
+	this.noDataPanel = new Ext.Panel({
+                                     tpl : noDataTemplate
+                                     });	
     this.jifenPanel = new Ext.Panel({            
         tpl : jifenTemplate,
         margin: '0 0 0 0',
@@ -23,7 +26,7 @@ function JifenView(type){
             align: 'stretch'
         },
         scroll : 'vertical',
-        items: [this.jifenPanel]            
+        items: [this.jifenPanel,this.noDataPanel]            
     });	
 	
 	this.manager = null;
@@ -32,8 +35,18 @@ function JifenView(type){
 JifenView.prototype = {
 	constructor : JifenView,
 	updateView : function(manager) {
-		this.manager = manager;
-		this.jifenPanel.update(manager);
+    	if (manager.dataArray == null || manager.dataArray.length == 0) {
+            this.jifenPanel.hide();
+            this.noDataPanel.show();
+            this.noDataPanel.update();
+        }
+        else{
+            this.noDataPanel.hide();
+            this.jifenPanel.show();
+            this.manager = manager;
+            this.jifenPanel.update(manager);
+            
+        }
 	}
 };
 
