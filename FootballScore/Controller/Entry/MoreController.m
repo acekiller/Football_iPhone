@@ -250,7 +250,7 @@ typedef enum {
         }
         
         [LanguageManager setLanguage:buttonIndex];
-        
+        [((FootballScoreAppDelegate *)[UIApplication sharedApplication].delegate) setSeletedTabbarIndex:TAB_REALTIME_SCORE];
     }
     else if (RECOMMENDATION == whichAcctionSheet)
     {
@@ -301,10 +301,12 @@ typedef enum {
                                                               delegate:self 
                                                      cancelButtonTitle:FNS(@"取消") 
                                                 destructiveButtonTitle:FNS(@"国语") 
-                                                     otherButtonTitles:FNS(@"粤语"),FNS(@"简体"), nil];
+                                                     otherButtonTitles:FNS(@"粤语"),FNS(@"王冠"), nil];
     
     [languageTable showFromTabBar:self.tabBarController.tabBar];
     [languageTable release];
+    
+
 }
 
 - (void)showFeedback

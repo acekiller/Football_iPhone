@@ -29,7 +29,7 @@ RepositoryService *GlobalGetRepositoryService()
 
 #define RepositoryData @"RepositoryData"
 #define RepositoryDataTimeStamp @"RepositoryDataTimeStamp"
-#define REPOSITROY_TIMEOUT 3600 * 24 * 3
+#define REPOSITROY_TIMEOUT 3600 * 24 * 7                    // 7 days
 - (void)storeRepositoryData:(NSArray *)outputArray
 {
     NSNumber *timestamp = [NSNumber numberWithLong:time(0)];
