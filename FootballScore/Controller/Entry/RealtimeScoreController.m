@@ -110,6 +110,29 @@
     [GlobalGetMatchService() getRealtimeMatch:self matchScoreType:scoreType];
 }
 
+- (void)performPanGesture:(UIPanGestureRecognizer *)recognizer
+{
+    if(recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        UIButton *button = nil;
+        CGPoint point = [recognizer translationInView:dataTableView];
+        //from right to left
+        if (point.x < 0) {
+            if(matchSelectStatus == MATCH_SELECT_STATUS_ALL)
+                return;
+            button = (UIButton *)[self.view viewWithTag:matchSelectStatus - 1];
+        }else{
+            if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
+                return;
+            button = (UIButton *)[self.view viewWithTag:matchSelectStatus + 1];
+            if (matchSelectStatus == MATCH_SELECT_STATUS_FINISH) {
+                [self clickMyFollow:button];
+            }
+        }
+        [self clickSelectMatchStatus:button];
+    }
+}
+
 - (void)viewDidLoad
 {
     int UPDATE_TIME_INTERVAL = 1;
@@ -123,7 +146,7 @@
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     [self setRightBarButtons];
-    [self setLeftBarButtons];//等 logo完成之后，这个取消注释
+    [self setLeftBarButtons];
     [self myFollowCountBadgeViewInit];
 
     
@@ -137,9 +160,13 @@
     
     self.matchScoreType = [[MatchManager defaultManager] filterMatchScoreType];
     [self resetScoreButtonTitle];
-    [self loadMatch:self.matchScoreType isSelectAll:YES];
-    // Do any additional setup after loading the view from its nib.
     
+    [self loadMatch:self.matchScoreType isSelectAll:YES];
+    matchSelectStatus = MATCH_SELECT_STATUS_ALL;
+    
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(performPanGesture:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
 }
 
 - (void)viewDidUnload
@@ -404,6 +431,9 @@
 
 - (IBAction)clickSelectMatchStatus:(id)sender
 {
+    if (sender == nil) {
+        return;
+    }
     [self setRefreshHeaderViewEnable:YES];
     UIButton* button = (UIButton*)sender;
     matchSelectStatus = button.tag;
@@ -426,6 +456,9 @@
 
 - (IBAction)clickMyFollow:(id)sender
 { 
+    if (sender == nil) {
+        return;
+    }
     [self hideTipsOnTableView];
     [self setRefreshHeaderViewEnable:NO];
     UIButton* button = (UIButton*)sender;

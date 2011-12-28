@@ -32,11 +32,12 @@ function resultAction(obj) {
 function isIncludeNumber(theNum) {
 	if (theNum == "")
 		return false;
-	
 	for ( var i = 0; i < theNum.length; i++) {
 		oneNum = theNum.substring(i, i + 1);
-		if (oneNum > "0" && oneNum < "9")
+		if (oneNum > "0" && oneNum < "9" ) {
 			return true;
+		}
+			
 	}
 	return false;
 } 
@@ -53,6 +54,7 @@ function pointsAction() {
 	}
 	
 	var pointsRankData = document.getElementById('pointsRankData');
+	var pointsRankData2 = document.getElementById('pointsRankData2');
 //	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
 	var html = '<tr><td style = "height:30px"><span style = "margin-left: 10px;">暂无相关数据</span></td></tr>';
 	var home = document.getElementById('homePointsList');

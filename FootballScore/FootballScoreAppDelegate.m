@@ -207,7 +207,7 @@ ScheduleService *GlobalGetScheduleService()
 {
     _networkDetector = [[NetworkDetector alloc] 
                         initWithErrorMsg:FNS(@"应用检测到无法连接到互联网，请检查您的网络连接设置。") 
-                        detectInterval:10];
+                        detectInterval:2];
     [_networkDetector start];
 }
 
@@ -312,7 +312,7 @@ ScheduleService *GlobalGetScheduleService()
     [[MatchManager defaultManager] saveFollowMatchList];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[self stopAudioPlayer];
-    
+    [_networkDetector stop];
     backgroundTask = [application beginBackgroundTaskWithExpirationHandler: ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             if (UIBackgroundTaskInvalid != backgroundTask) {
@@ -378,6 +378,7 @@ ScheduleService *GlobalGetScheduleService()
 	NSLog(@"applicationWillEnterForeground");	
 
     [self commonLaunchActions:YES];
+    [_networkDetector start];
 }
 
 

@@ -35,6 +35,7 @@
 @property (nonatomic, assign) int matchScoreType;
 
 - (IBAction)clickSelectMatchStatus:(id)sender;
+- (IBAction)clickMyFollow:(id)sender;
 - (void)setRightBarButtons;
 - (void)setLeftBarButtons;
 - (void)clickRefreshButton;
