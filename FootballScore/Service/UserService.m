@@ -12,16 +12,11 @@
 #import "LogUtil.h"
 #import "RetryManager.h"
 
-
-
 @implementation UserService
 
 - (void)userRegisterByToken:(NSString*)token
-{
-    NSOperationQueue* queue = [self getOperationQueue:@"GET_USER_ID"];
-    [queue cancelAllOperations];
-    
-    [queue addOperationWithBlock:^{
+{    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         CommonNetworkOutput *output = [FootballNetworkRequest getRegisterUserId:1 token:token];
         
@@ -35,11 +30,10 @@
             }
             
         });                        
-    }];
-    
+    });    
 }
 
-- (void)getVersion:(id<UserServiceDelegate>)delegate;
+- (void)getVersion:(id<UserServiceDelegate>)delegate
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),  
      ^{
@@ -80,7 +74,7 @@
              content:(NSString*)content 
              contact:(NSString*)contact
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0),^{
         
         CommonNetworkOutput* output = [FootballNetworkRequest sendFeedbackByUserId:userId content:content contact:contact];
 

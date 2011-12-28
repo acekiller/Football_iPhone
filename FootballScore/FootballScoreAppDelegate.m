@@ -85,6 +85,7 @@ ScheduleService *GlobalGetScheduleService()
 @synthesize oddsService;
 @synthesize scheduleService;
 @synthesize retryService;
+@synthesize userService;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -210,12 +211,15 @@ ScheduleService *GlobalGetScheduleService()
     [_networkDetector start];
 }
 
+- (void)initUserService
+{
+    userService = [[UserService alloc] init];
+}
+
 - (void)userRegister
 {
-    if (![UserManager isUserExisted]) {
-        UserService* registerService = [[UserService alloc] init];
-        [registerService userRegisterByToken:[self getDeviceToken]];
-        [registerService release];
+    if (![UserManager isUserExisted]) {        
+        [userService userRegisterByToken:[self getDeviceToken]];
     }
     else {
         NSLog(@"User exist,User ID is <%@>, Skip Registration",[UserManager getUserId]);
@@ -240,17 +244,18 @@ ScheduleService *GlobalGetScheduleService()
     [tabBarController setBarBackground:@"bottom_bg.png"];    
 
     // init all service 
+    [self initUserService];
     [self initMatchService];
-    [self userRegister];
     [self initOddsSerivce];
     [self initScheduleService];
-    [self initRetryService];
-    
+    [self initRetryService];        
+
 	[self initMobClick];
     [self initImageCacheManager];    
     [self initTabViewControllers];
     
     [self initNetworkDetector];
+    
     
     [window addSubview:tabBarController.view];
     [window makeKeyAndVisible];
@@ -262,7 +267,7 @@ ScheduleService *GlobalGetScheduleService()
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
     
     if (![self isPushNotificationEnable]){
-//        [self bindDevice];
+        [self bindDevice];
     }
     
 	[self commonLaunchActions:NO];    
@@ -330,6 +335,9 @@ ScheduleService *GlobalGetScheduleService()
 
 - (void)commonLaunchActions:(BOOL)loadAllMatch
 {
+    // register user if needed
+    [self userRegister];    
+    
     [self.oddsService updateAllBetCompanyList];
     
     int matchFilterStatus = [[MatchManager defaultManager] filterMatchStatus];
@@ -348,10 +356,7 @@ ScheduleService *GlobalGetScheduleService()
 	}
     
     // MobClick, for statistic
-    [MobClick appLaunched];
-    
-    // register user if needed
-    [self userRegister];
+    [MobClick appLaunched];    
     
     // start to update score
     [self.matchService startRealtimeMatchUpdate];
@@ -472,15 +477,9 @@ ScheduleService *GlobalGetScheduleService()
 //    // Get a hex string from the device token with no spaces or < >	
 	[self saveDeviceToken:deviceToken];    
     //TODO post the device token to the server.
-    
-//    
-//    if ([userService user] == nil){
-//        // user not registered yet, device token will be carried by registration request        
-//    }
-//    else{
-//        // user already register
-//        [userService updateGroupBuyUserDeviceToken:[self getDeviceToken]];
-//    }
+        
+    // user already register
+    [userService updateUserPushInfo:[UserManager getUserId] pushType:1 token:[self getDeviceToken]];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
