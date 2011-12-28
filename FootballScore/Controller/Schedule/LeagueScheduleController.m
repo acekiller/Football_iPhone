@@ -43,6 +43,7 @@ enum {
 @synthesize loadCount;
 @synthesize showDataFinished;
 @synthesize currentSeason;
+@synthesize currentRound = _currentRound;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -204,7 +205,7 @@ enum {
 - (void)showSchedule
 {
     [self showActivityWithText:FNS(@"加载数据中...")];
-    NSString* jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '', %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
+    NSString* jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, [self.currentRound intValue], [LanguageManager getLanguage]];
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
     PPDebug(@"<displayEvent>%@", jsCode);
     if (result) {
@@ -213,9 +214,9 @@ enum {
             NSString* roundsCountString = [resultArray objectAtIndex:TOTAL_ROUND_INDEX];
             NSString* currentRoundString = [resultArray objectAtIndex:CURRENT_ROUND_INDEX];
             roundsCount = [roundsCountString intValue];
-            currentRound = [currentRoundString intValue];
+            self.currentRound = [NSNumber numberWithInt:[currentRoundString intValue]];
             NSString *titleString = FNS(@"轮次");
-            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString,currentRound] forState:UIControlStateNormal];
+            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString,[self.currentRound intValue]] forState:UIControlStateNormal];
         }
     }
     [self hideActivity];
@@ -311,18 +312,29 @@ enum {
     [roundsSelector release];
 }
 
+- (void)resetRound
+{
+    NSString* season = [self.league.seasonList objectAtIndex:0];
+    if ([self.currentSeason isEqualToString:season]) {
+        self.currentRound = nil;
+    } else {
+        self.currentRound = [NSNumber numberWithInt:1];
+    }
+}
+
 - (void)didSelectSeason:(int)index
 {
     self.currentSeason = [self.league.seasonList objectAtIndex:index];
     [self setTitle:[NSString stringWithFormat:@"%@%@", self.league.shortName, self.currentSeason]];
     [self resetCommand];
+    [self resetRound];
     [self resetSelection];
     [self hideActivity];
 }
 
 - (void)didSelectRound:(int)roundIndex
 {
-    currentRound = roundIndex+1;
+    self.currentRound = [NSNumber numberWithInt:roundIndex+1];
     [self showSchedule];
     [self hideActivity];
 }
@@ -362,7 +374,7 @@ enum {
     [self.buttonCommandsDict removeAllObjects];
     JsCommand* shooter = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayScorer(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* points = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayJifen(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
-    JsCommand* schedule = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
+    JsCommand* schedule = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, self.currentRound, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* rangQiu = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayRangqiu(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* daXiao = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayDaxiao(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     [self setScoreCommand:shooter forKey:SHOOTER_RANKING_BUTTON_TAG];

@@ -146,7 +146,7 @@
     
     [self updateSelectMatchStatusButtonState:MATCH_SELECT_STATUS_ALL];
     [self setRightBarButtons];
-    [self setLeftBarButtons];//等 logo完成之后，这个取消注释
+    [self setLeftBarButtons];
     [self myFollowCountBadgeViewInit];
 
     
