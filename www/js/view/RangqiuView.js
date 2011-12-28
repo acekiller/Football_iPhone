@@ -7,6 +7,10 @@ function RangqiuView(type){
 	 };
 
     var rangqiuTemplate = Ext.XTemplate.from("rangqiu-template", helperFunctions);
+	var noDataTemplate = Ext.XTemplate.from("noData-template", helperFunctions);
+	this.noDataPanel = new Ext.Panel({
+	    tpl : noDataTemplate
+	});	
 
     this.rangqiuPanel = new Ext.Panel({            
         tpl : rangqiuTemplate,
@@ -23,7 +27,7 @@ function RangqiuView(type){
             align: 'stretch'
         },
         scroll : 'vertical',
-        items: [this.rangqiuPanel]            
+        items: [this.rangqiuPanel,this.noDataPanel]            
     });	
 	
 	this.manager = null;
@@ -32,8 +36,18 @@ function RangqiuView(type){
 RangqiuView.prototype = {
 	constructor : RangqiuView,
 	updateView : function(manager) {
-		this.manager = manager;
-		this.rangqiuPanel.update(manager);
+    	if (manager.dataArray == null || manager.dataArray.length == 0) {
+            this.rangqiuPanel.hide();
+            this.noDataPanel.show();
+            this.noDataPanel.update();
+        }
+        else{
+            this.noDataPanel.hide();
+            this.rangqiuPanel.show();
+            this.manager = manager;
+            this.rangqiuPanel.update(manager);
+
+        }
 	}
 };
 

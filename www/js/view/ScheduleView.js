@@ -57,6 +57,10 @@ function ScheduleView(type){
 	 };
 
     var scheduleTemplate = Ext.XTemplate.from("schedule-template", helperFunctions);
+	var noDataTemplate = Ext.XTemplate.from("noData-template", helperFunctions);
+	this.noDataPanel = new Ext.Panel({
+	    tpl : noDataTemplate
+	});	
 
     this.schedulePanel = new Ext.Panel({            
         tpl : scheduleTemplate,
@@ -73,7 +77,7 @@ function ScheduleView(type){
             align: 'stretch'
         },
         scroll : 'vertical',
-        items: [this.schedulePanel]            
+        items: [this.schedulePanel,this.noDataPanel]            
     });	
 	
 	this.manager = null;
@@ -82,8 +86,19 @@ function ScheduleView(type){
 ScheduleView.prototype = {
 	constructor : ScheduleView,
 	updateView : function(manager) {
-		this.manager = manager;
-		this.schedulePanel.update(manager);
+    	if (manager.dataArray == null || manager.dataArray.length == 0) {
+            this.schedulePanel.hide();
+            this.noDataPanel.show();
+            this.noDataPanel.update();
+        }
+        else{
+            this.noDataPanel.hide();
+            this.schedulePanel.show();
+            this.manager = manager;
+            this.schedulePanel.update(manager);
+
+        }    
+
 	}
 };
 
