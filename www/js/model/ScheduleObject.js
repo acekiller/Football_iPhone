@@ -1,4 +1,5 @@
 
+
 //define Schedule Model
 function ScheduleObject(round, playingTime, simplifiedHomeTeamName, traditionalHomeTeamName, 
 						simplifiedAwayTeamName, traditionalAwayTeamName, 

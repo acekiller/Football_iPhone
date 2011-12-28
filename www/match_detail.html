@@ -169,7 +169,7 @@
 					<td bgcolor="#F0F6FC"><strong>{name}</strong></td>
         			<td><span style="color:#2D6EAE">{homeChupei}</span>&nbsp;&nbsp;<span style="color:#ff0000">{chupan}</span>&nbsp;&nbsp;<span style="color:#2D6EAE">{awayChupei}</span></td>
         			<td><span style="color:#2D6EAE">{homeJishi}</span>&nbsp;&nbsp;<span style="color:#ff0000">{jishi}</span>&nbsp;&nbsp;<span style="color:#2D6EAE">{awayJishi}</span></td>
-        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="18" /></div></td>
+        			<td><div onclick="displayYapeiOddsDetail({[parent.type]}, {[values.betCompanyId]})"><img src="images/ew.png" width="9" height="18" style="padding-top:10px" /></div></td>
 				</tr>
 				</tpl>
         </textarea>
@@ -231,8 +231,8 @@
 					<tpl if="xindex % 2 !== 0">
 						<tr class="ac_r_bg2">
 					</tpl>
-          				<td width="56%">{homeOdds} {pankou:this.pankouString()} {awayOdds}</td>
-          				<td width="44%" class="ac_time">{[this.pankouDateString(values.modifyDate)]}</td>
+          				<td width="70%">{homeOdds} {pankou:this.pankouString()} {awayOdds}</td>
+          				<td width="30%" class="ac_time">{[this.pankouDateString(values.modifyDate)]}</td>
         			</tr>
         		</tpl>
       			</table>
@@ -324,10 +324,10 @@
 										<tr id="recordsData" class="fx_col">
 											<td class="text_break">{[this.formateDate(values.time)]}</td>
 											<td class="text_break">{league}</td>
-											<td class="text_break"><span style="color:#00EE44">{[this.getShortName(values.home)]}</span></td>
+											<td class={[this.nameColor(parent.hometeam,values.home)]}>{[this.getShortName(values.home)]}</td>
 											<td>{homePoints}-{awayPoints}</td>
-											<td class="text_break">{[this.getShortName(values.away)]}</td>
-											<td><span style="color:#ff0000">{odds}</span></td>
+											<td class={[this.nameColor(parent.hometeam,values.away)]}>{[this.getShortName(values.away)]}</td>
+											<td><span class={[this.oddsColor(values.odds)]}>{odds}</span></td>
 										</tr>
 										</tpl>
 									</table>
@@ -346,10 +346,10 @@
 										<tr class="fx_col">
 											<td class="text_break">{[this.formateDate(values.time)]}</td>
 											<td class="text_break">{league}</td>
-											<td class="text_break"><span style="color:#00EE44">{[this.getShortName(values.home)]}</span></td>
+											<td class={[this.nameColor(parent.awayteam,values.home)]}>{[this.getShortName(values.home)]}</td>
 											<td>{homePoints}-{awayPoints}</td>
-											<td class="text_break">{[this.getShortName(values.away)]}</td>
-											<td><span style="color:#ff0000">{odds}</span></td>
+											<td class={[this.nameColor(parent.awayteam,values.away)]}>{[this.getShortName(values.away)]}</td>
+											<td><span class={[this.oddsColor(values.odds)]}>{odds}</span></td>
 										</tr>
 										</tpl>
 									</table>
