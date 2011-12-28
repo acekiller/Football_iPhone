@@ -48,7 +48,11 @@
 #pragma mark - action method
 
 #define CONTINENT_BASE_BUTTON_TAG 1600
-#define CONTINENT_END_BUTTON_TAG 1605
+#define CONTINENT_AFRICA_TAG 1605
+#define CONTINENT_END_BUTTON_TAG CONTINENT_AFRICA_TAG
+#define CONTINENT_OCEANIA_TAG 1604
+#define CONTINENT_ASIA_TAG 1603
+
 #define COUNTRY_BUTTON_COUNT_PER_ROW 4
 #define SCROLL_VIEW_TAG 2334
 #define COUNTRY_ID_BUTTON_OFFSET 3000
@@ -166,7 +170,11 @@
 }
 
 - (IBAction)clickContinent:(id)sender {
+    if (sender == nil) {
+        return;
+    }
     UIButton *button = (UIButton *)sender;
+    _selectedContinentButton = button;
     button.selected = YES;
     for (int i = CONTINENT_BASE_BUTTON_TAG; i <= CONTINENT_END_BUTTON_TAG; ++ i) {
         if (i != button.tag) {
@@ -187,7 +195,51 @@
     [service updateRepository:lang delegate:self];
 }
 
+#pragma mark - gesture recognizer
 
+-(void) performPanGesture:(UIPanGestureRecognizer *)recognizer
+{
+    if (recognizer.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    if (_selectedContinentButton == nil) {
+        return;
+    }
+    CGPoint point = [recognizer translationInView:self.view];
+    NSInteger tag = _selectedContinentButton.tag;
+    UIButton *button = nil;
+    if (point.x < 0) {
+        switch (tag) {
+            case CONTINENT_BASE_BUTTON_TAG:
+                break;
+            case CONTINENT_AFRICA_TAG:
+                button = (UIButton *)[self.view viewWithTag:tag - 2];
+                break;
+            case CONTINENT_OCEANIA_TAG:
+                button = (UIButton *)[self.view viewWithTag:tag + 1];    
+                break;
+            default:
+                button = (UIButton *)[self.view viewWithTag:tag - 1];    
+                break;
+        }
+    }else{
+        switch (tag) {
+            case CONTINENT_AFRICA_TAG:
+                button = (UIButton *)[self.view viewWithTag:tag - 1];
+                break;
+            case CONTINENT_OCEANIA_TAG:
+                break;
+            case CONTINENT_ASIA_TAG:
+                button = (UIButton *)[self.view viewWithTag:tag + 2];    
+                break;
+            default:
+                button = (UIButton *)[self.view viewWithTag:tag + 1];    
+                break;
+        }
+    }
+    [self clickContinent:button];
+    
+}
 
 #pragma mark - RepositoryService delegate
 
@@ -295,6 +347,10 @@
         NSInteger lang = [LanguageManager getLanguage];
         [service updateRepository:lang delegate:self];
     }
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(performPanGesture:)];
+    [self.view addGestureRecognizer:panRecognizer];
+    [panRecognizer release];
 
 }
 
