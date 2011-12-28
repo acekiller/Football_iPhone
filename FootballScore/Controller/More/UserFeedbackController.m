@@ -15,6 +15,12 @@
 @implementation UserFeedbackController
 @synthesize content;
 @synthesize contact;
+@synthesize appNameLabel;
+@synthesize versionLabel;
+@synthesize telephoneLabel;
+@synthesize copyrightLabel;
+@synthesize disclaimerLabel;
+@synthesize updateAppButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,12 +56,46 @@
     self.navigationItem.title = FNS(@"信息反馈");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];
+    
+    
+    appNameLabel.text = FNS(@"球探体育比分客户端");
+    appNameLabel.textColor = [UIColor colorWithRed:0x46/255.0 green:0x46/255.0 blue:0x46/255.0 alpha:1.0];
+    
+    
+    NSString *versionString = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *versionTitle = FNS(@"版本号");
+    versionLabel.text = [NSString stringWithFormat:@"%@ : %@" , versionTitle,versionString];
+    versionLabel.textColor = [UIColor grayColor];
+    
+    
+    //NSString *updateAppTitle = FNS(@"");
+    //updateAppButton.titleLabel.text = 
+    
+    
+    NSString *telephoneTitle = FNS(@"联系电话");
+    telephoneLabel.text = [NSString stringWithFormat:@"%@ : 0758-2512562",telephoneTitle];
+    telephoneLabel.textColor = [UIColor grayColor];
+    
+    
+    NSString *copyrightTitle = FNS(@"版权所有");
+    copyrightLabel.text = [NSString stringWithFormat:@"%@ : www.titan007.com",copyrightTitle];
+    copyrightLabel.textColor = [UIColor grayColor];
+    
+    
+    disclaimerLabel.text = FNS(@"免责声明 : 仅供体育爱好者参考之用;任何人不得用于非法用途,否则责任自负。");
+    disclaimerLabel.textColor= [UIColor grayColor];
 }
 
 - (void)viewDidUnload
 {
     [self setContent:nil];
     [self setContact:nil];
+    [self setAppNameLabel:nil];
+    [self setVersionLabel:nil];
+    [self setTelephoneLabel:nil];
+    [self setCopyrightLabel:nil];
+    [self setDisclaimerLabel:nil];
+    [self setUpdateAppButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -70,6 +110,12 @@
 - (void)dealloc {
     [content release];
     [contact release];
+    [appNameLabel release];
+    [versionLabel release];
+    [telephoneLabel release];
+    [copyrightLabel release];
+    [disclaimerLabel release];
+    [updateAppButton release];
     [super dealloc];
 }
 
