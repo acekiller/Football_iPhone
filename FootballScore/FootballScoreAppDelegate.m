@@ -36,6 +36,8 @@
 
 #import "NetworkDetector.h"
 
+#import "ConfigManager.h"
+
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
 
@@ -229,7 +231,7 @@ ScheduleService *GlobalGetScheduleService()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	[UIApplication sharedApplication].idleTimerDisabled = YES;//disable autolocking screen
+	[UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];//disable autolocking screen
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    

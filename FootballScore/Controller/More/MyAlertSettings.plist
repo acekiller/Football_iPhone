@@ -4,16 +4,22 @@
 <dict>
 	<key>3</key>
 	<array>
+		<string>是否自动锁屏:</string>
+		<string>不自动锁屏</string>
+		<string>自动锁屏</string>
+	</array>
+	<key>2</key>
+	<array>
 		<string>比分指数刷新时间间隔:</string>
 		<string></string>
 	</array>
-	<key>2</key>
+	<key>1</key>
 	<array>
 		<string>比分动态推送:</string>
 		<string>不推送比分</string>
 		<string>仅仅推送我关注的比赛的比分</string>
 	</array>
-	<key>1</key>
+	<key>0</key>
 	<array>
 		<string>进球提示:</string>
 		<string>声音提示</string>
