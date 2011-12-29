@@ -467,9 +467,9 @@
     {
         float rightSide = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5+label.frame.size.width;
         if (rightSide > AWAY_RIGHT_EDGE) {
-            [self.awayTeamName setFrame:CGRectMake(self.awayTeamName.frame.origin.x, 
+            [self.awayTeamName setFrame:CGRectMake(self.awayTeamName.frame.origin.x-(rightSide-AWAY_RIGHT_EDGE), 
                                                    self.awayTeamName.frame.origin.y, 
-                                                   self.awayTeamName.frame.size.width-(rightSide-AWAY_RIGHT_EDGE), 
+                                                   self.awayTeamName.frame.size.width, 
                                                    self.awayTeamName.frame.size.height)];
         }
         CGFloat x = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5;
