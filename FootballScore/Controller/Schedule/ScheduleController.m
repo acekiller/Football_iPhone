@@ -229,30 +229,30 @@
     
 }
 
-- (NSString*)convertStatus:(Match*)match
-{
-    switch ([match.status intValue]) {
-        case MATCH_STATUS_FIRST_HALF:
-        case MATCH_STATUS_SECOND_HALF:
-        case MATCH_STATUS_FINISH:
-            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
-        case MATCH_STATUS_MIDDLE:
-            return FNS(@"中场");
-        case MATCH_STATUS_PAUSE:
-            return FNS(@"中断");
-        case MATCH_STATUS_TBD:
-            return FNS(@"待定");
-        case MATCH_STATUS_KILL:
-            return FNS(@"腰斩");
-        case MATCH_STATUS_POSTPONE:
-            return FNS(@"推迟");
-        case MATCH_STATUS_CANCEL:
-            return FNS(@"取消");
-        case MATCH_STATUS_NOT_STARTED:
-        default:
-            return FNS(@"未");
-    }
-}
+//- (NSString*)convertStatus:(Match*)match
+//{
+//    switch ([match.status intValue]) {
+//        case MATCH_STATUS_FIRST_HALF:
+//        case MATCH_STATUS_SECOND_HALF:
+//        case MATCH_STATUS_FINISH:
+//            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
+//        case MATCH_STATUS_MIDDLE:
+//            return FNS(@"中场");
+//        case MATCH_STATUS_PAUSE:
+//            return FNS(@"中断");
+//        case MATCH_STATUS_TBD:
+//            return FNS(@"待定");
+//        case MATCH_STATUS_KILL:
+//            return FNS(@"腰斩");
+//        case MATCH_STATUS_POSTPONE:
+//            return FNS(@"推迟");
+//        case MATCH_STATUS_CANCEL:
+//            return FNS(@"取消");
+//        case MATCH_STATUS_NOT_STARTED:
+//        default:
+//            return FNS(@"未");
+//    }
+//}
 
 enum {
     TAG_LEAGUE_NAME = 20111205,
@@ -362,10 +362,26 @@ enum {
             [scoreLabel setTextColor:[UIColor blueColor]];
             break;
         }
-        case MATCH_STATUS_TBD:
-        case MATCH_STATUS_KILL:
-        case MATCH_STATUS_POSTPONE:
-        case MATCH_STATUS_CANCEL:
+        case MATCH_STATUS_TBD: {
+            scoreLabel.text = FNS(@"待定");
+            [scoreLabel setTextColor:[UIColor redColor]];
+        }
+            break;
+        case MATCH_STATUS_KILL: {
+            scoreLabel.text = FNS(@"腰斩");
+            [scoreLabel setTextColor:[UIColor redColor]];
+        }
+            break;
+        case MATCH_STATUS_POSTPONE: {
+            scoreLabel.text = FNS(@"推迟");
+            [scoreLabel setTextColor:[UIColor redColor]];
+        }
+            break;
+        case MATCH_STATUS_CANCEL: {
+            scoreLabel.text = FNS(@"取消");
+            [scoreLabel setTextColor:[UIColor redColor]];
+        }
+            break;
         case MATCH_STATUS_NOT_STARTED:
         default:
         {
