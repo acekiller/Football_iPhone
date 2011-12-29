@@ -101,7 +101,7 @@ typedef enum {
 
 - (void)optionListInit
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于彩客网"), FNS(@"客户端更新"), FNS(@"退出客户端"),  nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分时间及声音设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于彩客网"), FNS(@"客户端更新"), FNS(@"退出客户端"),  nil];
     self.listData = array;
     [array release];
 }
@@ -254,8 +254,10 @@ typedef enum {
     }
     else if (RECOMMENDATION == whichAcctionSheet)
     {
-        NSString *bodyString_begin = FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是");
-        NSString *bodyString = [NSString stringWithFormat:@"%@%@", bodyString_begin, [UIUtils getAppLink:kAppId]];
+        NSString *bodyStringBegin = FNS(@"朋友，我正在用球探彩客网的比分客户端看即时比分、赔率、分析数据，感觉很不错，下载地址是");
+        NSString *bodyStringWebsite = @"http://3g.bet007.com/download.aspx";
+        
+        NSString *bodyString = [NSString stringWithFormat:@"%@%@", bodyStringBegin, bodyStringWebsite];
         
         
         if (buttonIndex == actionSheet.cancelButtonIndex){

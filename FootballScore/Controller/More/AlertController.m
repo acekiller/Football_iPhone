@@ -227,9 +227,15 @@ enum{
     else if(indexPath.section == LOCK_SCREEN_SECTION)
     {
         if (indexPath.row == 1)
+        {
             [ConfigManager saveIsLockScreen:NO];
+            [UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
+        }
         else if (indexPath.row == 2)
+        {
             [ConfigManager saveIsLockScreen:YES];
+            [UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
+        }
     }
     
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
@@ -291,7 +297,7 @@ enum{
 
 - (void)viewDidLoad
 {
-    [self.navigationItem  setTitle:FNS(@"比分设置")];
+    [self.navigationItem  setTitle:FNS(@"比分时间及声音设置")];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"MyAlertSettings" 
