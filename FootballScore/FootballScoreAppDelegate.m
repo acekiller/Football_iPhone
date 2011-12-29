@@ -572,7 +572,7 @@ ScheduleService *GlobalGetScheduleService()
         if (![latestVersion isEqualToString:localVersion]) 
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                           message:FNS(@"检测到有更新版本,是否更新?") 
+                                                           message:FNS(@"检测到有新版本,是否更新?") 
                                                           delegate:self 
                                                  cancelButtonTitle:FNS(@"否")  
                                                  otherButtonTitles:FNS(@"是") , nil];
