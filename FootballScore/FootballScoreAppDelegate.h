@@ -11,6 +11,8 @@
 #import "PPApplication.h"
 #import "MobClick.h"
 #import "ScoreUpdateController.h"
+#import "UserService.h"
+
 @class PPTabBarController;
 
 // TODO remove all depedency class header files
@@ -53,6 +55,7 @@
 @property (nonatomic, retain) OddsService                   *oddsService;
 @property (nonatomic, retain) ScheduleService               *scheduleService;
 @property (nonatomic, retain) RetryService                  *retryService;
+@property (nonatomic, retain) UserService                   *userService;
 
 - (UIViewController *)currentViewController;
 - (void)commonLaunchActions:(BOOL)loadAllMatch;
