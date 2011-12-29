@@ -43,7 +43,6 @@ enum {
 @synthesize loadCount;
 @synthesize showDataFinished;
 @synthesize currentSeason;
-@synthesize currentRound = _currentRound;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,6 +60,7 @@ enum {
     if (self) {
         self.league = leagueValue;
         self.currentSeason = [self.league.seasonList objectAtIndex:0];
+        
         //dataWebView2 = [[UIWebView alloc] initWithFrame:CGRectMake(0, 70, 320, 297)];
         //[self.dataWebView2 setHidden:YES];
     }
@@ -106,6 +106,7 @@ enum {
 {
     self.league = leagueValue;
     self.currentSeason = [self.league.seasonList objectAtIndex:0];
+    currentRound = 0;
     [self initTitle];
     [self resetCommand];
     [self resetSelection];
@@ -205,14 +206,8 @@ enum {
 - (void)showSchedule
 {
     [self showActivityWithText:FNS(@"加载数据中...")];
-
-    NSString* season = [self.league.seasonList objectAtIndex:0];
     NSString* jsCode;
-    if ([currentSeason isEqualToString:season]) {
-        jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '', %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
-    } else {
-        jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", 1, %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
-    }
+    jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]];
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
     PPDebug(@"<displayEvent>%@", jsCode);
     if (result) {
@@ -221,9 +216,9 @@ enum {
             NSString* roundsCountString = [resultArray objectAtIndex:TOTAL_ROUND_INDEX];
             NSString* currentRoundString = [resultArray objectAtIndex:CURRENT_ROUND_INDEX];
             roundsCount = [roundsCountString intValue];
-            self.currentRound = [NSNumber numberWithInt:[currentRoundString intValue]];
+            currentRound = [currentRoundString intValue];
             NSString *titleString = FNS(@"轮次");
-            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString,[self.currentRound intValue]] forState:UIControlStateNormal];
+            [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString, currentRound] forState:UIControlStateNormal];
         }
     }
     [self hideActivity];
@@ -323,9 +318,9 @@ enum {
 {
     NSString* season = [self.league.seasonList objectAtIndex:0];
     if ([self.currentSeason isEqualToString:season]) {
-        self.currentRound = nil;
+        currentRound = 0;
     } else {
-        self.currentRound = [NSNumber numberWithInt:1];
+        currentRound = 1;
     }
 }
 
@@ -341,7 +336,7 @@ enum {
 
 - (void)didSelectRound:(int)roundIndex
 {
-    self.currentRound = [NSNumber numberWithInt:roundIndex+1];
+    currentRound = roundIndex+1;
     [self showSchedule];
     [self hideActivity];
 }
@@ -381,17 +376,17 @@ enum {
     [self.buttonCommandsDict removeAllObjects];
     JsCommand* shooter = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayScorer(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* points = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayJifen(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
-    JsCommand* schedule = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, self.currentRound, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
+//    JsCommand* schedule = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* rangQiu = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayRangqiu(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     JsCommand* daXiao = [[JsCommand alloc] initWithJSCodeString:[NSString stringWithFormat:@"displayDaxiao(true,\"%@\", \"%@\", %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]] dataWebView:self.dataWebView];
     [self setScoreCommand:shooter forKey:SHOOTER_RANKING_BUTTON_TAG];
     [self setScoreCommand:points forKey:POINT_BUTTON_TAG];
-    [self setScoreCommand:schedule forKey:SCHEDULE_BUTTON_TAG];
+//    [self setScoreCommand:schedule forKey:SCHEDULE_BUTTON_TAG];
     [self setScoreCommand:rangQiu forKey:RANG_QIU_BUTTON_TAG];
     [self setScoreCommand:daXiao forKey:DAXIAO_BUTTON_TAG];
     [shooter release];
     [points release];
-    [schedule release];
+//    [schedule release];
     [rangQiu release];
     [daXiao release];
     
