@@ -228,6 +228,7 @@ ScheduleService *GlobalGetScheduleService()
     }
 }
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
@@ -263,7 +264,7 @@ ScheduleService *GlobalGetScheduleService()
     [window makeKeyAndVisible];
 	
     // update config data
-//    [appService startAppUpdate];
+    //[appService startAppUpdate];
     
 	// Ask For Review
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
@@ -271,6 +272,10 @@ ScheduleService *GlobalGetScheduleService()
     if (![self isPushNotificationEnable]){
         [self bindDevice];
     }
+    
+    
+    [userService getVersion:self];
+    
     
 	[self commonLaunchActions:NO];    
     return YES;
@@ -553,6 +558,43 @@ ScheduleService *GlobalGetScheduleService()
 {
     UIButton *button = [tabBarController.buttons objectAtIndex:index];
     [tabBarController selectedTab:button];
+}
+
+
+#pragma mark -
+#pragma mark user UserService Delegate
+- (void)getVersionFinish:(int)result data:(NSString*)data
+{
+    if (0 == result) 
+    {
+        NSString *latestVersion = data;
+        NSString *localVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        if (![latestVersion isEqualToString:localVersion]) 
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                           message:FNS(@"检测到有更新版本,是否更新?") 
+                                                          delegate:self 
+                                                 cancelButtonTitle:FNS(@"否")  
+                                                 otherButtonTitles:FNS(@"是") , nil];
+            [alert show];
+            [alert release];
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark user alertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [UIUtils openApp:kAppId];  //跳到更新页面;
+            break;
+        default:
+            break;
+    }
 }
 
 @end
