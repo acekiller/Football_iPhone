@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _isViewDidLoad = NO;// Custom initialization
     }
     return self;
 }
@@ -83,7 +83,10 @@
     self.dateTimeLabel.text = [self getDateString];
     self.dateTimeLabel.textColor=[ColorManager dateTimeTextColor]; 
     [self refreshCount];
-    [self showTipsOnTableView:FNS(@"暂无比分动态")];
+    if ([self.dataList count] == 0) {
+        [self showTipsOnTableView:FNS(@"暂无比分动态")];
+    }
+    _isViewDidLoad = YES;
 
 }
 
@@ -201,11 +204,11 @@
     if (resultCode == ERROR_SUCCESS) {
         ScoreUpdateManager *scoreUpdateManager = [ScoreUpdateManager defaultManager];
         
-        if (scoreUpdateSet == nil || [scoreUpdateSet count] <= 0) {
-            [self showTipsOnTableView:FNS(@"暂无比分动态")];
-        } else {
-            [self hideTipsOnTableView];
-        }
+          if ((scoreUpdateSet == nil || [scoreUpdateSet count] <= 0) && _isViewDidLoad) {
+              [self showTipsOnTableView:FNS(@"暂无比分动态")];
+          } else {
+              [self hideTipsOnTableView];
+          }
         
         // according to the score update type set the hometeam data count and awayteam data count
         

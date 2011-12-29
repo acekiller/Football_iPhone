@@ -21,7 +21,8 @@
     BOOL deleteFlag;
     UILabel *dateTimeLabel;
     id<ScoreUpdateControllerDelegate> ScoreUpdateControllerDelegate;
-    BOOL hasClickedRefresh;    
+    BOOL hasClickedRefresh;  
+    BOOL _isViewDidLoad;
 
 }
 
