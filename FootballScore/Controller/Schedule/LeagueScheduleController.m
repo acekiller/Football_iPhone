@@ -205,7 +205,14 @@ enum {
 - (void)showSchedule
 {
     [self showActivityWithText:FNS(@"加载数据中...")];
-    NSString* jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, [self.currentRound intValue], [LanguageManager getLanguage]];
+
+    NSString* season = [self.league.seasonList objectAtIndex:0];
+    NSString* jsCode;
+    if ([currentSeason isEqualToString:season]) {
+        jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '', %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
+    } else {
+        jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", 1, %d)",self.league.leagueId, self.currentSeason, [LanguageManager getLanguage]];
+    }
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
     PPDebug(@"<displayEvent>%@", jsCode);
     if (result) {

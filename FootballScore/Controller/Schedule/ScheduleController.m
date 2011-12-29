@@ -229,6 +229,31 @@
     
 }
 
+- (NSString*)convertStatus:(Match*)match
+{
+    switch ([match.status intValue]) {
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+        case MATCH_STATUS_FINISH:
+            return [NSString stringWithFormat:@"%d:%d(%d:%d)", [match.homeTeamScore intValue], [match.awayTeamScore intValue], [match.homeTeamFirstHalfScore intValue], [match.awayTeamFirstHalfScore intValue]];
+        case MATCH_STATUS_MIDDLE:
+            return FNS(@"中场");
+        case MATCH_STATUS_PAUSE:
+            return FNS(@"中断");
+        case MATCH_STATUS_TBD:
+            return FNS(@"待定");
+        case MATCH_STATUS_KILL:
+            return FNS(@"腰斩");
+        case MATCH_STATUS_POSTPONE:
+            return FNS(@"推迟");
+        case MATCH_STATUS_CANCEL:
+            return FNS(@"取消");
+        case MATCH_STATUS_NOT_STARTED:
+        default:
+            return FNS(@"未");
+    }
+}
+
 enum {
     TAG_LEAGUE_NAME = 20111205,
     TAG_DATE_AND_STATUS,
