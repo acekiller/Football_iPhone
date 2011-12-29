@@ -16,6 +16,7 @@
 {
     NSInteger selectedContinent;
     NSArray *filterCountryArray;
+    UIButton *_selectedContinentButton;
 }
 
 @property (nonatomic, retain)     NSArray *filterCountryArray;

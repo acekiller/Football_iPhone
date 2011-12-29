@@ -22,7 +22,7 @@
     int currentSelection;
     int loadCounter;
     int roundsCount;
-    int currentRound;
+    NSNumber* _currentRound;
     int actionSheetIndex;
     BOOL isWebViewReady;
     BOOL isGroupReady;
@@ -41,6 +41,7 @@
 @property (assign, nonatomic) NSInteger loadCount;
 @property (assign, nonatomic) BOOL showDataFinished;
 @property (retain, nonatomic) NSString* currentSeason;
+@property (retain, nonatomic) NSNumber* currentRound;
 
 - (void)setScoreCommand:(id<CommonCommandInterface>)command forKey:(int)Key; 
 - (id)initWithLeague:(League*)leagueValue;

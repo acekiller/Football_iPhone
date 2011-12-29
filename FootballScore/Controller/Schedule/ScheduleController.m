@@ -13,6 +13,8 @@
 #import "LeagueManager.h"
 #import "TimeUtils.h"
 #import "ColorManager.h"
+#import "OHAttributedLabel.h"
+#import "NSAttributedString+Attributes.h"
 
 #define COMPLETE_SCORE  120111217
 #define WEEKLY_SCHEDULE 220111217
@@ -207,7 +209,14 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     NSString *dateString = [[[NSString alloc] init] autorelease];
-    [formatter setDateFormat:@"dd日 HH:mm"];
+    
+    if (self.scheduleType == WEEKLY_SCHEDULE) {
+        [formatter setDateFormat:@"dd日HH:mm"];
+    }
+    else{
+        [formatter setDateFormat:@"dd日"];
+    }
+    
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:TIME_ZONE_GMT]];
 
     
@@ -254,11 +263,28 @@ enum {
 };
 - (void)initCell:(UITableViewCell*)cell
 {
-    UILabel* leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 60, 30)];
-    UILabel* dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 55, 30)];
-    UILabel* homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 80, 30)];
-    UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 40, 30)];
-    UILabel* awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 80, 30)];
+    UILabel* leagueName = nil;
+    UILabel* dateAndStatus = nil;
+    UILabel* homeTeamName = nil;
+    OHAttributedLabel* scoreLabel = nil;
+    UILabel* awayTeamName = nil;
+    
+    if (self.scheduleType == WEEKLY_SCHEDULE) {
+        leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 60, 30)];
+        dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 52, 30)];
+        homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(117, 0, 80, 30)];
+        scoreLabel = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(197, 8, 43, 30)];
+        awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 80, 30)];
+    }
+    else
+    {
+        leagueName = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 60, 30)];
+        dateAndStatus = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 25, 30)];
+        homeTeamName = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 90, 30)];
+        scoreLabel = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(180, 8, 50, 30)];
+        awayTeamName = [[UILabel alloc] initWithFrame:CGRectMake(230, 0, 90, 30)];
+    }
+    
     [leagueName setFont:[UIFont systemFontOfSize:12]];
     [dateAndStatus setFont:[UIFont systemFontOfSize:11]];
     [homeTeamName setFont:[UIFont systemFontOfSize:12]];
@@ -293,26 +319,63 @@ enum {
     UILabel* leagueName = (UILabel*)[cell viewWithTag:TAG_LEAGUE_NAME];
     UILabel* dateAndStatus = (UILabel*)[cell viewWithTag:TAG_DATE_AND_STATUS];
     UILabel* homeTeamName = (UILabel*)[cell viewWithTag:TAG_HOME_TEAM_NAME];
-    UILabel* scoreLabel = (UILabel*)[cell viewWithTag:TAG_SCORE_LABEL];
+    OHAttributedLabel* scoreLabel = (OHAttributedLabel*)[cell viewWithTag:TAG_SCORE_LABEL];
     UILabel* awayTeamName = (UILabel*)[cell viewWithTag:TAG_AWAY_TEAM_NAME];
     [leagueName setText:[[LeagueManager defaultLeagueScheduleManager] getNameById:match.leagueId ]];
     [homeTeamName setText:match.homeTeamName];
     [dateAndStatus setText:[NSString stringWithFormat:@"%@", [self convertMatchStartTime:match.date]]];
-    [scoreLabel setText:[self convertStatus:match]];
     [awayTeamName setText:match.awayTeamName];
+    
+    
     [dateAndStatus setTextColor:[UIColor grayColor]];
     [homeTeamName setTextColor:[ColorManager soundsAlertColor]];
     [awayTeamName setTextColor:[ColorManager soundsAlertColor]];
-    if ([match.status intValue] == MATCH_STATUS_FIRST_HALF || 
-        [match.status intValue] == MATCH_STATUS_SECOND_HALF ||
-        [match.status intValue] == MATCH_STATUS_FINISH) {
-        [scoreLabel setTextColor:[UIColor redColor]];
+    
+    //set scoreLabel
+    switch ([match.status intValue]) {
+        case MATCH_STATUS_FIRST_HALF:
+        case MATCH_STATUS_SECOND_HALF:
+        case MATCH_STATUS_MIDDLE:
+        case MATCH_STATUS_FINISH:
+        {
+            NSString *homeScoreAndAwayScore = [NSString stringWithFormat:@"%d:%d",[match.homeTeamScore intValue],[match.awayTeamScore intValue]];
+            
+            NSString *homeHalfScoreAndAwayHalfScore = [NSString stringWithFormat:@"(%d:%d)",[match.homeTeamFirstHalfScore intValue],[match.awayTeamFirstHalfScore intValue]];
+            
+            NSString *scoreString = [NSString stringWithFormat:@"%@%@",homeScoreAndAwayScore,homeHalfScoreAndAwayHalfScore];
+            
+            NSMutableAttributedString *scoreAttributedString = [NSMutableAttributedString attributedStringWithString:scoreString];
+            
+            NSRange range1 = [scoreString rangeOfString:homeScoreAndAwayScore];
+            NSRange range2 = [scoreString rangeOfString:homeHalfScoreAndAwayHalfScore]; 
+            [scoreAttributedString setTextColor:[UIColor redColor] range:range1];
+            [scoreAttributedString setTextColor:[ColorManager soundsAlertColor] range:range2];
+            
+            scoreLabel.attributedText = scoreAttributedString;
+            scoreLabel.textAlignment = UITextAlignmentCenter;
+            
+            break;
+        }
+        case MATCH_STATUS_PAUSE:
+        {
+            scoreLabel.text = FNS(@"中断");
+            [scoreLabel setTextColor:[UIColor blueColor]];
+            break;
+        }
+        case MATCH_STATUS_TBD:
+        case MATCH_STATUS_KILL:
+        case MATCH_STATUS_POSTPONE:
+        case MATCH_STATUS_CANCEL:
+        case MATCH_STATUS_NOT_STARTED:
+        default:
+        {
+            scoreLabel.text = FNS(@"未");
+            [scoreLabel setTextColor:[UIColor blueColor]];
+            break;
+        }
     }
-    else if([match.status intValue] == MATCH_STATUS_MIDDLE){
-        [scoreLabel setTextColor:[ColorManager soundsAlertColor]];
-    }
-    else {
-        [scoreLabel setTextColor:[UIColor blueColor]];
-    }
+    
+    
+    
 }
 @end
