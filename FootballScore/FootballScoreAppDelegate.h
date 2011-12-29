@@ -31,7 +31,7 @@
 
 #define MAKE_FRIEND_PLACEID @"GroupBuy"
 
-@interface FootballScoreAppDelegate : PPApplication <UIApplicationDelegate, UITabBarControllerDelegate, MobClickDelegate, ScoreUpdateControllerDelegate> {
+@interface FootballScoreAppDelegate : PPApplication <UIApplicationDelegate, UITabBarControllerDelegate, MobClickDelegate, ScoreUpdateControllerDelegate,UserServiceDelegate> {
     
     UIWindow			*window;
     PPTabBarController	*tabBarController;
