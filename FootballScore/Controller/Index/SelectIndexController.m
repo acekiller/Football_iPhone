@@ -133,10 +133,6 @@ typedef enum ODDS_TYPE {
 
 #pragma mark - View lifecycle
 
-- (void)viewDidAppear:(BOOL)animated
-{
-     [self contentTypeButtonInit];
-}
 
 - (void)viewDidLoad
 {   
@@ -147,7 +143,7 @@ typedef enum ODDS_TYPE {
     [buttonAsianBwin setTag:ASIANBWIN];
     [buttonEuropeBwin setTag:EUROPEBWIN];
     [buttonBigandSmall setTag:BIGANDSMALL];
-   
+    [self contentTypeButtonInit];
     [self.view setBackgroundColor:[ColorManager scrollViewBackgroundColor]];
     // Do any additional setup after loading the view from its nib.
 }
