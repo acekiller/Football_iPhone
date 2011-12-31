@@ -18,17 +18,16 @@
    
     int pushType;
     
-    
     NSDictionary *  alertTitles;
     NSArray  * alertGroupsInfor;
     
-   
     NSArray  *array;
     NSDictionary *dictionary;
     
     UISlider *timeIntervalSlider;
     UILabel *sliderValueLable;
     UILabel *secondLable;
+    
 }
 
 

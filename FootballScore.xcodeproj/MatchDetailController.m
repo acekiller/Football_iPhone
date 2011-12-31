@@ -437,6 +437,7 @@
     if (label == self.homeTeamName) {
         CGPoint point = CGPointMake(self.homeTeamIcon.center.x, label.center.y);
         [label setCenter:point];
+
     }else if(label == self.awayTeamName)
     {
         CGPoint point = CGPointMake(self.awayTeamIcon.center.x, label.center.y);
@@ -444,20 +445,33 @@
     }
     [label setText:name];
 }
-
+#define HOME_RIGHT_EDGE 148
+#define AWAY_RIGHT_EDGE 320
 - (void)setTeamRankLable:(UILabel *)label rank:(NSString *)rank
 {
     NSInteger length = MIN([rank length], MAX_TEAM_RANK_SIZE);
     
     const CGFloat pxPerLetter = 9.0;
     if (label == self.homeTeamRank) {
-        
+        float rightSide = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5+label.frame.size.width;
+        if (rightSide > HOME_RIGHT_EDGE) {
+            [self.homeTeamName setFrame:CGRectMake(self.homeTeamName.frame.origin.x, 
+                                                  self.homeTeamName.frame.origin.y, 
+                                                  self.homeTeamName.frame.size.width-(rightSide-HOME_RIGHT_EDGE), 
+                                                   self.homeTeamName.frame.size.height)];
+        }
         CGFloat x = self.homeTeamName.frame.origin.x + self.homeTeamName.frame.size.width+0.5;
         [label setFrame:CGRectMake(x , label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
         
     }else if(label == self.awayTeamRank)
     {
-    
+        float rightSide = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5+label.frame.size.width;
+        if (rightSide > AWAY_RIGHT_EDGE) {
+            [self.awayTeamName setFrame:CGRectMake(self.awayTeamName.frame.origin.x-(rightSide-AWAY_RIGHT_EDGE), 
+                                                   self.awayTeamName.frame.origin.y, 
+                                                   self.awayTeamName.frame.size.width, 
+                                                   self.awayTeamName.frame.size.height)];
+        }
         CGFloat x = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5;
         [label setFrame:CGRectMake(x, label.frame.origin.y, pxPerLetter * length, label.frame.size.height)];
     }

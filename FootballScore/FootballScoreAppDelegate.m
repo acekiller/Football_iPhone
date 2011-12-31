@@ -36,6 +36,8 @@
 
 #import "NetworkDetector.h"
 
+#import "ConfigManager.h"
+
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
 
@@ -226,10 +228,11 @@ ScheduleService *GlobalGetScheduleService()
     }
 }
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	[UIApplication sharedApplication].idleTimerDisabled = YES;//disable autolocking screen
+	[UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];//disable autolocking screen
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
@@ -261,7 +264,7 @@ ScheduleService *GlobalGetScheduleService()
     [window makeKeyAndVisible];
 	
     // update config data
-//    [appService startAppUpdate];
+    //[appService startAppUpdate];
     
 	// Ask For Review
 	// self.reviewRequest = [ReviewRequest startReviewRequest:kAppId appName:GlobalGetAppName() isTest:NO];
@@ -269,6 +272,10 @@ ScheduleService *GlobalGetScheduleService()
     if (![self isPushNotificationEnable]){
         [self bindDevice];
     }
+    
+    
+    [userService getVersion:self];
+    
     
 	[self commonLaunchActions:NO];    
     return YES;
@@ -368,7 +375,7 @@ ScheduleService *GlobalGetScheduleService()
     [self.retryService retryPushSet:[UserManager getUserId] token:[self getDeviceToken]];
     
     // forbid locking the screen
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -376,7 +383,7 @@ ScheduleService *GlobalGetScheduleService()
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
 	NSLog(@"applicationWillEnterForeground");	
-
+    
     [self commonLaunchActions:YES];
     [_networkDetector start];
 }
@@ -551,6 +558,43 @@ ScheduleService *GlobalGetScheduleService()
 {
     UIButton *button = [tabBarController.buttons objectAtIndex:index];
     [tabBarController selectedTab:button];
+}
+
+
+#pragma mark -
+#pragma mark user UserService Delegate
+- (void)getVersionFinish:(int)result data:(NSString*)data
+{
+    if (0 == result) 
+    {
+        NSString *latestVersion = data;
+        NSString *localVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        if (![latestVersion isEqualToString:localVersion]) 
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                           message:FNS(@"检测到有新版本,是否更新?") 
+                                                          delegate:self 
+                                                 cancelButtonTitle:FNS(@"否")  
+                                                 otherButtonTitles:FNS(@"是") , nil];
+            [alert show];
+            [alert release];
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark user alertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [UIUtils openApp:kAppId];  //跳到更新页面;
+            break;
+        default:
+            break;
+    }
 }
 
 @end

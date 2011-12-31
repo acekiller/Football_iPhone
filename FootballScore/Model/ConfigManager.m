@@ -11,15 +11,6 @@
 
 @implementation ConfigManager
 
-//+ (NSString*)getValue:(NSString*)configKey
-//{
-//    return nil;
-//}
-//
-//+ (void)setValue:(NSString*)configKey value:(NSString*)value
-//{
-//    
-//}
 
 + (void)saveHasSound:(BOOL)hasSound
 {
@@ -39,6 +30,14 @@
     [userDefaults setDouble:refreshInterval forKey:REFRESH_INTERVAL];
 }
 
++ (void)saveIsLockScreen:(BOOL)isLockScreen
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isLockScreen forKey:IS_LOCK_SCREEN];
+}
+
+
+
 
 + (BOOL)getHasSound
 {
@@ -57,6 +56,11 @@
         return REFRESH_INTERVAL_MIN;  
     else
         return [timeInterval doubleValue];
+}
+
++ (BOOL)getIsLockScreen
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:IS_LOCK_SCREEN];
 }
 
 @end

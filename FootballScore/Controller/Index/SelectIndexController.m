@@ -134,7 +134,6 @@ typedef enum ODDS_TYPE {
 #pragma mark - View lifecycle
 
 
-
 - (void)viewDidLoad
 {   
     [super viewDidLoad];

@@ -44,6 +44,7 @@
         // Custom initialization
         self.matchType = SECOND_LEVEL_LEAGUE;
         self.oddsType = ODDS_TYPE_YAPEI;
+        self.oddsDate = [NSDate dateWithTimeIntervalSinceNow:0];
         matchOddsList = [[NSMutableDictionary alloc] init ];
         companyIdArray = [[NSMutableArray alloc] initWithObjects:@"1", @"8", @"3", @"4", nil ];
         //four company id:1---澳彩    3---SB   4----立博   8----bet365
@@ -411,6 +412,11 @@
         [self popupUnhappyMessage:FNS(@"kUnknowFailure") title:nil];
     }
     hasClickedRefresh = NO;
+    if ([self.dataList count] <= 0) {
+        [self showTipsOnTableView:FNS(@"没有符合条件的赛事指数")];
+    } else {
+        [self hideTipsOnTableView];
+    }
 
 }
 

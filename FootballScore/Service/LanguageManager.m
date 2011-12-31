@@ -46,6 +46,14 @@ static NSNumber *langId = nil;
 
 NSString *fnsWithLang(NSString *msg, NSInteger lang)
 {
+    // changed by Benson
+    NSString* ret = NSLocalizedStringFromTable(msg, MANDARIN, nil);
+    if ([ret length] == 0)
+        return msg;
+    else
+        return ret;
+    
+    // old implementation, NOT used now
     switch (lang) {
         case 0:
             return NSLocalizedStringFromTable(msg, MANDARIN, nil);

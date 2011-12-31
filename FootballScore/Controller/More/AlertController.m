@@ -21,7 +21,8 @@
 enum{
     GOALS_TIPS_SECTION = 0,
     PUSH_SCORE_SECTION = 1,
-    REFRESH_TIME_SECTION = 2
+    REFRESH_TIME_SECTION = 2,
+    LOCK_SCREEN_SECTION = 3
 };
 
 enum{
@@ -79,13 +80,16 @@ enum{
         
         cell=[[[UITableViewCell alloc ]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
-
-            
+    
+    
+    [cell.detailTextLabel setText:nil];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    [cell.textLabel setText:nil];
+    
+    
     NSString *scoreAlert =[alertGroupsInfor objectAtIndex:[indexPath section]];
     NSArray * TitlesSections=[alertTitles objectForKey:scoreAlert]; 
-    
     cell.textLabel.text=[TitlesSections objectAtIndex:[indexPath row]];
-    
     
     [cell setCellBackgroundForRow:indexPath.row 
                          rowCount:[self tableView:tableView numberOfRowsInSection:indexPath.section ] 
@@ -96,13 +100,14 @@ enum{
                         cellWidth:290];
     
     
+    
     if (indexPath.row == 0){    
         cell.textLabel.textColor = [ColorManager scoreAlertColor];
     }
     else{
         cell.textLabel.textColor = [ColorManager soundsAlertColor];
     }
-
+    
     
     
     if (indexPath.section == GOALS_TIPS_SECTION) 
@@ -134,6 +139,7 @@ enum{
             }
         }
     }
+    
     else if (indexPath.section == PUSH_SCORE_SECTION)
     {
         if ([UserManager getIsPush])
@@ -151,12 +157,31 @@ enum{
                 cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
+    
     else if (indexPath.section == REFRESH_TIME_SECTION && indexPath.row == 1)
     {
         [cell.contentView addSubview:timeIntervalSlider];
         [cell.contentView addSubview:sliderValueLable];
         [cell.contentView addSubview:secondLable];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    else if(indexPath.section == LOCK_SCREEN_SECTION)
+    {
+        if ([ConfigManager getIsLockScreen]) 
+        {
+            if (indexPath.row == 1)
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            else if (indexPath.row == 2)
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else
+        {
+            if (indexPath.row == 1)
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            else if (indexPath.row == 2)
+                cell.accessoryType = UITableViewCellAccessoryNone;
+        }
     }
     
     
@@ -171,41 +196,13 @@ enum{
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
     // set goals tips 
     if (indexPath.section == GOALS_TIPS_SECTION) 
     {
-        if (cell.accessoryType == UITableViewCellAccessoryNone)
-        {
-            if (indexPath.row == 1)
-            {
-                [ConfigManager saveHasSound:YES];
-                cell.detailTextLabel.text = FNS(@"进球时声音会提示");
-            }
-            else if (indexPath.row == 2)
-            {
-                [ConfigManager saveIsVibration:YES];
-                cell.detailTextLabel.text = FNS(@"进球时手机会发出震动");
-            }
-            
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else
-        {
-            if (indexPath.row == 1)
-            {
-                [ConfigManager saveHasSound:NO];
-                cell.detailTextLabel.text = FNS(@"进球时声音不会提示");
-            }
-            else if (indexPath.row == 2)
-            {
-                [ConfigManager saveIsVibration:NO];
-                cell.detailTextLabel.text = FNS(@"进球时手机不会发出震动");
-            }
-            
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
+        if (indexPath.row == 1)
+            [ConfigManager saveHasSound:![ConfigManager getHasSound]];
+        else if (indexPath.row == 2)
+            [ConfigManager saveIsVibration:![ConfigManager getIsVibration]];
     }
     
     // set push 
@@ -213,34 +210,36 @@ enum{
     {
         if (indexPath.row == 1) 
         {
-            if (cell.accessoryType == UITableViewCellAccessoryNone)
-            {
-                [UserManager saveIsPush:NO];
-                UserService *userService = [[[UserService alloc] init] autorelease];
-                [userService updateUserPushInfo:[UserManager getUserId] pushType:NOTPUSH_VALUE token:[self getDeviceToken]];
+            [UserManager saveIsPush:NO];
+            UserService *userService = [[[UserService alloc] init] autorelease];
+            [userService updateUserPushInfo:[UserManager getUserId] pushType:NOTPUSH_VALUE token:[self getDeviceToken]];
                 
-                UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:indexPath.section]];
-                
-                anotherCell.accessoryType = UITableViewCellAccessoryNone;
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
         }
         else if (indexPath.row == 2)
         {
-            if (cell.accessoryType == UITableViewCellAccessoryNone)
-            {
-                [UserManager saveIsPush:YES];
-                UserService *userService = [[[UserService alloc] init] autorelease];
-                [userService updateUserPushInfo:[UserManager getUserId] pushType:PUSH_VALUE token:[self getDeviceToken]];
-                
-                UITableViewCell *anotherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:indexPath.section]];
-                
-                anotherCell.accessoryType = UITableViewCellAccessoryNone;
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
+            [UserManager saveIsPush:YES];
+            UserService *userService = [[[UserService alloc] init] autorelease];
+            [userService updateUserPushInfo:[UserManager getUserId] pushType:PUSH_VALUE token:[self getDeviceToken]];
         }
     }
-
+    
+    // set lock screen
+    else if(indexPath.section == LOCK_SCREEN_SECTION)
+    {
+        if (indexPath.row == 1)
+        {
+            [ConfigManager saveIsLockScreen:NO];
+            [UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
+        }
+        else if (indexPath.row == 2)
+        {
+            [ConfigManager saveIsLockScreen:YES];
+            [UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
+        }
+    }
+    
+    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -260,7 +259,7 @@ enum{
 //return the height of the cell 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    if (indexPath.row == 0 || indexPath.section == PUSH_SCORE_SECTION) 
+    if (indexPath.row == 0 || indexPath.section == PUSH_SCORE_SECTION || indexPath.section == 3) 
         return TITLE_HEIGHT; 
     else
         return CONTENT_HEIGHT;
@@ -298,7 +297,7 @@ enum{
 
 - (void)viewDidLoad
 {
-    [self.navigationItem  setTitle:FNS(@"比分设置")];
+    [self.navigationItem  setTitle:FNS(@"比分时间及声音设置")];
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png" action:@selector(clickBack:)];
    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"MyAlertSettings" 
