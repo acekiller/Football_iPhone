@@ -256,7 +256,7 @@
 	                				
 									<tpl for="homePointsArray" >
 										<tr id="pointsRankData" class="fx_col">
-										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{[this.getScoreEarn(values.score,values.score_against)]}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
+										<td>{type}</td><td>{[this.getGames(values.win,values.draw,values.lose)]}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{[this.getScoreEarn(values.score,values.score_against)]}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
 									
@@ -271,7 +271,7 @@
 	                				</tr>
 									<tpl for="awayPointsArray">
 										<tr id="pointsRankData2" class="fx_col">
-										<td>{type}</td><td>{games}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{[this.getScoreEarn(values.score,values.score_against)]}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
+										<td>{type}</td><td>{[this.getGames(values.win,values.draw,values.lose)]}</td><td>{win}</td><td>{draw}</td><td>{lose}</td><td>{score}</td><td>{score_against}</td><td>{[this.getScoreEarn(values.score,values.score_against)]}</td><td>{points}</td><td>{rank}</td><td>{winning_ratio}</td>
 										</tr>
 									</tpl>
 									</tbody>

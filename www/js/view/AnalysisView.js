@@ -21,6 +21,10 @@ function AnalysisView(){
 			}
 		},
 		
+		getGames: function(win,draw,lose) {
+			return parseInt(win)+parseInt(draw)+parseInt(lose);
+		},
+		
 		getShortName: function(name) {
 			if (name.length > 5) {
 				return name.substring(0,5);
