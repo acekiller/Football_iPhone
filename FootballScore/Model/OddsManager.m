@@ -239,22 +239,24 @@ OddsManager* GlobleGetOddsManager()
     if (match == nil)
         return YES;
     
-    if ([match.status intValue] == MATCH_STATUS_FINISH)  
-        //The match has finished, don't display
+    if ([match.status intValue] == MATCH_STATUS_TBD ||
+        [match.status intValue] == MATCH_STATUS_NOT_STARTED)
     {
-        return NO;
+        return YES;
     }
-    else if(([match.status intValue] == MATCH_STATUS_FIRST_HALF 
+    else if([match.status intValue] == MATCH_STATUS_FIRST_HALF 
         || [match.status intValue] == MATCH_STATUS_MIDDLE 
         || [match.status intValue] == MATCH_STATUS_SECOND_HALF
-        )
-       && [match.date timeIntervalSinceNow]<=-15*60)  //The match has started, and more than 15 minutes
-    {
-        return NO;
+        || [match.status intValue] == MATCH_STATUS_PAUSE    ){
+        
+        if ([match.date timeIntervalSinceNow] <= -15*60)  //The match has started, and more than 15 minutes
+            return NO;
+        else
+            return YES;
     }
     else
     {
-        return YES;
+        return NO;
     }
 }
 

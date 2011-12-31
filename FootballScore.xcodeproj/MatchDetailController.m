@@ -82,7 +82,8 @@
         || status == MATCH_STATUS_SECOND_HALF 
         || status == MATCH_STATUS_MIDDLE 
         || status == MATCH_STATUS_FINISH 
-        || status == MATCH_STATUS_PAUSE) 
+        || status == MATCH_STATUS_PAUSE
+        || status == MATCH_STATUS_OVERTIME) 
     {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",
@@ -491,7 +492,8 @@
         || status == MATCH_STATUS_SECOND_HALF 
         || status == MATCH_STATUS_MIDDLE 
         || status == MATCH_STATUS_FINISH 
-        || status == MATCH_STATUS_PAUSE) 
+        || status == MATCH_STATUS_PAUSE
+        || status == MATCH_STATUS_OVERTIME        ) 
     {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
@@ -782,6 +784,7 @@
         case MATCH_STATUS_MIDDLE:
         case MATCH_STATUS_PAUSE:       
         case MATCH_STATUS_FINISH:
+        case MATCH_STATUS_OVERTIME:
         case MATCH_STATUS_TBD:
         case MATCH_STATUS_KILL:
         case MATCH_STATUS_POSTPONE:

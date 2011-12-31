@@ -67,7 +67,10 @@
         
         case MATCH_STATUS_FINISH:
             return FNS(@"完场");
-        
+
+        case MATCH_STATUS_OVERTIME:
+            return FNS(@"加时");
+            
         case MATCH_STATUS_TBD:
             return FNS(@"待定");
         
