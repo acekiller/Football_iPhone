@@ -281,6 +281,9 @@
         self.secondHalfStartDate = newStartDate;        
         PPDebug(@"update match %@ second half date to %@", [self description], newStartDate);
     }    
+    else if ([status intValue] == MATCH_STATUS_MIDDLE){
+        PPDebug(@"match %@ middle state, start date = %@", [self description], newStartDate);
+    }
     else{
         PPDebug(@"warning, update match %@, new start date %@, but status not match", 
                 [self description], newStartDate);

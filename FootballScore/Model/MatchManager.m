@@ -371,6 +371,11 @@ NSComparisonResult doubleCmp(double a ,double b)
                 continue;
             }
             
+            // update status firstly, important to set it before set date/start date
+            NSNumber* matchStatus = [fields objectAtIndex:INDEX_REALTIME_SCORE_STATUS];
+            [match setStatus:matchStatus];
+            
+            // update date/start date
             NSDate* newStartDate = dateFromChineseStringByFormat([fields objectAtIndex:INDEX_REALTIME_SCORE_START_DATE], DEFAULT_DATE_FORMAT);
             NSDate* newDate = dateFromChineseStringByFormat([fields objectAtIndex:INDEX_REALTIME_SCORE_DATE], DEFAULT_DATE_FORMAT);
             [match updateDate:newDate startDate:newStartDate];
