@@ -266,7 +266,7 @@ typedef enum {
         }
         else if (buttonIndex == 0)
         {
-            [self sendSms:@"" body:bodyString];
+            [self sendSms:nil body:bodyString];
         }
         else if (buttonIndex == 1)
         {

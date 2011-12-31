@@ -166,7 +166,7 @@
 
     float buttonHigh = 27.5;
     float buttonLen = 47.5;
-    float seporator = 10;
+    float seporator = 3;
     float leftOffest = 20;
     UIFont *font = [UIFont systemFontOfSize:14];
     

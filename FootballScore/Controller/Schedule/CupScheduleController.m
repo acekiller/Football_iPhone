@@ -395,17 +395,34 @@ enum {
     
 }
 
+- (void)updateGroupMatchInfo
+{
+    switch (currentSelection) {
+        case GROUP_POINT_BUTTON_TAG: {
+            [self updateGroupPoints];
+            [self.matchResultButton setSelected:NO];
+            [self.groupPointsButton setSelected:YES];
+            break;
+        }
+        case MATCH_RESLUT_BUTTON_TAG:
+        default: {
+            [self updateMatchResult];
+            [self.matchResultButton setSelected:YES];
+            [self.groupPointsButton setSelected:NO];
+            break;
+        }
+    }
+}
 
 - (void)updateView
 {
     NSString* title = self.matchTypeSelectButton.titleLabel.text;
     if ([title hasSuffix:@"组赛"]) {
-        [self updateMatchResult];
+        [self updateGroupMatchInfo];
         [self.matchResultButton setHidden:NO];
         [self.groupPointsButton setHidden:NO];
         [self.cupScheduleResultTitle setHidden:YES];
-        [self.matchResultButton setSelected:YES];
-        [self.groupPointsButton setSelected:NO];
+        
     } else {
         [self updateScheduleResult];
         [self.matchResultButton setHidden:YES];
