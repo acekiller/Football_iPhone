@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = FNS(@"关于彩客网");	
+    self.navigationItem.title = FNS(@"关于球探网");	
     [self setNavigationLeftButton:FNS(@"返回") imageName:@"ss.png"
                            action:@selector(clickBack:)];
     
@@ -52,7 +52,7 @@
     NSString *webSiteAddressTitle = FNS(@"网站网址");
     webSiteAddressLabel.text = [NSString stringWithFormat:@"%@:www.titan007.com",webSiteAddressTitle];
     
-    copyrightLabel.text = FNS(@"版权所有:肇庆市创威发展有限公司");
+    copyrightLabel.text = FNS(@"版权所有:肇庆市华盈信息科技有限公司");
 }
 
 - (void)viewDidUnload

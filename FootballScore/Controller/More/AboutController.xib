@@ -87,7 +87,7 @@
 					<object class="IBUILabel" id="148401860">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{75, 275}, {170, 14}}</string>
+						<string key="NSFrame">{{16, 271}, {288, 24}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="472955707"/>
@@ -97,7 +97,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">客服电话:400-887-5138</string>
+						<string key="IBUIText">客服电话:0758-2512562</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC4xNDUwOTgwMzkyIDAuMjg2Mjc0NTA5OCAwLjQzOTIxNTY4NjMAA</bytes>
@@ -120,7 +120,7 @@
 					<object class="IBUILabel" id="472955707">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{64, 297}, {193, 20}}</string>
+						<string key="NSFrame">{{17, 296}, {287, 23}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="566639866"/>
@@ -130,7 +130,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">网站网址:www.310win.com</string>
+						<string key="IBUIText">网站网址:www.titan007.com</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC4xNDUwOTgwMzkyIDAuMjg2Mjc0NTA5OCAwLjQzOTIxNTY4NjMAA</bytes>
@@ -146,7 +146,7 @@
 					<object class="IBUILabel" id="566639866">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{40, 320}, {240, 27}}</string>
+						<string key="NSFrame">{{13, 320}, {295, 27}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
@@ -155,7 +155,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">版权所有:肇庆市创威发展有限公司</string>
+						<string key="IBUIText">版权所有:肇庆市华盈信息科技有限公司</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC4xNDUwOTgwMzkyIDAuMjg2Mjc0NTA5OCAwLjQzOTIxNTY4NjMAA</bytes>
@@ -244,10 +244,10 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="566639866"/>
-							<reference ref="472955707"/>
-							<reference ref="148401860"/>
 							<reference ref="1038544785"/>
 							<reference ref="266249340"/>
+							<reference ref="148401860"/>
+							<reference ref="472955707"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
