@@ -43,15 +43,6 @@ function isIncludeNumber(theNum) {
 } 
 
 function pointsAction() {
-	var subtable = document.getElementById('table_points');
-    subtable.style.display = subtable.style.display == 'none' ? 'block' : 'none';
-    
-    obj = document.getElementById('pointsRankTitle');
-	if (subtable.style.display == 'none') {
-		obj.style.background ='url(images/fx_title.png)';
-	} else {
-		obj.style.background ='url(images/fx_title_2.png)';
-	}
 	
 	var pointsRankData = document.getElementById('pointsRankData');
 	var pointsRankData2 = document.getElementById('pointsRankData2');
@@ -66,9 +57,27 @@ function pointsAction() {
 	if(pointsRankData2==null || pointsRankData2=="" || !isIncludeNumber(pointsRankData2.innerHTML)){
 		away.innerHTML = html;
 	}
+	
+	var subtable = document.getElementById('table_points');
+    subtable.style.display = subtable.style.display == 'none' ? 'block' : 'none';
+    
+    obj = document.getElementById('pointsRankTitle');
+	if (subtable.style.display == 'none') {
+		obj.style.background ='url(images/fx_title.png)';
+	} else {
+		obj.style.background ='url(images/fx_title_2.png)';
+	}
+	
 }
 
 function headtoheadActoin() {
+	
+	var headData = document.getElementById('headData');
+	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
+	if(headData==null || headData==""){
+		subtable.innerHTML = html;
+	}
+	
 	var subtable = document.getElementById('table_headtohead');
     subtable.style.display = subtable.style.display == 'none' ? 'block' : 'none';
     
@@ -77,12 +86,6 @@ function headtoheadActoin() {
 		obj.style.background ='url(images/fx_title.png)';
 	} else {
 		obj.style.background ='url(images/fx_title_2.png)';
-	}
-	
-	var headData = document.getElementById('headData');
-	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
-	if(headData==null || headData==""){
-		subtable.innerHTML = html;
 	}
 }
 
@@ -126,15 +129,17 @@ function near3gamesAction() {
 function recommendAction() {
 	var subtable = document.getElementById('table_recommend');
     subtable.style.display = subtable.style.display == 'none' ? 'block' : 'none';
-    
+
+
     obj = document.getElementById('recommendTitle'); 
 	if (subtable.style.display == 'none') {
 		obj.style.background ='url(images/fx_title.png)';
 	} else {
 		obj.style.background ='url(images/fx_title_2.png)';
 	}
+    addNoDataTips(subtable);
+
 	
-	addNoDataTips(subtable);
 }
 
 function addNoDataTips(obj){
