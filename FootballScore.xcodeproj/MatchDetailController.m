@@ -82,7 +82,8 @@
         || status == MATCH_STATUS_SECOND_HALF 
         || status == MATCH_STATUS_MIDDLE 
         || status == MATCH_STATUS_FINISH 
-        || status == MATCH_STATUS_PAUSE) 
+        || status == MATCH_STATUS_PAUSE
+        || status == MATCH_STATUS_OVERTIME) 
     {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",
@@ -467,9 +468,9 @@
     {
         float rightSide = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5+label.frame.size.width;
         if (rightSide > AWAY_RIGHT_EDGE) {
-            [self.awayTeamName setFrame:CGRectMake(self.awayTeamName.frame.origin.x-(rightSide-AWAY_RIGHT_EDGE), 
+            [self.awayTeamName setFrame:CGRectMake(self.awayTeamName.frame.origin.x-(rightSide-AWAY_RIGHT_EDGE)/2, 
                                                    self.awayTeamName.frame.origin.y, 
-                                                   self.awayTeamName.frame.size.width, 
+                                                   self.awayTeamName.frame.size.width-(rightSide-AWAY_RIGHT_EDGE)/2, 
                                                    self.awayTeamName.frame.size.height)];
         }
         CGFloat x = self.awayTeamName.frame.origin.x + self.awayTeamName.frame.size.width+0.5;
@@ -491,7 +492,8 @@
         || status == MATCH_STATUS_SECOND_HALF 
         || status == MATCH_STATUS_MIDDLE 
         || status == MATCH_STATUS_FINISH 
-        || status == MATCH_STATUS_PAUSE) 
+        || status == MATCH_STATUS_PAUSE
+        || status == MATCH_STATUS_OVERTIME        ) 
     {
         //score text
         NSString *title = [NSString stringWithFormat:@"%d : %d",header.homeTeamScore,header.awayTeamScore];
@@ -782,6 +784,7 @@
         case MATCH_STATUS_MIDDLE:
         case MATCH_STATUS_PAUSE:       
         case MATCH_STATUS_FINISH:
+        case MATCH_STATUS_OVERTIME:
         case MATCH_STATUS_TBD:
         case MATCH_STATUS_KILL:
         case MATCH_STATUS_POSTPONE:
