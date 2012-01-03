@@ -62,7 +62,10 @@
 + (BOOL)getIsPush
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults boolForKey:ISPUSH];
+    if ([userDefaults objectForKey:ISPUSH])
+        return [userDefaults boolForKey:ISPUSH];
+    else
+        return YES;
 }
 
 @end

@@ -277,14 +277,14 @@
 {
     if ([status intValue] == MATCH_STATUS_FIRST_HALF){
         self.firstHalfStartDate = newStartDate;
-        PPDebug(@"update match %@ first half date to %@", [self description], newStartDate);
+//        PPDebug(@"update match %@ first half date to %@", [self description], newStartDate);
     }
     else if ([status intValue] == MATCH_STATUS_SECOND_HALF){
         self.secondHalfStartDate = newStartDate;        
-        PPDebug(@"update match %@ second half date to %@", [self description], newStartDate);
+//        PPDebug(@"update match %@ second half date to %@", [self description], newStartDate);
     }    
     else if ([status intValue] == MATCH_STATUS_MIDDLE){
-        PPDebug(@"match %@ middle state, start date = %@", [self description], newStartDate);
+//        PPDebug(@"match %@ middle state, start date = %@", [self description], newStartDate);
     }
     else{
         PPDebug(@"warning, update match %@, new start date %@, but status not match", 

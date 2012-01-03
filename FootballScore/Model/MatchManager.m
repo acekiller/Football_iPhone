@@ -760,7 +760,7 @@ NSComparisonResult doubleCmp(double a ,double b)
             return [NSString stringWithFormat:@"%d'", [seconds intValue]/60];
         }
         else{
-            NSLog(@"match (%@) seconds = %d, minutes = %d", [match description], [seconds intValue], [seconds intValue]/60);
+//            NSLog(@"match (%@) seconds = %d, minutes = %d", [match description], [seconds intValue], [seconds intValue]/60);
             return @"90+";
         }
     }

@@ -337,8 +337,7 @@
     NSOperationQueue* queue = [self getOperationQueue:UPDATE_FOLLOW_MATCH];
     MatchManager *manager = [MatchManager defaultManager];
     for (Match* match in [manager.followMatchList allValues]) {
-        if ([match isFinish] == NO && [manager getMathById:match.matchId] == nil) { // if match exists at this moment, then no need to update here    
-//            PPDebug(@"<updateLatestFollowMatch> request match (%@) detail because it's not found", [match description]);
+        if ([match isFinish] == NO) { // if match is finished, no need to update
             [queue addOperationWithBlock:^{
                 
                 CommonNetworkOutput* output = [FootballNetworkRequest getMatchDetailHeader:match.matchId];

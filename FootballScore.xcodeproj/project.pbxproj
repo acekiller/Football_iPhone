@@ -2997,7 +2997,10 @@
 		CAF4CC78142ECFCC001D5B4A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: chen wei (85VS3TF8HF)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: chen wei (85VS3TF8HF)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3017,17 +3020,20 @@
 		CAF4CC79142ECFCC001D5B4A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: chen wei (85VS3TF8HF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: chen wei (85VS3TF8HF)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhaoqing Huaying Technology Co.,Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhaoqing Huaying Technology Co.,Ltd.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "B961D8D3-C8F1-4040-BD92-C1FD642BAC54";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B961D8D3-C8F1-4040-BD92-C1FD642BAC54";
+				PROVISIONING_PROFILE = "C24CAF0D-73E7-4F79-90DD-72AC7D2E4189";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C24CAF0D-73E7-4F79-90DD-72AC7D2E4189";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -3065,8 +3071,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: chen wei (85VS3TF8HF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: chen wei (85VS3TF8HF)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhaoqing Huaying Technology Co.,Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhaoqing Huaying Technology Co.,Ltd.";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3083,8 +3089,8 @@
 					"\"$(SRCROOT)/../Common_Iphone/MobClick\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B961D8D3-C8F1-4040-BD92-C1FD642BAC54";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B961D8D3-C8F1-4040-BD92-C1FD642BAC54";
+				PROVISIONING_PROFILE = "C24CAF0D-73E7-4F79-90DD-72AC7D2E4189";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C24CAF0D-73E7-4F79-90DD-72AC7D2E4189";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
