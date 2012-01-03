@@ -336,6 +336,7 @@ enum {
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
         case MATCH_STATUS_MIDDLE:
+        case MATCH_STATUS_OVERTIME:
         case MATCH_STATUS_FINISH:
         {
             NSString *homeScoreAndAwayScore = [NSString stringWithFormat:@"%d:%d",[match.homeTeamScore intValue],[match.awayTeamScore intValue]];

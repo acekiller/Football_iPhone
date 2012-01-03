@@ -210,6 +210,7 @@
         case MATCH_STATUS_SECOND_HALF:
         case MATCH_STATUS_PAUSE:
         case MATCH_STATUS_TBD:
+        case MATCH_STATUS_OVERTIME:
             return NO;
             
         case MATCH_STATUS_FINISH:
@@ -246,6 +247,7 @@
         case MATCH_STATUS_MIDDLE:
         case MATCH_STATUS_SECOND_HALF:
         case MATCH_STATUS_PAUSE:
+        case MATCH_STATUS_OVERTIME:
             return MATCH_SELECT_STATUS_ON_GOING;
             
         case MATCH_STATUS_FINISH:
@@ -425,7 +427,8 @@
             return FNS(@"中断");
         case MATCH_STATUS_POSTPONE:
             return FNS(@"推迟");
-            
+        case MATCH_STATUS_OVERTIME:
+            return FNS(@"加");            
         case MATCH_STATUS_FINISH:
             return FNS(@"完场");
         case MATCH_STATUS_CANCEL:

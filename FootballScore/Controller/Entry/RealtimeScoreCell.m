@@ -250,7 +250,7 @@ enum cardType{
         case MATCH_STATUS_FIRST_HALF:
         case MATCH_STATUS_SECOND_HALF:
         {
-            if (matchStatus == MATCH_STATUS_SECOND_HALF) {
+            if (matchStatus == MATCH_STATUS_SECOND_HALF || matchStatus == MATCH_STATUS_OVERTIME) {
                 [halfScoreLabel setHidden:NO];
             }
             else {
@@ -290,6 +290,20 @@ enum cardType{
         }
             break;
             
+
+        case MATCH_STATUS_OVERTIME:
+        {
+            [scoreLabel setHidden:NO];
+            [halfScoreLabel setHidden:NO];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:FNS(@"加")];
+            matchStatusLabel.attributedText = attrStr; 
+            [self updateScores:match];
+            matchStatusLabel.frame = matchStatusLabelRect;
+            [matchStatusLabel setTextColor:[ColorManager finishScoreColor]];
+            [scoreLabel setTextColor:[ColorManager finishScoreColor]];
+            [matchStatusLabel setTextAlignment:UITextAlignmentCenter];
+        }
+            break;
             
         case MATCH_STATUS_FINISH:
         {
