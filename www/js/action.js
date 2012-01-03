@@ -71,6 +71,7 @@ function pointsAction() {
 }
 
 function headtoheadActoin() {
+	var subtable = document.getElementById('table_headtohead');
 	
 	var headData = document.getElementById('headData');
 	var html = '<div style = "height:30px"><span style = "margin-left: 120px;">暂无相关数据</span></div>';
@@ -78,7 +79,6 @@ function headtoheadActoin() {
 		subtable.innerHTML = html;
 	}
 	
-	var subtable = document.getElementById('table_headtohead');
     subtable.style.display = subtable.style.display == 'none' ? 'block' : 'none';
     
     var obj = document.getElementById('headtoheadTitle');
