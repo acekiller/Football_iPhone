@@ -205,7 +205,7 @@ enum {
 #define CURRENT_ROUND_INDEX 1
 - (void)showSchedule
 {
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    
     NSString* jsCode;
     jsCode = [NSString stringWithFormat:@"displaySchedule(true,\"%@\", \"%@\", '%d', %d)",self.league.leagueId, self.currentSeason, currentRound, [LanguageManager getLanguage]];
     NSString* result = [self.dataWebView stringByEvaluatingJavaScriptFromString:jsCode];
@@ -241,10 +241,11 @@ enum {
 
 - (IBAction)buttonClick:(id)sender
 {
+    [self showActivityWithText:FNS(@"加载数据中...")];
     [self performSelector:@selector(trueClickButton:) 
                withObject:(UIButton *)sender
                afterDelay:0];
-    [self showActivityWithText:FNS(@"加载数据中...")];
+    
 }
 
 - (IBAction)clickShowScheduleButton:(id)sender
@@ -252,7 +253,8 @@ enum {
     [self updateButtonState:(id)sender];
     [self updateDataWebViewState:(id)sender];
     [self.roundSelectionButton setHidden:NO];
-    [self showSchedule];
+    [self showActivityWithText:FNS(@"加载数据中...")];
+    [self performSelector:@selector(showSchedule) withObject:nil afterDelay:0];
     
 }
 
