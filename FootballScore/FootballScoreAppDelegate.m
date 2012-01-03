@@ -236,10 +236,7 @@ ScheduleService *GlobalGetScheduleService()
 	// Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
-        
-    // clear badge while launching
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
+            
     if ([DeviceDetection isOS5]){
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top_live.png"] forBarMetrics:UIBarMetricsDefault];
     }
@@ -345,6 +342,9 @@ ScheduleService *GlobalGetScheduleService()
 
 - (void)commonLaunchActions:(BOOL)loadAllMatch
 {
+    // clear badge while launching
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;    
+    
     // register user if needed
     [self userRegister];    
     

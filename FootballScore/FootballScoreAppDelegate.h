@@ -26,7 +26,7 @@
 @class RetryService;
 
 #define _THREE20_		1
-#define kAppId			@"456494464"					// To be changed for each project
+#define kAppId			@"492598483"					// To be changed for each project
 #define kMobClickKey	@"4ef588a15270154623000019"		// To be changed for each project
 
 #define MAKE_FRIEND_PLACEID @"GroupBuy"
