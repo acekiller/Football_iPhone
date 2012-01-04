@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.gancheng.groupbuy</string>
+	<string>com.huaying.score</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>57.png</string>

@@ -121,8 +121,6 @@ ScheduleService *GlobalGetScheduleService()
     
     [matchService setMatchControllerDelegate:self.matchController];    
     [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
-    [matchService updateLatestFollowMatch];
-    [matchService startRealtimeMatchUpdate];
     
 	[UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
@@ -149,26 +147,6 @@ ScheduleService *GlobalGetScheduleService()
                                                   @"b_menu_4s.png", 
                                                   @"b_menu_5s.png", nil]];
     
-    //	CommonProductListController* historyController = (CommonProductListController*)[UIUtils addViewController:[CommonProductListController alloc]
-    //					 viewTitle:@"收藏"				 
-    //					 viewImage:@"folder_bookmark_24.png"
-    //			  hasNavController:YES			
-    //			   viewControllers:controllers];	
-    //    historyController.dataLoader = [[ProductFavoriteDataLoader alloc] init];
-    //    
-    //
-    //    [UIUtils addViewController:[SettingsController alloc]
-    //					 viewTitle:@"设置"				 
-    //					 viewImage:@"gear_24.png"
-    //			  hasNavController:YES			
-    //			   viewControllers:controllers];	
-    //        
-    //	[UIUtils addViewController:[FeedbackController alloc]
-    //					 viewTitle:@"反馈"
-    //					 viewImage:@"help_24.png"
-    //			  hasNavController:YES			
-    //			   viewControllers:controllers];	
-	
 	tabBarController.viewControllers = controllers;
     tabBarController.selectedIndex = TAB_REALTIME_SCORE;
     
@@ -232,14 +210,14 @@ ScheduleService *GlobalGetScheduleService()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	NSLog(@"Application starts, launch option = %@", [launchOptions description]);	
-	[UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];//disable autolocking screen
-	// Init Core Data
+    
+    // set autolocking screen by configuration
+	[UIApplication sharedApplication].idleTimerDisabled = ![ConfigManager getIsLockScreen];
+	
+    // Init Core Data
 	self.dataManager = [[CoreDataManager alloc] initWithDBName:kDbFileName dataModelName:nil];
     workingQueue = dispatch_queue_create("main working queue", NULL);    
-        
-    // clear badge while launching
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
+            
     if ([DeviceDetection isOS5]){
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top_live.png"] forBarMetrics:UIBarMetricsDefault];
     }
@@ -345,6 +323,9 @@ ScheduleService *GlobalGetScheduleService()
 
 - (void)commonLaunchActions:(BOOL)loadAllMatch
 {
+    // clear badge while launching
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;    
+    
     // register user if needed
     [self userRegister];    
     
@@ -359,12 +340,14 @@ ScheduleService *GlobalGetScheduleService()
             
             // TODO : also update all index data
         }
-        [self.matchService updateLatestFollowMatch];
         //fix the bug that when return to foreground,the score type button do not show correctly
         [self.matchController setMatchScoreType:matchScoreType];
         [self.matchController resetScoreButtonTitle];
 	}
-    
+
+    // update follow match
+    [self.matchService updateLatestFollowMatch];
+
     // MobClick, for statistic
     [MobClick appLaunched];    
     

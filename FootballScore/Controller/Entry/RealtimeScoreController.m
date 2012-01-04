@@ -169,6 +169,11 @@
     [recognizer release];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidUnload
 {
     [self setMyFollowButton:nil];
@@ -587,8 +592,11 @@
 - (void)clickRefreshButton
 {
     hasClickedRefresh = YES;
-    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW) 
+    if (matchSelectStatus == MATCH_SELECT_STATUS_MYFOLLOW){ 
+        [self.dataTableView reloadData];
+        hasClickedRefresh = NO;
         return;
+    }
     
     [self loadMatch:self.matchScoreType];
     
