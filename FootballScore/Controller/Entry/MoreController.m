@@ -40,8 +40,7 @@ typedef enum {
     FEEDBACK,
     RECOMMEND,
     ABOUT,
-    UPDATE,
-    QUIT
+    UPDATE
     } MORE_SELECTION;
 
 @implementation MoreController
@@ -101,7 +100,7 @@ typedef enum {
 
 - (void)optionListInit
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分时间及声音设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于球探网"), FNS(@"客户端更新"), FNS(@"退出客户端"),  nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分时间及声音设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于球探网"), FNS(@"客户端更新"),  nil];
     self.listData = array;
     [array release];
 }
@@ -113,7 +112,7 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 37.0f;	
+    return 43.0f;	
 }	
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -171,9 +170,6 @@ typedef enum {
         case UPDATE:
             image = [UIImage imageNamed:@"szicon8.png"];
             break;
-        case QUIT:
-            image = [UIImage imageNamed:@"szicon9.png"];
-            break;
         default:
             break;
     }
@@ -188,7 +184,7 @@ typedef enum {
     
     if (0 == [indexPath row] )
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_top.png"]];
-    else if (8 == [indexPath row])
+    else if (7 == [indexPath row])
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_bottom.png"]];
     else
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_middle.png"]];
@@ -229,9 +225,6 @@ typedef enum {
             break;
         case UPDATE:
             [self updateApplication];
-            break;
-        case QUIT:
-            [self quitApplication];
             break;
         default:
             break;
@@ -281,18 +274,6 @@ typedef enum {
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            break;
-        case 1:
-            exit(0);
-            break;
-        default:
-            break;
-    }
-}
 
 #pragma mark -
 #pragma mark optionsSelection
@@ -376,16 +357,6 @@ typedef enum {
     }
 }
 
-- (void)quitApplication
-{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                   message:FNS(@"确定退出客户端吗") 
-                                                  delegate:self 
-                                         cancelButtonTitle:FNS(@"取消")  
-                                         otherButtonTitles:FNS(@"确定") , nil];
-    [alert show];
-    [alert release];
-}
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller 
           didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 

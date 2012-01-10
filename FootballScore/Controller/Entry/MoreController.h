@@ -28,7 +28,7 @@
 - (void)showRecommendation;
 - (void)showAbout;
 - (void)updateApplication;
-- (void)quitApplication;
+//- (void)quitApplication;
 
 
 @end
