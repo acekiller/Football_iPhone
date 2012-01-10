@@ -162,6 +162,26 @@ RepositoryManager *GlobalGetRepositoryManager()
     return leagueArray;
 }
 
+- (BOOL)search:(NSString *)key content:(NSString *)content
+{
+    NSInteger lang;
+    NSRange range;
+    NSUInteger index;
+    
+    for (lang = 0; lang < 3; lang++) {
+        for (index = 0; index<key.length; index++) {
+            range = [content rangeOfString:FNSWithLang([key substringWithRange:NSMakeRange(index,1)], 0)];
+            if (range.length == 0){
+                break;
+            }
+        }
+        if (index == key.length) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSArray *)getLeagueArrayByKey:(NSString *)key
 {
     if ([_leagueArray count] == 0) {
@@ -174,18 +194,11 @@ RepositoryManager *GlobalGetRepositoryManager()
     
     for (League * league in _leagueArray) {
         //search in league name
-        NSRange range = [league.name rangeOfString:FNSWithLang(key, 0)];
-        
-        if (range.length != 0) {
+        if ([self search:key content:league.name]) {
             [leagueArray addObject:league];
             continue;
         }
         
-        range = [league.name rangeOfString:FNSWithLang(key, 1)];
-        if (range.length != 0) {
-            [leagueArray addObject:league];
-            continue;
-        }
         //search in country name
         Country *country = [self getCountryById:league.countryId];
         if (country == nil || country.countryName == nil) {
@@ -193,13 +206,8 @@ RepositoryManager *GlobalGetRepositoryManager()
         }
         
         NSString *name = country.countryName;
-        range = [name rangeOfString:FNSWithLang(key, 0)];
-        if (range.length != 0) {
-            [leagueArray addObject:league];
-            continue;
-        }
-        range = [name rangeOfString:FNSWithLang(key, 1)];
-        if (range.length != 0) {
+        
+        if ([self search:key content:name]) {
             [leagueArray addObject:league];
             continue;
         }

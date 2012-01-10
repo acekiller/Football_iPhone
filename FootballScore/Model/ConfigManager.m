@@ -41,7 +41,12 @@
 
 + (BOOL)getHasSound
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:HAS_SOUND];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:HAS_SOUND]) {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:HAS_SOUND];
+    }
+    else{
+        return YES;  //default has sound
+    }
 }
 
 + (BOOL)getIsVibration

@@ -35,5 +35,6 @@
 - (NSArray *)getLeagueArrayByCountryId:(NSString *)countryId;
 - (NSArray *)getLeagueArrayByKey:(NSString *)key;
 - (NSArray*)getCupMatchTypes:(NSArray*)inputArray;
+- (BOOL)search:(NSString *)key content:(NSString *)content;
 @end
 extern RepositoryManager *GlobalGetRepositoryManager();
