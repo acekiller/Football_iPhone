@@ -39,6 +39,7 @@ enum {
 @synthesize shooterRankingButton;
 @synthesize seasonSelectionButton;
 @synthesize roundSelectionButton;
+@synthesize roundSelectBackgroundBar;
 @synthesize league;
 @synthesize loadCount;
 @synthesize showDataFinished;
@@ -134,6 +135,7 @@ enum {
     [self setSeasonSelectionButton:nil];
     [self setRoundSelectionButton:nil];
     [self setDataWebView:nil];
+    [self setRoundSelectBackgroundBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -155,6 +157,7 @@ enum {
     [roundSelectionButton release];
     [dataWebView release];
     [buttonCommandsDict release];
+    [roundSelectBackgroundBar release];
     [super dealloc];
 }
 
@@ -221,6 +224,8 @@ enum {
             [self.roundSelectionButton setTitle:[NSString stringWithFormat:@"  %@:%d", titleString, currentRound] forState:UIControlStateNormal];
         }
     }
+    [self.roundSelectBackgroundBar setHidden:NO];
+    [self.dataWebView setHidden:NO];
     [self hideActivity];
 }
 
@@ -236,6 +241,7 @@ enum {
     } else if ([sender tag ] == SEASON_SELECTION_BUTTON_TAG) {
         [self showSeasonSelectionActionSheet];
     }
+    [self.dataWebView setHidden:NO];
     [self hideActivity];
 }
 
@@ -268,7 +274,7 @@ enum {
 
 - (void)loadWebViewByHtml:(NSString*)html
 {
-    self.dataWebView.hidden = NO;
+    self.dataWebView.hidden = YES;
     loadCount = 0;
     showDataFinished = NO;
     

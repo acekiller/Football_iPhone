@@ -37,6 +37,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *shooterRankingButton;
 @property (retain, nonatomic) IBOutlet UIButton *seasonSelectionButton;
 @property (retain, nonatomic) IBOutlet UIButton *roundSelectionButton;
+@property (retain, nonatomic) IBOutlet UIImageView *roundSelectBackgroundBar;
 @property (retain, nonatomic) League* league;
 @property (assign, nonatomic) NSInteger loadCount;
 @property (assign, nonatomic) BOOL showDataFinished;
