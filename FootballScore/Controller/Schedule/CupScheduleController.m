@@ -300,7 +300,7 @@ enum {
 
 - (void)loadWebViewByHtml:(NSString*)html
 {
-    self.dataWebView.hidden = NO;
+    self.dataWebView.hidden = YES;
     
     NSURL* url = [FileUtil bundleURL:html];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
