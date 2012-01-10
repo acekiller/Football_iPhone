@@ -24,6 +24,8 @@
 @class ScheduleService;
 @class NetworkDetector;
 @class RetryService;
+@class RealtimeIndexController;
+
 
 #define _THREE20_		1
 #define kAppId			@"492598483"					// To be changed for each project
@@ -41,6 +43,7 @@
     NSString                *dataForRegistration;
     MatchService            *matchService;
     RealtimeScoreController *matchController;
+    RealtimeIndexController *realtimeIndexController;
     UIBackgroundTaskIdentifier backgroundTask;
 
     NetworkDetector *_networkDetector;
@@ -52,6 +55,7 @@
 @property (nonatomic, retain) ReviewRequest                 *reviewRequest;
 @property (nonatomic, retain) MatchService                  *matchService;
 @property (nonatomic, retain) RealtimeScoreController       *matchController;
+@property (nonatomic, retain) RealtimeIndexController *realtimeIndexController;
 @property (nonatomic, retain) OddsService                   *oddsService;
 @property (nonatomic, retain) ScheduleService               *scheduleService;
 @property (nonatomic, retain) RetryService                  *retryService;
