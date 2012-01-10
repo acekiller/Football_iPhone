@@ -88,7 +88,7 @@ ScheduleService *GlobalGetScheduleService()
 @synthesize scheduleService;
 @synthesize retryService;
 @synthesize userService;
-
+@synthesize realtimeIndexController;
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -122,7 +122,8 @@ ScheduleService *GlobalGetScheduleService()
     [matchService setMatchControllerDelegate:self.matchController];    
     [matchService setScoreUpdateControllerDelegate:scoreUpdateController];
     
-	[UIUtils addViewController:[RealtimeIndexController alloc]
+	self.realtimeIndexController = (RealtimeIndexController *)
+    [UIUtils addViewController:[RealtimeIndexController alloc]
 					 viewTitle:FNS(@"即时指数")				 
 					 viewImage:@"b_menu_3.png"
 			  hasNavController:YES			
@@ -338,7 +339,8 @@ ScheduleService *GlobalGetScheduleService()
             // update all match by given match score type
             [self.matchService startAllUpdates:self.matchController matchScoreType:matchScoreType];
             
-            // TODO : also update all index data
+            // TODO : also update all index data //done
+            [self.oddsService startGetRealtimOddsTimer:realtimeIndexController.oddsType delegate:realtimeIndexController];
         }
         //fix the bug that when return to foreground,the score type button do not show correctly
         [self.matchController setMatchScoreType:matchScoreType];
@@ -354,7 +356,8 @@ ScheduleService *GlobalGetScheduleService()
     // start to update score
     [self.matchService startRealtimeMatchUpdate];
     
-    // TODO : start to update realtime index timer   
+    // TODO : start to update realtime index timer   //done
+    [self.oddsService getRealtimeOdds];
 
     // retry to send follow/unfollow match request
     [self.retryService retryFollowUnfollowList:[UserManager getUserId]];
@@ -452,6 +455,7 @@ ScheduleService *GlobalGetScheduleService()
     [oddsService release];
     [scheduleService release];
     [retryService release];
+    [realtimeIndexController release];
 
     [super dealloc];
 }
