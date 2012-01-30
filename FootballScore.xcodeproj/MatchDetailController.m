@@ -549,10 +549,13 @@
     self.homeTeamIcon.callbackOnSetImage = self;
     self.awayTeamIcon.callbackOnSetImage = self;
     
+    // skip team image display due to the rejection from Apple
+    /*
     self.homeTeamIcon.url = [NSURL URLWithString:header.homeTeamImage];
     [GlobalGetImageCache() manage:self.homeTeamIcon];
     self.awayTeamIcon.url = [NSURL URLWithString:header.awayTeamImage];
     [GlobalGetImageCache() manage:self.awayTeamIcon];    
+    */
     
 }
 
