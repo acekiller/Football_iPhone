@@ -11,6 +11,7 @@
 #import "UserManager.h"
 #import "LogUtil.h"
 #import "RetryManager.h"
+#import "StringUtil.h"
 
 @implementation UserService
 
@@ -69,6 +70,13 @@
     });
 }
 
+- (NSString*)UTF8_To_GB2312:(NSString*)utf8string
+{
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* gb2312data = [utf8string dataUsingEncoding:encoding];
+    return [[[NSString alloc] initWithData:gb2312data encoding:encoding] autorelease];
+}
+
 - (void)sendFeedback:(id<UserServiceDelegate>)delegate 
               userId:(NSString*)userId 
              content:(NSString*)content 
@@ -76,7 +84,9 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0),^{
         
-        CommonNetworkOutput* output = [FootballNetworkRequest sendFeedbackByUserId:userId content:content contact:contact];
+        CommonNetworkOutput* output = [FootballNetworkRequest sendFeedbackByUserId:userId 
+                                                                           content:[[self UTF8_To_GB2312:content] stringByURLEncode] 
+                                                                           contact:[[self UTF8_To_GB2312:contact] stringByURLEncode]];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
