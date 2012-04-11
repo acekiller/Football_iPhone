@@ -6,6 +6,15 @@
 //  Copyright QQN-PIPI.com 2011. All rights reserved.
 //
 
+/*
+ 
+ ReleaseNotes   : 1.1
+ 
+    － 解决了反馈乱码问题
+    － 解决了指数显示负数不正确的问题
+ 
+ */
+
 #import "FootballScoreAppDelegate.h"
 #import "UIUtils.h"
 #import "LocaleConstants.h"
@@ -40,6 +49,7 @@
 
 #define kDbFileName			@"FootballDB"
 #define MATCH_SELECT_STATUS_MYFOLLOW 15
+
 
 
 NSString* GlobalGetServerURL()

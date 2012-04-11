@@ -31,7 +31,7 @@ function Goal2Goals(goal) {
 	if (goal >= 0) {
 		Goal2Goals = Goal[goal * 4];
 	} else {
-		Goal2Goals = Goal[(-goal) * 4];
+        Goal2Goals = "-" + Goal[(-goal) * 4];
 	}
 //	console.log("ParseGoal2Goals, result = " + Goal2Goals);
 	return Goal2Goals;
