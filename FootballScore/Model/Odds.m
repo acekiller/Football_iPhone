@@ -51,6 +51,8 @@
 
 -(NSNumber *)getNumber:(NSString *)stringValue
 {
+    if (stringValue == nil || [stringValue length] == 0)
+        return nil;
     return [NSNumber numberWithFloat:[stringValue floatValue]];
 }
 

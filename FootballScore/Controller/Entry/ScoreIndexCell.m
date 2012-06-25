@@ -79,16 +79,14 @@
             YaPei* yapei = (YaPei*)odds;
             [self.home_homeWin_bigBall_init setTitle:[self oddsNumberDisplay:yapei.homeTeamChupan] forState:UIControlStateNormal];
             
-            NSNumber *chupan = [NSNumber numberWithFloat:[yapei.chupan floatValue]];
+            NSNumber *chupan = yapei.chupan;
             [self.chupan_draw_init setTitle:[DataUtils toChuPanString:chupan] forState:UIControlStateNormal];
             
             [self.away_awayWin_smallBall_init setTitle:[self oddsNumberDisplay:yapei.awayTeamChupan] forState:UIControlStateNormal];
-            
-            
-            
+                                    
             [self.home_homeWin_bigBall_instant setTitle:[self oddsNumberDisplay:yapei.homeTeamOdds] forState:UIControlStateNormal];
             
-            NSNumber *pankou = [NSNumber numberWithFloat:[yapei.instantOdds floatValue]];
+            NSNumber *pankou = yapei.instantOdds;
             [self.pankou_draw_instant setTitle:[DataUtils toChuPanString:pankou] forState:UIControlStateNormal];
 
             [self.away_awayWin_smallBall_instant setTitle:[self oddsNumberDisplay:yapei.awayTeamOdds] forState:UIControlStateNormal];
