@@ -62,7 +62,7 @@
     cell = [theTableView dequeueReusableCellWithIdentifier:[RecommendedAppCell getCellIdentifier]];
     if (cell == nil) {
         cell = [RecommendedAppCell creatCell];				
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         // Customize the appearance of table view cells at first time
         UIImageView *view = [[UIImageView alloc] init];
