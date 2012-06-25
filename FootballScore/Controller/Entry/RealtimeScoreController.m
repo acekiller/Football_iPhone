@@ -20,6 +20,9 @@
 #import "UserManager.h"
 #import "ColorManager.h"
 #import "PPNetworkRequest.h"
+#import "RecommendedAppsControllerViewController.h"
+#import "RecommendAppManager.h"
+
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
 @synthesize myFollowCountView;
@@ -28,6 +31,7 @@
 @synthesize matchDetailController;
 @synthesize filterBarButton;
 @synthesize matchScoreType = _matchScoreType;
+@synthesize recommendAppCountView = _recommendAppCountView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,6 +50,7 @@
     [matchSecondTimer release];
     [myFollowButton release];
     [myFollowCountView release];
+    [_recommendAppCountView release];
     [super dealloc];
 }
 
@@ -135,6 +140,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     int UPDATE_TIME_INTERVAL = 1;
     self.supportRefreshHeader = YES;
     hasClickedRefresh = NO;
@@ -148,13 +154,11 @@
     [self setRightBarButtons];
     [self setLeftBarButtons];
     [self myFollowCountBadgeViewInit];
-
+    
     
     
     self.view.backgroundColor = [ColorManager realTimeScoreControllerTableViewBackgroundColor];
     [self.tipsLabel setTextColor:[ColorManager leageNameColor]];
-    
-    [super viewDidLoad];
     
     [self setRefreshHeaderViewFrame:CGRectMake(0, 0-self.dataTableView.bounds.size.height, 320, self.dataTableView.bounds.size.height)];
     
@@ -163,6 +167,9 @@
     
     [self loadMatch:self.matchScoreType isSelectAll:YES];
     matchSelectStatus = MATCH_SELECT_STATUS_ALL;
+    
+    [RecommendAppService defaultService].delegate = self;
+    [[RecommendAppService defaultService] getRecommendApp];
     
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(performPanGesture:)];
     [self.view addGestureRecognizer:recognizer];
@@ -526,13 +533,13 @@
     float buttonHigh = 27.5;
     float buttonLen = 47.5;
     float refreshButtonLen = 32.5;
-    float seporator = 5;
-    float leftOffest = 20;
+    float seporator = 3;
+    float leftOffest = -15;
     UIFont *font = [UIFont systemFontOfSize:14];
     
     UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
     
-    UIButton *refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refreshButtonLen, buttonHigh)];
+    UIButton *refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2+refreshButtonLen+seporator, 0, refreshButtonLen, buttonHigh)];
     [refreshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [refreshButton setTitle:@"" forState:UIControlStateNormal];
     [refreshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -540,8 +547,21 @@
     [rightButtonView addSubview:refreshButton];
     [refreshButton release];
     
+    UIButton *recommendButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refreshButtonLen, buttonHigh)];
+    [recommendButton setBackgroundImage:[UIImage imageNamed:@"hot.png"] forState:UIControlStateNormal];
+    [recommendButton setTitle:@"荐" forState:UIControlStateNormal];
+    [recommendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [recommendButton.titleLabel setFont:font]; 
+    [recommendButton addTarget:self action:@selector(clickRecommendButton) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:recommendButton];
+    [recommendButton release];
     
-    
+    self.recommendAppCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [self.recommendAppCountView setCenter:CGPointMake(leftOffest+(buttonLen+seporator)*2+refreshButtonLen+seporator,10)];
+    [self.recommendAppCountView setBadgeColor:[UIColor redColor]];
+    [self.recommendAppCountView setShadowEnabled:NO];
+    [self.recommendAppCountView setHidden:YES];
+    [rightButtonView addSubview:_recommendAppCountView];
     
     
     scoreTypeButton = [[UIButton alloc] initWithFrame:CGRectMake(leftOffest, 0, buttonLen, buttonHigh)];
@@ -575,7 +595,7 @@
 {
     UIView *leftTopBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     
-    UIImageView *liveLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_logo"]];
+    UIImageView *liveLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_logo2"]];
     [leftTopBarView addSubview:liveLogo];
     [liveLogo release];
     
@@ -602,11 +622,17 @@
     
 }
 
+- (void)clickRecommendButton
+{
+    RecommendedAppsControllerViewController* vc = [[[RecommendedAppsControllerViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)myFollowCountBadgeViewInit
 {
     int tagLen = 20;
     CGRect rect = [myFollowButton bounds];
-    self.myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -1, tagLen, tagLen)];
+    myFollowCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(rect.size.width-tagLen, -1, tagLen, tagLen)];
     [self.myFollowCountView setShadowEnabled:NO];
     [self.myFollowCountView setBadgeColor:[UIColor redColor]];
     [self.myFollowButton addSubview:self.myFollowCountView];
@@ -650,6 +676,18 @@
     // [refreshHeaderView setCurrentDate];  	
 	// [self dataSourceDidFinishLoadingNewData];
     
+}
+
+#pragma mark - recommendAppServiceDelegate
+- (void)getRecommendAppFinish
+{
+    int recommendAppCount = [RecommendAppManager defaultManager].appList.count;
+    [self.recommendAppCountView setBadgeString:[NSString stringWithFormat:@"%d",recommendAppCount]];
+    if (recommendAppCount <= 0) {
+        [self.recommendAppCountView setHidden:YES];
+    } else {
+        [self.recommendAppCountView setHidden:NO];
+    }
 }
 
 @end

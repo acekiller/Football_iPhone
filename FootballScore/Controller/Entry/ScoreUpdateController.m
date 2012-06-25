@@ -172,6 +172,10 @@
     
     for (ScoreUpdate *scoreUpdate in scoreUpdateSet) 
     {
+        if (scoreUpdate.scoreUpdateType == HOMETEAMYELLOW 
+            || scoreUpdate.scoreUpdateType == AWAYTEAMYELLOW) {
+            continue;
+        }
         if (scoreUpdate.scoreUpdateType == HOMETEAMSCORE) 
         {
             NSString *matchId = [NSString stringWithFormat:@"%@",scoreUpdate.match.matchId];

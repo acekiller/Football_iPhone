@@ -22,7 +22,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "0"
-         filePath = "/gitdata/Common_Iphone/View/UIBadgeView/UIBadgeView.m"
+         filePath = "../Common_Iphone/View/UIBadgeView/UIBadgeView.m"
          timestampString = "339745779.724962"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"

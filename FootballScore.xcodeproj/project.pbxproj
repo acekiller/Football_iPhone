@@ -16,6 +16,9 @@
 		A3C12C521495984B00615932 /* MyAlertSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A3C12C511495984B00615932 /* MyAlertSettings.plist */; };
 		A3FA4F3E147F2D1100BE4A61 /* RetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */; };
 		A3FA4F42147F323900BE4A61 /* RetryService.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA4F41147F323900BE4A61 /* RetryService.m */; };
+		C2615AAC15980A4300CEEC66 /* RecommendedAppCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2615AA815980A4300CEEC66 /* RecommendedAppCell.xib */; };
+		C2615AAD15980A4300CEEC66 /* RecommendedAppsControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2615AAA15980A4300CEEC66 /* RecommendedAppsControllerViewController.m */; };
+		C2615AAE15980A4300CEEC66 /* RecommendedAppsControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2615AAB15980A4300CEEC66 /* RecommendedAppsControllerViewController.xib */; };
 		C27FD7881467ACF700D7E3A9 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */; };
 		C27FD7891467ACF700D7E3A9 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C27FD77A1467ACF600D7E3A9 /* OHAttributedLabel.m */; };
 		C27FD7901467AFE900D7E3A9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27FD78F1467AFE900D7E3A9 /* CoreText.framework */; };
@@ -41,6 +44,15 @@
 		C2AF5EFB148CB501000ACF1B /* CupScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */; };
 		C2B4132014319A6F00084F14 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131E14319A6F00084F14 /* selected.png */; };
 		C2B4132114319A6F00084F14 /* unSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B4131F14319A6F00084F14 /* unSelected.png */; };
+		C2B9904115981024000A5D2C /* hot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9903F15981024000A5D2C /* hot@2x.png */; };
+		C2B9904215981024000A5D2C /* live_logo2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9904015981024000A5D2C /* live_logo2@2x.png */; };
+		C2B990451598116F000A5D2C /* RecommendedAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B990441598116F000A5D2C /* RecommendedAppCell.m */; };
+		C2B9904815981BC7000A5D2C /* RecommendAppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B9904715981BC7000A5D2C /* RecommendAppManager.m */; };
+		C2B9904B15981C42000A5D2C /* RecommendApp.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B9904A15981C42000A5D2C /* RecommendApp.m */; };
+		C2B9904E15983757000A5D2C /* RecommendAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B9904D15983757000A5D2C /* RecommendAppService.m */; };
+		C2B9905015984E15000A5D2C /* list_tr_bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9904F15984E15000A5D2C /* list_tr_bg2@2x.png */; };
+		C2B9905315986612000A5D2C /* hotapp_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9905115986612000A5D2C /* hotapp_bg@2x.png */; };
+		C2B9905415986612000A5D2C /* hotapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9905215986612000A5D2C /* hotapp@2x.png */; };
 		C2BCFAD21495AFB3006A12FF /* CupMatchType.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFAD11495AFB3006A12FF /* CupMatchType.m */; };
 		C2BF9237148732A80032CE9F /* ScheduleService.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF9236148732A80032CE9F /* ScheduleService.m */; };
 		C2D36E911460E64100603923 /* PPSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D36E901460E64100603923 /* PPSegmentControl.m */; };
@@ -473,6 +485,11 @@
 		A3FA4F3D147F2D1100BE4A61 /* RetryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryManager.m; sourceTree = "<group>"; };
 		A3FA4F40147F323900BE4A61 /* RetryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryService.h; sourceTree = "<group>"; };
 		A3FA4F41147F323900BE4A61 /* RetryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryService.m; sourceTree = "<group>"; };
+		C2615AA715980A4300CEEC66 /* RecommendedAppCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedAppCell.h; sourceTree = "<group>"; };
+		C2615AA815980A4300CEEC66 /* RecommendedAppCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendedAppCell.xib; sourceTree = "<group>"; };
+		C2615AA915980A4300CEEC66 /* RecommendedAppsControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedAppsControllerViewController.h; sourceTree = "<group>"; };
+		C2615AAA15980A4300CEEC66 /* RecommendedAppsControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendedAppsControllerViewController.m; sourceTree = "<group>"; };
+		C2615AAB15980A4300CEEC66 /* RecommendedAppsControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendedAppsControllerViewController.xib; sourceTree = "<group>"; };
 		C27FD7771467ACF600D7E3A9 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		C27FD7781467ACF600D7E3A9 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		C27FD7791467ACF600D7E3A9 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
@@ -515,6 +532,18 @@
 		C2AF5EF9148CB501000ACF1B /* CupScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CupScheduleController.xib; sourceTree = "<group>"; };
 		C2B4131E14319A6F00084F14 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		C2B4131F14319A6F00084F14 /* unSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unSelected.png; sourceTree = "<group>"; };
+		C2B9903F15981024000A5D2C /* hot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hot@2x.png"; sourceTree = "<group>"; };
+		C2B9904015981024000A5D2C /* live_logo2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_logo2@2x.png"; sourceTree = "<group>"; };
+		C2B990441598116F000A5D2C /* RecommendedAppCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendedAppCell.m; sourceTree = "<group>"; };
+		C2B9904615981BC7000A5D2C /* RecommendAppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendAppManager.h; sourceTree = "<group>"; };
+		C2B9904715981BC7000A5D2C /* RecommendAppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendAppManager.m; sourceTree = "<group>"; };
+		C2B9904915981C42000A5D2C /* RecommendApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendApp.h; sourceTree = "<group>"; };
+		C2B9904A15981C42000A5D2C /* RecommendApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendApp.m; sourceTree = "<group>"; };
+		C2B9904C15983757000A5D2C /* RecommendAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendAppService.h; sourceTree = "<group>"; };
+		C2B9904D15983757000A5D2C /* RecommendAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendAppService.m; sourceTree = "<group>"; };
+		C2B9904F15984E15000A5D2C /* list_tr_bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_tr_bg2@2x.png"; sourceTree = "<group>"; };
+		C2B9905115986612000A5D2C /* hotapp_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotapp_bg@2x.png"; sourceTree = "<group>"; };
+		C2B9905215986612000A5D2C /* hotapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotapp@2x.png"; sourceTree = "<group>"; };
 		C2BCFAD01495AFB3006A12FF /* CupMatchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupMatchType.h; sourceTree = "<group>"; };
 		C2BCFAD11495AFB3006A12FF /* CupMatchType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CupMatchType.m; sourceTree = "<group>"; };
 		C2BF9235148732A80032CE9F /* ScheduleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleService.h; sourceTree = "<group>"; };
@@ -1209,6 +1238,19 @@
 			path = sound;
 			sourceTree = "<group>";
 		};
+		C2615AA615980A4300CEEC66 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				C2B990441598116F000A5D2C /* RecommendedAppCell.m */,
+				C2615AA715980A4300CEEC66 /* RecommendedAppCell.h */,
+				C2615AA815980A4300CEEC66 /* RecommendedAppCell.xib */,
+				C2615AA915980A4300CEEC66 /* RecommendedAppsControllerViewController.h */,
+				C2615AAA15980A4300CEEC66 /* RecommendedAppsControllerViewController.m */,
+				C2615AAB15980A4300CEEC66 /* RecommendedAppsControllerViewController.xib */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
 		C27FD7671467ACF600D7E3A9 /* OHAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1262,6 +1304,11 @@
 		C2B41317143199E100084F14 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				C2B9905115986612000A5D2C /* hotapp_bg@2x.png */,
+				C2B9905215986612000A5D2C /* hotapp@2x.png */,
+				C2B9904F15984E15000A5D2C /* list_tr_bg2@2x.png */,
+				C2B9903F15981024000A5D2C /* hot@2x.png */,
+				C2B9904015981024000A5D2C /* live_logo2@2x.png */,
 				CAB10E27148E080700686CC9 /* data6_130_menu_1@2x.png */,
 				CAB10E28148E080700686CC9 /* data6_130_menu_2@2x.png */,
 				CAB10E29148E080700686CC9 /* data6_menu_2@2x.png */,
@@ -1388,6 +1435,7 @@
 		CA207BC8142ED98100A4C425 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C2615AA615980A4300CEEC66 /* Recommend */,
 				CA4F50461488D2A70030070F /* Repository */,
 				CA4F50401488D2820030070F /* Schedule */,
 				C280CAA31447D6F000EBCD9A /* More */,
@@ -1455,6 +1503,10 @@
 				CAA633D2148C6B6B00EABF7E /* RepositoryManager.m */,
 				C2BCFAD01495AFB3006A12FF /* CupMatchType.h */,
 				C2BCFAD11495AFB3006A12FF /* CupMatchType.m */,
+				C2B9904615981BC7000A5D2C /* RecommendAppManager.h */,
+				C2B9904715981BC7000A5D2C /* RecommendAppManager.m */,
+				C2B9904915981C42000A5D2C /* RecommendApp.h */,
+				C2B9904A15981C42000A5D2C /* RecommendApp.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1485,6 +1537,8 @@
 				C2BF9236148732A80032CE9F /* ScheduleService.m */,
 				CAA633CB148C628D00EABF7E /* RepositoryService.h */,
 				CAA633CC148C628D00EABF7E /* RepositoryService.m */,
+				C2B9904C15983757000A5D2C /* RecommendAppService.h */,
+				C2B9904D15983757000A5D2C /* RecommendAppService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2653,6 +2707,13 @@
 				CAB10E2F148E080700686CC9 /* data6_menu_1@2x.png in Resources */,
 				CAB10E30148E080700686CC9 /* data_logo@2x.png in Resources */,
 				A3C12C521495984B00615932 /* MyAlertSettings.plist in Resources */,
+				C2615AAC15980A4300CEEC66 /* RecommendedAppCell.xib in Resources */,
+				C2615AAE15980A4300CEEC66 /* RecommendedAppsControllerViewController.xib in Resources */,
+				C2B9904115981024000A5D2C /* hot@2x.png in Resources */,
+				C2B9904215981024000A5D2C /* live_logo2@2x.png in Resources */,
+				C2B9905015984E15000A5D2C /* list_tr_bg2@2x.png in Resources */,
+				C2B9905315986612000A5D2C /* hotapp_bg@2x.png in Resources */,
+				C2B9905415986612000A5D2C /* hotapp@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2917,6 +2978,11 @@
 				CAF37033148DAB1B003627F8 /* LeagueController.m in Sources */,
 				C2BCFAD21495AFB3006A12FF /* CupMatchType.m in Sources */,
 				CAC988D8149EDF3600403595 /* NetworkDetector.m in Sources */,
+				C2615AAD15980A4300CEEC66 /* RecommendedAppsControllerViewController.m in Sources */,
+				C2B990451598116F000A5D2C /* RecommendedAppCell.m in Sources */,
+				C2B9904815981BC7000A5D2C /* RecommendAppManager.m in Sources */,
+				C2B9904B15981C42000A5D2C /* RecommendApp.m in Sources */,
+				C2B9904E15983757000A5D2C /* RecommendAppService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

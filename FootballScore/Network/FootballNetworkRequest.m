@@ -34,6 +34,7 @@
 #define URL_GET_CUP_SCHEDULE_GROUP  @"http://bf.bet007.com/phone/CupSaiCheng.aspx?"
 #define URL_GET_LEAGUE_SCHEDULE_ROUNDS @"http://bf.bet007.com/phone/SaiCheng.aspx?"
 #define URL_SEND_FEEDBACK           @"http://bf.bet007.com/phone/Feedback.aspx?"
+#define URL_GET_RECOMMEND_APP       @"http://bf.bet007.com/phone/friendLinkForIphone.txt"
 
 #define SEGMENT_SEP             @"$$"
 #define RECORD_SEP              @"!"
@@ -70,6 +71,7 @@ enum{
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setAllowCompressedResponse:YES];
     [request setTimeOutSeconds:NETWORK_TIMEOUT];
+    [request setResponseEncoding:NSUTF8StringEncoding];
     
 #ifdef DEBUG    
     int startTime = time(0);
@@ -103,6 +105,9 @@ enum{
               [text length], (endTime - startTime),
               [[request rawResponseData] length], [[request responseData] length]);
 #endif         
+                
+        NSStringEncoding encoding = NSUTF8StringEncoding;        
+        text = [[[NSString alloc] initWithData:[request responseData] encoding:encoding] autorelease];
         
         output.textData = text;
         if ([text length] > 0){
@@ -733,6 +738,29 @@ enum{
                            constructURLHandler:constructURLHandler
                                responseHandler:responseHandler
                                         output:output]; 
+}
+
++ (CommonNetworkOutput*)getRecommendApp
+{
+    CommonNetworkOutput* output = [[[CommonNetworkOutput alloc] init] autorelease];
+    
+    ConstructURLBlock constructURLHandler = ^NSString *(NSString *baseURL) {
+        
+        // set input parameters
+        NSString* str = [NSString stringWithString:baseURL];
+        
+        
+        return str;
+    };
+    
+    FootballNetworkResponseBlock responseHandler = ^(NSString *textData, CommonNetworkOutput *output) {    
+        return;
+    }; 
+    
+    return [FootballNetworkRequest sendRequest:URL_GET_RECOMMEND_APP
+                           constructURLHandler:constructURLHandler
+                               responseHandler:responseHandler
+                                        output:output];
 }
 
 @end

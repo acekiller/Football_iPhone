@@ -85,5 +85,5 @@ enum{
 + (CommonNetworkOutput*)sendFeedbackByUserId:(NSString*)userId 
                                      content:(NSString*)content 
                                      contact:(NSString*)contact;
-
++ (CommonNetworkOutput*)getRecommendApp;
 @end

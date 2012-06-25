@@ -12,11 +12,12 @@
 #import "MatchService.h"
 #import "MatchDetailController.h"
 #import "UIBadgeView.h"
+#import "RecommendAppService.h"
 
 @class MatchDetailController;
 
 @interface RealtimeScoreController : PPTableViewController <MatchServiceDelegate, 
-    UIActionSheetDelegate, SelectLeagueControllerDelegate> {
+    UIActionSheetDelegate, SelectLeagueControllerDelegate, RecommendAppServiceDelegate> {
     
     int _matchScoreType;
     int matchSelectStatus;   
@@ -49,6 +50,7 @@
 @property (nonatomic, retain) UIButton *filterBarButton;
 
 @property (nonatomic, retain) IBOutlet UIBadgeView *myFollowCountView;
+@property (nonatomic, retain) UIBadgeView *recommendAppCountView;
 @property (nonatomic, retain) MatchDetailController *matchDetailController;
 
 @end

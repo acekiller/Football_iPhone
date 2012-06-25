@@ -77,6 +77,13 @@
     return [[[NSString alloc] initWithData:gb2312data encoding:encoding] autorelease];
 }
 
+- (NSString*)GB2312_To_UTF8:(NSString*)utf8string
+{
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* gb2312data = [utf8string dataUsingEncoding:encoding];
+    return [[[NSString alloc] initWithData:gb2312data encoding:encoding] autorelease];
+}
+
 - (void)sendFeedback:(id<UserServiceDelegate>)delegate 
               userId:(NSString*)userId 
              content:(NSString*)content 
