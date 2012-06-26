@@ -569,8 +569,8 @@
     [rightButtonView addSubview:recommendButton];
     [recommendButton release];
     
-    self.recommendAppCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [self.recommendAppCountView setCenter:CGPointMake(leftOffest+(buttonLen+seporator)*2+refreshButtonLen+seporator,10)];
+    self.recommendAppCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
+    [self.recommendAppCountView setCenter:CGPointMake(leftOffest+(buttonLen+seporator)*2+refreshButtonLen,0)];
     [self.recommendAppCountView setBadgeColor:[UIColor redColor]];
     [self.recommendAppCountView setShadowEnabled:NO];
     [self.recommendAppCountView setHidden:YES];
