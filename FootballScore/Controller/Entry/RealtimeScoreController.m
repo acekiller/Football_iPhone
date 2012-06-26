@@ -638,7 +638,7 @@
 - (void)clickRecommendButton
 {
     RecommendedAppsControllerViewController* vc = [[[RecommendedAppsControllerViewController alloc] init] autorelease];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)myFollowCountBadgeViewInit
