@@ -46,10 +46,8 @@ static RecommendAppService* shareInstance;
             NSArray* appArray = nil;
             
             if (output.resultCode == ERROR_SUCCESS){
-                NSLog(@"------------------\n");
-                NSLog(@"%@",output.description);
-                NSLog(@"------------------\n");
-                appArray = (NSArray*)[output.arrayData objectAtIndex:0];;
+                appArray = (NSArray*)[output.arrayData objectAtIndex:0];
+                [[RecommendAppManager defaultManager].appList removeAllObjects];
                 for (NSArray* array in appArray) {
                     if (array.count == 4) {
                         NSString* appName = [array objectAtIndex:APP_NAME];
