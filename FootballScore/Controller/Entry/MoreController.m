@@ -17,6 +17,7 @@
 #import "UserService.h"
 #import "UIUtils.h"
 #import "FootballScoreAppDelegate.h"
+#import "RecommendedAppsControllerViewController.h"
 
 
 enum actionsheetNumber{
@@ -40,6 +41,7 @@ typedef enum {
     FEEDBACK,
     RECOMMEND,
     ABOUT,
+    RECOMMEND_APP,
     UPDATE
     } MORE_SELECTION;
 
@@ -100,7 +102,7 @@ typedef enum {
 
 - (void)optionListInit
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分时间及声音设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于球探网"), FNS(@"客户端更新"),  nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:FNS(@"完场比分"), FNS(@"一周赛程"), FNS(@"比分时间及声音设置"), FNS(@"语言简繁设置"), FNS(@"信息反馈"), FNS(@"推荐给好友"), FNS(@"关于球探网"), FNS(@"精彩应用推荐"), FNS(@"客户端更新"),  nil];
     self.listData = array;
     [array release];
 }
@@ -167,6 +169,9 @@ typedef enum {
         case ABOUT:
             image = [UIImage imageNamed:@"szicon7.png"];
             break;
+        case RECOMMEND_APP: {
+            image = [UIImage imageNamed:@"szicon1.png"];
+        } break;
         case UPDATE:
             image = [UIImage imageNamed:@"szicon8.png"];
             break;
@@ -184,7 +189,7 @@ typedef enum {
     
     if (0 == [indexPath row] )
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_top.png"]];
-    else if (7 == [indexPath row])
+    else if (UPDATE == [indexPath row])
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_bottom.png"]];
     else
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helptable_middle.png"]];
@@ -223,6 +228,9 @@ typedef enum {
         case ABOUT:
             [self showAbout];
             break;
+        case RECOMMEND_APP: {
+            [self showAppRecommend];
+        } break;
         case UPDATE:
             [self updateApplication];
             break;
@@ -333,6 +341,12 @@ typedef enum {
     UserService *userService = [[[UserService alloc] init] autorelease];
     [userService getVersion:self];
     
+}
+
+- (void)showAppRecommend
+{
+    RecommendedAppsControllerViewController* vc = [[RecommendedAppsControllerViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)getVersionFinish:(int)result data:(NSString*)data
