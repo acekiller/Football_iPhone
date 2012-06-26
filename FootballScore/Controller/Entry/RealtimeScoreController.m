@@ -534,12 +534,13 @@
     float buttonLen = 47.5;
     float refreshButtonLen = 32.5;
     float seporator = 3;
-    float leftOffest = -15;
+    float leftOffest = -30;
+    float recommendButtonLen = 32.5;
     UIFont *font = [UIFont systemFontOfSize:14];
     
-    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 3*(buttonLen+seporator), buttonHigh)];
+    UIView *rightButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2*(buttonLen+seporator)+recommendButtonLen+seporator, buttonHigh)];
     
-    UIButton *refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2+refreshButtonLen+seporator, 0, refreshButtonLen, buttonHigh)];
+    UIButton *refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2+recommendButtonLen+seporator, 0, refreshButtonLen, buttonHigh)];
     [refreshButton setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [refreshButton setTitle:@"" forState:UIControlStateNormal];
     [refreshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -547,9 +548,21 @@
     [rightButtonView addSubview:refreshButton];
     [refreshButton release];
     
-    UIButton *recommendButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+(buttonLen+seporator)*2, 0, refreshButtonLen, buttonHigh)];
-    [recommendButton setBackgroundImage:[UIImage imageNamed:@"hot.png"] forState:UIControlStateNormal];
+    UIButton *recommendBackgroundButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen*2+seporator
+                                                                          , -seporator
+                                                                          , recommendButtonLen+seporator*2
+                                                                          , buttonHigh+seporator*2)];
+    [recommendBackgroundButton setImage:[UIImage imageNamed:@"hot.png"] forState:UIControlStateNormal];
+    [rightButtonView addSubview:recommendBackgroundButton];
+    [recommendBackgroundButton release];
+    
+    UIButton *recommendButton = [[UIButton alloc]initWithFrame:CGRectMake(leftOffest+buttonLen*2+seporator
+                                                                          , -seporator
+                                                                          , recommendButtonLen+seporator*2
+                                                                          , buttonHigh+seporator*2)];
+    //[recommendButton setImage:[UIImage imageNamed:@"hot.png"] forState:UIControlStateNormal];
     [recommendButton setTitle:@"荐" forState:UIControlStateNormal];
+    //[recommendButton setBackgroundColor:[UIColor blackColor]];
     [recommendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [recommendButton.titleLabel setFont:font]; 
     [recommendButton addTarget:self action:@selector(clickRecommendButton) forControlEvents:UIControlEventTouchUpInside];
