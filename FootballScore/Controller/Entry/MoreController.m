@@ -170,7 +170,7 @@ typedef enum {
             image = [UIImage imageNamed:@"szicon7.png"];
             break;
         case RECOMMEND_APP: {
-            image = [UIImage imageNamed:@"szicon1.png"];
+            image = [UIImage imageNamed:@"szicon10.png"];
         } break;
         case UPDATE:
             image = [UIImage imageNamed:@"szicon8.png"];

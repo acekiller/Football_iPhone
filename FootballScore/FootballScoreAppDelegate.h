@@ -70,4 +70,5 @@
 enum
 {
     TAB_REALTIME_SCORE = 1,
+    TAB_MORE = 4
 };

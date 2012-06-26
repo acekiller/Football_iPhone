@@ -22,6 +22,7 @@
 #import "PPNetworkRequest.h"
 #import "RecommendedAppsControllerViewController.h"
 #import "RecommendAppManager.h"
+#import "FootballScoreAppDelegate.h"
 
 @implementation RealtimeScoreController
 @synthesize myFollowButton;
@@ -568,7 +569,7 @@
     [rightButtonView addSubview:recommendButton];
     [recommendButton release];
     
-    self.recommendAppCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
+    self.recommendAppCountView = [[UIBadgeView alloc] initWithFrame:CGRectMake(0, 0, 22, 17)];
     [self.recommendAppCountView setCenter:CGPointMake(leftOffest+buttonLen*3+seporator,0)];
     [self.recommendAppCountView setBadgeColor:[UIColor redColor]];
     [self.recommendAppCountView setShadowEnabled:NO];
