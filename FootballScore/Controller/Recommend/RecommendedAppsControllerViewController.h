@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PPTableViewController.h"
 
-#define RECOMMENDED_APP     @"精彩应用推荐"
+#define RECOMMENDED_APP     FNS(@"精彩应用推荐")
 
 @interface RecommendedAppsControllerViewController : PPTableViewController
 

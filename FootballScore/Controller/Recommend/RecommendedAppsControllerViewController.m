@@ -12,6 +12,8 @@
 #import "UIUtils.h"
 #import "RecommendAppManager.h"
 #import "RecommendApp.h"
+#import "LocaleConstants.h"
+
 
 @implementation RecommendedAppsControllerViewController
 
@@ -20,7 +22,7 @@
     [self setBackgroundImageName:@"all_page_bg2.jpg"];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setNavigationLeftButton:@"返回"
+    [self setNavigationLeftButton:FNS(@"返回")
                         imageName:@"ss.png"
                            action:@selector(clickBack:)];
     
