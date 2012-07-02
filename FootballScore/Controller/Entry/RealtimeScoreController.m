@@ -141,9 +141,10 @@
 
 - (void)viewDidLoad
 {
+    self.supportRefreshHeader = YES;
+
     [super viewDidLoad];
     int UPDATE_TIME_INTERVAL = 1;
-    self.supportRefreshHeader = YES;
     hasClickedRefresh = NO;
     self.matchSecondTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIME_INTERVAL
                                                              target:self 

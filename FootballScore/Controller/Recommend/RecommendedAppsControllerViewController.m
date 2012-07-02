@@ -89,7 +89,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RecommendApp *app = [dataList objectAtIndex:indexPath.row];
-    [UIUtils openApp:app.appUrl];
+    if ([app.appUrl hasPrefix:@"http"]){
+        [UIUtils openURL:app.appUrl];   // if it's URL, then create by URL
+    }
+    else{
+        [UIUtils openApp:app.appUrl];   // else open as AppID
+    }
 }
 
 
